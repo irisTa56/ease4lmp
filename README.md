@@ -1,2 +1,3 @@
 # ease4lmp
-Extended Atomic Simulation Environment for LAMMPS
+
+Extension of Atomic Simulation Environment for LAMMPS
