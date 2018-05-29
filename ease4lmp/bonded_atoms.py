@@ -111,6 +111,29 @@ class BondedAtoms(ase.Atoms):
     """
     return self.arrays["bonds"].copy()
 
+  def remove_bond(self, atom, bond):
+    """
+    This method ...
+    [Arguments]
+    * atom: <int>
+    * bond: <int>
+    """
+
+    bs1 = self.arrays["bonds"][atom]
+    ib1 = bond
+
+    rel_idx = bs1[ib1][0]
+    rel_imgs = bs1[ib1][1:]
+
+    bs2 = self.arrays["bonds"][atom+rel_idx]
+    ib2 = [
+      i for i in range(self._max_bonds)
+      if bs2[i][0] == -rel_idx and (bs2[i][1:] == -rel_imgs).all()
+    ][0]
+
+    self._remove_bond(bs1, ib1)
+    self._remove_bond(bs2, ib2)
+
   def set_bonds(self, bonds):
     """
     This method updates 'bonds' array.
@@ -157,8 +180,7 @@ class BondedAtoms(ase.Atoms):
       while ib < self._max_bonds:
         j = i + bs[ib][0]
         if not mask[j]:
-          bs[ib:-1] = bs[ib+1:]
-          bs[-1] = np.zeros(4, int)
+          self._remove_bond(bs, ib)
         else:
           bs[ib][0] += -np.sum(mask[i:j] == False) \
             if i < j else np.sum(mask[j:i] == False)
@@ -225,3 +247,13 @@ class BondedAtoms(ase.Atoms):
           i0 = i1
 
     return self
+
+  def _remove_bond(self, bonds, bond_idx):
+    """
+    This method ...
+    [Arguments]
+    * bonds: <numpy.ndarray> bonds belonging to an atom
+    * bond_idx: <int> index of a bond to be removed
+    """
+    bonds[bond_idx:-1] = bonds[bond_idx+1:]
+    bonds[-1] = np.zeros(4, int)
