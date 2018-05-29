@@ -52,8 +52,14 @@ class BondedAtoms(ase.Atoms):
     rel_idx = atom2 - atom1
     rel_imgs = np.array(img2) - np.array(img1)
 
-    self._add_bond(self.arrays["bonds"][atom1], rel_idx, rel_imgs)
-    self._add_bond(self.arrays["bonds"][atom2], -rel_idx, -rel_imgs)
+    for i, sign in [(atom1, 1), (atom2, -1)]:
+      # get empty bonds and apply data to the first bond
+      bs = [b for b in self.arrays["bonds"][i] if np.all(b == 0)]
+      if bs:
+        bs[0][0] = sign * rel_idx
+        bs[0][1:] = sign * rel_imgs
+      else:
+        raise RuntimeError("Too many bonds")
 
   def change_max_bonds(self, n=4):
     """
@@ -62,12 +68,15 @@ class BondedAtoms(ase.Atoms):
     * n: <int> new maximum number of bonds per atom
     """
 
-    diff = n - self._max_bonds
-
-    self.arrays["bonds"] = np.array([
-      np.append(bs, np.zeros((diff, 4), int), axis=0)
-      if 0 < diff else bs[:n] for bs in self.arrays["bonds"]
-    ])
+    if n < self._max_bonds:
+      self.arrays["bonds"] = np.array([
+        bs[:n] for bs in self.arrays["bonds"]
+      ])
+    elif self._max_bonds < n:
+      zeros = np.zeros((n - self._max_bonds, 4), int)
+      self.arrays["bonds"] = np.array([
+        np.append(bs, zeros, axis=0) for bs in self.arrays["bonds"]
+      ])
 
     self._max_bonds = n
 
@@ -103,16 +112,6 @@ class BondedAtoms(ase.Atoms):
     * bonds: <numpy.ndarray>
     """
     self.set_array("bonds", bonds, int, ())
-
-  def _add_bond(self, bonds, rel_idx, rel_imgs):
-    """
-    """
-    for i in range(self._max_bonds):
-      if np.all(bonds[i] == 0):  # 'bond array == zeros' means no bond
-        bonds[i][0] = rel_idx
-        bonds[i][1:] = rel_imgs
-        return
-    raise RuntimeError("Too many bonds")
 
   def __delitem__(self, idx):
     """
