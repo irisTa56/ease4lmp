@@ -9,6 +9,8 @@ import sys
 import ase
 import numpy as np
 
+tl = (tuple, list)
+
 class BondedAtoms(ase.Atoms):
   """
   This class ...
@@ -35,31 +37,35 @@ class BondedAtoms(ase.Atoms):
     [Arguments]
     * atom1: <int>
     * atom2: <int>
-    * img1: <tuple> (<int>, <int>, <int>)
-    * img2: <tuple> (<int>, <int>, <int>)
+    * img1: <tuple/list>
+    * img2: <tuple/list>
     """
 
-    if not all([
-      a < len(self) for a in (atom1, atom2)
-    ]):
+    if not all([a < len(self) for a in (atom1, atom2)]):
       raise IndexError("Atom index(s) is out of range")
 
-    if not all([
-      isinstance(i, (tuple, list)) and len(i) == 3 for i in (img1, img2)
-    ]):
+    if not all([isinstance(i, tl) and len(i) == 3 for i in (img1, img2)]):
       raise RuntimeError("Image flags should be 3-membered tuple/list")
 
-    rel_idx = atom2 - atom1
-    rel_imgs = np.array(img2) - np.array(img1)
+    # get empty bonds
+    bs1, bs2 = [[
+      b for b in self.arrays["bonds"][a] if np.all(b == 0)
+    ] for a in (atom1, atom2)]
 
-    for i, sign in [(atom1, 1), (atom2, -1)]:
-      # get empty bonds and apply data to the first bond
-      bs = [b for b in self.arrays["bonds"][i] if np.all(b == 0)]
-      if bs:
-        bs[0][0] = sign * rel_idx
-        bs[0][1:] = sign * rel_imgs
-      else:
-        raise RuntimeError("Too many bonds")
+    i2 = 1 if atom1 == atom2 else 0
+
+    if bs1 and bs2[i2:]:
+
+      rel_idx = atom2 - atom1
+      rel_imgs = np.array(img2) - np.array(img1)
+
+      for b, sign in [(bs1[0], 1), (bs2[i2], -1)]:
+        # apply data to the first empty bond
+        b[0] = sign * rel_idx
+        b[1:] = sign * rel_imgs
+
+    else:
+      raise RuntimeError("Too many bonds")
 
   def change_max_bonds(self, n=4):
     """
@@ -127,7 +133,7 @@ class BondedAtoms(ase.Atoms):
 
     if isinstance(idx, int):
       idx = np.array([idx])
-    elif isinstance(idx, (tuple, list)) and len(idx) > 0:
+    elif isinstance(idx, tl) and len(idx) > 0:
       idx = np.array(idx)
 
     if len(self._constraints) > 0:
