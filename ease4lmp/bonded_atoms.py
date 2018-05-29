@@ -55,7 +55,7 @@ class BondedAtoms(ase.Atoms):
     self._add_bond(self.arrays["bonds"][atom1], rel_idx, rel_imgs)
     self._add_bond(self.arrays["bonds"][atom2], -rel_idx, -rel_imgs)
 
-  def change_max_bonds(self, n):
+  def change_max_bonds(self, n=4):
     """
     This method ...
     [Arguments]
@@ -76,6 +76,8 @@ class BondedAtoms(ase.Atoms):
     Extend atoms object by appending atoms from *other*.
     [Arguments]
     * other: <ase.Atom> or <ase.Atoms> or <BondedAtoms>
+    [Return]
+    <BondedAtoms>
     """
 
     if isinstance(other, ase.Atom):
@@ -112,11 +114,61 @@ class BondedAtoms(ase.Atoms):
         return
     raise RuntimeError("Too many bonds")
 
+  def __delitem__(self, idx):
+    """
+    [Arguments]
+    * idx: <tuple/list> or <int>
+    """
+
+    n = len(self)
+
+    for c in self._constraints:
+      if not isinstance(c, ase.constraints.FixAtoms):
+        raise RuntimeError("Remove constraint using set_constraint() before deleting atoms.")
+
+    if isinstance(idx, int):
+      idx = np.array([idx])
+    elif isinstance(idx, (tuple, list)) and len(idx) > 0:
+      idx = np.array(idx)
+
+    if len(self._constraints) > 0:
+      idx = np.arange(n)[idx]
+      constraints = []
+      for c in self._constraints:
+        c = c.delete_atoms(idx, n)
+        if c is not None:
+          constraints.append(c)
+      self.constraints = constraints
+
+    mask = np.ones(n, bool)
+    mask[idx] = False
+
+    for i, bs in enumerate(self.arrays["bonds"]):
+
+      if not mask[i]:
+        continue
+
+      ib = 0
+      while ib < self._max_bonds:
+        j = i + bs[ib][0]
+        if not mask[j]:
+          bs[ib:-1] = bs[ib+1:]
+          bs[-1] = np.zeros(4, int)
+        else:
+          bs[ib][0] += -np.sum(mask[i:j] == False) \
+            if i < j else np.sum(mask[j:i] == False)
+          ib += 1
+
+    for name, a in self.arrays.items():
+      self.arrays[name] = a[mask]
+
   def __imul__(self, m):
     """
     In-place repeat of atoms.
     [Arguments]
     * m: <tuple/list> or <int>
+    [Return]
+    <BondedAtoms>
     """
 
     if isinstance(m, int):
