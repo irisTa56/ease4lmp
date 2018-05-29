@@ -1,1 +1,3 @@
-from . import bonded_atoms
+from .bonded_atoms import BondedAtoms
+
+__all__ = ["BondedAtoms"]
