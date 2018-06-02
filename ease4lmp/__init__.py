@@ -1,3 +1,4 @@
 from .bonded_atoms import BondedAtoms
+from .lammps_writer import LammpsWriter
 
-__all__ = ["BondedAtoms"]
+__all__ = ["BondedAtoms", "LammpsWriter"]
