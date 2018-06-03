@@ -76,6 +76,38 @@ class LammpsWriter:
     """
     return self._lmp_atoms.get_required_datanames()
 
+  def get_bond_sequence_patterns(self):
+    """
+    This method ...
+    """
+    if self._atom_types is None:
+      RuntimeError("Please set atom's type in advance")
+    return self._topo["bond"].get_sequence_patterns(self._atom_types)
+
+  def get_angle_sequence_patterns(self):
+    """
+    This method ...
+    """
+    if self._atom_types is None:
+      RuntimeError("Please set atom's type in advance")
+    return self._topo["angle"].get_sequence_patterns(self._atom_types)
+
+  def get_dihedral_sequence_patterns(self):
+    """
+    This method ...
+    """
+    if self._atom_types is None:
+      RuntimeError("Please set atom's type in advance")
+    return self._topo["dihedral"].get_sequence_patterns(self._atom_types)
+
+  def get_improper_sequence_patterns(self):
+    """
+    This method ...
+    """
+    if self._atom_types is None:
+      RuntimeError("Please set atom's type in advance")
+    return self._topo["improper"].get_sequence_patterns(self._atom_types)
+
   def set_atom_data(self, **kwargs):
     """
     This method ...

@@ -232,6 +232,10 @@ class LammpsTopology:
     except AttributeError:
       return None
 
+  def get_sequence_patterns(self, atom_types):
+    return set([
+      tuple([atom_types[i-1] for i in seq]) for seq in self._sequences])
+
   def set_types(self, seq_to_type, atom_types):
     """
     This method ...
@@ -244,10 +248,10 @@ class LammpsTopology:
 
     full_dict = self._make_full_seq_to_type(seq_to_type)
 
-    atype_seqs = [
+    typed_seqs = [
       tuple([atom_types[i-1] for i in seq]) for seq in self._sequences]
 
-    self._set_data(type=[full_dict[seq] for seq in atype_seqs])
+    self._set_data(type=[full_dict[seq] for seq in typed_seqs])
 
   def write_lines(self, path):
     """

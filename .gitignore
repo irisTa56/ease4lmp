@@ -3,3 +3,4 @@ mynotes.md
 .ipynb_checkpoints
 __pycache__
 *~.py
+data.*
