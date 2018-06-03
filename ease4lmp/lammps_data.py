@@ -10,17 +10,19 @@ from .lammps_dataformats \
 import itertools as it
 import numpy as np
 
+datanames_molecule = {
+  "id", "type", "q", "x", "y", "z", "diameter", "mass"}
+
 class LammpsAtoms:
   """
   This class ...
   """
 
-  def __init__(self, atom_style, positions, types, velocities):
+  def __init__(self, atom_style, positions, types=None, velocities=None):
     """
     This constructor ...
     [Arguments]
     * atom_style: <str>
-    * lammps_unit: <str>
     * positions: <numpy.ndarray>
     * types: <list>
     * velocities: <numpy.ndarray>
@@ -32,17 +34,19 @@ class LammpsAtoms:
     # preparation for Atoms section #
     #-------------------------------#
 
-    datanames_a = lmp_dataformats_atoms[atom_style]
-    self._required_datanames_a = set(datanames_a)
-    self._lines_a = LammpsDataLines(
-      "Atoms", "{{{}}}".format("} {".join(datanames_a)))
+    dataformats = lmp_dataformats_atoms[atom_style]
+    datanames = [s.split(":")[0] for s in dataformats]
+    self._lines = LammpsDataLines(
+      "Atoms", "{{{}}}".format("} {".join(dataformats)))
 
-    self._set_data_atom(id=range(1, self._num+1))
-    self._set_data_atom(**dict(zip(["x","y","z"], positions.T)))
+    self._data = {k: None for k in datanames}
+
+    self.set_data(id=range(1, self._num+1))
+    self.set_data(**dict(zip(["x", "y", "z"], positions.T)))
 
     if types is not None:
       self._num_type = len(set(types))
-      self._set_data_atom(type=types)
+      self.set_data(type=types)
 
     #------------------------------------#
     # preparation for Velocities section #
@@ -51,16 +55,18 @@ class LammpsAtoms:
     if velocities is not None:
 
       try:
-        datanames_v = lmp_dataformats_velocities[atom_style]
+        dataformats_vel = lmp_dataformats_velocities[atom_style]
       except KeyError:
-        datanames_v = lmp_dataformats_velocities["*"]
+        dataformats_vel = lmp_dataformats_velocities["*"]
 
-      self._required_datanames_v = set(datanames_v)
-      self._lines_v = LammpsDataLines(
-        "Velocities", "{{{}}}".format("} {".join(datanames_v)))
+      datanames_vel = [s.split(":")[0] for s in dataformats_vel]
+      self._lines_vel = LammpsDataLines(
+        "Velocities", "{{{}}}".format("} {".join(datanames_vel)))
 
-      self._set_data_velocity(id=range(1, self._num+1))
-      self._set_data_velocity(**dict(zip(["vx","vy","vz"], velocities.T)))
+      self._data_vel = {k: None for k in datanames_vel}
+      self._data_vel["id"] = self._data["id"]
+
+      self.set_data(**dict(zip(["vx", "vy", "vz"], velocities.T)))
 
   def get_num(self):
     return self._num
@@ -68,32 +74,41 @@ class LammpsAtoms:
   def get_num_type(self):
     return self._num_type
 
-  def get_required_datanames(self):
-    if hasattr(self, "_required_datanames_v"):
-      return self._required_datanames_a + self._required_datanames_v
-    else:
-      return self._required_datanames_a
+  def get_required_datanames(self, molecule=False):
+
+    names = set([k for k, v in self._data.items() if v is None])
+
+    if molecule:
+      names &= datanames_molecule
+    elif hasattr(self, "_data_vel"):
+      names |= set([k for k, v in self._data_vel.items() if v is None])
+
+    return names
 
   def set_data(self, **kwargs):
     """
     This method ...
-    [Arguments]
-    * kwargs:
-      * (key) name of atom-data
-      * (val) <list/tuple/numpy.ndarray>
     """
 
-    if "type" in kwargs.keys():
+    if "type" in kwargs:
       self._num_type = len(set(kwargs["type"]))
 
-    self._set_data_atom(**{
-      k: v for k, v in kwargs.items()
-      if k in self._required_datanames_a})
-
-    if hasattr(self, "_required_datanames_v"):
-      self._set_data_velocity(**{
-        k: v for k, v in kwargs.items()
-        if k in self._required_datanames_v})
+    for k, v in kwargs.items():
+      data = list(v)  # ensure data is <list>
+      if k in self._data:
+        if self._data[k] is None:
+          self._data[k] = data
+          print("LammpsAtoms: '{}' have been set".format(k))
+        else:
+          self._data[k] = data
+          print("LammpsAtoms: '{}' have been set again".format(k))
+      elif hasattr(self, "_data_vel") and k in self._data_vel:
+        if self._data_vel[k] is None:
+          self._data_vel[k] = data
+          print("LammpsAtoms: '{}' have been set".format(k))
+        else:
+          self._data_vel[k] = data
+          print("LammpsAtoms: '{}' have been set again".format(k))
 
   def write_lines(self, path, velocity=False, **kwargs):
     """
@@ -102,29 +117,57 @@ class LammpsAtoms:
     * path: <str>
     * velocity: <bool>
     """
-    if self._required_datanames_a:
-      raise RuntimeError("You have not set '{}'".format(
-        "', '".join(self._required_datanames_a)))
-    else:
-      if not hasattr(self, "_lines_velocity") or not velocity:
-        self._lines_a.write(path)
+
+    nones = [k for k, v in self._data.items() if v is None]
+
+    if velocity:
+      if hasattr(self, "_data_vel"):
+        nones += [k for k, v in self._data_vel.items() if v is None]
       else:
-        if self._required_datanames_v:
-          raise RuntimeError("You have not set '{}'".format(
-            "', '".join(self._required_datanames_v)))
-        else:
-          self._lines_a.write(path)
-          self._lines_v.write(path)
+        raise RuntimeError("You need to set velocities")
 
-  def _set_data_atom(self, **kwargs):
-    self._lines_a.set_data(**kwargs)
-    self._required_datanames_a -= kwargs.keys()
+    if nones:
+      raise RuntimeError(
+        "You have not set '{}'".format("', '".join(nones)))
+    else:
+      self._lines.write(path, self._data)
+      if velocity:
+        self._lines_vel.write(path, self._data_vel)
 
-  def _set_data_velocity(self, **kwargs):
-    self._lines_v.set_data(**kwargs)
-    self._required_datanames_v -= kwargs.keys()
+class LammpsDataLines:
+  """
+  This class ...
+  """
 
-class LammpsSequences:
+  def __init__(self, section_header, line_format):
+    """
+    This constructor ...
+    [Arguments]
+    * section_header: <str>
+    * line_format: <str>
+    """
+    self._section_header = section_header
+    self._line_format = line_format + "\n"
+
+  def write(self, path, data):
+    """
+    This method ...
+    [Arguments]
+    * path: <str>
+    * data: <dict>
+    """
+
+    keys = data.keys()
+    dicts = [dict(zip(keys, t)) for t in zip(*data.values())]
+
+    with open(path, 'a') as f:
+      f.write("\n{}\n\n".format(self._section_header))
+      f.write("".join([
+        self._line_format.format(**dic) for dic in dicts]))
+
+    print("'{}' section was written".format(self._section_header))
+
+class LammpsTopology:
   """
   This class ...
   """
@@ -155,7 +198,7 @@ class LammpsSequences:
         bonds, ("id", "type", "atom1", "atom2", "atom3", "atom4"), **kwargs)
     else:
       raise RuntimeError(
-        "Invalid name for LammpsSequences '{}'".format(name))
+        "Invalid name for LammpsTopology '{}'".format(name))
 
   def __init__(self, bonds_per_atom, datanames, **kwargs):
     """
@@ -164,15 +207,21 @@ class LammpsSequences:
     * bonds_per_atom: <list>; not containing image flags
     * datanames: <tuple>
     """
-    self._datanames = datanames
+
     self._sequences = self._derive_sequences(bonds_per_atom)
     self._num = len(self._sequences)
+
+    self._datanames = datanames
     self._lines = LammpsDataLines(
       self.__class__.__name__.replace("Lammps", ""),
       "{{{}}}".format("} {".join(self._datanames)))
-    self._lines.set_data(id=range(1, self._num+1))
-    self._lines.set_data(**dict(zip(
-      self._datanames[2:], np.array(self._sequences, int).T)))
+
+    self._data = {k: None for k in datanames}
+
+    if 0 < self._num:
+      self._set_data(id=range(1, self._num+1))
+      self._set_data(**dict(zip(
+        self._datanames[2:], np.array(self._sequences, int).T)))
 
   def get_num(self):
     return self._num
@@ -194,9 +243,11 @@ class LammpsSequences:
     self._num_type = len(set(seq_to_type.values()))
 
     full_dict = self._make_full_seq_to_type(seq_to_type)
+
     atype_seqs = [
       tuple([atom_types[i-1] for i in seq]) for seq in self._sequences]
-    self._lines.set_data(type=[full_dict[seq] for seq in atype_seqs])
+
+    self._set_data(type=[full_dict[seq] for seq in atype_seqs])
 
   def write_lines(self, path):
     """
@@ -204,7 +255,7 @@ class LammpsSequences:
     [Arguments]
     * path: <str>
     """
-    self._lines.write(path)
+    self._lines.write(path, self._data)
 
   def _derive_sequences(self, bonds_per_atom):
     """
@@ -212,7 +263,7 @@ class LammpsSequences:
     [Arguments]
     * bonds_per_atom: <list>; not containing image flags
     [Return]
-    <list>; <tuple>s representing sequences
+    <list>; <tuple>s representing topology
     """
     pass
 
@@ -226,7 +277,23 @@ class LammpsSequences:
     """
     return {t: v for k, v in seq_to_type.items() for t in [k, k[::-1]]}
 
-class LammpsBonds(LammpsSequences):
+  def _set_data(self, **kwargs):
+    """
+    This method ...
+    """
+    for k, v in kwargs.items():
+      data = list(v)  # ensure data is <list>
+      if k in self._data:
+        if self._data[k] is None:
+          self._data[k] = data
+          print("{}: '{}' have been set".format(
+            self.__class__.__name__, k))
+        else:
+          self._data[k] = data
+          print("{}: '{}' have been set again".format(
+            self.__class__.__name__, k))
+
+class LammpsBonds(LammpsTopology):
   """
   This class ...
   """
@@ -236,12 +303,11 @@ class LammpsBonds(LammpsSequences):
     bonds = set()
 
     for i, bs in enumerate(bonds_per_atom):
-      bonds.update(
-        set([(i+1, j+1) for j in bs if (j+1, i+1) not in bonds]))
+      bonds |= set([(i+1, j+1) for j in bs if (j+1, i+1) not in bonds])
 
     return list(bonds)
 
-class LammpsAngles(LammpsSequences):
+class LammpsAngles(LammpsTopology):
   """
   This class ...
   """
@@ -251,12 +317,11 @@ class LammpsAngles(LammpsSequences):
     angles = set()
 
     for j, bs in enumerate(bonds_per_atom):
-      angles.update(
-        set([(i+1, j+1, k+1) for i, k in it.combinations(bs, 2)]))
+      angles |= set([(i+1, j+1, k+1) for i, k in it.combinations(bs, 2)])
 
     return list(angles)
 
-class LammpsDihedrals(LammpsSequences):
+class LammpsDihedrals(LammpsTopology):
   """
   This class ...
   """
@@ -275,13 +340,13 @@ class LammpsDihedrals(LammpsSequences):
         else:
           bonds.add((j+1, k+1))
 
-        dihedrals.update(set([
+        dihedrals |= set([
           (i+1, j+1, k+1, l+1)
-          for i, l in it.product(set(bs)-{k}, set(bonds_per_atom[k])-{j})]))
+          for i, l in it.product(set(bs)-{k}, set(bonds_per_atom[k])-{j})])
 
     return list(dihedrals)
 
-class LammpsImpropers(LammpsSequences):
+class LammpsImpropers(LammpsTopology):
   """
   This class ...
   """
@@ -297,10 +362,12 @@ class LammpsImpropers(LammpsSequences):
 
     impropers = set()
 
+    c = 1 if self._class2 else 0
+
     for i, bs in enumerate(bonds_per_atom):
-      impropers.update(set([
-        (j+1, i+1, k+1, l+1) if self._class2 else (i+1, j+1, k+1, l+1)
-        for j, k, l in it.combinations(bs, 3)]))
+      impropers |= set([
+        t[:c] + (i+1,) + t[c:]
+        for t in it.combinations([n+1 for n in bs], 3)])
 
     return list(impropers)
 
@@ -311,56 +378,7 @@ class LammpsImpropers(LammpsSequences):
     c = 1 if self._class2 else 0
 
     for k, v in seq_to_type.items():
-      others = k[:c] + k[c+1:]
-      new_dict.update({tuple(l): v for l in [
-        [t[i] if i < c else t[i-1] if c < i else k[c] for i in range(4)]
-        for t in it.permutations(others)]})
+      new_dict.update({l: v for l in [
+        t[:c] + (k[c],) + t[c:] for t in it.permutations(k[:c]+k[c+1:])]})
 
     return new_dict
-
-class LammpsDataLines:
-  """
-  This class ...
-  """
-
-  def __init__(self, section_header, line_format):
-    """
-    This constructor ...
-    [Arguments]
-    * section_header: <str>
-    * line_format: <str>
-    """
-    self._section_header = section_header
-    self._line_format = line_format
-
-  def set_data(self, **kwargs):
-    """
-    This method ...
-    [Arguments]
-    * kwargs:
-      * (key) name of data
-      * (val) <list/tuple/numpy.ndarray>
-    """
-    for k, vs in kwargs.items():
-      if not hasattr(self, "_line_dicts"):
-        self._line_dicts = [{} for i in range(len(vs))]
-      elif len(vs) != len(self._line_dicts):
-        raise RuntimeError(
-          "Length of '{}' is different from the other(s)".format(k))
-      for dic, v in zip(self._line_dicts, vs):
-        dic[k] = v
-
-  def write(self, path):
-    """
-    This method ...
-    [Arguments]
-    * path: <str>
-    """
-
-    with open(path, 'a') as f:
-      f.write("\n{}\n\n".format(self._section_header))
-      f.write("\n".join([
-        self._line_format.format(**dic) for dic in self._line_dicts]))
-      f.write("\n")
-
-    print("'{}' section was written".format(self._section_header))

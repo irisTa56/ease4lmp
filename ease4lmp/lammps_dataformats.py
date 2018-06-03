@@ -7,35 +7,35 @@ create: 2018/05/30 by Takayuki Kobayashi
 """
 
 lmp_dataformats_atoms = {
-  "angle": ("id", "mol", "type", "x", "y", "z"),
-  "atomic": ("id", "type", "x", "y", "z"),
-  "body": ("id", "type", "bodyflag", "mass", "x", "y", "z"),
-  "bond": ("id", "mol", "type", "x", "y", "z"),
-  "charge": ("id", "type", "q", "x", "y", "z"),
-  "dipole": ("id", "type", "q", "x", "y", "z", "mux", "muy", "muz"),
-  "dpd": ("id", "type", "theta", "x", "y", "z"),
-  "edpd": ("id", "type", "edpd_temp", "edpd_cv", "x", "y", "z"),
-  "mdpd": ("id", "type", "rho", "x", "y", "z"),
-  #"tdpd": ("id", "type", "x", "y", "z", "cc1", "cc2", "…", "ccNspecies"),
-  "electron": ("id", "type", "q", "spin", "eradius", "x", "y", "z"),
-  "ellipsoid": ("id", "type", "ellipsoidflag", "density", "x", "y", "z"),
-  "full": ("id", "mol", "type", "q", "x", "y", "z"),
-  "line": ("id", "mol", "type", "lineflag", "density", "x", "y", "z"),
-  "meso": ("id", "type", "rho", "e", "cv", "x", "y", "z"),
-  "molecular": ("id", "mol", "type", "x", "y", "z"),
-  "peri": ("id", "type", "volume", "density", "x", "y", "z"),
-  "smd": ("id", "type", "molecule", "volume", "mass", "kernel_radius", "contact_radius", "x", "y", "z"),
-  "sphere": ("id", "type", "diameter", "density", "x", "y", "z"),
-  "template": ("id", "mol", "template_index", "template_atom", "type", "x", "y", "z"),
-  "tri": ("id", "mol", "type", "triangleflag", "density", "x", "y", "z"),
-  "wavepacket": ("id", "type", "charge", "spin", "eradius", "etag", "cs_re", "cs_im", "x", "y", "z"),
-  #"hybrid": ("id", "type", "x", "y", "z", "sub_style1", "sub_style2", "…}"
+  "angle": ("id:8d", "mol:6d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
+  "atomic": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"body": ("id:8d", "type:4d", "bodyflag", "mass", "x:15.8e", "y:15.8e", "z:15.8e"),
+  "bond": ("id:8d", "mol:6d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
+  "charge": ("id:8d", "type:4d", "q:9.6f", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"dipole": ("id:8d", "type:4d", "q:9.6f", "x:15.8e", "y:15.8e", "z:15.8e", "mux", "muy", "muz"),
+  #"dpd": ("id:8d", "type:4d", "theta", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"edpd": ("id:8d", "type:4d", "edpd_temp", "edpd_cv", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"mdpd": ("id:8d", "type:4d", "rho", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"tdpd": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e", "cc1", "cc2", "…", "ccNspecies"),
+  #"electron": ("id:8d", "type:4d", "q:9.6f", "spin", "eradius", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"ellipsoid": ("id:8d", "type:4d", "ellipsoidflag", "density", "x:15.8e", "y:15.8e", "z:15.8e"),
+  "full": ("id:8d", "mol:6d", "type:4d", "q:9.6f", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"line": ("id:8d", "mol:6d", "type:4d", "lineflag", "density", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"meso": ("id:8d", "type:4d", "rho", "e", "cv", "x:15.8e", "y:15.8e", "z:15.8e"),
+  "molecular": ("id:8d", "mol:6d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"peri": ("id:8d", "type:4d", "volume", "density", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"smd": ("id:8d", "type:4d", "molecule", "volume", "mass", "kernel_radius", "contact_radius", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"sphere": ("id:8d", "type:4d", "diameter", "density", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"template": ("id:8d", "mol:6d", "template_index", "template_atom", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"tri": ("id:8d", "mol:6d", "type:4d", "triangleflag", "density", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"wavepacket": ("id:8d", "type:4d", "charge", "spin", "eradius", "etag", "cs_re", "cs_im", "x:15.8e", "y:15.8e", "z:15.8e"),
+  #"hybrid": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e", "sub_style1", "sub_style2", "…}"
 }
 
 lmp_dataformats_velocities = {
-  "*": ("id", "vx", "vy", "vz"),
-  "electron": ("id", "vx", "vy", "vz", "ervel"),
-  "ellipsoid": ("id", "vx", "vy", "vz", "lx", "ly", "lz"),
-  "sphere": ("id", "vx", "vy", "vz", "wx", "wy", "wz"),
-  #"hybrid": ("id", "vx", "vy", "vz", "sub-style1", "sub-style2", "…}"
+  "*": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e"),
+  #"electron": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "ervel"),
+  #"ellipsoid": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "lx", "ly", "lz"),
+  #"sphere": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "wx", "wy", "wz"),
+  #"hybrid": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "sub-style1", "sub-style2", "…}"
 }
