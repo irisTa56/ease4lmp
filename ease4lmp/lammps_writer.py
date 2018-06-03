@@ -200,10 +200,10 @@ class LammpsWriter:
         "{} {} types\n".format(num_topo_type[i], k)
         for i, k in enumerate(topo_keys) if topo_is_set[i]]))
 
-      xhi, yhi, zhi, xy, xz, yz = self._prism.get_lammps_prism_str()
+      xhi, yhi, zhi, xy, xz, yz = self._prism.get_lammps_prism()
 
       f.write("\n{}".format("".join([
-        "{0:15.8e} {1:15.8e}  {2}lo {2}hi\n".format(0, float(hi), x)
+        "{0:15.8e} {1:15.8e}  {2}lo {2}hi\n".format(0, hi, x)
         for hi, x in zip([xhi, yhi, zhi], ["x", "y", "z"])])))
 
       if self._prism.is_skewed():
