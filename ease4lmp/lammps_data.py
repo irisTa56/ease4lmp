@@ -10,8 +10,7 @@ from .lammps_dataformats \
 import itertools as it
 import numpy as np
 
-datanames_molecule = {
-  "id", "type", "q", "x", "y", "z", "diameter", "mass"}
+datanames_molecule = {"id", "type", "q", "x", "y", "z"}  # "diameter", "mass"
 
 class LammpsAtoms:
   """
@@ -134,6 +133,26 @@ class LammpsAtoms:
       if velocity:
         self._lines_vel.write(path, self._data_vel)
 
+  def write_lines_for_molecule(self, path):
+    """
+    This method ...
+    [Arguments]
+    * path: <str>
+    """
+
+    list_header = ["Coords", "Types"]
+    list_dataformats = [
+      ("id:4d", "x:15.8e", "y:15.8e", "z:15.8e"), ("id:4d", "type:4d")]
+
+    if "q" in self._data:  # "diameter", "mass"
+      list_header.append("Charges")
+      list_header.append(("id:4d", "q:9.6f"))
+
+    for h, dfs in zip(list_header, list_dataformats):
+      LammpsDataLines(h, "{{{}}}".format("} {".join(dfs))).write(path, {
+        k: v for k, v in self._data.items()
+        if k in [s.split(":")[0] for s in dfs]})
+
 class LammpsDataLines:
   """
   This class ...
@@ -233,8 +252,24 @@ class LammpsTopology:
       return None
 
   def get_sequence_patterns(self, atom_types):
+    """
+    This method ...
+    [Arguments]
+    * atom_types: <list>
+    """
     return set([
       tuple([atom_types[i-1] for i in seq]) for seq in self._sequences])
+
+  def get_maximum_per_atom(self, num_atoms):
+    """
+    This method ...
+    [Arguments]
+    * num_atoms: <int>
+    """
+    unique, counts = np.unique(np.array([
+      v for k, v in self._data.items()
+      if k.startswith("atom")]), return_counts=True)
+    return max(counts)
 
   def set_types(self, seq_to_type, atom_types):
     """
@@ -386,3 +421,51 @@ class LammpsImpropers(LammpsTopology):
         t[:c] + (k[c],) + t[c:] for t in it.permutations(k[:c]+k[c+1:])]})
 
     return new_dict
+
+class LammpsSpecialBonds:
+  """
+  This class ...
+  """
+
+  def __init__(self, bonds_per_atom):
+    """
+    This constructor ...
+    [Arguments]
+    * bonds_per_atom: <list>; not containing image flags
+    """
+
+    self._num = len(bonds_per_atom)
+    self._data = [{"1-2": [], "1-3": [], "1-4": []}] * self._num
+
+    for i, bs in enumerate(bonds_per_atom):
+      for j in bs:
+        self._data[i]["1-2"].append(j+1)
+        for k in bonds_per_atom[j]:
+          if k == i:
+            continue
+          self._data[i]["1-3"].append(k+1)
+          for l in bonds_per_atom[k]:
+            if l == j or l == i:
+              continue
+            self._data[i]["1-4"].append(l+1)
+
+  def write_lines(self, path):
+    """
+    This method ...
+    [Arguments]
+    * path: <str>
+    """
+
+    with open(path, 'a') as f:
+      f.write("\nSpecial Bond Counts\n\n")
+      for i in range(self._num):
+        data = self._data[i]
+        f.write("{} {} {} {}\n".format(
+          i+1, len(data["1-2"]), len(data["1-3"]), len(data["1-4"])))
+      f.write("\nSpecial Bonds\n\n")
+      for i in range(self._num):
+        data = self._data[i]
+        f.write("{} {}\n".format(
+          i+1, " ".join(map(str, data["1-2"]+data["1-3"]+data["1-4"]))))
+
+    print("'Special Bond Counts' and 'Special Bonds' section was written")

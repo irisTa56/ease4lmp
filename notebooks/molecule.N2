@@ -1,0 +1,28 @@
+# written by ease4lmp.LammpsWriter at 2018/06/03 11:40:33
+
+2 atoms
+1 bonds
+
+Coords
+
+   1  2.50000000e+00  2.50000000e+00  1.95000000e+00
+   2  2.50000000e+00  2.50000000e+00  3.05000000e+00
+
+Types
+
+   1    0
+   2    0
+
+Bonds
+
+1 1 1 2
+
+Special Bond Counts
+
+1 2 0 0
+2 2 0 0
+
+Special Bonds
+
+1 2 1
+2 2 1
