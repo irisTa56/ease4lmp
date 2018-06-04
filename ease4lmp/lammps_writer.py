@@ -55,16 +55,16 @@ class LammpsWriter:
     self._lmp_atoms = LammpsAtoms(
       atom_style, positions, self._atom_types, velocities)
 
-    if isinstance(atoms, BondedAtoms):
+    bonds = [
+      [i + b[0] for b in bs if b[0] != 0]
+      for i, bs in enumerate(atoms.get_bonds())] \
+      if isinstance(atoms, BondedAtoms) else [[]] * len(atoms)
 
-      bonds = [
-        [i + b[0] for b in bs if b[0] != 0]
-        for i, bs in enumerate(atoms.get_bonds())]
-      self._topo = {
-        k: LammpsTopology.create(k, bonds, **kwargs) for k in topo_keys}
+    self._topo = {
+      k: LammpsTopology.create(k, bonds, **kwargs) for k in topo_keys}
 
-      if special_bonds:
-        self._special_bonds = LammpsSpecialBonds(bonds)
+    if special_bonds:
+      self._special_bonds = LammpsSpecialBonds(bonds)
 
     if self._atom_types is not None:
       mass_unit = 1 / au.kg / lmp_unit["_2si"]["mass"]

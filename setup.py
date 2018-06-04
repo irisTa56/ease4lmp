@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 st.setup(
     name="ease4lmp",
-    version="0.0.2a",
+    version="0.2a.1",
     author="Takayuki Kobayashi",
     author_email="iris.takayuki@gmail.com",
     description="Extension of Atomic Simulation Environment for LAMMPS",

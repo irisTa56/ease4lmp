@@ -435,7 +435,8 @@ class LammpsSpecialBonds:
     """
 
     self._num = len(bonds_per_atom)
-    self._data = [{"1-2": [], "1-3": [], "1-4": []}] * self._num
+    self._data = [
+      {"1-2": [], "1-3": [], "1-4": []} for i in range(self._num)]
 
     for i, bs in enumerate(bonds_per_atom):
       for j in bs:
