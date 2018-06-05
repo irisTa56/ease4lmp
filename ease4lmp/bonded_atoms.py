@@ -7,6 +7,8 @@ create: 2018/05/24 by Takayuki Kobayashi
 import sys
 
 import ase
+
+import itertools as it
 import numpy as np
 
 class BondedAtoms(ase.Atoms):
@@ -50,29 +52,22 @@ class BondedAtoms(ase.Atoms):
     * img2: <tuple/list>
     """
 
-    if not all([
-      isinstance(i, (tuple, list)) and len(i) == 3 for i in (img1, img2)
-    ]):
-      raise RuntimeError("Image flags should be 3-membered tuple/list")
+    if not isinstance(img1, (tuple, list)) or len(img1) != 3:
+      raise RuntimeError(
+        "Image flag 'img1' should be 3-membered tuple/list")
+    elif not isinstance(img2, (tuple, list)) or len(img2) != 3:
+      raise RuntimeError(
+        "Image flag 'img2' should be 3-membered tuple/list")
 
-    # get empty bonds
-    bs1 = [b for b in self.arrays["bonds"][atom1] if np.all(b == 0)]
-    bs2 = [b for b in self.arrays["bonds"][atom2] if np.all(b == 0)]
+    relative_data = np.insert(
+      np.array(img2, int) - np.array(img1, int), 0, atom2 - atom1)
 
-    i2 = 1 if atom1 == atom2 else 0
+    idx1 = self._get_available_bond_index(atom1, relative_data)
+    idx2 = self._get_available_bond_index(
+      atom2, -relative_data, 1 if atom1 == atom2 else 0)
 
-    if bs1 and bs2[i2:]:
-
-      rel_idx = atom2 - atom1
-      rel_imgs = np.array(img2, int) - np.array(img1, int)
-
-      for b, sign in [(bs1[0], 1), (bs2[i2], -1)]:
-        # apply data to the first empty bond
-        b[0] = sign * rel_idx
-        b[1:] = sign * rel_imgs
-
-    else:
-      raise RuntimeError("Too many bonds")
+    self.arrays["bonds"][atom1][idx1] = relative_data
+    self.arrays["bonds"][atom2][idx2] = -relative_data
 
   def change_max_bonds(self, n=4):
     """
@@ -110,13 +105,84 @@ class BondedAtoms(ase.Atoms):
 
   def get_bonds(self):
     """
-    This method gets integer array of bonds.
+    This method gets integer an array of bond data (an element in the
+    first axis per atom).
     [Return]
     <numpy.ndarray>
     """
     return self.arrays["bonds"].copy()
 
-  def remove_bond(self, atom, bond):
+  def get_bonded_bonds(self):
+    """
+    This method gets an array of 2-membered sequence of atom-index
+    representing bonds.
+    [Return]
+    <numpy.ndarray>
+    """
+
+    bonds = set()
+
+    bonds_per_atom = self._get_bonds_per_atom()
+
+    for i, bs in enumerate(bonds_per_atom):
+      bonds |= set([(i, j) for j in bs if (j, i) not in bonds])
+
+    return np.array(list(bonds), int)
+
+  def get_bonded_angles(self):
+    """
+    This method gets an array of 3-membered sequence of atom-index
+    representing angles.
+    [Return]
+    <numpy.ndarray>
+    """
+
+    bonds_per_atom = self._get_bonds_per_atom()
+
+    return np.array([
+      (i, j, k)
+      for j, bs in enumerate(bonds_per_atom)
+      for i, k in it.combinations(bs, 2)], int)
+
+  def get_bonded_dihedrals(self):
+    """
+    This method gets an array of 4-membered sequence of atom-index
+    representing dihedrals.
+    [Return]
+    <numpy.ndarray>
+    """
+
+    bonds = set()
+    dihedrals = []
+
+    bonds_per_atom = self._get_bonds_per_atom()
+
+    for j, bs in enumerate(bonds_per_atom):
+      ks = [k for k in bs if (k, j) not in bonds]
+      for k in ks:
+        bonds.add((j, k))
+        dihedrals.extend([
+          (i, j, k, l)for i, l in it.product(
+            set(bs)-{k}, set(bonds_per_atom[k])-{j})])
+
+    return np.array(dihedrals, int)
+
+  def get_bonded_impropers(self):
+    """
+    This method gets an array of 4-membered sequence of atom-index
+    representing impropers.
+    [Return]
+    <numpy.ndarray>
+    """
+
+    bonds_per_atom = self._get_bonds_per_atom()
+
+    return np.array([
+      (i,) + t
+      for i, bs in enumerate(bonds_per_atom)
+      for t in it.combinations(bs, 3)], int)
+
+  def remove_bond(self, atom1, atom2, img1=(0,0,0), img2=(0,0,0)):
     """
     This method ...
     [Arguments]
@@ -124,19 +190,13 @@ class BondedAtoms(ase.Atoms):
     * bond: <int>
     """
 
-    bs1 = self.arrays["bonds"][atom]
-    ib1 = bond
+    relative_data = np.insert(
+      np.array(img2, int) - np.array(img1, int), 0, atom2 - atom1)
 
-    rel_idx = bs1[ib1][0]
-    rel_imgs = bs1[ib1][1:]
-
-    bs2 = self.arrays["bonds"][atom+rel_idx]
-    ib2 = [
-      i for i in range(self._max_bonds)
-      if bs2[i][0] == -rel_idx and (bs2[i][1:] == -rel_imgs).all()][0]
-
-    self._remove_bond(bs1, ib1)
-    self._remove_bond(bs2, ib2)
+    self._remove_bond(
+      atom1, self._get_matched_bond_index(atom1, relative_data))
+    self._remove_bond(
+      atom2, self._get_matched_bond_index(atom2, -relative_data))
 
   def set_bonds(self, bonds):
     """
@@ -169,7 +229,7 @@ class BondedAtoms(ase.Atoms):
       while ib < self._max_bonds:
         j = i + bs[ib][0]
         if not mask[j]:
-          self._remove_bond(bs, ib)
+          self._remove_bond(i, ib)
         else:
           bs[ib][0] += -np.sum(mask[i:j] == False) \
             if i < j else np.sum(mask[j:i] == False)
@@ -215,12 +275,65 @@ class BondedAtoms(ase.Atoms):
 
     return self
 
-  def _remove_bond(self, bonds, bond_idx):
+  def _get_available_bond_index(self, atom, relative_data, offset=0):
     """
     This method ...
     [Arguments]
-    * bonds: <numpy.ndarray>; bonds belonging to an atom
+    * atom: <int>
+    * relative_data: <numpy.ndarray>
+    * offset: <int>; postpone returning index until this becomes zero
+    [Return]
+    <int>
+    """
+
+    for i, b in enumerate(self.arrays["bonds"][atom]):
+      if (b == relative_data).all():
+        raise RuntimeError(
+          "Bond between atom '{}' and '{}' already exists".format(
+            atom, atom+relative_data[0]))
+      elif np.all(b == 0):
+        if offset == 0:
+          return i
+        else:
+          offset -= 1
+
+    raise RuntimeError(
+      "Too many bonds attache to atom '{}'".format(atom))
+
+  def _get_matched_bond_index(self, atom, relative_data):
+    """
+    This method ...
+    [Arguments]
+    * atom: <int>
+    * relative_data: <numpy.ndarray>
+    [Return]
+    <int>
+    """
+
+    for i, b in enumerate(self.arrays["bonds"][atom]):
+      if (b == relative_data).all():
+        return i
+
+    raise RuntimeError(
+      "No such a bond attaches to atom '{}'".format(atom))
+
+  def _get_bonds_per_atom(self):
+    """
+    This method ...
+    [Return]
+    <list>
+    """
+    return [
+      [i + b[0] for b in bs if b[0] != 0]
+      for i, bs in enumerate(self.arrays["bonds"])]
+
+  def _remove_bond(self, atom, bond_idx):
+    """
+    This method ...
+    [Arguments]
+    * atom: <int>; bonds belonging to an atom
     * bond_idx: <int>; index of a bond to be removed
     """
+    bonds = self.arrays["bonds"][atom]
     bonds[bond_idx:-1] = bonds[bond_idx+1:]
     bonds[-1] = np.zeros(4, int)
