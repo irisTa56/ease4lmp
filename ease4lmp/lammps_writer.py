@@ -234,8 +234,8 @@ class LammpsWriter:
 
     self._lmp_atoms.write_lines(path, **kwargs)
 
-    for k, v in self._topo.items():
-      if 0 < num_topo[k]:
+    for v in self._topo.values():
+      if 0 < v.get_num() and 0 < v.get_num_type():
         v.write_lines(path)
 
   def write_lammps_molecule(self, path, special_bonds=True):
@@ -261,8 +261,8 @@ class LammpsWriter:
 
     self._lmp_atoms.write_lines_for_molecule(path)
 
-    for k, v in self._topo.items():
-      if 0 < num_topo[k]:
+    for v in self._topo.values():
+      if 0 < v.get_num() and 0 < v.get_num_type():
         v.write_lines(path)
 
     if special_bonds and hasattr(self, "_special_bonds"):
