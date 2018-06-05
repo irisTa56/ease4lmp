@@ -196,8 +196,10 @@ class LammpsWriter:
     num_atom_type = kwargs["num_atom_type"] \
       if "num_atom_type" in kwargs else self._lmp_atoms.get_num_type()
 
-    num_topo = {k: v.get_num() for k, v in self._topo.items()}
-    num_topo_type = {k: v.get_num_type() for k, v in self._topo.items()}
+    num_topo = {k: v.get_num() for k, v in self._topo.items()} \
+      if self._topo else dict.fromkeys(topo_keys, 0)
+    num_topo_type = {k: v.get_num_type() for k, v in self._topo.items()} \
+      if self._topo else dict.fromkeys(topo_keys, 0)
 
     for k in topo_keys:
       name = "num_{}_type".format(k)
@@ -232,9 +234,9 @@ class LammpsWriter:
 
     self._lmp_atoms.write_lines(path, **kwargs)
 
-    for k in topo_keys:
+    for k, v in self._topo.items():
       if 0 < num_topo[k]:
-        self._topo[k].write_lines(path)
+        v.write_lines(path)
 
   def write_lammps_molecule(self, path, special_bonds=True):
     """
@@ -245,7 +247,8 @@ class LammpsWriter:
 
     num_atom = self._lmp_atoms.get_num()
 
-    num_topo = {k: v.get_num() for k, v in self._topo.items()}
+    num_topo = {k: v.get_num() for k, v in self._topo.items()} \
+      if self._topo else dict.fromkeys(topo_keys, 0)
 
     with open(path, "w") as f:
 
@@ -258,9 +261,9 @@ class LammpsWriter:
 
     self._lmp_atoms.write_lines_for_molecule(path)
 
-    for k in topo_keys:
+    for k, v in self._topo.items():
       if 0 < num_topo[k]:
-        self._topo[k].write_lines(path)
+        v.write_lines(path)
 
     if special_bonds and hasattr(self, "_special_bonds"):
       self._special_bonds.write_lines(path)

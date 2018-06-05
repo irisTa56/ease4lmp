@@ -351,10 +351,11 @@ class LammpsImpropers(LammpsTopology):
     """
 
     if class2:
-      self._class2 = class2
       sequences[:, 0:2] = sequences[:, 0:2][:, ::-1]
 
     super().__init__(sequences, datanames, **kwargs)
+
+    self._class2 = class2
 
   def _make_full_seq_to_type(self, seq_to_type):
 
