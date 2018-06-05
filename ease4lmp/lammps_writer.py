@@ -23,8 +23,8 @@ class LammpsWriter:
   """
 
   def __init__(
-    self, atoms, atom_style,
-    lammps_unit="real", special_bonds=False, tag_is_type=True, **kwargs
+    self, atoms, atom_style, lammps_unit="real", special_bonds=False,
+    tag_is_type=True, **kwargs
   ):
     """
     This constructor ...
@@ -53,27 +53,27 @@ class LammpsWriter:
     self._atom_types = list(atoms.get_tags()) if tag_is_type else None
 
     self._lmp_atoms = LammpsAtoms(
-      atom_style, positions, self._atom_types, velocities)
+      atom_style, positions, velocities, self._atom_types)
 
-    bonds = [
-      [i + b[0] for b in bs if b[0] != 0]
-      for i, bs in enumerate(atoms.get_bonds())] \
-      if isinstance(atoms, BondedAtoms) else [[]] * len(atoms)
+    topo_data = dict(zip(topo_keys, (
+      atoms.get_bonded_bonds(), atoms.get_bonded_angles(),
+      atoms.get_bonded_dihedrals(), atoms.get_bonded_impropers()))) \
+      if isinstance(atoms, BondedAtoms) else {}
 
     self._topo = {
-      k: LammpsTopology.create(k, bonds, **kwargs) for k in topo_keys}
+      k: LammpsTopology.create(k, v, **kwargs)
+      for k, v in topo_data.items()}
 
-    if special_bonds:
-      self._special_bonds = LammpsSpecialBonds(bonds)
+    self._special_bonds = LammpsSpecialBonds(atoms.get_bonds_per_atom()) \
+      if isinstance(atoms, BondedAtoms) else None
 
     if self._atom_types is not None:
       mass_unit = 1 / au.kg / lmp_unit["_2si"]["mass"]
       mass_dict = dict(sorted(dict(zip(
         self._atom_types, mass_unit*atoms.get_masses())).items()))
       self._mass_lines = LammpsDataLines(
-        "Masses", "{type:4d} {mass:10.6f}")
-      self._mass_data = {
-        "type": list(mass_dict.keys()), "mass": list(mass_dict.values())}
+        "Masses", "{type:4d} {mass:10.6f}").set_data({
+        "type": mass_dict.keys(), "mass": mass_dict.values()})
 
   def get_required_datanames(self):
     """
@@ -111,25 +111,24 @@ class LammpsWriter:
 
   def get_maximum_per_atom(self, key):
     """
-    If you had an error of 'Molecule toplogy/atom exceeds system
-    topology/atom', you probably need to set 'extra/***/per/atom'.
-    This method returns integer for this use.
+    This method ...
     [Arguments]
     * key: <str>
     """
-    return self._topo[key].get_maximum_per_atom(self._lmp_atoms.get_num())
+    print("You might need to set 'extra/{}/per/atom' to: {}".format(
+      key, self._topo[key].get_maximum_per_atom()))
 
   def get_max_bonds_per_atom(self):
-    return self.get_maximum_per_atom("bond")
+    self.get_maximum_per_atom("bond")
 
   def get_max_angles_per_atom(self):
-    return self.get_maximum_per_atom("angle")
+    self.get_maximum_per_atom("angle")
 
   def get_max_dihedrals_per_atom(self):
-    return self.get_maximum_per_atom("dihedral")
+    self.get_maximum_per_atom("dihedral")
 
   def get_max_impropers_per_atom(self):
-    return self.get_maximum_per_atom("improper")
+    self.get_maximum_per_atom("improper")
 
   def set_atom_data(self, **kwargs):
     """
@@ -154,9 +153,8 @@ class LammpsWriter:
     """
     mass_dict = dict(sorted(mass_dict.items()))
     self._mass_lines = LammpsDataLines(
-      "Masses", "{type:4d} {mass:10.6f}")
-    self._mass_data = {
-      "type": list(mass_dict.keys()), "mass": list(mass_dict.values())}
+      "Masses", "{type:4d} {mass:10.6f}").set_data({
+      "type": mass_dict.keys(), "mass": mass_dict.values()})
 
   def set_topology_types(self, **kwargs):
     """
@@ -166,10 +164,8 @@ class LammpsWriter:
       * (key) concrete name (key) of sequence.
       * (val) <dict> (<tuple> => <int>): from sequence to type
     """
-
     if self._atom_types is None:
       RuntimeError("Please set atom's type in advance")
-
     for k, v in kwargs.items():
       self._topo[k].set_types(v, self._atom_types)
 
@@ -200,46 +196,44 @@ class LammpsWriter:
     num_atom_type = kwargs["num_atom_type"] \
       if "num_atom_type" in kwargs else self._lmp_atoms.get_num_type()
 
-    num_topo = [self._topo[k].get_num() for k in topo_keys]
-    num_topo_type = [self._topo[k].get_num_type() for k in topo_keys]
-    topo_is_set = [False if n is None else True for n in num_topo_type]
+    num_topo = {k: v.get_num() for k, v in self._topo.items()}
+    num_topo_type = {k: v.get_num_type() for k, v in self._topo.items()}
 
-    for i, k in enumerate(topo_keys):
+    for k in topo_keys:
       name = "num_{}_type".format(k)
       if name in kwargs:
-        num_topo_type[i] = kwargs[name]
+        num_topo_type[k] = kwargs[name]
 
     with open(path, "w") as f:
+
       f.write("# written by ease4lmp.LammpsWriter at {}\n".format(
         dt.datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
 
       f.write("\n{} atoms\n".format(num_atom))
       f.write("".join([
-        "{} {}s\n".format(num_topo[i], k)
-        for i, k in enumerate(topo_keys) if topo_is_set[i]]))
+        "{} {}s\n".format(num_topo[k], k) for k in topo_keys]))
 
       f.write("\n{} atom types\n".format(num_atom_type))
       f.write("".join([
-        "{} {} types\n".format(num_topo_type[i], k)
-        for i, k in enumerate(topo_keys) if topo_is_set[i]]))
+        "{} {} types\n".format(num_topo_type[k], k) for k in topo_keys]))
 
       xhi, yhi, zhi, xy, xz, yz = self._prism.get_lammps_prism()
 
       f.write("\n{}".format("".join([
-        "{0:15.8e} {1:15.8e}  {2}lo {2}hi\n".format(0, hi, x)
+        "{0:.8e} {1:.8e}  {2}lo {2}hi\n".format(0, hi, x)
         for hi, x in zip([xhi, yhi, zhi], ["x", "y", "z"])])))
 
       if self._prism.is_skewed():
-        f.write("\n{:15.8e} {:15.8e} {:15.8e}  xy xz yz\n".format(
+        f.write("\n{:.8e} {:.8e} {:.8e}  xy xz yz\n".format(
           *map(float, (xy, xz, yz))))
 
     if mass:
-      self._mass_lines.write(path, self._mass_data)
+      self._mass_lines.write(path)
 
     self._lmp_atoms.write_lines(path, **kwargs)
 
-    for i, k in enumerate(topo_keys):
-      if topo_is_set[i]:
+    for k in topo_keys:
+      if 0 < num_topo[k]:
         self._topo[k].write_lines(path)
 
   def write_lammps_molecule(self, path, special_bonds=True):
@@ -251,23 +245,21 @@ class LammpsWriter:
 
     num_atom = self._lmp_atoms.get_num()
 
-    num_topo = [self._topo[k].get_num() for k in topo_keys]
-    num_topo_type = [self._topo[k].get_num_type() for k in topo_keys]
-    topo_is_set = [False if n is None else True for n in num_topo_type]
+    num_topo = {k: v.get_num() for k, v in self._topo.items()}
 
     with open(path, "w") as f:
+
       f.write("# written by ease4lmp.LammpsWriter at {}\n".format(
         dt.datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
 
       f.write("\n{} atoms\n".format(num_atom))
       f.write("".join([
-        "{} {}s\n".format(num_topo[i], k)
-        for i, k in enumerate(topo_keys) if topo_is_set[i]]))
+        "{} {}s\n".format(num_topo[k], k) for k in topo_keys]))
 
     self._lmp_atoms.write_lines_for_molecule(path)
 
-    for i, k in enumerate(topo_keys):
-      if topo_is_set[i]:
+    for k in topo_keys:
+      if 0 < num_topo[k]:
         self._topo[k].write_lines(path)
 
     if special_bonds and hasattr(self, "_special_bonds"):
@@ -282,6 +274,6 @@ class ExtendedPrism(Prism):
     * path: <str>
     """
     if self.is_skewed():
-      return np.dot(vectors, self.R.round(int(-self.dir_prec.log10())))
+      return np.dot(vectors, self.R.round(int(-self.car_prec.log10())))
     else:
       return vectors

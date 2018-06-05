@@ -112,6 +112,16 @@ class BondedAtoms(ase.Atoms):
     """
     return self.arrays["bonds"].copy()
 
+  def get_bonds_per_atom(self):
+    """
+    This method ...
+    [Return]
+    <list>
+    """
+    return [
+      [i + b[0] for b in bs if b[0] != 0]
+      for i, bs in enumerate(self.arrays["bonds"])]
+
   def get_bonded_bonds(self):
     """
     This method gets an array of 2-membered sequence of atom-index
@@ -122,7 +132,7 @@ class BondedAtoms(ase.Atoms):
 
     bonds = set()
 
-    bonds_per_atom = self._get_bonds_per_atom()
+    bonds_per_atom = self.get_bonds_per_atom()
 
     for i, bs in enumerate(bonds_per_atom):
       bonds |= set([(i, j) for j in bs if (j, i) not in bonds])
@@ -137,7 +147,7 @@ class BondedAtoms(ase.Atoms):
     <numpy.ndarray>
     """
 
-    bonds_per_atom = self._get_bonds_per_atom()
+    bonds_per_atom = self.get_bonds_per_atom()
 
     return np.array([
       (i, j, k)
@@ -155,14 +165,14 @@ class BondedAtoms(ase.Atoms):
     bonds = set()
     dihedrals = []
 
-    bonds_per_atom = self._get_bonds_per_atom()
+    bonds_per_atom = self.get_bonds_per_atom()
 
     for j, bs in enumerate(bonds_per_atom):
       ks = [k for k in bs if (k, j) not in bonds]
       for k in ks:
         bonds.add((j, k))
         dihedrals.extend([
-          (i, j, k, l)for i, l in it.product(
+          (i, j, k, l) for i, l in it.product(
             set(bs)-{k}, set(bonds_per_atom[k])-{j})])
 
     return np.array(dihedrals, int)
@@ -175,7 +185,7 @@ class BondedAtoms(ase.Atoms):
     <numpy.ndarray>
     """
 
-    bonds_per_atom = self._get_bonds_per_atom()
+    bonds_per_atom = self.get_bonds_per_atom()
 
     return np.array([
       (i,) + t
@@ -316,16 +326,6 @@ class BondedAtoms(ase.Atoms):
 
     raise RuntimeError(
       "No such a bond attaches to atom '{}'".format(atom))
-
-  def _get_bonds_per_atom(self):
-    """
-    This method ...
-    [Return]
-    <list>
-    """
-    return [
-      [i + b[0] for b in bs if b[0] != 0]
-      for i, bs in enumerate(self.arrays["bonds"])]
 
   def _remove_bond(self, atom, bond_idx):
     """

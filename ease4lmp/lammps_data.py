@@ -17,14 +17,14 @@ class LammpsAtoms:
   This class ...
   """
 
-  def __init__(self, atom_style, positions, types=None, velocities=None):
+  def __init__(self, atom_style, positions, velocities=None, types=None):
     """
     This constructor ...
     [Arguments]
     * atom_style: <str>
     * positions: <numpy.ndarray>
-    * types: <list>
     * velocities: <numpy.ndarray>
+    * types: <list>
     """
 
     self._num = len(positions)
@@ -168,7 +168,11 @@ class LammpsDataLines:
     self._section_header = section_header
     self._line_format = line_format + "\n"
 
-  def write(self, path, data):
+  def set_data(self, data):
+    self._data = data
+    return self
+
+  def write(self, path, data=None):
     """
     This method ...
     [Arguments]
@@ -176,8 +180,11 @@ class LammpsDataLines:
     * data: <dict>
     """
 
-    keys = data.keys()
-    dicts = [dict(zip(keys, t)) for t in zip(*data.values())]
+    if data is None:
+      data = self._data
+
+    keys, values = data.keys(), data.values()
+    dicts = [dict(zip(keys, t)) for t in zip(*values)]
 
     with open(path, 'a') as f:
       f.write("\n{}\n\n".format(self._section_header))
@@ -192,12 +199,12 @@ class LammpsTopology:
   """
 
   @staticmethod
-  def create(name, bonds, **kwargs):
+  def create(name, sequences, **kwargs):
     """
     This method ...
     [Arguments]
     * name: <str>
-    * bonds: <list>; not containing image flags
+    * data: <numpy.ndarray>
     * kwargs: contains ...
       1. 'class2' for improper
     [Return]
@@ -205,21 +212,21 @@ class LammpsTopology:
     """
     if name == "bond":
       return LammpsBonds(
-        bonds, ("id", "type", "atom1", "atom2"), **kwargs)
+        sequences, ("id", "type", "atom1", "atom2"), **kwargs)
     elif name == "angle":
       return LammpsAngles(
-        bonds, ("id", "type", "atom1", "atom2", "atom3"), **kwargs)
+        sequences, ("id", "type", "atom1", "atom2", "atom3"), **kwargs)
     elif name == "dihedral":
       return LammpsDihedrals(
-        bonds, ("id", "type", "atom1", "atom2", "atom3", "atom4"), **kwargs)
+        sequences, ("id", "type", "atom1", "atom2", "atom3", "atom4"), **kwargs)
     elif name == "improper":
       return LammpsImpropers(
-        bonds, ("id", "type", "atom1", "atom2", "atom3", "atom4"), **kwargs)
+        sequences, ("id", "type", "atom1", "atom2", "atom3", "atom4"), **kwargs)
     else:
       raise RuntimeError(
         "Invalid name for LammpsTopology '{}'".format(name))
 
-  def __init__(self, bonds_per_atom, datanames, **kwargs):
+  def __init__(self, sequences, datanames, **kwargs):
     """
     This constructor ...
     [Arguments]
@@ -227,7 +234,7 @@ class LammpsTopology:
     * datanames: <tuple>
     """
 
-    self._sequences = self._derive_sequences(bonds_per_atom)
+    self._sequences = sequences + 1
     self._num = len(self._sequences)
 
     self._datanames = datanames
@@ -240,7 +247,7 @@ class LammpsTopology:
     if 0 < self._num:
       self._set_data(id=range(1, self._num+1))
       self._set_data(**dict(zip(
-        self._datanames[2:], np.array(self._sequences, int).T)))
+        self._datanames[2:], self._sequences.T)))
 
   def get_num(self):
     return self._num
@@ -249,7 +256,7 @@ class LammpsTopology:
     try:
       return self._num_type
     except AttributeError:
-      return None
+      return 0
 
   def get_sequence_patterns(self, atom_types):
     """
@@ -260,15 +267,12 @@ class LammpsTopology:
     return set([
       tuple([atom_types[i-1] for i in seq]) for seq in self._sequences])
 
-  def get_maximum_per_atom(self, num_atoms):
+  def get_maximum_per_atom(self):
     """
     This method ...
     [Arguments]
-    * num_atoms: <int>
     """
-    unique, counts = np.unique(np.array([
-      v for k, v in self._data.items()
-      if k.startswith("atom")]), return_counts=True)
+    unique, counts = np.unique(self._sequences, return_counts=True)
     return max(counts)
 
   def set_types(self, seq_to_type, atom_types):
@@ -282,7 +286,6 @@ class LammpsTopology:
     self._num_type = len(set(seq_to_type.values()))
 
     full_dict = self._make_full_seq_to_type(seq_to_type)
-
     typed_seqs = [
       tuple([atom_types[i-1] for i in seq]) for seq in self._sequences]
 
@@ -295,16 +298,6 @@ class LammpsTopology:
     * path: <str>
     """
     self._lines.write(path, self._data)
-
-  def _derive_sequences(self, bonds_per_atom):
-    """
-    This method ...
-    [Arguments]
-    * bonds_per_atom: <list>; not containing image flags
-    [Return]
-    <list>; <tuple>s representing topology
-    """
-    pass
 
   def _make_full_seq_to_type(self, seq_to_type):
     """
@@ -337,90 +330,39 @@ class LammpsBonds(LammpsTopology):
   This class ...
   """
 
-  def _derive_sequences(self, bonds_per_atom):
-
-    bonds = set()
-
-    for i, bs in enumerate(bonds_per_atom):
-      bonds |= set([(i+1, j+1) for j in bs if (j+1, i+1) not in bonds])
-
-    return list(bonds)
-
 class LammpsAngles(LammpsTopology):
   """
   This class ...
   """
-
-  def _derive_sequences(self, bonds_per_atom):
-
-    angles = set()
-
-    for j, bs in enumerate(bonds_per_atom):
-      angles |= set([(i+1, j+1, k+1) for i, k in it.combinations(bs, 2)])
-
-    return list(angles)
 
 class LammpsDihedrals(LammpsTopology):
   """
   This class ...
   """
 
-  def _derive_sequences(self, bonds_per_atom):
-
-    bonds = set()
-    dihedrals = set()
-
-    for j, bs in enumerate(bonds_per_atom):
-
-      for k in bs:
-
-        if (k+1, j+1) in bonds:
-          continue
-        else:
-          bonds.add((j+1, k+1))
-
-        dihedrals |= set([
-          (i+1, j+1, k+1, l+1)
-          for i, l in it.product(set(bs)-{k}, set(bonds_per_atom[k])-{j})])
-
-    return list(dihedrals)
-
 class LammpsImpropers(LammpsTopology):
   """
   This class ...
   """
 
-  def __init__(self, *args, class2=False, **kwargs):
+  def __init__(self, sequences, datanames, class2=False, **kwargs):
     """
     This constructor ...
     """
-    self._class2 = class2
-    super().__init__(*args, **kwargs)
 
-  def _derive_sequences(self, bonds_per_atom):
+    if class2:
+      self._class2 = class2
+      sequences[:, 0:2] = sequences[:, 0:2][:, ::-1]
 
-    impropers = set()
-
-    c = 1 if self._class2 else 0
-
-    for i, bs in enumerate(bonds_per_atom):
-      impropers |= set([
-        t[:c] + (i+1,) + t[c:]
-        for t in it.combinations([n+1 for n in bs], 3)])
-
-    return list(impropers)
+    super().__init__(sequences, datanames, **kwargs)
 
   def _make_full_seq_to_type(self, seq_to_type):
 
-    new_dict = {}
-
     c = 1 if self._class2 else 0
 
-    for k, v in seq_to_type.items():
-      new_dict.update({l: v for l in [
-        t[:c] + (k[c],) + t[c:] for t in it.permutations(k[:c]+k[c+1:])]})
-
-    return new_dict
+    return {
+      t[:c] + (k[c],) + t[c:]: v for k, v in seq_to_type.items()
+      for t in it.permutations(k[:c]+k[c+1:])}
 
 class LammpsSpecialBonds:
   """
