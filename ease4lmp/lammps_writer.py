@@ -130,6 +130,10 @@ class LammpsWriter:
   def get_max_impropers_per_atom(self):
     self.get_maximum_per_atom("improper")
 
+  def get_max_specials_per_atom(self):
+    print("You might need to set 'extra/special/per/atom' to: {}".format(
+      self._special_bonds.get_maximum_per_atom()))
+
   def set_atom_data(self, **kwargs):
     """
     This method ...

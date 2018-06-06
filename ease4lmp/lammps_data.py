@@ -393,6 +393,9 @@ class LammpsSpecialBonds:
               continue
             self._data[i]["1-4"].append(l+1)
 
+  def get_maximum_per_atom(self):
+    return max([sum([len(v) for v in d.values()]) for d in self._data])
+
   def write_lines(self, path):
     """
     This method ...
