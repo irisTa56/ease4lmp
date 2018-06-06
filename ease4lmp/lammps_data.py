@@ -272,7 +272,9 @@ class LammpsTopology:
     This method ...
     [Arguments]
     """
-    unique, counts = np.unique(self._sequences, return_counts=True)
+    # see Lammps' source code about angles/dihedrals/impopers per atom;
+    # Atom::data_angles(), Atom::data_dihedrals(), Atom::data_impropers()
+    unique, counts = np.unique(self._sequences.T[1], return_counts=True)
     return max(counts)
 
   def set_types(self, seq_to_type, atom_types):
@@ -329,6 +331,11 @@ class LammpsBonds(LammpsTopology):
   """
   This class ...
   """
+
+  def get_maximum_per_atom(self):
+    # see Lammps' source code about bonds per atom; Atom::data_bonds()
+    unique, counts = np.unique(self._sequences.T[0], return_counts=True)
+    return max(counts)
 
 class LammpsAngles(LammpsTopology):
   """
