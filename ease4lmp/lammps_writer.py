@@ -24,8 +24,7 @@ class LammpsWriter:
 
   def __init__(
     self, atoms, atom_style, lammps_unit="real", special_bonds=False,
-    tag_is_type=True, **kwargs
-  ):
+    tag_is_type=True, **kwargs):
     """
     This constructor ...
     [Arguments]
