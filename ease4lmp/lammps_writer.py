@@ -199,7 +199,9 @@ class LammpsWriter:
     num_atom_type = kwargs["num_atom_type"] \
       if "num_atom_type" in kwargs else self._lmp_atoms.get_num_type()
 
-    num_topo = {k: v.get_num() for k, v in self._topo.items()} \
+    num_topo = {
+      k: v.get_num() if v.get_num_type() else 0
+      for k, v in self._topo.items()} \
       if self._topo else dict.fromkeys(topo_keys, 0)
     num_topo_type = {k: v.get_num_type() for k, v in self._topo.items()} \
       if self._topo else dict.fromkeys(topo_keys, 0)
@@ -250,7 +252,9 @@ class LammpsWriter:
 
     num_atom = self._lmp_atoms.get_num()
 
-    num_topo = {k: v.get_num() for k, v in self._topo.items()} \
+    num_topo = {
+      k: v.get_num() if v.get_num_type() else 0
+      for k, v in self._topo.items()} \
       if self._topo else dict.fromkeys(topo_keys, 0)
 
     with open(path, "w") as f:
