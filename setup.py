@@ -5,7 +5,7 @@ with open("README.md", "r") as fh:
 
 st.setup(
     name="ease4lmp",
-    version="0.2a.1",
+    version="0.2.1a",
     author="Takayuki Kobayashi",
     author_email="iris.takayuki@gmail.com",
     description="Extension of Atomic Simulation Environment for LAMMPS",
@@ -16,7 +16,6 @@ st.setup(
     classifiers=(
         "Programming Language :: Python :: 3",
         "License :: OSI Approved :: MIT License",
-        "Operating System :: OS Independent",
     ),
     install_requires=["ase>=3.16.0", "numpy>=1.14.3"],
 )
