@@ -1,5 +1,5 @@
 *.egg-info
-mynotes.md
+mynotes/
 .ipynb_checkpoints
 __pycache__
 data.*
