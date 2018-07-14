@@ -19,14 +19,13 @@ topo_keys = ("bond", "angle", "dihedral", "improper")
 
 class LammpsWriter:
   """
-  This class ...
+  This class writes Lammps DATA and MOLECULE file.
   """
 
   def __init__(
     self, atoms, atom_style, lammps_unit="real", special_bonds=False,
     tag_is_type=True, **kwargs):
     """
-    This constructor ...
     [Arguments]
     * atoms: <BondedAtoms/ase.Atoms>
     * atom_style: <str>
@@ -76,19 +75,23 @@ class LammpsWriter:
 
   def get_required_datanames(self):
     """
-    This method ...
+    This method returns data name (key of property) required to write
+    Lammps DATA file.
     """
     return self._lmp_atoms.get_required_datanames()
 
   def get_required_datanames_for_molecule(self):
     """
-    This method ...
+    This method returns data name (key of property) required to write
+    Lammps MOLECULE file.
     """
     return self._lmp_atoms.get_required_datanames(molecule=True)
 
   def get_sequence_patterns(self, key):
     """
-    This method ...
+    This method returns all patterns of sequence consisting of atom
+    types for the given topology (by key).
+
     [Arguments]
     * key: <str>
     """
@@ -110,7 +113,9 @@ class LammpsWriter:
 
   def get_maximum_per_atom(self, key):
     """
-    This method ...
+    This method returns the maximum number of topologies (given by key)
+    per atom.
+
     [Arguments]
     * key: <str>
     """
@@ -135,7 +140,6 @@ class LammpsWriter:
 
   def set_atom_data(self, **kwargs):
     """
-    This method ...
     [Arguments]
     * kwargs:
       * (key) name of atom-value
@@ -150,7 +154,6 @@ class LammpsWriter:
 
   def set_masses(self, mass_dict):
     """
-    This method ...
     [Arguments]
     * mass_dict: <dict>; <int> => <float> (in lammps' unit)
     """
@@ -161,7 +164,6 @@ class LammpsWriter:
 
   def set_topology_types(self, **kwargs):
     """
-    This method ...
     [Arguments]
     * kwargs:
       * (key) concrete name (key) of sequence.
@@ -184,9 +186,11 @@ class LammpsWriter:
   def set_improper_types(self, seq_to_type):
     self.set_topology_types(improper=seq_to_type)
 
-  def write_lammps_data(self, path, mass=False, **kwargs):
+  def write_lammps_data(
+    self, path, mass=False, centering=False, **kwargs):
     """
-    This method ...
+    This method write Lammps DATA file.
+
     [Arguments]
     * path: <str>
     * mass: <bool>; on/off Masses section
@@ -224,11 +228,24 @@ class LammpsWriter:
       f.write("".join([
         "{} {} types\n".format(num_topo_type[k], k) for k in topo_keys]))
 
+      xlo, ylo, zlo, = 0.0, 0.0, 0.0
       xhi, yhi, zhi, xy, xz, yz = self._prism.get_lammps_prism()
 
+      if centering:
+
+        xhi *= 0.5
+        yhi *= 0.5
+        zhi *= 0.5
+        xlo = -xhi
+        ylo = -yhi
+        zlo = -zhi
+
+        self._lmp_atoms.shift_positions((xlo, ylo, zlo))
+
       f.write("\n{}".format("".join([
-        "{0:.8e} {1:.8e}  {2}lo {2}hi\n".format(0, hi, x)
-        for hi, x in zip([xhi, yhi, zhi], ["x", "y", "z"])])))
+        "{0:.8e} {1:.8e}  {2}lo {2}hi\n".format(lo, hi, x)
+        for lo, hi, x in zip(
+          [xlo, ylo, zlo], [xhi, yhi, zhi], ["x", "y", "z"])])))
 
       if self._prism.is_skewed():
         f.write("\n{:.8e} {:.8e} {:.8e}  xy xz yz\n".format(
@@ -245,7 +262,8 @@ class LammpsWriter:
 
   def write_lammps_molecule(self, path, special_bonds=True):
     """
-    This method ...
+    This method write Lammps MOLECULE file.
+
     [Arguments]
     * path: <str>
     """
@@ -279,7 +297,6 @@ class ExtendedPrism(Prism):
 
   def transform_to_lammps(self, vectors):
     """
-    This method ...
     [Arguments]
     * path: <str>
     """

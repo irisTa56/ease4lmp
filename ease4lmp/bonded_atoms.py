@@ -13,13 +13,17 @@ import numpy as np
 
 class BondedAtoms(ase.Atoms):
   """
-  This class ...
+  This class inherits from ase.Atoms, and has functionalities to deal
+  with bonds connetcting a pair of atoms. Basically, you can use methods
+  of ase.Atoms in the same manner.
   """
 
   @staticmethod
   def inherit(atoms):
     """
-    This method ...
+    This method is a static method which takes an ase.Atoms instance,
+    converts it to a BondedAtoms instance, and returns the instance.
+
     [Arguments]
     * atoms: <ase.Atoms>
     """
@@ -31,7 +35,7 @@ class BondedAtoms(ase.Atoms):
 
   def __init__(self, *args, **kwargs):
     """
-    This constructor ...
+    This constructor takes the same arguments with ase.Atoms' one.
     """
     super().__init__(*args, **kwargs)
 
@@ -44,7 +48,20 @@ class BondedAtoms(ase.Atoms):
 
   def add_bond(self, atom1, atom2, img1=(0,0,0), img2=(0,0,0)):
     """
-    This method ...
+    This method add a bond connecting two atoms (specified by index).
+    The bond data is stored as a property of the first atom and the
+    second atoms as following.
+
+    [
+      [rel-id, rel-img_x, rel-img_y, rel-img_z],  # 1st bond
+      [rel-id, rel-img_x, rel-img_y, rel-img_z],  # 2nd bond
+      ...
+    ]
+
+    'rel-id' is a relative id; id of the second atom minus id of the
+    first atom, for the first atom. 'rel-img's is relative image flags
+    used in the case of periodic boundary conditions.
+
     [Arguments]
     * atom1: <int>
     * atom2: <int>
@@ -71,7 +88,9 @@ class BondedAtoms(ase.Atoms):
 
   def change_max_bonds(self, n=4):
     """
-    This method ...
+    This method change the maximum number of bonds per atom. Default is
+    four bonds per atom.
+
     [Arguments]
     * n: <int>; new maximum number of bonds per atom
     """
@@ -89,6 +108,7 @@ class BondedAtoms(ase.Atoms):
   def extend(self, other):
     """
     Extend atoms object by appending atoms from *other*.
+
     [Arguments]
     * other: <ase.Atom/ase.Atoms/BondedAtoms>
     [Return]
@@ -105,8 +125,9 @@ class BondedAtoms(ase.Atoms):
 
   def get_bonds(self):
     """
-    This method gets integer an array of bond data (an element in the
+    This method returns an integer array of bond data (an element in the
     first axis per atom).
+
     [Return]
     <numpy.ndarray>
     """
@@ -114,7 +135,9 @@ class BondedAtoms(ase.Atoms):
 
   def get_bonds_per_atom(self):
     """
-    This method ...
+    This method returns a nested list of bond data. Unlike get_bonds(),
+    this method returns data of existing bonds only.
+
     [Return]
     <list>
     """
@@ -126,6 +149,7 @@ class BondedAtoms(ase.Atoms):
     """
     This method gets an array of 2-membered sequence of atom-index
     representing bonds.
+
     [Return]
     <numpy.ndarray>
     """
@@ -143,6 +167,7 @@ class BondedAtoms(ase.Atoms):
     """
     This method gets an array of 3-membered sequence of atom-index
     representing angles.
+
     [Return]
     <numpy.ndarray>
     """
@@ -158,6 +183,7 @@ class BondedAtoms(ase.Atoms):
     """
     This method gets an array of 4-membered sequence of atom-index
     representing dihedrals.
+
     [Return]
     <numpy.ndarray>
     """
@@ -181,6 +207,7 @@ class BondedAtoms(ase.Atoms):
     """
     This method gets an array of 4-membered sequence of atom-index
     representing impropers.
+
     [Return]
     <numpy.ndarray>
     """
@@ -194,7 +221,8 @@ class BondedAtoms(ase.Atoms):
 
   def remove_bond(self, atom1, atom2, img1=(0,0,0), img2=(0,0,0)):
     """
-    This method ...
+    This method removes a bond connecting tow atoms.
+
     [Arguments]
     * atom: <int>
     * bond: <int>
@@ -211,6 +239,7 @@ class BondedAtoms(ase.Atoms):
   def set_bonds(self, bonds):
     """
     This method updates 'bonds' array.
+
     [Arguments]
     * bonds: <numpy.ndarray>
     """
@@ -250,6 +279,7 @@ class BondedAtoms(ase.Atoms):
   def __imul__(self, m):
     """
     In-place repeat of atoms.
+
     [Arguments]
     * m: <tuple/list/int>
     [Return]
@@ -287,7 +317,6 @@ class BondedAtoms(ase.Atoms):
 
   def _get_available_bond_index(self, atom, relative_data, offset=0):
     """
-    This method ...
     [Arguments]
     * atom: <int>
     * relative_data: <numpy.ndarray>
@@ -312,7 +341,6 @@ class BondedAtoms(ase.Atoms):
 
   def _get_matched_bond_index(self, atom, relative_data):
     """
-    This method ...
     [Arguments]
     * atom: <int>
     * relative_data: <numpy.ndarray>
@@ -329,7 +357,6 @@ class BondedAtoms(ase.Atoms):
 
   def _remove_bond(self, atom, bond_idx):
     """
-    This method ...
     [Arguments]
     * atom: <int>; bonds belonging to an atom
     * bond_idx: <int>; index of a bond to be removed

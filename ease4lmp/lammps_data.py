@@ -14,12 +14,12 @@ datanames_molecule = {"id", "type", "q", "x", "y", "z"}  # "diameter", "mass"
 
 class LammpsAtoms:
   """
-  This class ...
+  This class corresponds to 'Atoms' (and 'Velocities') section in
+  Lammps DATA (or MOLECULE) file.
   """
 
   def __init__(self, atom_style, positions, velocities=None, types=None):
     """
-    This constructor ...
     [Arguments]
     * atom_style: <str>
     * positions: <numpy.ndarray>
@@ -86,7 +86,7 @@ class LammpsAtoms:
 
   def set_data(self, **kwargs):
     """
-    This method ...
+    This method stores data.
     """
 
     if "type" in kwargs:
@@ -109,9 +109,21 @@ class LammpsAtoms:
           self._data_vel[k] = data
           print("LammpsAtoms: '{}' have been set again".format(k))
 
+  def shift_positions(self, shift=(0.0, 0.0, 0.0)):
+    """
+    This method shifts positions.
+
+    [Arguments]
+    * dr: <list/tuple>; shift in x, y, z directions
+    """
+    for dim, d in zip(["x", "y", "z"], shift):
+      self._data[dim] = list(np.array(self._data[dim]) + d)
+
   def write_lines(self, path, velocity=False, **kwargs):
     """
-    This method ...
+    This method makes LammpsDataLines instance to write data in Lammps
+    DATA format to the specified path.
+
     [Arguments]
     * path: <str>
     * velocity: <bool>
@@ -135,7 +147,9 @@ class LammpsAtoms:
 
   def write_lines_for_molecule(self, path):
     """
-    This method ...
+    This method makes LammpsDataLines instance to write data in Lammps
+    MOLECULE format to the specified path.
+
     [Arguments]
     * path: <str>
     """
@@ -155,12 +169,11 @@ class LammpsAtoms:
 
 class LammpsDataLines:
   """
-  This class ...
+  This class corresponds to data content in section in Lammps file.
   """
 
   def __init__(self, section_header, line_format):
     """
-    This constructor ...
     [Arguments]
     * section_header: <str>
     * line_format: <str>
@@ -174,7 +187,8 @@ class LammpsDataLines:
 
   def write(self, path, data=None):
     """
-    This method ...
+    This method writes data to a file in the specified path.
+
     [Arguments]
     * path: <str>
     * data: <dict>
@@ -195,13 +209,15 @@ class LammpsDataLines:
 
 class LammpsTopology:
   """
-  This class ...
+  This class corresponds to a section of topology ('Bonds', 'Angles',
+  'Dihedrals', 'Impropers') in Lammps file.
   """
 
   @staticmethod
   def create(name, sequences, **kwargs):
     """
-    This method ...
+    This is a factory method of LammpsTopology.
+
     [Arguments]
     * name: <str>
     * data: <numpy.ndarray>
@@ -228,7 +244,6 @@ class LammpsTopology:
 
   def __init__(self, sequences, datanames, **kwargs):
     """
-    This constructor ...
     [Arguments]
     * bonds_per_atom: <list>; not containing image flags
     * datanames: <tuple>
@@ -260,7 +275,8 @@ class LammpsTopology:
 
   def get_sequence_patterns(self, atom_types):
     """
-    This method ...
+    This method returns a set of sequences (tuple) of atom types.
+
     [Arguments]
     * atom_types: <list>
     """
@@ -269,17 +285,17 @@ class LammpsTopology:
 
   def get_maximum_per_atom(self):
     """
-    This method ...
-    [Arguments]
+    This method returns the maximum number of topologies per atom.
     """
-    # see Lammps' source code about angles/dihedrals/impopers per atom;
+    # see Lammps source code about angles/dihedrals/impopers per atom;
     # Atom::data_angles(), Atom::data_dihedrals(), Atom::data_impropers()
     unique, counts = np.unique(self._sequences.T[1], return_counts=True)
     return max(counts)
 
   def set_types(self, seq_to_type, atom_types):
     """
-    This method ...
+    This method set types to topologies.
+
     [Arguments]
     * seq_to_type: <dict>; (<tuple> => <int>)
     * atom_types: <list>
@@ -295,7 +311,9 @@ class LammpsTopology:
 
   def write_lines(self, path):
     """
-    This method ...
+    This method makes LammpsDataLines instance to write data to the
+    specified Lammps file.
+
     [Arguments]
     * path: <str>
     """
@@ -303,7 +321,6 @@ class LammpsTopology:
 
   def _make_full_seq_to_type(self, seq_to_type):
     """
-    This method ...
     [Arguments]
     * seq_to_type: <dict>; (<tuple> => <int>)
     [Return]
@@ -313,7 +330,6 @@ class LammpsTopology:
 
   def _set_data(self, **kwargs):
     """
-    This method ...
     """
     for k, v in kwargs.items():
       data = list(v)  # ensure data is <list>
@@ -329,32 +345,33 @@ class LammpsTopology:
 
 class LammpsBonds(LammpsTopology):
   """
-  This class ...
+  This class corresponds to 'Bonds' section in Lammps file.
   """
 
   def get_maximum_per_atom(self):
-    # see Lammps' source code about bonds per atom; Atom::data_bonds()
+    # see Lammps source code about bonds per atom; Atom::data_bonds()
     unique, counts = np.unique(self._sequences.T[0], return_counts=True)
     return max(counts)
 
 class LammpsAngles(LammpsTopology):
   """
-  This class ...
+  This class corresponds to 'Angles' section in Lammps file.
   """
 
 class LammpsDihedrals(LammpsTopology):
   """
-  This class ...
+  This class corresponds to 'Dihedrals' section in Lammps file.
   """
 
 class LammpsImpropers(LammpsTopology):
   """
-  This class ...
+  This class corresponds to 'Impropers' section in Lammps file.
   """
 
   def __init__(self, sequences, datanames, class2=False, **kwargs):
     """
-    This constructor ...
+    LammpsImpropers takes arguments of LammpsTopology and an argument
+    to determine whether forcefiled is class2 or not.
     """
 
     if class2:
@@ -374,12 +391,12 @@ class LammpsImpropers(LammpsTopology):
 
 class LammpsSpecialBonds:
   """
-  This class ...
+  This class corresponds to 'Special Bond Counts' and 'Special Bonds'
+  sections in Lammps MOLECULE file.
   """
 
   def __init__(self, bonds_per_atom):
     """
-    This constructor ...
     [Arguments]
     * bonds_per_atom: <list>; not containing image flags
     """
@@ -405,7 +422,8 @@ class LammpsSpecialBonds:
 
   def write_lines(self, path):
     """
-    This method ...
+    This method writes data to Lammps MOLECULE file.
+
     [Arguments]
     * path: <str>
     """

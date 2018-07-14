@@ -12,7 +12,7 @@ or
 
 ```
 git clone https://github.com/irisTa56/ease4lmp
-cd lammpythonic
+cd ease4lmp
 python setup.py install
 ```
 
