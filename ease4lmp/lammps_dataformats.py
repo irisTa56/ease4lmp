@@ -16,7 +16,7 @@ lmp_dataformats_atoms = {
   #"dpd": ("id:8d", "type:4d", "theta", "x:15.8e", "y:15.8e", "z:15.8e"),
   #"edpd": ("id:8d", "type:4d", "edpd_temp", "edpd_cv", "x:15.8e", "y:15.8e", "z:15.8e"),
   #"mdpd": ("id:8d", "type:4d", "rho", "x:15.8e", "y:15.8e", "z:15.8e"),
-  #"tdpd": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e", "cc1", "cc2", "…", "ccNspecies"),
+  #"tdpd": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e", "cc1", "cc2", "...", "ccNspecies"),
   #"electron": ("id:8d", "type:4d", "q:9.6f", "spin", "eradius", "x:15.8e", "y:15.8e", "z:15.8e"),
   #"ellipsoid": ("id:8d", "type:4d", "ellipsoidflag", "density", "x:15.8e", "y:15.8e", "z:15.8e"),
   "full": ("id:8d", "mol:6d", "type:4d", "q:9.6f", "x:15.8e", "y:15.8e", "z:15.8e"),
@@ -29,7 +29,7 @@ lmp_dataformats_atoms = {
   #"template": ("id:8d", "mol:6d", "template_index", "template_atom", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
   #"tri": ("id:8d", "mol:6d", "type:4d", "triangleflag", "density", "x:15.8e", "y:15.8e", "z:15.8e"),
   #"wavepacket": ("id:8d", "type:4d", "charge", "spin", "eradius", "etag", "cs_re", "cs_im", "x:15.8e", "y:15.8e", "z:15.8e"),
-  #"hybrid": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e", "sub_style1", "sub_style2", "…}"
+  #"hybrid": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e", "sub_style1", "sub_style2", "...")
 }
 
 lmp_dataformats_velocities = {
@@ -37,5 +37,5 @@ lmp_dataformats_velocities = {
   #"electron": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "ervel"),
   #"ellipsoid": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "lx", "ly", "lz"),
   #"sphere": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "wx", "wy", "wz"),
-  #"hybrid": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "sub-style1", "sub-style2", "…}"
+  #"hybrid": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "sub-style1", "sub-style2", "...")
 }

@@ -1,21 +1,32 @@
-import setuptools as st
+import os
 
-with open("README.md", "r") as fh:
-    long_description = fh.read()
+from setuptools import setup, find_packages
 
-st.setup(
-    name="ease4lmp",
-    version="0.2.1a",
-    author="Takayuki Kobayashi",
-    author_email="iris.takayuki@gmail.com",
-    description="Extension of Atomic Simulation Environment for LAMMPS",
-    long_description=long_description,
-    long_description_content_type="text/markdown",
-    url="https://github.com/irisTa56/ease4lmp",
-    packages=st.find_packages(),
-    classifiers=(
-        "Programming Language :: Python :: 3",
-        "License :: OSI Approved :: MIT License",
-    ),
-    install_requires=["ase>=3.16.0", "numpy>=1.14.3"],
+# read version & description
+
+version_ns = {}
+with open(os.path.join("ease4lmp", "_version.py")) as f:
+  exec(f.read(), {}, version_ns)
+
+with open("README.md", "r") as f:
+  long_description = f.read()
+
+# setup
+
+setup(
+  name="ease4lmp",
+  version=version_ns["__version__"],
+  author="Takayuki Kobayashi",
+  author_email="iris.takayuki@gmail.com",
+  description="Extension of Atomic Simulation Environment for LAMMPS",
+  license="MIT",
+  long_description=long_description,
+  long_description_content_type="text/markdown",
+  url="https://github.com/irisTa56/ease4lmp",
+  packages=find_packages(),
+  classifiers=(
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+  ),
+  install_requires=["ase>=3.16.2", "numpy>=1.15.2"],
 )

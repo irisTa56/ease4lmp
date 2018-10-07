@@ -24,8 +24,9 @@ class BondedAtoms(ase.Atoms):
     This method is a static method which takes an ase.Atoms instance,
     converts it to a BondedAtoms instance, and returns the instance.
 
-    [Arguments]
-    * atoms: <ase.Atoms>
+    **Arguments**
+      * TETE
+      * atoms: <ase.Atoms>
     """
     atoms.__class__ = BondedAtoms
     atoms._max_bonds = 4
