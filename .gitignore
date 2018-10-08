@@ -4,5 +4,8 @@
 mynotes/
 .ipynb_checkpoints
 __pycache__
-data.*
-molecule.*
+
+notebooks/data.*
+notebooks/molecule.*
+notebooks/dev_*
+notebooks/archive
