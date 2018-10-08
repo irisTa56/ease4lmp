@@ -25,7 +25,7 @@
 <!-- Node8 -->
 <g id="node2" class="node">
 <title>Node8</title>
-<g id="a_node2"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a3cb100afa6a270d02da6538a89a0aee8" target="_top" xlink:title="This method returns a set of sequences (tuple) of atom types. ">
+<g id="a_node2"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a3cb100afa6a270d02da6538a89a0aee8" target="_top" xlink:title="ease4lmp.lammps_data.Lammps\lTopology.get_sequence_patterns">
 <polygon fill="#ffffff" stroke="#000000" points="201,-.5 201,-30.5 362,-30.5 362,-.5 201,-.5"/>
 <text text-anchor="start" x="209" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ease4lmp.lammps_data.Lammps</text>
 <text text-anchor="middle" x="281.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Topology.get_sequence_patterns</text>

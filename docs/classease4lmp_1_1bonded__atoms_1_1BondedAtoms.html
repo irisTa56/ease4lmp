@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('classease4lmp_1_1bonded__atoms_1_1Bond
 </div><!--header-->
 <div class="contents">
 
-<p>This class inherits from ase.Atoms, and has functionalities to deal with bonds connetcting a pair of atoms.  
+<p>This class inherits from <code>ase.Atoms</code> class, and has functionalities to deal with (covalent) bonds connecting a pair of atoms.  
  <a href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for ease4lmp.bonded_atoms.BondedAtoms:</div>
@@ -111,80 +111,107 @@ Collaboration diagram for ease4lmp.bonded_atoms.BondedAtoms:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a3c9ad19b7fbc373a5db953b24c5d5654"><td class="memItemLeft" align="right" valign="top"><a id="a3c9ad19b7fbc373a5db953b24c5d5654"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a3c9ad19b7fbc373a5db953b24c5d5654">__init__</a> (self, args, kwargs)</td></tr>
-<tr class="memdesc:a3c9ad19b7fbc373a5db953b24c5d5654"><td class="mdescLeft">&#160;</td><td class="mdescRight">This constructor takes the same arguments with ase.Atoms' one. <br /></td></tr>
+<tr class="memitem:a3c9ad19b7fbc373a5db953b24c5d5654"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a3c9ad19b7fbc373a5db953b24c5d5654">__init__</a> (self, args, kwargs)</td></tr>
 <tr class="separator:a3c9ad19b7fbc373a5db953b24c5d5654"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab1e2adc1708633c55263471f6ee4fbbd"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#ab1e2adc1708633c55263471f6ee4fbbd">add_bond</a> (self, atom1, atom2, img1=(0, 0, 0), img2=(0, 0, 0))</td></tr>
-<tr class="memdesc:ab1e2adc1708633c55263471f6ee4fbbd"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method add a bond connecting two atoms (specified by index).  <a href="#ab1e2adc1708633c55263471f6ee4fbbd">More...</a><br /></td></tr>
 <tr class="separator:ab1e2adc1708633c55263471f6ee4fbbd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:adde5f0416915b701bf8a035667669fac"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#adde5f0416915b701bf8a035667669fac">change_max_bonds</a> (self, n=4)</td></tr>
-<tr class="memdesc:adde5f0416915b701bf8a035667669fac"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method change the maximum number of bonds per atom.  <a href="#adde5f0416915b701bf8a035667669fac">More...</a><br /></td></tr>
 <tr class="separator:adde5f0416915b701bf8a035667669fac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae0c80931db39cb429b4289fcce4a7681"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#ae0c80931db39cb429b4289fcce4a7681">extend</a> (self, other)</td></tr>
-<tr class="memdesc:ae0c80931db39cb429b4289fcce4a7681"><td class="mdescLeft">&#160;</td><td class="mdescRight">Extend atoms object by appending atoms from <em>other</em>.  <a href="#ae0c80931db39cb429b4289fcce4a7681">More...</a><br /></td></tr>
 <tr class="separator:ae0c80931db39cb429b4289fcce4a7681"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab5117c32b728bf8532c9bdca953ab833"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#ab5117c32b728bf8532c9bdca953ab833">get_bonds</a> (self)</td></tr>
-<tr class="memdesc:ab5117c32b728bf8532c9bdca953ab833"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns an integer array of bond data (an element in the first axis per atom).  <a href="#ab5117c32b728bf8532c9bdca953ab833">More...</a><br /></td></tr>
 <tr class="separator:ab5117c32b728bf8532c9bdca953ab833"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5314fa9e7048e102d62c466b96af7261"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a5314fa9e7048e102d62c466b96af7261">get_bonds_per_atom</a> (self)</td></tr>
-<tr class="memdesc:a5314fa9e7048e102d62c466b96af7261"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns a nested list of bond data.  <a href="#a5314fa9e7048e102d62c466b96af7261">More...</a><br /></td></tr>
 <tr class="separator:a5314fa9e7048e102d62c466b96af7261"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add9ac0b8ffdbb82612082922f937331e"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#add9ac0b8ffdbb82612082922f937331e">get_bonded_bonds</a> (self)</td></tr>
-<tr class="memdesc:add9ac0b8ffdbb82612082922f937331e"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method gets an array of 2-membered sequence of atom-index representing bonds.  <a href="#add9ac0b8ffdbb82612082922f937331e">More...</a><br /></td></tr>
 <tr class="separator:add9ac0b8ffdbb82612082922f937331e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae487040df8952e36a650af23933534e0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#ae487040df8952e36a650af23933534e0">get_bonded_angles</a> (self)</td></tr>
-<tr class="memdesc:ae487040df8952e36a650af23933534e0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method gets an array of 3-membered sequence of atom-index representing angles.  <a href="#ae487040df8952e36a650af23933534e0">More...</a><br /></td></tr>
 <tr class="separator:ae487040df8952e36a650af23933534e0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa9af3869b339a783541079b574bf73b5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#aa9af3869b339a783541079b574bf73b5">get_bonded_dihedrals</a> (self)</td></tr>
-<tr class="memdesc:aa9af3869b339a783541079b574bf73b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method gets an array of 4-membered sequence of atom-index representing dihedrals.  <a href="#aa9af3869b339a783541079b574bf73b5">More...</a><br /></td></tr>
 <tr class="separator:aa9af3869b339a783541079b574bf73b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0626868b2df32ce3567c4155baa68185"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a0626868b2df32ce3567c4155baa68185">get_bonded_impropers</a> (self)</td></tr>
-<tr class="memdesc:a0626868b2df32ce3567c4155baa68185"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method gets an array of 4-membered sequence of atom-index representing impropers.  <a href="#a0626868b2df32ce3567c4155baa68185">More...</a><br /></td></tr>
 <tr class="separator:a0626868b2df32ce3567c4155baa68185"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a56c3d2b35bc7e99aca8563a5cab9c693"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a56c3d2b35bc7e99aca8563a5cab9c693">remove_bond</a> (self, atom1, atom2, img1=(0, 0, 0), img2=(0, 0, 0))</td></tr>
-<tr class="memdesc:a56c3d2b35bc7e99aca8563a5cab9c693"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method removes a bond connecting tow atoms.  <a href="#a56c3d2b35bc7e99aca8563a5cab9c693">More...</a><br /></td></tr>
 <tr class="separator:a56c3d2b35bc7e99aca8563a5cab9c693"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a6ea6d10c647c1fea33cf1b009009302b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a6ea6d10c647c1fea33cf1b009009302b">set_bonds</a> (self, bonds)</td></tr>
-<tr class="memdesc:a6ea6d10c647c1fea33cf1b009009302b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method updates 'bonds' array.  <a href="#a6ea6d10c647c1fea33cf1b009009302b">More...</a><br /></td></tr>
 <tr class="separator:a6ea6d10c647c1fea33cf1b009009302b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0eacddba366cb2885ad356d6378af363"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a0eacddba366cb2885ad356d6378af363">__delitem__</a> (self, idx)</td></tr>
-<tr class="memdesc:a0eacddba366cb2885ad356d6378af363"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#a0eacddba366cb2885ad356d6378af363">More...</a><br /></td></tr>
 <tr class="separator:a0eacddba366cb2885ad356d6378af363"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8f4364d00ecba40732b164e1dafd2801"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a8f4364d00ecba40732b164e1dafd2801">__imul__</a> (self, m)</td></tr>
-<tr class="memdesc:a8f4364d00ecba40732b164e1dafd2801"><td class="mdescLeft">&#160;</td><td class="mdescRight">In-place repeat of atoms.  <a href="#a8f4364d00ecba40732b164e1dafd2801">More...</a><br /></td></tr>
 <tr class="separator:a8f4364d00ecba40732b164e1dafd2801"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:aad23b3fa0e52dcd84b4e66a030e0905c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#aad23b3fa0e52dcd84b4e66a030e0905c">inherit</a> (atoms)</td></tr>
-<tr class="memdesc:aad23b3fa0e52dcd84b4e66a030e0905c"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method is a static method which takes an ase.Atoms instance, converts it to a <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms, and has functionalities to deal with bonds connetcting a pair of ...">BondedAtoms</a> instance, and returns the instance.  <a href="#aad23b3fa0e52dcd84b4e66a030e0905c">More...</a><br /></td></tr>
 <tr class="separator:aad23b3fa0e52dcd84b4e66a030e0905c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a56a907e38e1970df1be8080afcb2b63c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a56a907e38e1970df1be8080afcb2b63c">_get_available_bond_index</a> (self, atom, relative_data, offset=0)</td></tr>
-<tr class="memdesc:a56a907e38e1970df1be8080afcb2b63c"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#a56a907e38e1970df1be8080afcb2b63c">More...</a><br /></td></tr>
 <tr class="separator:a56a907e38e1970df1be8080afcb2b63c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3ae881420fbfc3b3473703d210f88ee9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a3ae881420fbfc3b3473703d210f88ee9">_get_matched_bond_index</a> (self, atom, relative_data)</td></tr>
-<tr class="memdesc:a3ae881420fbfc3b3473703d210f88ee9"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#a3ae881420fbfc3b3473703d210f88ee9">More...</a><br /></td></tr>
 <tr class="separator:a3ae881420fbfc3b3473703d210f88ee9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aebda2c535bbcd56b3f0a520714f9634c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#aebda2c535bbcd56b3f0a520714f9634c">_remove_bond</a> (self, atom, bond_idx)</td></tr>
-<tr class="memdesc:aebda2c535bbcd56b3f0a520714f9634c"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#aebda2c535bbcd56b3f0a520714f9634c">More...</a><br /></td></tr>
 <tr class="separator:aebda2c535bbcd56b3f0a520714f9634c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a0b6311de9503ce92ba7e594b5d682416"><td class="memItemLeft" align="right" valign="top"><a id="a0b6311de9503ce92ba7e594b5d682416"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_max_bonds</b></td></tr>
+<tr class="memitem:a0b6311de9503ce92ba7e594b5d682416"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a0b6311de9503ce92ba7e594b5d682416">_max_bonds</a></td></tr>
+<tr class="memdesc:a0b6311de9503ce92ba7e594b5d682416"><td class="mdescLeft">&#160;</td><td class="mdescRight">Maximum number of bonds per atom.  <a href="#a0b6311de9503ce92ba7e594b5d682416">More...</a><br /></td></tr>
 <tr class="separator:a0b6311de9503ce92ba7e594b5d682416"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class inherits from ase.Atoms, and has functionalities to deal with bonds connetcting a pair of atoms. </p>
-<p>Basically, you can use methods of ase.Atoms in the same manner. </p>
+<div class="textblock"><p>This class inherits from <code>ase.Atoms</code> class, and has functionalities to deal with (covalent) bonds connecting a pair of atoms. </p>
+<p>An instance of this class has bond data as a <code>numpy.ndarray</code> as with other atomic properties like positions and velocities. Shape of the array for bond data is (<em>N</em>, <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a0b6311de9503ce92ba7e594b5d682416" title="Maximum number of bonds per atom. ">_max_bonds</a>, 4), where <em>N</em> is the number of atoms. The first axis of the array corresponds to atoms, and the second axis corresponds to bonds connected to each atom. The third axis contains data for each bond: an integer at 0 is relative index (of first axis) for the other atom, integers from 1 to 3 are relative image flags (to resolve a periodic boundary condition) for the other atom in the <em>x</em>, <em>y</em> and <em>z</em> direction, respectively.</p>
+<p>Basically, you can use methods of <code>ase.Atoms</code> in the same manner. </p>
 
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00014">14</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
-</div><h2 class="groupheader">Member Function Documentation</h2>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00016">16</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a3c9ad19b7fbc373a5db953b24c5d5654"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3c9ad19b7fbc373a5db953b24c5d5654">&#9670;&nbsp;</a></span>__init__()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.bonded_atoms.BondedAtoms.__init__ </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>args</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">*args</td><td>A variable number of arguments. </td></tr>
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Constructor of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> takes the same arguments as that of <code>ase.Atoms</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00059">59</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
 <a id="a0eacddba366cb2885ad356d6378af363"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a0eacddba366cb2885ad356d6378af363">&#9670;&nbsp;</a></span>__delitem__()</h2>
 
@@ -210,13 +237,15 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">idx</td><td>Index for an atom to be deleted. A list or tuple is also acceptable for multiple atoms.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method overrides <code>ase.Atoms.__delitem__</code>. Before calling the parent method to remove a selected atom, this method deletes bond data associated with the atom. </p>
 
-<p>[Arguments] </p>
-<ul>
-<li>idx: &lt;tuple/list/int&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00249">249</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00320">320</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -250,13 +279,16 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">m</td><td>Three-element tuple or list defining how many times a periodic simulation box is repeated in each direction. The first, second and third element corresponds to the <em>x</em>, <em>y</em> and <em>z</em> direction, respectively. If an integer is given as <code>m</code>, a tuple <code>(m, m, m)</code> is used.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> instance containing all the repeated atoms with the expanded simulation box.</dd></dl>
+<p>This method overrides <code>ase.Atoms.__imul__</code>. After calling the parent method to expand the simulation box, this method resolves bonds originally connecting two atoms in different images of the periodic simulation box. </p>
 
-<p>In-place repeat of atoms. </p>
-<p>[Arguments]</p><ul>
-<li>m: &lt;tuple/list/int&gt; [Return] &lt;BondedAtoms&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00280">280</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00357">357</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 
 </div>
 </div>
@@ -305,15 +337,18 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atom</td><td>Index for an atom. </td></tr>
+    <tr><td class="paramname">relative_data</td><td>A <code>numpy.ndarray</code> of which shape is (4): new bond data to be added by <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#ab1e2adc1708633c55263471f6ee4fbbd">add_bond</a>. </td></tr>
+    <tr><td class="paramname">offset</td><td>Returned index is offset by this value.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The minimum available index in the second axis of an array for bond data.</dd></dl>
+<p>For more details about the array for bond data, please see documentation of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> class. </p>
 
-<p>[Arguments] </p>
-<ul>
-<li>atom: &lt;int&gt;</li>
-<li>relative_data: &lt;numpy.ndarray&gt;</li>
-<li>offset: &lt;int&gt;; postpone returning index until this becomes zero [Return] &lt;int&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00319">319</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00406">406</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -361,14 +396,17 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atom</td><td>Index for an atom. </td></tr>
+    <tr><td class="paramname">relative_data</td><td>A <code>numpy.ndarray</code> of which shape is (4): existing bond data to be removed by <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a56c3d2b35bc7e99aca8563a5cab9c693">remove_bond</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Index in the second axis of an array for bond data, where data matches <code>relative_data</code>.</dd></dl>
+<p>For more details about the array for bond data, please see documentation of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> class. </p>
 
-<p>[Arguments] </p>
-<ul>
-<li>atom: &lt;int&gt;</li>
-<li>relative_data: &lt;numpy.ndarray&gt; [Return] &lt;int&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00343">343</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00439">439</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -416,14 +454,16 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atom</td><td>Index for an atom to which a bond to be removed belongs. </td></tr>
+    <tr><td class="paramname">bond_idx</td><td>Index for the bond to be removed (index in the second axis of an array for bond data).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>For more details about the array for bond data, please see documentation of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> class. </p>
 
-<p>[Arguments] </p>
-<ul>
-<li>atom: &lt;int&gt;; bonds belonging to an atom</li>
-<li>bond_idx: &lt;int&gt;; index of a bond to be removed </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00359">359</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00463">463</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -475,19 +515,22 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>This method add a bond connecting two atoms (specified by index). </p>
-<p>The bond data is stored as a property of the first atom and the second atoms as following.</p>
-<p>[ [rel-id, rel-img_x, rel-img_y, rel-img_z], # 1st bond [rel-id, rel-img_x, rel-img_y, rel-img_z], # 2nd bond ... ]</p>
-<p>'rel-id' is a relative id; id of the second atom minus id of the first atom, for the first atom. 'rel-img's is relative image flags used in the case of periodic boundary conditions.</p>
-<p>[Arguments]</p><ul>
-<li>atom1: &lt;int&gt;</li>
-<li>atom2: &lt;int&gt;</li>
-<li>img1: &lt;tuple/list&gt;</li>
-<li>img2: &lt;tuple/list&gt; </li>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atom1</td><td>Index for the first atom. </td></tr>
+    <tr><td class="paramname">atom2</td><td>Index for the second atom. </td></tr>
+    <tr><td class="paramname">img1</td><td>Three-element tuple or list of integers indicating which image of a periodic simulation box the first atom is in. </td></tr>
+    <tr><td class="paramname">img2</td><td>Three-element tuple or list of integers indicating which image of a periodic simulation box the second atom is in.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method adds a bond connecting two atoms. The bond data is stored as following.</p>
+<ul>
+<li>Bond data in the first atom: <code>[atom2-atom1, *(img2-img1)]</code></li>
+<li>Bond data in the second atom: <code>[atom1-atom2, *(img1-img2)]</code> </li>
 </ul>
 
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00050">50</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00079">79</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -521,14 +564,15 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">n</td><td>New maximum number of bonds per atom.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method changes the maximum number of bonds per atom. Default is four bonds per atom. </p>
 
-<p>This method change the maximum number of bonds per atom. </p>
-<p>Default is four bonds per atom.</p>
-<p>[Arguments]</p><ul>
-<li>n: &lt;int&gt;; new maximum number of bonds per atom </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00090">90</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00118">118</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 
 </div>
 </div>
@@ -557,13 +601,16 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">other</td><td>An instance of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a>, <code>ase.Atoms</code> or <code>ase.Atom</code> class.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>An extended <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> instance.</dd></dl>
+<p>This method extends this instance by appending another instance of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a>, <code>ase.Atoms</code> or <code>ase.Atom</code> class. </p>
 
-<p>Extend atoms object by appending atoms from <em>other</em>. </p>
-<p>[Arguments]</p><ul>
-<li>other: &lt;ase.Atom/ase.Atoms/BondedAtoms&gt; [Return] &lt;BondedAtoms&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00109">109</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00138">138</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 
 </div>
 </div>
@@ -582,11 +629,10 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A <code>numpy.ndarray</code> of <em>absolute</em> atom-index describing all angles defined by bonds.</dd></dl>
+<p>This method returns a two-dimensional array describing angles. Each row corresponds to each angle, and each column corresponds to the first, second and third atom forming each angle. The second atom is the center one. </p>
 
-<p>This method gets an array of 3-membered sequence of atom-index representing angles. </p>
-<p>[Return] &lt;numpy.ndarray&gt; </p>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00167">167</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00210">210</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -610,11 +656,10 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A <code>numpy.ndarray</code> of <em>absolute</em> atom-index describing all bonds.</dd></dl>
+<p>This method returns a two-dimensional array describing bonds. Each row corresponds to each bond, and each column corresponds to the first and second atom connected by each bond. </p>
 
-<p>This method gets an array of 2-membered sequence of atom-index representing bonds. </p>
-<p>[Return] &lt;numpy.ndarray&gt; </p>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00149">149</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00190">190</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -638,11 +683,10 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A <code>numpy.ndarray</code> of <em>absolute</em> atom-index describing all dihedrals defined by bonds.</dd></dl>
+<p>This method returns a two-dimensional array describing dihedrals. Each row corresponds to each dihedral, and each column corresponds to the first, second, third and fourth atom forming each dihedral. The four atoms are connected linearly by three bonds. </p>
 
-<p>This method gets an array of 4-membered sequence of atom-index representing dihedrals. </p>
-<p>[Return] &lt;numpy.ndarray&gt; </p>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00183">183</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00231">231</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -666,11 +710,10 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A <code>numpy.ndarray</code> of <em>absolute</em> atom-index describing all impropers defined by bonds.</dd></dl>
+<p>This method returns a two-dimensional array describing impropers. Each row corresponds to each improper, and each column corresponds to the first, second, third and fourth atom forming each improper. The first atom is the center one. </p>
 
-<p>This method gets an array of 4-membered sequence of atom-index representing impropers. </p>
-<p>[Return] &lt;numpy.ndarray&gt; </p>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00207">207</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00261">261</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -694,11 +737,10 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A <code>numpy.ndarray</code> containing bond data.</dd></dl>
+<p>This method returns an array of integers containing bond data. For more details about the array, please see documentation of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> class. </p>
 
-<p>This method returns an integer array of bond data (an element in the first axis per atom). </p>
-<p>[Return] &lt;numpy.ndarray&gt; </p>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00127">127</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00159">159</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 
 </div>
 </div>
@@ -717,13 +759,10 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>An atom-wise list containing <em>absolute</em> indices for bonded atoms.</dd></dl>
+<p>This method returns a nested list of bond data. Unlike <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#ab5117c32b728bf8532c9bdca953ab833">get_bonds</a>, this method returns data of existing bonds only. Each element of the outer list corresponds to each atom. The inner list consists of <em>absolute</em> indices for atoms bonded with the each atom. </p>
 
-<p>This method returns a nested list of bond data. </p>
-<p>Unlike <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#ab5117c32b728bf8532c9bdca953ab833" title="This method returns an integer array of bond data (an element in the first axis per atom)...">get_bonds()</a>, this method returns data of existing bonds only.</p>
-<p>[Return] </p><ul>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00137">137</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00172">172</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
@@ -755,14 +794,16 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atoms</td><td>An <code>ase.Atoms</code> instance to be down-casted to <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> instance.</dd></dl>
+<p>This static method takes an <code>ase.Atoms</code> instance, converts it to a <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> instance, and returns the instance. This method does not adds any bond data, it only reserves array in which bond data will be stored. </p>
 
-<p>This method is a static method which takes an ase.Atoms instance, converts it to a <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms, and has functionalities to deal with bonds connetcting a pair of ...">BondedAtoms</a> instance, and returns the instance. </p>
-<p><b>Arguments</b></p><ul>
-<li>TETE</li>
-<li>atoms: &lt;ase.Atoms&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00022">22</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00036">36</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 
 </div>
 </div>
@@ -809,14 +850,18 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atom1</td><td>Index for the first atom. </td></tr>
+    <tr><td class="paramname">atom2</td><td>Index for the second atom. </td></tr>
+    <tr><td class="paramname">img1</td><td>Three-element tuple or list of integers indicating which image of a periodic simulation box the first atom is in. </td></tr>
+    <tr><td class="paramname">img2</td><td>Three-element tuple or list of integers indicating which image of a periodic simulation box the second atom is in.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method removes a bond connecting two atoms. </p>
 
-<p>This method removes a bond connecting tow atoms. </p>
-<p>[Arguments]</p><ul>
-<li>atom: &lt;int&gt;</li>
-<li>bond: &lt;int&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00223">223</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00282">282</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
@@ -850,13 +895,42 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">bonds</td><td>A <code>numpy.ndarray</code> containing bond data.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method sets bond data by directly assigning an array. For more details about the array, please see documentation of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html" title="This class inherits from ase.Atoms class, and has functionalities to deal with (covalent) bonds conne...">BondedAtoms</a> class. </p>
 
-<p>This method updates 'bonds' array. </p>
-<p>[Arguments]</p><ul>
-<li>bonds: &lt;numpy.ndarray&gt; </li>
-</ul>
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00307">307</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00240">240</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a0b6311de9503ce92ba7e594b5d682416"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b6311de9503ce92ba7e594b5d682416">&#9670;&nbsp;</a></span>_max_bonds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.bonded_atoms.BondedAtoms._max_bonds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Maximum number of bonds per atom. </p>
+
+<p class="definition">Definition at line <a class="el" href="bonded__atoms_8py_source.html#l00073">73</a> of file <a class="el" href="bonded__atoms_8py_source.html">bonded_atoms.py</a>.</p>
 
 </div>
 </div>
@@ -868,7 +942,7 @@ Here is the call graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>ease4lmp</b></li><li class="navelem"><a class="el" href="namespaceease4lmp_1_1bonded__atoms.html">bonded_atoms</a></li><li class="navelem"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html">BondedAtoms</a></li>
+    <li class="navelem"><b>ease4lmp</b></li><li class="navelem"><b>bonded_atoms</b></li><li class="navelem"><a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html">BondedAtoms</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>

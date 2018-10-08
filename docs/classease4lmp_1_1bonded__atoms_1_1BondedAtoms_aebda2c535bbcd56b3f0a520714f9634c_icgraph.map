@@ -1,4 +1,4 @@
 <map id="ease4lmp.bonded_atoms.BondedAtoms._remove_bond" name="ease4lmp.bonded_atoms.BondedAtoms._remove_bond">
-<area shape="rect" id="node2" href="$classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a56c3d2b35bc7e99aca8563a5cab9c693" title="This method removes a bond connecting tow atoms. " alt="" coords="268,5,483,47"/>
-<area shape="rect" id="node3" href="$classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a0eacddba366cb2885ad356d6378af363" title="[Arguments] " alt="" coords="268,71,483,112"/>
+<area shape="rect" id="node2" href="$classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a56c3d2b35bc7e99aca8563a5cab9c693" title="ease4lmp.bonded_atoms.Bonded\lAtoms.remove_bond" alt="" coords="268,5,483,47"/>
+<area shape="rect" id="node3" href="$classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html#a0eacddba366cb2885ad356d6378af363" title="ease4lmp.bonded_atoms.Bonded\lAtoms.__delitem__" alt="" coords="268,71,483,112"/>
 </map>

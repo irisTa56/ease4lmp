@@ -1,7 +1,8 @@
 """
-This file is for BondedAtoms class.
-
-create: 2018/05/24 by Takayuki Kobayashi
+@file ease4lmp/bonded_atoms.py
+@brief This file is for `BondedAtoms` class.
+@author Takayuki Kobayashi
+@date 2018/05/24
 """
 
 import sys
@@ -11,63 +12,88 @@ import ase
 import itertools as it
 import numpy as np
 
+
 class BondedAtoms(ase.Atoms):
   """
-  This class inherits from ase.Atoms, and has functionalities to deal
-  with bonds connetcting a pair of atoms. Basically, you can use methods
-  of ase.Atoms in the same manner.
+  This class inherits from `ase.Atoms` class, and has functionalities
+  to deal with (covalent) bonds connecting a pair of atoms.
+
+  An instance of this class has bond data as a `numpy.ndarray`
+  as with other atomic properties like positions and velocities.
+  Shape of the array for bond data is (*N*, #_max_bonds, 4),
+  where *N* is the number of atoms. The first axis of the array
+  corresponds to atoms, and the second axis corresponds to
+  bonds connected to each atom. The third axis contains data for
+  each bond: an integer at 0 is relative index (of first axis)
+  for the other atom, integers from 1 to 3 are relative image flags
+  (to resolve a periodic boundary condition) for the other atom
+  in the *x*, *y* and *z* direction, respectively.
+
+  Basically, you can use methods of `ase.Atoms` in the same manner.
   """
 
   @staticmethod
   def inherit(atoms):
     """
-    This method is a static method which takes an ase.Atoms instance,
-    converts it to a BondedAtoms instance, and returns the instance.
+    @param atoms
+      An `ase.Atoms` instance to be down-casted to BondedAtoms.
 
-    **Arguments**
-      * TETE
-      * atoms: <ase.Atoms>
+    @return
+      A BondedAtoms instance.
+
+    This static method takes an `ase.Atoms` instance, converts it
+    to a BondedAtoms instance, and returns the instance.
+    This method does not adds any bond data, it only reserves array
+    in which bond data will be stored.
     """
+
     atoms.__class__ = BondedAtoms
     atoms._max_bonds = 4
+
     atoms.new_array(
       "bonds", np.zeros((len(atoms), atoms._max_bonds, 4)), int)
+
     return atoms
+
 
   def __init__(self, *args, **kwargs):
     """
-    This constructor takes the same arguments with ase.Atoms' one.
+    @param *args
+      A variable number of arguments.
+    @param **kwargs
+      A variable number of named arguments.
+
+    Constructor of BondedAtoms takes the same arguments
+    as that of `ase.Atoms`.
     """
+
     super().__init__(*args, **kwargs)
 
+    ## Maximum number of bonds per atom.
     self._max_bonds = 4
 
-    # For each bond, index 0 is for relative index of the other atom,
-    # indices from 1 to 3 are (relative) image flags of the other atom.
     self.new_array(
       "bonds", np.zeros((len(self), self._max_bonds, 4)), int)
 
+
   def add_bond(self, atom1, atom2, img1=(0,0,0), img2=(0,0,0)):
     """
-    This method add a bond connecting two atoms (specified by index).
-    The bond data is stored as a property of the first atom and the
-    second atoms as following.
+    @param atom1
+      Index for the first atom.
+    @param atom2
+      Index for the second atom.
+    @param img1
+      Three-element tuple or list of integers indicating which image of
+      a periodic simulation box the first atom is in.
+    @param img2
+      Three-element tuple or list of integers indicating which image of
+      a periodic simulation box the second atom is in.
 
-    [
-      [rel-id, rel-img_x, rel-img_y, rel-img_z],  # 1st bond
-      [rel-id, rel-img_x, rel-img_y, rel-img_z],  # 2nd bond
-      ...
-    ]
+    This method adds a bond connecting two atoms. The bond data is
+    stored as following.
 
-    'rel-id' is a relative id; id of the second atom minus id of the
-    first atom, for the first atom. 'rel-img's is relative image flags
-    used in the case of periodic boundary conditions.
-
-    [Arguments]
-    * atom1: <int>
-    * atom2: <int>
-    * img1: <tuple/list>
-    * img2: <tuple/list>
+    * Bond data in the first atom: `[atom2-atom1, *(img2-img1)]`
+    * Bond data in the second atom: `[atom1-atom2, *(img1-img2)]`
     """
 
     if not isinstance(img1, (tuple, list)) or len(img1) != 3:
@@ -80,40 +106,45 @@ class BondedAtoms(ase.Atoms):
     relative_data = np.insert(
       np.array(img2, int) - np.array(img1, int), 0, atom2 - atom1)
 
-    idx1 = self._get_available_bond_index(atom1, relative_data)
+    idx1 = self._get_available_bond_index(
+      atom1, relative_data)
     idx2 = self._get_available_bond_index(
       atom2, -relative_data, 1 if atom1 == atom2 else 0)
 
     self.arrays["bonds"][atom1][idx1] = relative_data
     self.arrays["bonds"][atom2][idx2] = -relative_data
 
+
   def change_max_bonds(self, n=4):
     """
-    This method change the maximum number of bonds per atom. Default is
-    four bonds per atom.
+    @param n
+      New maximum number of bonds per atom.
 
-    [Arguments]
-    * n: <int>; new maximum number of bonds per atom
+    This method changes the maximum number of bonds per atom.
+    Default is four bonds per atom.
     """
 
     if n < self._max_bonds:
-      self.arrays["bonds"] = np.array([
-        bs[:n] for bs in self.arrays["bonds"]])
+      self.arrays["bonds"] = np.array(
+        [bs[:n] for bs in self.arrays["bonds"]])
     elif self._max_bonds < n:
       zeros = np.zeros((n - self._max_bonds, 4), int)
-      self.arrays["bonds"] = np.array([
-        np.append(bs, zeros, axis=0) for bs in self.arrays["bonds"]])
+      self.arrays["bonds"] = np.array(
+        [np.append(bs, zeros, axis=0) for bs in self.arrays["bonds"]])
 
     self._max_bonds = n
 
+
   def extend(self, other):
     """
-    Extend atoms object by appending atoms from *other*.
+    @param other
+      An instance of BondedAtoms, `ase.Atoms` or `ase.Atom` class.
 
-    [Arguments]
-    * other: <ase.Atom/ase.Atoms/BondedAtoms>
-    [Return]
-    <BondedAtoms>
+    @return
+      An extended BondedAtoms instance.
+
+    This method extends this instance by appending another instance of
+    BondedAtoms, `ase.Atoms` or `ase.Atom` class.
     """
 
     if isinstance(other, ase.Atom):
@@ -124,35 +155,46 @@ class BondedAtoms(ase.Atoms):
 
     return super().extend(other)
 
+
   def get_bonds(self):
     """
-    This method returns an integer array of bond data (an element in the
-    first axis per atom).
+    @return
+      A `numpy.ndarray` containing bond data.
 
-    [Return]
-    <numpy.ndarray>
+    This method returns an array of integers containing bond data.
+    For more details about the array, please see documentation of
+    BondedAtoms class.
     """
+
     return self.arrays["bonds"].copy()
+
 
   def get_bonds_per_atom(self):
     """
-    This method returns a nested list of bond data. Unlike get_bonds(),
-    this method returns data of existing bonds only.
+    @return
+      An atom-wise list containing *absolute* indices for bonded atoms.
 
-    [Return]
-    <list>
+    This method returns a nested list of bond data. Unlike #get_bonds,
+    this method returns data of existing bonds only.
+    Each element of the outer list corresponds to each atom.
+    The inner list consists of *absolute* indices for atoms bonded with
+    the each atom.
     """
+
     return [
       [i + b[0] for b in bs if b[0] != 0]
-      for i, bs in enumerate(self.arrays["bonds"])]
+      for i, bs in enumerate(self.arrays["bonds"])
+    ]
+
 
   def get_bonded_bonds(self):
     """
-    This method gets an array of 2-membered sequence of atom-index
-    representing bonds.
+    @return
+      A `numpy.ndarray` of *absolute* atom-index describing all bonds.
 
-    [Return]
-    <numpy.ndarray>
+    This method returns a two-dimensional array describing bonds.
+    Each row corresponds to each bond, and each column corresponds to
+    the first and second atom connected by each bond.
     """
 
     bonds = set()
@@ -164,29 +206,38 @@ class BondedAtoms(ase.Atoms):
 
     return np.array(list(bonds), int)
 
+
   def get_bonded_angles(self):
     """
-    This method gets an array of 3-membered sequence of atom-index
-    representing angles.
+    @return
+      A `numpy.ndarray` of *absolute* atom-index describing
+      all angles defined by bonds.
 
-    [Return]
-    <numpy.ndarray>
+    This method returns a two-dimensional array describing angles.
+    Each row corresponds to each angle, and each column corresponds to
+    the first, second and third atom forming each angle.
+    The second atom is the center one.
     """
 
     bonds_per_atom = self.get_bonds_per_atom()
 
     return np.array([
-      (i, j, k)
-      for j, bs in enumerate(bonds_per_atom)
-      for i, k in it.combinations(bs, 2)], int)
+        (i, j, k)
+        for j, bs in enumerate(bonds_per_atom)
+        for i, k in it.combinations(bs, 2)
+      ], int)
+
 
   def get_bonded_dihedrals(self):
     """
-    This method gets an array of 4-membered sequence of atom-index
-    representing dihedrals.
+    @return
+      A `numpy.ndarray` of *absolute* atom-index describing
+      all dihedrals defined by bonds.
 
-    [Return]
-    <numpy.ndarray>
+    This method returns a two-dimensional array describing dihedrals.
+    Each row corresponds to each dihedral, and each column corresponds
+    to the first, second, third and fourth atom forming each dihedral.
+    The four atoms are connected linearly by three bonds.
     """
 
     bonds = set()
@@ -199,34 +250,49 @@ class BondedAtoms(ase.Atoms):
       for k in ks:
         bonds.add((j, k))
         dihedrals.extend([
-          (i, j, k, l) for i, l in it.product(
-            set(bs)-{k}, set(bonds_per_atom[k])-{j})])
+            (i, j, k, l)
+            for i, l in it.product(
+              set(bs)-{k}, set(bonds_per_atom[k])-{j})
+          ])
 
     return np.array(dihedrals, int)
 
+
   def get_bonded_impropers(self):
     """
-    This method gets an array of 4-membered sequence of atom-index
-    representing impropers.
+    @return
+      A `numpy.ndarray` of *absolute* atom-index describing
+      all impropers defined by bonds.
 
-    [Return]
-    <numpy.ndarray>
+    This method returns a two-dimensional array describing impropers.
+    Each row corresponds to each improper, and each column corresponds
+    to the first, second, third and fourth atom forming each improper.
+    The first atom is the center one.
     """
 
     bonds_per_atom = self.get_bonds_per_atom()
 
     return np.array([
-      (i,) + t
-      for i, bs in enumerate(bonds_per_atom)
-      for t in it.combinations(bs, 3)], int)
+        (i,) + t
+        for i, bs in enumerate(bonds_per_atom)
+        for t in it.combinations(bs, 3)
+      ], int)
+
 
   def remove_bond(self, atom1, atom2, img1=(0,0,0), img2=(0,0,0)):
     """
-    This method removes a bond connecting tow atoms.
+    @param atom1
+      Index for the first atom.
+    @param atom2
+      Index for the second atom.
+    @param img1
+      Three-element tuple or list of integers indicating which image of
+      a periodic simulation box the first atom is in.
+    @param img2
+      Three-element tuple or list of integers indicating which image of
+      a periodic simulation box the second atom is in.
 
-    [Arguments]
-    * atom: <int>
-    * bond: <int>
+    This method removes a bond connecting two atoms.
     """
 
     relative_data = np.insert(
@@ -237,19 +303,29 @@ class BondedAtoms(ase.Atoms):
     self._remove_bond(
       atom2, self._get_matched_bond_index(atom2, -relative_data))
 
+
   def set_bonds(self, bonds):
     """
-    This method updates 'bonds' array.
+    @param bonds
+      A `numpy.ndarray` containing bond data.
 
-    [Arguments]
-    * bonds: <numpy.ndarray>
+    This method sets bond data by directly assigning an array.
+    For more details about the array, please see documentation of
+    BondedAtoms class.
     """
+
     self.set_array("bonds", bonds, int, ())
+
 
   def __delitem__(self, idx):
     """
-    [Arguments]
-    * idx: <tuple/list/int>
+    @param idx
+      Index for an atom to be deleted.
+      A list or tuple is also acceptable for multiple atoms.
+
+    This method overrides `ase.Atoms.__delitem__`.
+    Before calling the parent method to remove a selected atom,
+    this method deletes bond data associated with the atom.
     """
 
     if isinstance(idx, int):
@@ -277,14 +353,24 @@ class BondedAtoms(ase.Atoms):
 
     super().__delitem__(idx)
 
+
   def __imul__(self, m):
     """
-    In-place repeat of atoms.
+    @param m
+      Three-element tuple or list defining how many times
+      a periodic simulation box is repeated in each direction.
+      The first, second and third element corresponds to the *x*, *y*
+      and *z* direction, respectively.
+      If an integer is given as `m`, a tuple `(m, m, m)` is used.
 
-    [Arguments]
-    * m: <tuple/list/int>
-    [Return]
-    <BondedAtoms>
+    @return
+      A BondedAtoms instance containing all the repeated atoms
+      with the expanded simulation box.
+
+    This method overrides `ase.Atoms.__imul__`.
+    After calling the parent method to expand the simulation box,
+    this method resolves bonds originally connecting two atoms in
+    different images of the periodic simulation box.
     """
 
     if isinstance(m, int):
@@ -316,21 +402,30 @@ class BondedAtoms(ase.Atoms):
 
     return self
 
+
   def _get_available_bond_index(self, atom, relative_data, offset=0):
     """
-    [Arguments]
-    * atom: <int>
-    * relative_data: <numpy.ndarray>
-    * offset: <int>; postpone returning index until this becomes zero
-    [Return]
-    <int>
+    @param atom
+      Index for an atom.
+    @param relative_data
+      A `numpy.ndarray` of which shape is (4): new bond data
+      to be added by #add_bond.
+    @param offset
+      Returned index is offset by this value.
+
+    @return
+      The minimum available index in the second axis of an array
+      for bond data.
+
+    For more details about the array for bond data,
+    please see documentation of BondedAtoms class.
     """
 
     for i, b in enumerate(self.arrays["bonds"][atom]):
       if (b == relative_data).all():
         raise RuntimeError(
-          "Bond between atom '{}' and '{}' already exists".format(
-            atom, atom+relative_data[0]))
+          "Bond between atom '{}' and '{}' already exists"
+          .format(atom, atom+relative_data[0]))
       elif np.all(b == 0):
         if offset == 0:
           return i
@@ -340,13 +435,21 @@ class BondedAtoms(ase.Atoms):
     raise RuntimeError(
       "Too many bonds attache to atom '{}'".format(atom))
 
+
   def _get_matched_bond_index(self, atom, relative_data):
     """
-    [Arguments]
-    * atom: <int>
-    * relative_data: <numpy.ndarray>
-    [Return]
-    <int>
+    @param atom
+      Index for an atom.
+    @param relative_data
+      A `numpy.ndarray` of which shape is (4): existing bond data
+      to be removed by #remove_bond.
+
+    @return
+      Index in the second axis of an array for bond data,
+      where data matches `relative_data`.
+
+    For more details about the array for bond data, please see
+    documentation of BondedAtoms class.
     """
 
     for i, b in enumerate(self.arrays["bonds"][atom]):
@@ -356,12 +459,19 @@ class BondedAtoms(ase.Atoms):
     raise RuntimeError(
       "No such a bond attaches to atom '{}'".format(atom))
 
+
   def _remove_bond(self, atom, bond_idx):
     """
-    [Arguments]
-    * atom: <int>; bonds belonging to an atom
-    * bond_idx: <int>; index of a bond to be removed
+    @param atom
+      Index for an atom to which a bond to be removed belongs.
+    @param bond_idx
+      Index for the bond to be removed (index in the second axis
+      of an array for bond data).
+
+    For more details about the array for bond data, please see
+    documentation of BondedAtoms class.
     """
+
     bonds = self.arrays["bonds"][atom]
     bonds[bond_idx:-1] = bonds[bond_idx+1:]
     bonds[-1] = np.zeros(4, int)

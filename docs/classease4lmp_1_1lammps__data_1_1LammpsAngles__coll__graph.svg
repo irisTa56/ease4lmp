@@ -23,7 +23,7 @@
 <!-- Node3 -->
 <g id="node2" class="node">
 <title>Node3</title>
-<g id="a_node2"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" target="_top" xlink:title="This class corresponds to a section of topology (&#39;Bonds&#39;, &#39;Angles&#39;, &#39;Dihedrals&#39;, &#39;Impropers&#39;) in Lamm...">
+<g id="a_node2"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" target="_top" xlink:title="This class is an (abstract) interface to write a section of topology components in Lammps data file (...">
 <polygon fill="#ffffff" stroke="#000000" points="0,-105.5 0,-327.5 161,-327.5 161,-105.5 0,-105.5"/>
 <text text-anchor="start" x="8" y="-315.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ease4lmp.lammps_data.Lammps</text>
 <text text-anchor="middle" x="80.5" y="-304.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Topology</text>

@@ -12,7 +12,7 @@
 <!-- Node0 -->
 <g id="node1" class="node">
 <title>Node0</title>
-<g id="a_node1"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" target="_top" xlink:title="This class corresponds to a section of topology (&#39;Bonds&#39;, &#39;Angles&#39;, &#39;Dihedrals&#39;, &#39;Impropers&#39;) in Lamm...">
+<g id="a_node1"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" target="_top" xlink:title="This class is an (abstract) interface to write a section of topology components in Lammps data file (...">
 <polygon fill="#ffffff" stroke="#000000" points="0,-73.5 0,-103.5 161,-103.5 161,-73.5 0,-73.5"/>
 <text text-anchor="start" x="8" y="-91.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ease4lmp.lammps_data.Lammps</text>
 <text text-anchor="middle" x="80.5" y="-80.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Topology</text>
@@ -22,7 +22,7 @@
 <!-- Node1 -->
 <g id="node2" class="node">
 <title>Node1</title>
-<g id="a_node2"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsAngles.html" target="_top" xlink:title="This class corresponds to &#39;Angles&#39; section in Lammps file. ">
+<g id="a_node2"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsAngles.html" target="_top" xlink:title="This class is an interface to write Angles section in Lammps data file (or molecule file)...">
 <polygon fill="#ffffff" stroke="#000000" points="197,-147.5 197,-177.5 358,-177.5 358,-147.5 197,-147.5"/>
 <text text-anchor="start" x="205" y="-165.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ease4lmp.lammps_data.Lammps</text>
 <text text-anchor="middle" x="277.5" y="-154.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Angles</text>
@@ -38,7 +38,7 @@
 <!-- Node2 -->
 <g id="node3" class="node">
 <title>Node2</title>
-<g id="a_node3"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsBonds.html" target="_top" xlink:title="This class corresponds to &#39;Bonds&#39; section in Lammps file. ">
+<g id="a_node3"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsBonds.html" target="_top" xlink:title="This class is an interface to write Bonds section in Lammps data file (or molecule file)...">
 <polygon fill="#ffffff" stroke="#000000" points="197,-98.5 197,-128.5 358,-128.5 358,-98.5 197,-98.5"/>
 <text text-anchor="start" x="205" y="-116.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ease4lmp.lammps_data.Lammps</text>
 <text text-anchor="middle" x="277.5" y="-105.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Bonds</text>
@@ -54,7 +54,7 @@
 <!-- Node3 -->
 <g id="node4" class="node">
 <title>Node3</title>
-<g id="a_node4"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsDihedrals.html" target="_top" xlink:title="This class corresponds to &#39;Dihedrals&#39; section in Lammps file. ">
+<g id="a_node4"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsDihedrals.html" target="_top" xlink:title="This class is an interface to write Dihedrals section in Lammps data file (or molecule file)...">
 <polygon fill="#ffffff" stroke="#000000" points="197,-49.5 197,-79.5 358,-79.5 358,-49.5 197,-49.5"/>
 <text text-anchor="start" x="205" y="-67.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ease4lmp.lammps_data.Lammps</text>
 <text text-anchor="middle" x="277.5" y="-56.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Dihedrals</text>
@@ -70,7 +70,7 @@
 <!-- Node4 -->
 <g id="node5" class="node">
 <title>Node4</title>
-<g id="a_node5"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsImpropers.html" target="_top" xlink:title="This class corresponds to &#39;Impropers&#39; section in Lammps file. ">
+<g id="a_node5"><a xlink:href="classease4lmp_1_1lammps__data_1_1LammpsImpropers.html" target="_top" xlink:title="This class is an interface to write Impropers section in Lammps data file (or molecule file)...">
 <polygon fill="#ffffff" stroke="#000000" points="197,-.5 197,-30.5 358,-30.5 358,-.5 197,-.5"/>
 <text text-anchor="start" x="205" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">ease4lmp.lammps_data.Lammps</text>
 <text text-anchor="middle" x="277.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00" fill="#000000">Impropers</text>

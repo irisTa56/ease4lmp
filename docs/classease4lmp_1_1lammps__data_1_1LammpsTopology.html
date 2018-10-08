@@ -96,7 +96,7 @@ $(document).ready(function(){initNavTree('classease4lmp_1_1lammps__data_1_1Lammp
 </div><!--header-->
 <div class="contents">
 
-<p>This class corresponds to a section of topology ('Bonds', 'Angles', 'Dihedrals', 'Impropers') in Lammps file.  
+<p>This class is an (abstract) interface to write a section of topology components in <em>Lammps data file</em> (or <em>molecule file</em>).  
  <a href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for ease4lmp.lammps_data.LammpsTopology:</div>
@@ -112,68 +112,58 @@ Collaboration diagram for ease4lmp.lammps_data.LammpsTopology:</div>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ab0f5aca0204011802221e5de3e6df9af"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#ab0f5aca0204011802221e5de3e6df9af">__init__</a> (self, sequences, datanames, kwargs)</td></tr>
-<tr class="memdesc:ab0f5aca0204011802221e5de3e6df9af"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#ab0f5aca0204011802221e5de3e6df9af">More...</a><br /></td></tr>
 <tr class="separator:ab0f5aca0204011802221e5de3e6df9af"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac2e9e7396129130e2dc052be43c75597"><td class="memItemLeft" align="right" valign="top"><a id="ac2e9e7396129130e2dc052be43c75597"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_num</b> (self)</td></tr>
+<tr class="memitem:ac2e9e7396129130e2dc052be43c75597"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#ac2e9e7396129130e2dc052be43c75597">get_num</a> (self)</td></tr>
 <tr class="separator:ac2e9e7396129130e2dc052be43c75597"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:abdaf91ce7668832a80115c16b34ec01d"><td class="memItemLeft" align="right" valign="top"><a id="abdaf91ce7668832a80115c16b34ec01d"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_num_type</b> (self)</td></tr>
+<tr class="memitem:abdaf91ce7668832a80115c16b34ec01d"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#abdaf91ce7668832a80115c16b34ec01d">get_num_type</a> (self)</td></tr>
 <tr class="separator:abdaf91ce7668832a80115c16b34ec01d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cb100afa6a270d02da6538a89a0aee8"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a3cb100afa6a270d02da6538a89a0aee8">get_sequence_patterns</a> (self, atom_types)</td></tr>
-<tr class="memdesc:a3cb100afa6a270d02da6538a89a0aee8"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns a set of sequences (tuple) of atom types.  <a href="#a3cb100afa6a270d02da6538a89a0aee8">More...</a><br /></td></tr>
 <tr class="separator:a3cb100afa6a270d02da6538a89a0aee8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8c22477fe441bedeed1a983b1cf47fa3"><td class="memItemLeft" align="right" valign="top"><a id="a8c22477fe441bedeed1a983b1cf47fa3"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a8c22477fe441bedeed1a983b1cf47fa3">get_maximum_per_atom</a> (self)</td></tr>
-<tr class="memdesc:a8c22477fe441bedeed1a983b1cf47fa3"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns the maximum number of topologies per atom. <br /></td></tr>
+<tr class="memitem:a8c22477fe441bedeed1a983b1cf47fa3"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a8c22477fe441bedeed1a983b1cf47fa3">get_maximum_per_atom</a> (self)</td></tr>
 <tr class="separator:a8c22477fe441bedeed1a983b1cf47fa3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e7253de672072ff221396bf2bd2f131"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a5e7253de672072ff221396bf2bd2f131">set_types</a> (self, seq_to_type, atom_types)</td></tr>
-<tr class="memdesc:a5e7253de672072ff221396bf2bd2f131"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method set types to topologies.  <a href="#a5e7253de672072ff221396bf2bd2f131">More...</a><br /></td></tr>
 <tr class="separator:a5e7253de672072ff221396bf2bd2f131"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a58386a3bc06cf3a63aca732862a55a8b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a58386a3bc06cf3a63aca732862a55a8b">write_lines</a> (self, path)</td></tr>
-<tr class="memdesc:a58386a3bc06cf3a63aca732862a55a8b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method makes <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html" title="This class corresponds to data content in section in Lammps file. ">LammpsDataLines</a> instance to write data to the specified Lammps file.  <a href="#a58386a3bc06cf3a63aca732862a55a8b">More...</a><br /></td></tr>
 <tr class="separator:a58386a3bc06cf3a63aca732862a55a8b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
 Static Public Member Functions</h2></td></tr>
 <tr class="memitem:a58ef8d998d80adb873cb6df65d3dd882"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a58ef8d998d80adb873cb6df65d3dd882">create</a> (name, sequences, kwargs)</td></tr>
-<tr class="memdesc:a58ef8d998d80adb873cb6df65d3dd882"><td class="mdescLeft">&#160;</td><td class="mdescRight">This is a factory method of <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" title="This class corresponds to a section of topology (&#39;Bonds&#39;, &#39;Angles&#39;, &#39;Dihedrals&#39;, &#39;Impropers&#39;) in Lamm...">LammpsTopology</a>.  <a href="#a58ef8d998d80adb873cb6df65d3dd882">More...</a><br /></td></tr>
 <tr class="separator:a58ef8d998d80adb873cb6df65d3dd882"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-methods"></a>
 Private Member Functions</h2></td></tr>
 <tr class="memitem:a484cd269e974b263a4185761d3ba6844"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a484cd269e974b263a4185761d3ba6844">_make_full_seq_to_type</a> (self, seq_to_type)</td></tr>
-<tr class="memdesc:a484cd269e974b263a4185761d3ba6844"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#a484cd269e974b263a4185761d3ba6844">More...</a><br /></td></tr>
 <tr class="separator:a484cd269e974b263a4185761d3ba6844"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae5110ba012dc28a91e023c586b0078ef"><td class="memItemLeft" align="right" valign="top"><a id="ae5110ba012dc28a91e023c586b0078ef"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>_set_data</b> (self, kwargs)</td></tr>
+<tr class="memitem:ae5110ba012dc28a91e023c586b0078ef"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#ae5110ba012dc28a91e023c586b0078ef">_set_data</a> (self, kwargs)</td></tr>
 <tr class="separator:ae5110ba012dc28a91e023c586b0078ef"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
 <tr class="memitem:a84541455e63e7e4ccba70f79d5709e4b"><td class="memItemLeft" align="right" valign="top"><a id="a84541455e63e7e4ccba70f79d5709e4b"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_sequences</b></td></tr>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a84541455e63e7e4ccba70f79d5709e4b">_sequences</a></td></tr>
+<tr class="memdesc:a84541455e63e7e4ccba70f79d5709e4b"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <code>numpy.ndarray</code> for topology components of which elements are <code>atom-id</code>s used in Lammps. <br /></td></tr>
 <tr class="separator:a84541455e63e7e4ccba70f79d5709e4b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acdb303b9983a9cdac1e5eef70b3350a5"><td class="memItemLeft" align="right" valign="top"><a id="acdb303b9983a9cdac1e5eef70b3350a5"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_num</b></td></tr>
+<tr class="memitem:acdb303b9983a9cdac1e5eef70b3350a5"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#acdb303b9983a9cdac1e5eef70b3350a5">_num</a></td></tr>
+<tr class="memdesc:acdb303b9983a9cdac1e5eef70b3350a5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of topology components.  <a href="#acdb303b9983a9cdac1e5eef70b3350a5">More...</a><br /></td></tr>
 <tr class="separator:acdb303b9983a9cdac1e5eef70b3350a5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a77b406630d70d8b984f9dc469f159b32"><td class="memItemLeft" align="right" valign="top"><a id="a77b406630d70d8b984f9dc469f159b32"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_datanames</b></td></tr>
+<tr class="memitem:a77b406630d70d8b984f9dc469f159b32"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a77b406630d70d8b984f9dc469f159b32">_datanames</a></td></tr>
+<tr class="memdesc:a77b406630d70d8b984f9dc469f159b32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Tuple of strings denoting data names written in a line.  <a href="#a77b406630d70d8b984f9dc469f159b32">More...</a><br /></td></tr>
 <tr class="separator:a77b406630d70d8b984f9dc469f159b32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f3f40f500fffeca354f5352fc27f444"><td class="memItemLeft" align="right" valign="top"><a id="a5f3f40f500fffeca354f5352fc27f444"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_lines</b></td></tr>
+<tr class="memitem:a5f3f40f500fffeca354f5352fc27f444"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a5f3f40f500fffeca354f5352fc27f444">_lines</a></td></tr>
+<tr class="memdesc:a5f3f40f500fffeca354f5352fc27f444"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html" title="This class writes a section in Lammps data file. ">LammpsDataLines</a> instance to write one of topology section.  <a href="#a5f3f40f500fffeca354f5352fc27f444">More...</a><br /></td></tr>
 <tr class="separator:a5f3f40f500fffeca354f5352fc27f444"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a7609997fa3e2b9868a1ec6d252825a19"><td class="memItemLeft" align="right" valign="top"><a id="a7609997fa3e2b9868a1ec6d252825a19"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_data</b></td></tr>
+<tr class="memitem:a7609997fa3e2b9868a1ec6d252825a19"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a7609997fa3e2b9868a1ec6d252825a19">_data</a></td></tr>
+<tr class="memdesc:a7609997fa3e2b9868a1ec6d252825a19"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary from property names to lists (or other array-like objects) containing property values for topology components.  <a href="#a7609997fa3e2b9868a1ec6d252825a19">More...</a><br /></td></tr>
 <tr class="separator:a7609997fa3e2b9868a1ec6d252825a19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2f64b590f63e64938ace2c74a8294b10"><td class="memItemLeft" align="right" valign="top"><a id="a2f64b590f63e64938ace2c74a8294b10"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_num_type</b></td></tr>
+<tr class="memitem:a2f64b590f63e64938ace2c74a8294b10"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a2f64b590f63e64938ace2c74a8294b10">_num_type</a></td></tr>
+<tr class="memdesc:a2f64b590f63e64938ace2c74a8294b10"><td class="mdescLeft">&#160;</td><td class="mdescRight">Number of types of the topology components.  <a href="#a2f64b590f63e64938ace2c74a8294b10">More...</a><br /></td></tr>
 <tr class="separator:a2f64b590f63e64938ace2c74a8294b10"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class corresponds to a section of topology ('Bonds', 'Angles', 'Dihedrals', 'Impropers') in Lammps file. </p>
+<div class="textblock"><p>This class is an (abstract) interface to write a section of topology components in <em>Lammps data file</em> (or <em>molecule file</em>). </p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00210">210</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00292">292</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="ab0f5aca0204011802221e5de3e6df9af"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab0f5aca0204011802221e5de3e6df9af">&#9670;&nbsp;</a></span>__init__()</h2>
@@ -212,21 +202,16 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">sequences</td><td>A <code>numpy.ndarray</code> representing topology components. Please see also the same name argument of <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a58ef8d998d80adb873cb6df65d3dd882">create</a>. </td></tr>
+    <tr><td class="paramname">datanames</td><td>Tuple of strings denoting data names written in a line. Please see also a source of <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a58ef8d998d80adb873cb6df65d3dd882">create</a>. </td></tr>
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments. Please see also the same name argument of <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a58ef8d998d80adb873cb6df65d3dd882">create</a>. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>[Arguments] </p>
-<ul>
-<li>bonds_per_atom: <ul>
-</ul>
-not containing image flags</li>
-<li>datanames: &lt;tuple&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00245">245</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__data_1_1LammpsTopology_ab0f5aca0204011802221e5de3e6df9af_cgraph.svg" width="488" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00346">346</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
 </div>
 </div>
@@ -264,18 +249,60 @@ Here is the call graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seq_to_type</td><td>A dictionary from sequences of atom types to types of topology components consisting of those atoms.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A dictionary from sequences of atom types to types of topology components consisting of those atoms. This dictionary is different from the <code>seq_to_type</code> by containing sequences in both directions as its keys. </dd></dl>
 
-<p>[Arguments] </p>
-<ul>
-<li>seq_to_type: &lt;dict&gt;; (&lt;tuple&gt; =&gt; &lt;int&gt;) [Return] &lt;dict&gt;; (&lt;tuple&gt; =&gt; &lt;int&gt;) </li>
-</ul>
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00477">477</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00322">322</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
-<div class="dynheader">
-Here is the caller graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__data_1_1LammpsTopology_a484cd269e974b263a4185761d3ba6844_icgraph.svg" width="488" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+</div>
+<a id="ae5110ba012dc28a91e023c586b0078ef"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae5110ba012dc28a91e023c586b0078ef">&#9670;&nbsp;</a></span>_set_data()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_data.LammpsTopology._set_data </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>kwargs</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments. Keywords are property names, and arguments are property values.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>Properties given as <code>**kwargs</code> are stored in <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a7609997fa3e2b9868a1ec6d252825a19" title="Dictionary from property names to lists (or other array-like objects) containing property values for ...">_data</a>. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00493">493</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
 </div>
 </div>
@@ -318,18 +345,82 @@ Here is the caller graph for this function:</div>
   </tr>
 </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">name</td><td>Name of topology component: <code>bond</code>, <code>angle</code>, <code>dihedral</code> or <code>improper</code>. </td></tr>
+    <tr><td class="paramname">sequences</td><td>A <code>numpy.ndarray</code> representing topology components. Shapes of the array for <code>bond</code>, <code>angle</code>, <code>dihedral</code> and <code>improper</code> are (<em>N</em>, 2), (<em>N</em>, 3), (<em>N</em>, 4) and (<em>N</em>, 4), respectively: where <em>N</em> is the number of topology components. Elements of the array are zero-based indices for atoms. </td></tr>
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments. One can use <code>class2</code> keyword for impropers.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A created instance of <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" title="This class is an (abstract) interface to write a section of topology components in Lammps data file (...">LammpsTopology</a>'s subclass.</dd></dl>
+<p>This static method is a factory method for <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" title="This class is an (abstract) interface to write a section of topology components in Lammps data file (...">LammpsTopology</a>'s subclass. </p>
 
-<p>This is a factory method of <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html" title="This class corresponds to a section of topology (&#39;Bonds&#39;, &#39;Angles&#39;, &#39;Dihedrals&#39;, &#39;Impropers&#39;) in Lamm...">LammpsTopology</a>. </p>
-<p>[Arguments]</p><ul>
-<li>name: &lt;str&gt;</li>
-<li>data: &lt;numpy.ndarray&gt;</li>
-<li>kwargs: contains ...<ol type="1">
-<li>'class2' for improper [Return] &lt;LammpsBonds/LammpsAngles/LammpsDihedrals/LammpsImpropers&gt; </li>
-</ol>
-</li>
-</ul>
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00299">299</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00217">217</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+</div>
+</div>
+<a id="a8c22477fe441bedeed1a983b1cf47fa3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a8c22477fe441bedeed1a983b1cf47fa3">&#9670;&nbsp;</a></span>get_maximum_per_atom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_data.LammpsTopology.get_maximum_per_atom </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of topology components per atom.</dd></dl>
+<p>See also Lammps source code associated with angles/dihedrals/impropers per atom: <code>Atom::data_angles()</code>, <code>Atom::data_dihedrals()</code> and <code>Atom::data_impropers()</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00426">426</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+
+</div>
+</div>
+<a id="ac2e9e7396129130e2dc052be43c75597"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac2e9e7396129130e2dc052be43c75597">&#9670;&nbsp;</a></span>get_num()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_data.LammpsTopology.get_num </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The number of topology components. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00384">384</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+
+</div>
+</div>
+<a id="abdaf91ce7668832a80115c16b34ec01d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abdaf91ce7668832a80115c16b34ec01d">&#9670;&nbsp;</a></span>get_num_type()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_data.LammpsTopology.get_num_type </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The number of topology types. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00393">393</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
 </div>
 </div>
@@ -358,19 +449,19 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atom_types</td><td>A one dimensional array-like object of which <em>i</em> th element is a type of the <em>i</em> th atom.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A set of unique sequences of atom types appearing in the topology components. Note that the number of elements in the set is not necessarily equal to the number of types of topology component: for example, sequence <code>(1, 2, 3)</code> and <code>(3, 2, 1)</code> are reduced to one angle type. </dd></dl>
 
-<p>This method returns a set of sequences (tuple) of atom types. </p>
-<p>[Arguments]</p><ul>
-<li>atom_types: <ul>
-</ul>
-</li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00276">276</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00405">405</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__data_1_1LammpsTopology_a3cb100afa6a270d02da6538a89a0aee8_icgraph.svg" width="494" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__data_1_1LammpsTopology_a3cb100afa6a270d02da6538a89a0aee8_icgraph.svg" width="494" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -406,21 +497,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seq_to_type</td><td>A dictionary from sequences of atom types to types of topology components consisting of those atoms. Note that one does not have to consider sequences in both directions: for example, using either <code>(1, 2, 3)</code> or <code>(3, 2, 1)</code> works fine. </td></tr>
+    <tr><td class="paramname">atom_types</td><td>A one dimensional array-like object of which <em>i</em> th element is a type of the <em>i</em> th atom. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>This method set types to topologies. </p>
-<p>[Arguments]</p><ul>
-<li>seq_to_type: &lt;dict&gt;; (&lt;tuple&gt; =&gt; &lt;int&gt;)</li>
-<li>atom_types: <ul>
-</ul>
-</li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00295">295</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__data_1_1LammpsTopology_a5e7253de672072ff221396bf2bd2f131_cgraph.svg" width="488" height="134"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00442">442</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
 </div>
 </div>
@@ -449,13 +534,146 @@ Here is the call graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>File path to <em>Lammps data file</em> (or <em>molecule file</em>).</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method calls <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html#aff0c5fdc2831095c562c75f659fa2277">LammpsDataLines.write</a> of <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a5f3f40f500fffeca354f5352fc27f444" title="A LammpsDataLines instance to write one of topology section. ">_lines</a> to write a topology section in <em>Lammps data file</em> (or <em>molecule file</em>). </p>
 
-<p>This method makes <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html" title="This class corresponds to data content in section in Lammps file. ">LammpsDataLines</a> instance to write data to the specified Lammps file. </p>
-<p>[Arguments]</p><ul>
-<li>path: &lt;str&gt; </li>
-</ul>
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00465">465</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00312">312</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a7609997fa3e2b9868a1ec6d252825a19"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7609997fa3e2b9868a1ec6d252825a19">&#9670;&nbsp;</a></span>_data</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_data.LammpsTopology._data</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dictionary from property names to lists (or other array-like objects) containing property values for topology components. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00376">376</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+
+</div>
+</div>
+<a id="a77b406630d70d8b984f9dc469f159b32"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a77b406630d70d8b984f9dc469f159b32">&#9670;&nbsp;</a></span>_datanames</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_data.LammpsTopology._datanames</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Tuple of strings denoting data names written in a line. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00367">367</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+
+</div>
+</div>
+<a id="a5f3f40f500fffeca354f5352fc27f444"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a5f3f40f500fffeca354f5352fc27f444">&#9670;&nbsp;</a></span>_lines</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_data.LammpsTopology._lines</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html" title="This class writes a section in Lammps data file. ">LammpsDataLines</a> instance to write one of topology section. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00370">370</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+
+</div>
+</div>
+<a id="acdb303b9983a9cdac1e5eef70b3350a5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acdb303b9983a9cdac1e5eef70b3350a5">&#9670;&nbsp;</a></span>_num</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_data.LammpsTopology._num</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of topology components. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00364">364</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
+
+</div>
+</div>
+<a id="a2f64b590f63e64938ace2c74a8294b10"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2f64b590f63e64938ace2c74a8294b10">&#9670;&nbsp;</a></span>_num_type</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_data.LammpsTopology._num_type</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Number of types of the topology components. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__data_8py_source.html#l00455">455</a> of file <a class="el" href="lammps__data_8py_source.html">lammps_data.py</a>.</p>
 
 </div>
 </div>
@@ -467,7 +685,7 @@ Here is the call graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>ease4lmp</b></li><li class="navelem"><a class="el" href="namespaceease4lmp_1_1lammps__data.html">lammps_data</a></li><li class="navelem"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html">LammpsTopology</a></li>
+    <li class="navelem"><b>ease4lmp</b></li><li class="navelem"><b>lammps_data</b></li><li class="navelem"><a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html">LammpsTopology</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>

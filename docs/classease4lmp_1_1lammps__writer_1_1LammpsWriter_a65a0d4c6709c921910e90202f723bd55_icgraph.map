@@ -1,2 +1,6 @@
 <map id="ease4lmp.lammps_writer.LammpsWriter.set_topology_types" name="ease4lmp.lammps_writer.LammpsWriter.set_topology_types">
+<area shape="rect" id="node2" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a9d95170d848d1496a504d43ca7f0d549" title="ease4lmp.lammps_writer.Lammps\lWriter.set_bond_types" alt="" coords="273,5,493,47"/>
+<area shape="rect" id="node3" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a02d7ca656aac1b31833f8b4aab138e14" title="ease4lmp.lammps_writer.Lammps\lWriter.set_angle_types" alt="" coords="273,71,493,112"/>
+<area shape="rect" id="node4" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a26726d49d422629ee6e51c45796c6442" title="ease4lmp.lammps_writer.Lammps\lWriter.set_dihedral_types" alt="" coords="273,136,493,177"/>
+<area shape="rect" id="node5" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a25faedf894ab51bf189ebfc809e8e0e4" title="ease4lmp.lammps_writer.Lammps\lWriter.set_improper_types" alt="" coords="273,201,493,243"/>
 </map>

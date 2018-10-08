@@ -94,7 +94,7 @@ $(document).ready(function(){initNavTree('classease4lmp_1_1lammps__writer_1_1Lam
 </div><!--header-->
 <div class="contents">
 
-<p>This class writes Lammps DATA and MOLECULE file.  
+<p>This class is an interface to write whole <em>Lammps data file</em> (or <em>molecule file</em>).  
  <a href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#details">More...</a></p>
 <div class="dynheader">
 Collaboration diagram for ease4lmp.lammps_writer.LammpsWriter:</div>
@@ -104,109 +104,81 @@ Collaboration diagram for ease4lmp.lammps_writer.LammpsWriter:</div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:ac196036da517f6220e756c00ee02a4a4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ac196036da517f6220e756c00ee02a4a4">__init__</a> (self, atoms, atom_style, lammps_unit=&quot;real&quot;, special_bonds=False, tag_is_type=True, kwargs)</td></tr>
-<tr class="memdesc:ac196036da517f6220e756c00ee02a4a4"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#ac196036da517f6220e756c00ee02a4a4">More...</a><br /></td></tr>
-<tr class="separator:ac196036da517f6220e756c00ee02a4a4"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab11eef77a1769033e1c4ba5ef9ba85d0"><td class="memItemLeft" align="right" valign="top"><a id="ab11eef77a1769033e1c4ba5ef9ba85d0"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ab11eef77a1769033e1c4ba5ef9ba85d0">get_required_datanames</a> (self)</td></tr>
-<tr class="memdesc:ab11eef77a1769033e1c4ba5ef9ba85d0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns data name (key of property) required to write Lammps DATA file. <br /></td></tr>
+<tr class="memitem:a3d8ee8c068bd5e10d5797bf82fc9381c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a3d8ee8c068bd5e10d5797bf82fc9381c">__init__</a> (self, atoms, atom_style, lammps_unit=&quot;real&quot;, tag_is_type=True, kwargs)</td></tr>
+<tr class="separator:a3d8ee8c068bd5e10d5797bf82fc9381c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab11eef77a1769033e1c4ba5ef9ba85d0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ab11eef77a1769033e1c4ba5ef9ba85d0">get_required_datanames</a> (self)</td></tr>
 <tr class="separator:ab11eef77a1769033e1c4ba5ef9ba85d0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a84e790e7bd887d4193d72072652e2db9"><td class="memItemLeft" align="right" valign="top"><a id="a84e790e7bd887d4193d72072652e2db9"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a84e790e7bd887d4193d72072652e2db9">get_required_datanames_for_molecule</a> (self)</td></tr>
-<tr class="memdesc:a84e790e7bd887d4193d72072652e2db9"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns data name (key of property) required to write Lammps MOLECULE file. <br /></td></tr>
+<tr class="memitem:a84e790e7bd887d4193d72072652e2db9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a84e790e7bd887d4193d72072652e2db9">get_required_datanames_for_molecule</a> (self)</td></tr>
 <tr class="separator:a84e790e7bd887d4193d72072652e2db9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aeed8be614f9b259011f8882a2c6c2be7"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#aeed8be614f9b259011f8882a2c6c2be7">get_sequence_patterns</a> (self, key)</td></tr>
-<tr class="memdesc:aeed8be614f9b259011f8882a2c6c2be7"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns all patterns of sequence consisting of atom types for the given topology (by key).  <a href="#aeed8be614f9b259011f8882a2c6c2be7">More...</a><br /></td></tr>
 <tr class="separator:aeed8be614f9b259011f8882a2c6c2be7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a069fd741485e33b79947604f81257e71"><td class="memItemLeft" align="right" valign="top"><a id="a069fd741485e33b79947604f81257e71"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_bond_patterns</b> (self)</td></tr>
+<tr class="memitem:a069fd741485e33b79947604f81257e71"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a069fd741485e33b79947604f81257e71">get_bond_patterns</a> (self)</td></tr>
 <tr class="separator:a069fd741485e33b79947604f81257e71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ac6e43fee32694b311aaeb5d18bf9ef75"><td class="memItemLeft" align="right" valign="top"><a id="ac6e43fee32694b311aaeb5d18bf9ef75"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_angle_patterns</b> (self)</td></tr>
+<tr class="memitem:ac6e43fee32694b311aaeb5d18bf9ef75"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ac6e43fee32694b311aaeb5d18bf9ef75">get_angle_patterns</a> (self)</td></tr>
 <tr class="separator:ac6e43fee32694b311aaeb5d18bf9ef75"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b1ada84515a9f87d0c662aa36c59bc5"><td class="memItemLeft" align="right" valign="top"><a id="a6b1ada84515a9f87d0c662aa36c59bc5"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_dihedral_patterns</b> (self)</td></tr>
+<tr class="memitem:a6b1ada84515a9f87d0c662aa36c59bc5"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a6b1ada84515a9f87d0c662aa36c59bc5">get_dihedral_patterns</a> (self)</td></tr>
 <tr class="separator:a6b1ada84515a9f87d0c662aa36c59bc5"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4af2d74dd7d66ccecc1acee909ca0679"><td class="memItemLeft" align="right" valign="top"><a id="a4af2d74dd7d66ccecc1acee909ca0679"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_improper_patterns</b> (self)</td></tr>
+<tr class="memitem:a4af2d74dd7d66ccecc1acee909ca0679"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a4af2d74dd7d66ccecc1acee909ca0679">get_improper_patterns</a> (self)</td></tr>
 <tr class="separator:a4af2d74dd7d66ccecc1acee909ca0679"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a527ecfba8091b26983b61bfc19260e2b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a527ecfba8091b26983b61bfc19260e2b">get_maximum_per_atom</a> (self, key)</td></tr>
-<tr class="memdesc:a527ecfba8091b26983b61bfc19260e2b"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method returns the maximum number of topologies (given by key) per atom.  <a href="#a527ecfba8091b26983b61bfc19260e2b">More...</a><br /></td></tr>
-<tr class="separator:a527ecfba8091b26983b61bfc19260e2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a59af4d94e4922ea684de7e6a06bbe2"><td class="memItemLeft" align="right" valign="top"><a id="a4a59af4d94e4922ea684de7e6a06bbe2"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_max_bonds_per_atom</b> (self)</td></tr>
-<tr class="separator:a4a59af4d94e4922ea684de7e6a06bbe2"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1f6a2643f98e92bfe68d9e66f966d687"><td class="memItemLeft" align="right" valign="top"><a id="a1f6a2643f98e92bfe68d9e66f966d687"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_max_angles_per_atom</b> (self)</td></tr>
-<tr class="separator:a1f6a2643f98e92bfe68d9e66f966d687"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a101dcc37be57fe576a69fb9df0252b47"><td class="memItemLeft" align="right" valign="top"><a id="a101dcc37be57fe576a69fb9df0252b47"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_max_dihedrals_per_atom</b> (self)</td></tr>
-<tr class="separator:a101dcc37be57fe576a69fb9df0252b47"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2278535ed86cacc2099cd4f87e8a1fe9"><td class="memItemLeft" align="right" valign="top"><a id="a2278535ed86cacc2099cd4f87e8a1fe9"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_max_impropers_per_atom</b> (self)</td></tr>
-<tr class="separator:a2278535ed86cacc2099cd4f87e8a1fe9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aba7ac28ec202608508709d7c14078152"><td class="memItemLeft" align="right" valign="top"><a id="aba7ac28ec202608508709d7c14078152"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>get_max_specials_per_atom</b> (self)</td></tr>
-<tr class="separator:aba7ac28ec202608508709d7c14078152"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac07e7377465b331f6ffd4bd01f023eb9"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ac07e7377465b331f6ffd4bd01f023eb9">print_maximum_per_atom</a> (self, key)</td></tr>
+<tr class="separator:ac07e7377465b331f6ffd4bd01f023eb9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2448504d65413dbcea7d3166cbdb970b"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a2448504d65413dbcea7d3166cbdb970b">print_max_bonds_per_atom</a> (self)</td></tr>
+<tr class="separator:a2448504d65413dbcea7d3166cbdb970b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a600c721fa9f047397a71324e34e3f666"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a600c721fa9f047397a71324e34e3f666">print_max_angles_per_atom</a> (self)</td></tr>
+<tr class="separator:a600c721fa9f047397a71324e34e3f666"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a013e79ee87d7d43e6e9f91bc5b9a5213"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a013e79ee87d7d43e6e9f91bc5b9a5213">print_max_dihedrals_per_atom</a> (self)</td></tr>
+<tr class="separator:a013e79ee87d7d43e6e9f91bc5b9a5213"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1a2aab1fb44b8e8c80b74f48b1b5137c"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a1a2aab1fb44b8e8c80b74f48b1b5137c">print_max_impropers_per_atom</a> (self)</td></tr>
+<tr class="separator:a1a2aab1fb44b8e8c80b74f48b1b5137c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad8e7f1765619d86785cc47d59ec3db81"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ad8e7f1765619d86785cc47d59ec3db81">print_max_specials_per_atom</a> (self)</td></tr>
+<tr class="separator:ad8e7f1765619d86785cc47d59ec3db81"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5cb8fcde36f224d0ffa3007fda1428aa"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a5cb8fcde36f224d0ffa3007fda1428aa">set_atom_data</a> (self, kwargs)</td></tr>
-<tr class="memdesc:a5cb8fcde36f224d0ffa3007fda1428aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#a5cb8fcde36f224d0ffa3007fda1428aa">More...</a><br /></td></tr>
 <tr class="separator:a5cb8fcde36f224d0ffa3007fda1428aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2947c471070d19335af7e06507ca5f4a"><td class="memItemLeft" align="right" valign="top"><a id="a2947c471070d19335af7e06507ca5f4a"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>set_atom_types</b> (self, types)</td></tr>
-<tr class="separator:a2947c471070d19335af7e06507ca5f4a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3bb4eb3ba22a0b3b8fbefccec4720c57"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a3bb4eb3ba22a0b3b8fbefccec4720c57">set_masses</a> (self, mass_dict)</td></tr>
-<tr class="memdesc:a3bb4eb3ba22a0b3b8fbefccec4720c57"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#a3bb4eb3ba22a0b3b8fbefccec4720c57">More...</a><br /></td></tr>
 <tr class="separator:a3bb4eb3ba22a0b3b8fbefccec4720c57"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a65a0d4c6709c921910e90202f723bd55"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a65a0d4c6709c921910e90202f723bd55">set_topology_types</a> (self, kwargs)</td></tr>
-<tr class="memdesc:a65a0d4c6709c921910e90202f723bd55"><td class="mdescLeft">&#160;</td><td class="mdescRight">[Arguments]  <a href="#a65a0d4c6709c921910e90202f723bd55">More...</a><br /></td></tr>
 <tr class="separator:a65a0d4c6709c921910e90202f723bd55"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9d95170d848d1496a504d43ca7f0d549"><td class="memItemLeft" align="right" valign="top"><a id="a9d95170d848d1496a504d43ca7f0d549"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>set_bond_types</b> (self, seq_to_type)</td></tr>
+<tr class="memitem:a9d95170d848d1496a504d43ca7f0d549"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a9d95170d848d1496a504d43ca7f0d549">set_bond_types</a> (self, seq_to_type)</td></tr>
 <tr class="separator:a9d95170d848d1496a504d43ca7f0d549"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a02d7ca656aac1b31833f8b4aab138e14"><td class="memItemLeft" align="right" valign="top"><a id="a02d7ca656aac1b31833f8b4aab138e14"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>set_angle_types</b> (self, seq_to_type)</td></tr>
+<tr class="memitem:a02d7ca656aac1b31833f8b4aab138e14"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a02d7ca656aac1b31833f8b4aab138e14">set_angle_types</a> (self, seq_to_type)</td></tr>
 <tr class="separator:a02d7ca656aac1b31833f8b4aab138e14"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a26726d49d422629ee6e51c45796c6442"><td class="memItemLeft" align="right" valign="top"><a id="a26726d49d422629ee6e51c45796c6442"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>set_dihedral_types</b> (self, seq_to_type)</td></tr>
+<tr class="memitem:a26726d49d422629ee6e51c45796c6442"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a26726d49d422629ee6e51c45796c6442">set_dihedral_types</a> (self, seq_to_type)</td></tr>
 <tr class="separator:a26726d49d422629ee6e51c45796c6442"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a25faedf894ab51bf189ebfc809e8e0e4"><td class="memItemLeft" align="right" valign="top"><a id="a25faedf894ab51bf189ebfc809e8e0e4"></a>
-def&#160;</td><td class="memItemRight" valign="bottom"><b>set_improper_types</b> (self, seq_to_type)</td></tr>
+<tr class="memitem:a25faedf894ab51bf189ebfc809e8e0e4"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a25faedf894ab51bf189ebfc809e8e0e4">set_improper_types</a> (self, seq_to_type)</td></tr>
 <tr class="separator:a25faedf894ab51bf189ebfc809e8e0e4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae5ce41137c13685ac15eef80bd8956c0"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ae5ce41137c13685ac15eef80bd8956c0">write_lammps_data</a> (self, path, mass=False, centering=False, kwargs)</td></tr>
-<tr class="memdesc:ae5ce41137c13685ac15eef80bd8956c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method write Lammps DATA file.  <a href="#ae5ce41137c13685ac15eef80bd8956c0">More...</a><br /></td></tr>
 <tr class="separator:ae5ce41137c13685ac15eef80bd8956c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae9accd694025c32c65248d78bbe4e691"><td class="memItemLeft" align="right" valign="top">def&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#ae9accd694025c32c65248d78bbe4e691">write_lammps_molecule</a> (self, path, special_bonds=True)</td></tr>
-<tr class="memdesc:ae9accd694025c32c65248d78bbe4e691"><td class="mdescLeft">&#160;</td><td class="mdescRight">This method write Lammps MOLECULE file.  <a href="#ae9accd694025c32c65248d78bbe4e691">More...</a><br /></td></tr>
 <tr class="separator:ae9accd694025c32c65248d78bbe4e691"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pri-attribs"></a>
 Private Attributes</h2></td></tr>
-<tr class="memitem:a7da2bcc090ac175d045daa85c8924521"><td class="memItemLeft" align="right" valign="top"><a id="a7da2bcc090ac175d045daa85c8924521"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_prism</b></td></tr>
+<tr class="memitem:a7da2bcc090ac175d045daa85c8924521"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a7da2bcc090ac175d045daa85c8924521">_prism</a></td></tr>
+<tr class="memdesc:a7da2bcc090ac175d045daa85c8924521"><td class="mdescLeft">&#160;</td><td class="mdescRight">An <a class="el" href="classease4lmp_1_1lammps__writer_1_1ExtendedPrism.html" title="This class inherits from ase.calculators.lammpsrun.Prism class. ">ExtendedPrism</a> instance.  <a href="#a7da2bcc090ac175d045daa85c8924521">More...</a><br /></td></tr>
 <tr class="separator:a7da2bcc090ac175d045daa85c8924521"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4f9f6e3a760a364ddc165a006fbe3686"><td class="memItemLeft" align="right" valign="top"><a id="a4f9f6e3a760a364ddc165a006fbe3686"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_atom_types</b></td></tr>
+<tr class="memitem:a4f9f6e3a760a364ddc165a006fbe3686"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a4f9f6e3a760a364ddc165a006fbe3686">_atom_types</a></td></tr>
+<tr class="memdesc:a4f9f6e3a760a364ddc165a006fbe3686"><td class="mdescLeft">&#160;</td><td class="mdescRight">List containing type for each atom.  <a href="#a4f9f6e3a760a364ddc165a006fbe3686">More...</a><br /></td></tr>
 <tr class="separator:a4f9f6e3a760a364ddc165a006fbe3686"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb3014ddd6a7d9817c8ee109bc01235d"><td class="memItemLeft" align="right" valign="top"><a id="acb3014ddd6a7d9817c8ee109bc01235d"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_lmp_atoms</b></td></tr>
+<tr class="memitem:acb3014ddd6a7d9817c8ee109bc01235d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#acb3014ddd6a7d9817c8ee109bc01235d">_lmp_atoms</a></td></tr>
+<tr class="memdesc:acb3014ddd6a7d9817c8ee109bc01235d"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsAtoms.html">LammpsAtoms</a> instance.  <a href="#acb3014ddd6a7d9817c8ee109bc01235d">More...</a><br /></td></tr>
 <tr class="separator:acb3014ddd6a7d9817c8ee109bc01235d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a03487e2ee822279daf9c5e108313704c"><td class="memItemLeft" align="right" valign="top"><a id="a03487e2ee822279daf9c5e108313704c"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_topo</b></td></tr>
+<tr class="memitem:a03487e2ee822279daf9c5e108313704c"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a03487e2ee822279daf9c5e108313704c">_topo</a></td></tr>
+<tr class="memdesc:a03487e2ee822279daf9c5e108313704c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Dictionary containing <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html">LammpsTopology</a> instances for each topology components.  <a href="#a03487e2ee822279daf9c5e108313704c">More...</a><br /></td></tr>
 <tr class="separator:a03487e2ee822279daf9c5e108313704c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18c3708e860f6ea436f52bcc4a0f1fc1"><td class="memItemLeft" align="right" valign="top"><a id="a18c3708e860f6ea436f52bcc4a0f1fc1"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_special_bonds</b></td></tr>
+<tr class="memitem:a18c3708e860f6ea436f52bcc4a0f1fc1"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a18c3708e860f6ea436f52bcc4a0f1fc1">_special_bonds</a></td></tr>
+<tr class="memdesc:a18c3708e860f6ea436f52bcc4a0f1fc1"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsSpecialBonds.html">LammpsSpecialBonds</a> instance.  <a href="#a18c3708e860f6ea436f52bcc4a0f1fc1">More...</a><br /></td></tr>
 <tr class="separator:a18c3708e860f6ea436f52bcc4a0f1fc1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1e87a338863800bae8ddba1af1a3c2d4"><td class="memItemLeft" align="right" valign="top"><a id="a1e87a338863800bae8ddba1af1a3c2d4"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><b>_mass_lines</b></td></tr>
+<tr class="memitem:a1e87a338863800bae8ddba1af1a3c2d4"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a1e87a338863800bae8ddba1af1a3c2d4">_mass_lines</a></td></tr>
+<tr class="memdesc:a1e87a338863800bae8ddba1af1a3c2d4"><td class="mdescLeft">&#160;</td><td class="mdescRight">A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html">LammpsDataLines</a> instance for <em>Masses</em> section.  <a href="#a1e87a338863800bae8ddba1af1a3c2d4">More...</a><br /></td></tr>
 <tr class="separator:a1e87a338863800bae8ddba1af1a3c2d4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class writes Lammps DATA and MOLECULE file. </p>
+<div class="textblock"><p>This class is an interface to write whole <em>Lammps data file</em> (or <em>molecule file</em>). </p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00020">20</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00025">25</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="ac196036da517f6220e756c00ee02a4a4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ac196036da517f6220e756c00ee02a4a4">&#9670;&nbsp;</a></span>__init__()</h2>
+<a id="a3d8ee8c068bd5e10d5797bf82fc9381c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a3d8ee8c068bd5e10d5797bf82fc9381c">&#9670;&nbsp;</a></span>__init__()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -239,12 +211,6 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>special_bonds</em> = <code>False</code>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
           <td class="paramname"><em>tag_is_type</em> = <code>True</code>, </td>
         </tr>
         <tr>
@@ -260,65 +226,174 @@ Private Attributes</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">atoms</td><td>An instance of <a class="el" href="classease4lmp_1_1bonded__atoms_1_1BondedAtoms.html">BondedAtoms</a> or <code>ase.Atoms</code>. </td></tr>
+    <tr><td class="paramname">atom_style</td><td>A string denoting an <em>atom style</em> used in Lammps. </td></tr>
+    <tr><td class="paramname">lammps_unit</td><td>A string denoting a <em>unit</em> used in Lammps. </td></tr>
+    <tr><td class="paramname">tag_is_type</td><td>Whether to use tags of <code>atoms</code> as atom types (<em>tags</em> is one of properties of <code>ase.Atoms</code>). </td></tr>
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments. One can use <code>class2</code> keyword. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>[Arguments] </p>
-<ul>
-<li>atoms: &lt;BondedAtoms/ase.Atoms&gt;</li>
-<li>atom_style: &lt;str&gt;</li>
-<li>lammps_unit: &lt;str&gt;</li>
-<li>tag_is_type: &lt;bool&gt;</li>
-<li>kwargs: contains ...<ol type="1">
-<li>'class2' for improper </li>
-</ol>
-</li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00027">27</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00033">33</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a527ecfba8091b26983b61bfc19260e2b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a527ecfba8091b26983b61bfc19260e2b">&#9670;&nbsp;</a></span>get_maximum_per_atom()</h2>
+<a id="ac6e43fee32694b311aaeb5d18bf9ef75"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac6e43fee32694b311aaeb5d18bf9ef75">&#9670;&nbsp;</a></span>get_angle_patterns()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.get_maximum_per_atom </td>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.get_angle_patterns </td>
           <td>(</td>
           <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>self</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
+          <td class="paramname"><em>self</em></td><td>)</td>
           <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname"><em>key</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A set of unique sequences of atom types appearing in all the sequences of atoms forming angles. </dd></dl>
 
-<p>This method returns the maximum number of topologies (given by key) per atom. </p>
-<p>[Arguments]</p><ul>
-<li>key: &lt;str&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00114">114</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00152">152</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a527ecfba8091b26983b61bfc19260e2b_cgraph.svg" width="502" height="199"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_ac6e43fee32694b311aaeb5d18bf9ef75_cgraph.svg" width="499" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a069fd741485e33b79947604f81257e71"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a069fd741485e33b79947604f81257e71">&#9670;&nbsp;</a></span>get_bond_patterns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.get_bond_patterns </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A set of unique sequences of atom types appearing in all the sequences of atoms forming bonds. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00142">142</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a069fd741485e33b79947604f81257e71_cgraph.svg" width="499" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a6b1ada84515a9f87d0c662aa36c59bc5"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a6b1ada84515a9f87d0c662aa36c59bc5">&#9670;&nbsp;</a></span>get_dihedral_patterns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.get_dihedral_patterns </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A set of unique sequences of atom types appearing in all the sequences of atoms forming dihedrals. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00162">162</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a6b1ada84515a9f87d0c662aa36c59bc5_cgraph.svg" width="499" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a4af2d74dd7d66ccecc1acee909ca0679"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4af2d74dd7d66ccecc1acee909ca0679">&#9670;&nbsp;</a></span>get_improper_patterns()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.get_improper_patterns </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A set of unique sequences of atom types appearing in all the sequences of atoms forming impropers. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00172">172</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a4af2d74dd7d66ccecc1acee909ca0679_cgraph.svg" width="499" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ab11eef77a1769033e1c4ba5ef9ba85d0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab11eef77a1769033e1c4ba5ef9ba85d0">&#9670;&nbsp;</a></span>get_required_datanames()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.get_required_datanames </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A set of required data names: <em>Lammps data file</em> needs those data, but <a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#acb3014ddd6a7d9817c8ee109bc01235d" title="A LammpsAtoms instance. ">_lmp_atoms</a> does not have them yet. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00099">99</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a527ecfba8091b26983b61bfc19260e2b_icgraph.svg" width="231" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_ab11eef77a1769033e1c4ba5ef9ba85d0_icgraph.svg" width="499" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a84e790e7bd887d4193d72072652e2db9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84e790e7bd887d4193d72072652e2db9">&#9670;&nbsp;</a></span>get_required_datanames_for_molecule()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.get_required_datanames_for_molecule </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>A set of required data names: <em>Lammps molecule file</em> needs those data, but <a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#acb3014ddd6a7d9817c8ee109bc01235d" title="A LammpsAtoms instance. ">_lmp_atoms</a> does not have them yet. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00110">110</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a84e790e7bd887d4193d72072652e2db9_cgraph.svg" width="499" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -348,22 +423,229 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Name of topology component: <code>bond</code>, <code>angle</code>, <code>dihedral</code> or <code>improper</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>A set of unique sequences of atom types appearing in given topology components. Note that the number of elements in the set is not necessarily equal to the number of types of topology component: for example, sequence <code>(1, 2, 3)</code> and <code>(3, 2, 1)</code> are reduced to one angle type. </dd></dl>
 
-<p>This method returns all patterns of sequence consisting of atom types for the given topology (by key). </p>
-<p>[Arguments]</p><ul>
-<li>key: &lt;str&gt; </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00090">90</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_aeed8be614f9b259011f8882a2c6c2be7_cgraph.svg" width="494" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00121">121</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_aeed8be614f9b259011f8882a2c6c2be7_icgraph.svg" width="231" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_aeed8be614f9b259011f8882a2c6c2be7_icgraph.svg" width="499" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a600c721fa9f047397a71324e34e3f666"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a600c721fa9f047397a71324e34e3f666">&#9670;&nbsp;</a></span>print_max_angles_per_atom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.print_max_angles_per_atom </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of angles per atom. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00206">206</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a600c721fa9f047397a71324e34e3f666_cgraph.svg" width="502" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a2448504d65413dbcea7d3166cbdb970b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2448504d65413dbcea7d3166cbdb970b">&#9670;&nbsp;</a></span>print_max_bonds_per_atom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.print_max_bonds_per_atom </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of bonds per atom. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00197">197</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a2448504d65413dbcea7d3166cbdb970b_cgraph.svg" width="499" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a013e79ee87d7d43e6e9f91bc5b9a5213"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a013e79ee87d7d43e6e9f91bc5b9a5213">&#9670;&nbsp;</a></span>print_max_dihedrals_per_atom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.print_max_dihedrals_per_atom </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of dihedrals per atom. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00215">215</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a013e79ee87d7d43e6e9f91bc5b9a5213_cgraph.svg" width="499" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a1a2aab1fb44b8e8c80b74f48b1b5137c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1a2aab1fb44b8e8c80b74f48b1b5137c">&#9670;&nbsp;</a></span>print_max_impropers_per_atom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.print_max_impropers_per_atom </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of impropers per atom. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00224">224</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a1a2aab1fb44b8e8c80b74f48b1b5137c_cgraph.svg" width="499" height="67"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="ad8e7f1765619d86785cc47d59ec3db81"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad8e7f1765619d86785cc47d59ec3db81">&#9670;&nbsp;</a></span>print_max_specials_per_atom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.print_max_specials_per_atom </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of special bonds per atom. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00233">233</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+
+</div>
+</div>
+<a id="ac07e7377465b331f6ffd4bd01f023eb9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac07e7377465b331f6ffd4bd01f023eb9">&#9670;&nbsp;</a></span>print_maximum_per_atom()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>key</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">key</td><td>Name of topology component: <code>bond</code>, <code>angle</code>, <code>dihedral</code> or <code>improper</code>.</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>The maximum number of given topology components per atom. </dd></dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00182">182</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_ac07e7377465b331f6ffd4bd01f023eb9_icgraph.svg" width="502" height="279"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a02d7ca656aac1b31833f8b4aab138e14"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a02d7ca656aac1b31833f8b4aab138e14">&#9670;&nbsp;</a></span>set_angle_types()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.set_angle_types </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>seq_to_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seq_to_type</td><td>Dictionary mapping three-element tuples of atom types to corresponding types of angles. Note that second atom of each tuple is assumed to be at the center of angle.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><em>Example</em></p>
+<div class="fragment"><div class="line">writer.set_angle_types({</div><div class="line">  (1, 1, 1): 1,</div><div class="line">  (1, 1, 2): 1,</div><div class="line">  (1, 2, 1): 2,</div><div class="line">  (1, 2, 2): 2,</div><div class="line">  (2, 1, 2): 1,</div><div class="line">  (2, 2, 2): 2,</div><div class="line">})</div></div><!-- fragment --><p>Angle types for <code>(2, 1, 1)</code> and <code>(2, 2, 1) are always assumed to be the same as</code>(1, 1, 2)<code>and</code>(1, 2, 2), respectively. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00317">317</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a02d7ca656aac1b31833f8b4aab138e14_cgraph.svg" width="499" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -393,26 +675,139 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments. Keywords are property names, and arguments are lists (or other array-like objects) containing property values.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method sets data to be written in <em>Atoms</em> (and <em>Velocities</em>) section to <a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#acb3014ddd6a7d9817c8ee109bc01235d" title="A LammpsAtoms instance. ">_lmp_atoms</a>. If keyword <code>type</code> exists, this method assigns the argument to <a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a4f9f6e3a760a364ddc165a006fbe3686" title="List containing type for each atom. ">_atom_types</a>. </p>
 
-<p>[Arguments] </p>
-<ul>
-<li>kwargs:<ul>
-<li>(key) name of atom-value</li>
-<li>(val) &lt;list/tuple/numpy.ndarray&gt; </li>
-</ul>
-</li>
-</ul>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00244">244</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00141">141</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+</div>
+</div>
+<a id="a9d95170d848d1496a504d43ca7f0d549"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a9d95170d848d1496a504d43ca7f0d549">&#9670;&nbsp;</a></span>set_bond_types()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.set_bond_types </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>seq_to_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seq_to_type</td><td>Dictionary mapping two-element tuples of atom types to corresponding types of bonds.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p><em>Example</em></p>
+<div class="fragment"><div class="line">writer.set_bond_types({</div><div class="line">  (1, 1): 1,</div><div class="line">  (1, 2): 2,</div><div class="line">  (2, 2): 3</div><div class="line">})</div></div><!-- fragment --><p>Bond type for <code>(2, 1)</code> is always assumed to be the same as <code>(1, 2)</code>. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00295">295</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 <div class="dynheader">
 Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a5cb8fcde36f224d0ffa3007fda1428aa_cgraph.svg" width="231" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a9d95170d848d1496a504d43ca7f0d549_cgraph.svg" width="499" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
+
+</div>
+</div>
+<a id="a26726d49d422629ee6e51c45796c6442"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a26726d49d422629ee6e51c45796c6442">&#9670;&nbsp;</a></span>set_dihedral_types()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.set_dihedral_types </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>seq_to_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seq_to_type</td><td>Dictionary mapping four-element tuples of atom types to corresponding types of dihedrals. Note that the four atoms are assumed to be connected linearly by three bonds in that order. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00345">345</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 <div class="dynheader">
-Here is the caller graph for this function:</div>
+Here is the call graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a5cb8fcde36f224d0ffa3007fda1428aa_icgraph.svg" width="231" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a26726d49d422629ee6e51c45796c6442_cgraph.svg" width="499" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+</div>
+
+</div>
+</div>
+<a id="a25faedf894ab51bf189ebfc809e8e0e4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a25faedf894ab51bf189ebfc809e8e0e4">&#9670;&nbsp;</a></span>set_improper_types()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">def ease4lmp.lammps_writer.LammpsWriter.set_improper_types </td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>self</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname"><em>seq_to_type</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">seq_to_type</td><td>Dictionary mapping four-element tuples of atom types to corresponding types of impropers. Note that, if <em>class2</em> forcefield is used, the second atom of each tuple is assumed to be at the center of improper; the first atom is assumed to be at the center for other forcefields. </td></tr>
+  </table>
+  </dd>
+</dl>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00357">357</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a25faedf894ab51bf189ebfc809e8e0e4_cgraph.svg" width="499" height="118"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -442,13 +837,15 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">mass_dict</td><td>A dictionary from atom types to atom masses in Lammps unit.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method creates a <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html">LammpsDataLines</a> instance for <em>Masses</em> section and assigns it to <a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a1e87a338863800bae8ddba1af1a3c2d4" title="A LammpsDataLines instance for Masses section. ">_mass_lines</a>. </p>
 
-<p>[Arguments] </p>
-<ul>
-<li>mass_dict: &lt;dict&gt;; &lt;int&gt; =&gt; &lt;float&gt; (in lammps' unit) </li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00155">155</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00262">262</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 
 </div>
 </div>
@@ -477,26 +874,18 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments. Keywords are names of topology component (<code>bond</code>, <code>angle</code>, <code>dihedral</code> and <code>improper</code>), and arguments are dictionary mapping sequences of atom types to corresponding types of the topology component. </td></tr>
+  </table>
+  </dd>
+</dl>
 
-<p>[Arguments] </p>
-<ul>
-<li>kwargs:<ul>
-<li>(key) concrete name (key) of sequence.</li>
-<li>(val) &lt;dict&gt; (&lt;tuple&gt; =&gt; &lt;int&gt;): from sequence to type </li>
-</ul>
-</li>
-</ul>
-
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00165">165</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
-<div class="dynheader">
-Here is the call graph for this function:</div>
-<div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a65a0d4c6709c921910e90202f723bd55_cgraph.svg" width="499" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
-</div>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00279">279</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a65a0d4c6709c921910e90202f723bd55_icgraph.svg" width="231" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_a65a0d4c6709c921910e90202f723bd55_icgraph.svg" width="499" height="248"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -544,23 +933,27 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
-
-<p>This method write Lammps DATA file. </p>
-<p>[Arguments]</p><ul>
-<li>path: &lt;str&gt;</li>
-<li>mass: &lt;bool&gt;; on/off Masses section</li>
-<li>kwargs: contains ...<ol type="1">
-<li>'velocity' on/off Velocities section</li>
-<li>'num_*_type' </li>
-</ol>
-</li>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>File path to <em>Lammps data file</em>. </td></tr>
+    <tr><td class="paramname">mass</td><td>Whether to write <em>Masses</em> section. </td></tr>
+    <tr><td class="paramname">centering</td><td>Whether to shift a simulation box so that its center position becomes <code>(0, 0, 0)</code>. </td></tr>
+    <tr><td class="paramname">**kwargs</td><td>A variable number of named arguments.<ul>
+<li><code>velocity</code>: Whether to write <em>Velocities</em> section or not.</li>
+<li><code>num_atom_type</code>: Number of atom types overwriting the number of atom types in <a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#acb3014ddd6a7d9817c8ee109bc01235d" title="A LammpsAtoms instance. ">_lmp_atoms</a>. It is useful when new atoms will be added to the simulation later.</li>
+<li><code>num_{name}_type</code>: Number of types of topology component (<code>name</code> = <code>bond</code>, <code>angle</code>, <code>dihedral</code> or <code>improper</code>) overwriting the number of types of the component in <a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a03487e2ee822279daf9c5e108313704c" title="Dictionary containing LammpsTopology instances for each topology components. ">_topo</a>. It is useful when new atoms will be added to the simulation later.</li>
 </ul>
+</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method writes <em>Lammps data file</em>. </p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00190">190</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00372">372</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 <div class="dynheader">
 Here is the caller graph for this function:</div>
 <div class="dyncontent">
-<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_ae5ce41137c13685ac15eef80bd8956c0_icgraph.svg" width="499" height="76"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classease4lmp_1_1lammps__writer_1_1LammpsWriter_ae5ce41137c13685ac15eef80bd8956c0_icgraph.svg" width="499" height="52"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 
 </div>
@@ -596,13 +989,173 @@ Here is the caller graph for this function:</div>
         </tr>
       </table>
 </div><div class="memdoc">
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">path</td><td>File path to <em>Lammps molecule file</em>. </td></tr>
+    <tr><td class="paramname">special_bonds</td><td>Whether to write <em>Special Bond Counts</em> and *Special Bonds** section.</td></tr>
+  </table>
+  </dd>
+</dl>
+<p>This method writes <em>Lammps molecule file</em>. </p>
 
-<p>This method write Lammps MOLECULE file. </p>
-<p>[Arguments]</p><ul>
-<li>path: &lt;str&gt; </li>
-</ul>
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00467">467</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 
-<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00263">263</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a4f9f6e3a760a364ddc165a006fbe3686"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4f9f6e3a760a364ddc165a006fbe3686">&#9670;&nbsp;</a></span>_atom_types</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_writer.LammpsWriter._atom_types</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>List containing type for each atom. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00064">64</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+
+</div>
+</div>
+<a id="acb3014ddd6a7d9817c8ee109bc01235d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb3014ddd6a7d9817c8ee109bc01235d">&#9670;&nbsp;</a></span>_lmp_atoms</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_writer.LammpsWriter._lmp_atoms</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsAtoms.html">LammpsAtoms</a> instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00067">67</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+
+</div>
+</div>
+<a id="a1e87a338863800bae8ddba1af1a3c2d4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1e87a338863800bae8ddba1af1a3c2d4">&#9670;&nbsp;</a></span>_mass_lines</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_writer.LammpsWriter._mass_lines</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsDataLines.html">LammpsDataLines</a> instance for <em>Masses</em> section. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00094">94</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+
+</div>
+</div>
+<a id="a7da2bcc090ac175d045daa85c8924521"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7da2bcc090ac175d045daa85c8924521">&#9670;&nbsp;</a></span>_prism</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_writer.LammpsWriter._prism</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>An <a class="el" href="classease4lmp_1_1lammps__writer_1_1ExtendedPrism.html" title="This class inherits from ase.calculators.lammpsrun.Prism class. ">ExtendedPrism</a> instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00053">53</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+
+</div>
+</div>
+<a id="a18c3708e860f6ea436f52bcc4a0f1fc1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18c3708e860f6ea436f52bcc4a0f1fc1">&#9670;&nbsp;</a></span>_special_bonds</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_writer.LammpsWriter._special_bonds</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>A <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsSpecialBonds.html">LammpsSpecialBonds</a> instance. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00083">83</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
+
+</div>
+</div>
+<a id="a03487e2ee822279daf9c5e108313704c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03487e2ee822279daf9c5e108313704c">&#9670;&nbsp;</a></span>_topo</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">ease4lmp.lammps_writer.LammpsWriter._topo</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Dictionary containing <a class="el" href="classease4lmp_1_1lammps__data_1_1LammpsTopology.html">LammpsTopology</a> instances for each topology components. </p>
+
+<p class="definition">Definition at line <a class="el" href="lammps__writer_8py_source.html#l00077">77</a> of file <a class="el" href="lammps__writer_8py_source.html">lammps_writer.py</a>.</p>
 
 </div>
 </div>
@@ -614,7 +1167,7 @@ Here is the caller graph for this function:</div>
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><b>ease4lmp</b></li><li class="navelem"><a class="el" href="namespaceease4lmp_1_1lammps__writer.html">lammps_writer</a></li><li class="navelem"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html">LammpsWriter</a></li>
+    <li class="navelem"><b>ease4lmp</b></li><li class="navelem"><b>lammps_writer</b></li><li class="navelem"><a class="el" href="classease4lmp_1_1lammps__writer_1_1LammpsWriter.html">LammpsWriter</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.14 </li>

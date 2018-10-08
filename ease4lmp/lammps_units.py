@@ -1,15 +1,19 @@
 """
-This script is for Lammps' units. It supports 'real' and 'si' for now.
-Please see the followings for details.
+@file ease4lmp/lammps_units.py
+@brief This file contains unit data for each *Lammps unit*
+(currently only `real` and `si` are supported).
+@author Takayuki Kobayashi
+@date 2018/05/19
+
+Pease see also the followings for details:
 * lammps/src/force.h
 * lammps/src/update.cpp
 * http://lammps.sandia.gov/doc/units.html
 * https://physics.nist.gov/cuu/Constants/Table/allascii.txt
-  -> (Avogadro constant) = 6.022140857 * 10^23
-
-create: 2018/05/19 by Takayuki Kobayashi
+  * (Avogadro constant) = 6.022140857 * 10^23
 """
 
+## Values of physical constants in each *unit* used in Lammps*.
 lmp_units = {
   "real": {
     "boltz": 0.0019872067,                                              # Boltzmann constant (eng/degree-K)
