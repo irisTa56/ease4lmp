@@ -11,6 +11,12 @@ Pease see also the followings for details:
 * http://lammps.sandia.gov/doc/units.html
 * https://physics.nist.gov/cuu/Constants/Table/allascii.txt
   * (Avogadro constant) = 6.022140857 * 10^23
+
+From 2019/05/20:
+* Avogadro constant is *exactly* 6.02214076*10^23 [mol^-1]
+* Boltzmann constant is *exactly* 1.380649*10^−23 [J/K]
+* Planck constant is *exactly* 6.626070150*10^-34 [J*s]
+* Elementary charge is *exactly* 1.602176634*10^−19 [C]
 """
 
 ## Values of physical constants in each *unit* used in Lammps*.
