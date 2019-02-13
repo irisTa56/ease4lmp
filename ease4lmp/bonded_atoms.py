@@ -16,11 +16,12 @@ class BondedAtoms(ase.Atoms):
   Shape of the array for bond data is (*N*, *M*, 4), where *N* is
   the number of atoms and *M* is the maximum number of bonds per atom.
   The first axis of the array corresponds to atoms, and the second axis
-  corresponds to bonds connected to each atom. The third axis describes
-  each bond by four integers: the first integer is a relative index for
-  the other atom, the second to fourth integers are relative image flags
-  (used for resolving a periodic boundary condition) for the other atom
-  in the *x*, *y* and *z* direction, respectively.
+  corresponds to bonds connected to each atom.
+  Four integers in the third axis describes each bond:
+  the first integer is a relative index for the other atom,
+  the second to fourth integers are relative image flags
+  (used for resolving a periodic boundary condition)
+  for the other atom in the *x*, *y* and *z* direction, respectively.
 
   Basically, you can use methods of ``ase.Atoms`` in the same manner.
 
