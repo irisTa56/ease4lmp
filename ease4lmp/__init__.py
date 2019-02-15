@@ -1,10 +1,9 @@
-"""
-@file ease4lmp/__init__.py
-@author Takayuki Kobayashi
-@date 2018/05/24
-"""
+"""Extension of Atomic Simulation Environment (ASE) for LAMMPS"""
 
 from .bonded_atoms import BondedAtoms
 from .lammps_writer import LammpsWriter
 
-__all__ = ["BondedAtoms", "LammpsWriter"]
+__all__ = [
+  "BondedAtoms",
+  "LammpsWriter",
+]

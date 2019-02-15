@@ -1,16 +1,14 @@
-"""
-@file ease4lmp/lammps_dataformats.py
-@brief This file contains format data for each *atom style*
-used in *Atoms* and *Velocities* section of *Lammps data file*.
-@author Takayuki Kobayashi
-@date 2018/05/30
+"""Submodule containing format data for each *atom style*
+used in *Atoms* and *Velocities* section of Lammps' data file.
 
-Pease see also Lammps documentation:
-http://lammps.sandia.gov/doc/read_data.html.
+Pease see also the following for details:
+
+* http://lammps.sandia.gov/doc/read_data.html.
+
 """
 
 
-## Dictionary from *atom styles* to tuples representing formats
+# Dictionary from *atom styles* to tuples representing formats
 # of each line in *Atoms* section.
 lmp_dataformats_atoms = {
   "angle": ("id:8d", "mol:6d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
@@ -38,7 +36,7 @@ lmp_dataformats_atoms = {
   #"hybrid": ("id:8d", "type:4d", "x:15.8e", "y:15.8e", "z:15.8e", "sub_style1", "sub_style2", "...")
 }
 
-## Dictionary from *atom styles* to tuples representing formats
+# dictionary from *atom styles* to tuples representing formats
 # of each line in *Velocities* section.
 lmp_dataformats_velocities = {
   "*": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e"),

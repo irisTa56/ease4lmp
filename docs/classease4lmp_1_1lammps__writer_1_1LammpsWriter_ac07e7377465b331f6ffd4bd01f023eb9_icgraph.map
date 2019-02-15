@@ -1,6 +1,0 @@
-<map id="ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom" name="ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom">
-<area shape="rect" id="node2" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a2448504d65413dbcea7d3166cbdb970b" title="ease4lmp.lammps_writer.Lammps\lWriter.print_max_bonds_per_atom" alt="" coords="275,5,495,47"/>
-<area shape="rect" id="node3" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a600c721fa9f047397a71324e34e3f666" title="ease4lmp.lammps_writer.Lammps\lWriter.print_max_angles_per_atom" alt="" coords="273,71,496,112"/>
-<area shape="rect" id="node4" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a013e79ee87d7d43e6e9f91bc5b9a5213" title="ease4lmp.lammps_writer.Lammps\lWriter.print_max_dihedrals\l_per_atom" alt="" coords="275,137,495,193"/>
-<area shape="rect" id="node5" href="$classease4lmp_1_1lammps__writer_1_1LammpsWriter.html#a1a2aab1fb44b8e8c80b74f48b1b5137c" title="ease4lmp.lammps_writer.Lammps\lWriter.print_max_impropers\l_per_atom" alt="" coords="275,217,495,273"/>
-</map>

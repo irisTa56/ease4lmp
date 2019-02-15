@@ -1,5 +1,0 @@
-<map id="ease4lmp.lammps_writer.LammpsWriter.get_maximum_per_atom" name="ease4lmp.lammps_writer.LammpsWriter.get_maximum_per_atom">
-<area shape="rect" id="node2" href="$classease4lmp_1_1lammps__data_1_1LammpsTopology.html#a8c22477fe441bedeed1a983b1cf47fa3" title="ease4lmp.lammps_data.Lammps\lTopology.get_maximum_per_atom" alt="" coords="273,5,496,47"/>
-<area shape="rect" id="node3" href="$classease4lmp_1_1lammps__data_1_1LammpsBonds.html#adf657c777be2c98b7b28138d11afc305" title="ease4lmp.lammps_data.Lammps\lBonds.get_maximum_per_atom" alt="" coords="277,71,492,112"/>
-<area shape="rect" id="node4" href="$classease4lmp_1_1lammps__data_1_1LammpsSpecialBonds.html#ad74fe26d7567d898bef75ecd09839a1d" title="ease4lmp.lammps_data.Lammps\lSpecialBonds.get_maximum\l_per_atom" alt="" coords="277,137,492,193"/>
-</map>

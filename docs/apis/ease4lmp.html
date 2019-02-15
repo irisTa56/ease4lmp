@@ -1,0 +1,2282 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ease4lmp package &mdash; ease4lmp  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Modules" href="modules.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> ease4lmp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="reference internal" href="modules.html">Modules</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">ease4lmp package</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.bonded_atoms">ease4lmp.bonded_atoms module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_data">ease4lmp.lammps_data module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_dataformats">ease4lmp.lammps_dataformats module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_units">ease4lmp.lammps_units module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_writer">ease4lmp.lammps_writer module</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#module-ease4lmp">Module contents</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">ease4lmp</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="modules.html">Modules</a> &raquo;</li>
+        
+      <li>ease4lmp package</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="../_sources/apis/ease4lmp.md.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="ease4lmp-package">
+<h1>ease4lmp package<a class="headerlink" href="#ease4lmp-package" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="submodules">
+<h2>Submodules<a class="headerlink" href="#submodules" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="module-ease4lmp.bonded_atoms">
+<span id="ease4lmp-bonded-atoms-module"></span><h3>ease4lmp.bonded_atoms module<a class="headerlink" href="#module-ease4lmp.bonded_atoms" title="Permalink to this headline">¶</a></h3>
+<p>Submodule for a class extending <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> with bonds.</p>
+<dl class="class">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms">
+<em class="property">class </em><code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">BondedAtoms</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Inherits <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
+to handle (covalent) bonds connecting a pair of atoms.</p>
+<p>An instance of this class has bond data as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+as with other atomic properties like positions and velocities.
+Shape of this array for bond data is (<em>N</em>, <em>M</em>, 4), where <em>N</em> is
+the number of atoms and <em>M</em> is the maximum number of bonds per atom.
+The first axis of the array corresponds to atoms, and the second axis
+corresponds to bonds connected to each atom.
+Four integers in the third axis describes each bond:
+the first integer is a relative index for the other atom,
+the second to fourth integers are relative image flags
+(used for resolving a periodic boundary condition)
+for the other atom in the <em>x</em>, <em>y</em> and <em>z</em> direction, respectively.</p>
+<p>In addition, an instance of this class has type of atoms
+as a one-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>. Length of this array is
+equal to the number of atoms. Atom’s type is typically required
+for making Lammps’ data file and molecule file.</p>
+<p>Basically, you can use methods of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> in the same manner.</p>
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.__delitem__">
+<code class="descname">__delitem__</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.__delitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a selected atom.</p>
+<p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__delitem__</span></code>.
+Before calling the parent method to remove a selected atom,
+this method deletes bond data associated with the atom.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>idx: int or list or tuple</dt>
+<dd>Index for an atom to be deleted.
+A list or tuple of integers is also acceptable for multiple atoms.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">set_bonds</span><span class="p">([</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+<span class="gp">... </span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[ 1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]],</span>
+<span class="go">       [[-1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[0, 0, 0, 0],</span>
+<span class="go">        [0, 0, 0, 0],</span>
+<span class="go">        [0, 0, 0, 0],</span>
+<span class="go">        [0, 0, 0, 0]]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.__imul__">
+<code class="descname">__imul__</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__imul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.__imul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a super cell and returns it.</p>
+<p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__imul__</span></code>.
+After calling the parent method to expand the simulation box,
+this method recalculates image flags over the expanded bond data.
+Assuming that two atoms connected with a bond are
+in different images of the periodic simulation box before expansion.
+If the two atoms are in the same image after expansion,
+their image falgs for the opponent must be updated to (0, 0, 0).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>m: tuple or list or int</dt>
+<dd>Three-element tuple or list defining how many times
+a periodic simulation box is repeated in each direction.
+The first, second and third element corresponds to the <em>x</em>, <em>y</em>
+and <em>z</em> direction, respectively.
+If an integer is given, a tuple <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">m,</span> <span class="pre">m)</span></code> is used.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span>
+<span class="gp">... </span>  <span class="s1">&#39;Au&#39;</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="n">positions</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]],</span>
+<span class="gp">... </span>  <span class="n">cell</span><span class="o">=</span><span class="p">[</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>  <span class="n">pbc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[ 0,  1,  0,  0],</span>
+<span class="go">        [ 0, -1,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[ 1,  0,  0,  0],</span>
+<span class="go">        [ 2, -1,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]],</span>
+<span class="go">       [[ 1,  0,  0,  0],</span>
+<span class="go">        [-1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]],</span>
+<span class="go">       [[-2,  1,  0,  0],</span>
+<span class="go">        [-1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>args:</dt>
+<dd>A variable number of arguments passed to <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>.</dd>
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments passed to <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.add_bond">
+<code class="descname">add_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.add_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.add_bond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a bond connecting two atoms.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atom1: int</dt>
+<dd>Index for the first atom.</dd>
+<dt>atom2: int</dt>
+<dd>Index for the second atom.</dd>
+<dt>img1: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the first atom is in.</dd>
+<dt>img2: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the second atom is in.</dd>
+</dl>
+<p>Examples:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Bond data stored in the first atom:
+<code class="docutils literal notranslate"><span class="pre">[atom2-atom1,</span> <span class="pre">img2[0]-img1[0],</span> <span class="pre">img2[1]-img1[1],</span> <span class="pre">img2[2]-img1[2]]</span></code>.</li>
+<li>Bond data stored in the second atom:
+<code class="docutils literal notranslate"><span class="pre">[atom1-atom2,</span> <span class="pre">img1[0]-img2[0],</span> <span class="pre">img1[1]-img2[1],</span> <span class="pre">img1[2]-img2[2]]</span></code>.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.change_max_bonds">
+<code class="descname">change_max_bonds</code><span class="sig-paren">(</span><em>n=4</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.change_max_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.change_max_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the maximum number of bonds per atom.</p>
+<p>Like original properties of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code>,
+bond data is also stored as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>,
+which is a homogeneous array of fixed-size items.
+This means that all the atoms have the same capacity for bond data,
+and the capacity is fixed until manually changed.
+This method changes the capacity, namely,
+the maximum number of bonds per atom.
+Note that existing data stay unchanged after changing the capacity.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>n: int</dt>
+<dd>New maximum number of bonds per atom.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.extend">
+<code class="descname">extend</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends this instance by appending the given instance.</p>
+<p>This method returns this extended instance,
+which is the same behavior with <code class="docutils literal notranslate"><span class="pre">ase.Atoms.extend()</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>other: ase.Atom or ase.Atoms or BondedAtoms</dt>
+<dd>For ase.Atom or ase.Atoms instance,
+the instance will be down-casted to BondedAtoms before extension.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_angles">
+<code class="descname">get_bonded_angles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+describing all angles defined by two consecutive bonds.</p>
+<p>Shape of the returned array is (<em>N_a</em>, 3),
+where <em>N_a</em> is the number of angles
+defined by two consecutive bonds.
+Each row (the first axis) corresponds to each angle,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first, second and third atom in the each angle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_bonds">
+<code class="descname">get_bonded_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> describing all bonds.</p>
+<p>Shape of the returned array is (<em>N_b</em>, 2),
+where <em>N_b</em> is the number of bonds.
+Each row (the first axis) corresponds to each bond,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first and second atom connected by the each bond.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_dihedrals">
+<code class="descname">get_bonded_dihedrals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_dihedrals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+describing all dihedrals defined by three consecutive bonds.</p>
+<p>Shape of the returned array is (<em>N_d</em>, 4),
+where <em>N_d</em> is the number of dihedrals
+defined by three consecutive bonds.
+Each row (the first axis) corresponds to each dihedral,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first, second, third and fourth atom in the each dihedral.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_impropers">
+<code class="descname">get_bonded_impropers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_impropers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+describing all impropers defined by three bonds
+connected to the same atom.</p>
+<p>Shape of the returned array is (<em>N_i</em>, 4),
+where <em>N_i</em> is the number of impropers
+defined by three bonds connected to the same atom.
+Each row (the first axis) corresponds to each improper,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first, second, third and fourth atom in the each improper;
+the first atom is the center one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonds">
+<code class="descname">get_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an array of integers containing bond data.</p>
+<p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
+for example, atoms’ positions are accessed by key ‘positions’.
+For BondedAtoms instance, bond data is also stored
+in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code> with key of ‘bonds’.
+This method returns a copy of <code class="docutils literal notranslate"><span class="pre">self.arrays[&quot;bonds&quot;]</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonds_per_atom">
+<code class="descname">get_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a nested list of bond data.</p>
+<p>The returned list is two-dimensional:
+each element of the first list corresponds to each atom,
+and the second list consists of <em>absolute</em> indices for atoms
+bonded with the each atom.</p>
+<p>This method is different from <code class="docutils literal notranslate"><span class="pre">self.get_bonds()</span></code> in terms of
+the following two points:</p>
+<ul class="simple">
+<li>No data about image flags.</li>
+<li>Contains data of <em>existing</em> bonds only.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.get_types">
+<code class="descname">get_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an array of integers containing atom’s type.</p>
+<p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
+for example, atoms’ positions are accessed by key ‘positions’.
+For BondedAtoms instance, atom’s type data is also stored
+in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code> with key of ‘types’.
+This method returns a copy of <code class="docutils literal notranslate"><span class="pre">self.arrays[&quot;types&quot;]</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.remove_bond">
+<code class="descname">remove_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.remove_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.remove_bond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a bond connecting the given two atoms.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atom1: int</dt>
+<dd>Index for the first atom.</dd>
+<dt>atom2: int</dt>
+<dd>Index for the second atom.</dd>
+<dt>img1: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the first atom is in.</dd>
+<dt>img2: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the second atom is in.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.set_bonds">
+<code class="descname">set_bonds</code><span class="sig-paren">(</span><em>bonds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.set_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the given bond data.</p>
+<p>This method sets bond data to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
+using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>bonds: numpy.ndarray or list</dt>
+<dd>Array describing bonds. Shape of the array must be (<em>N</em>, <em>M</em>, 4),
+where <em>N</em> is the number of atoms and <em>M</em> is the maximum number
+of bonds per atom. Four integers of innermost-axis are as follows:
+the first integer is a relative index for the other atom,
+the second to fourth integers are relative image flags
+for the other atom in the <em>x</em>, <em>y</em> and <em>z</em> direction, respectively.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.set_types">
+<code class="descname">set_types</code><span class="sig-paren">(</span><em>types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.set_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the given type of atoms.</p>
+<p>This method sets type of atoms to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
+using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>types: numpy.ndarray or list</dt>
+<dd>Per-atom array containing atom’s type.
+Length of the array must be equal to the number of atoms.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+<div class="section" id="module-ease4lmp.lammps_data">
+<span id="ease4lmp-lammps-data-module"></span><h3>ease4lmp.lammps_data module<a class="headerlink" href="#module-ease4lmp.lammps_data" title="Permalink to this headline">¶</a></h3>
+<p>Submodule for classes writing each section in Lammps’ data file.</p>
+<dl class="class">
+<dt id="ease4lmp.lammps_data.LammpsAngles">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsAngles</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAngles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAngles" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to write <em>Angles</em> section
+in Lammps’ data file (or molecule file).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.lammps_data.LammpsAtoms">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsAtoms</code><span class="sig-paren">(</span><em>atom_style</em>, <em>types</em>, <em>positions</em>, <em>velocities=None</em>, <em>masses=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to write <em>Atoms</em> (and <em>Velocities</em>) section
+in Lammps’ data file (or molecule file).</p>
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>atom_style</em>, <em>types</em>, <em>positions</em>, <em>velocities=None</em>, <em>masses=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>atom_style: str</dt>
+<dd>Specify <em>atom style</em> of Lammps.</dd>
+<dt>types: numpy.ndarray</dt>
+<dd>Returned value of <code class="docutils literal notranslate"><span class="pre">BondedAtoms.get_types()</span></code>.</dd>
+<dt>positions: numpy.ndarray</dt>
+<dd>Returned value of <code class="docutils literal notranslate"><span class="pre">ase.Atoms.get_positions()</span></code>.</dd>
+<dt>velocities: None or numpy.ndarray</dt>
+<dd>Returned value of <code class="docutils literal notranslate"><span class="pre">ase.Atoms.get_velocities()</span></code>.
+If None, the <em>Velocities</em> section will not be written.
+Note that the <em>i</em> th atom in <code class="docutils literal notranslate"><span class="pre">velocities</span></code> must correspond to
+the <em>i</em> th atom in <code class="docutils literal notranslate"><span class="pre">types</span></code>.</dd>
+<dt>masses: None or list or tuple or numpy.ndarray</dt>
+<dd>A list whose length is equal to the number of atoms.
+Each element is a <em>mass</em> of each atom used in Lammps.
+Note that the <em>i</em> th atom in <code class="docutils literal notranslate"><span class="pre">masses</span></code> must correspond to
+the <em>i</em> th atom in <code class="docutils literal notranslate"><span class="pre">types</span></code>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.get_num">
+<code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.get_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of atoms.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.get_num_type">
+<code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.get_num_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of atom types.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.get_required_datanames">
+<code class="descname">get_required_datanames</code><span class="sig-paren">(</span><em>molecule=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.get_required_datanames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of required data names (keys).</p>
+<p>Names of data are returned if the data is required to
+write Lammps’ data file and has not been set yet.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>molecule: bool</dt>
+<dd>Whether to return data names required for Lammps’ molecule file.
+This method returns data names for Lammps’ data file by default.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.set_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores given data in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments.
+Keywords are data names, and arguments are data values.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.set_masses">
+<code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores masses in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
+<p>Though the parameter <code class="docutils literal notranslate"><span class="pre">type2mass</span></code> is a dictionary mapping
+atom’s type to its mass, masses will be stored as a per-atom array.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>type2mass: dict</dt>
+<dd>Dictionary mapping atom’s type (int) to its mass (float).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.shift_positions">
+<code class="descname">shift_positions</code><span class="sig-paren">(</span><em>shift=(0.0</em>, <em>0.0</em>, <em>0.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.shift_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.shift_positions" title="Permalink to this definition">¶</a></dt>
+<dd><p>Shifts atom positions stored in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>shift: tuple or list</dt>
+<dd>A tuple or list defining a Cartesian vector by which
+atom positions shift.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.write_lines">
+<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em>, <em>velocity=False</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.write_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes lines of <em>Atoms</em> and <em>Velocities</em> section.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file.</dd>
+<dt>velocity: bool</dt>
+<dd>Whether to write <em>Velocities</em> section or not.</dd>
+<dt>mass: bool</dt>
+<dd>Whether to write <em>Masses</em> section or not.</dd>
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments (currently not in use).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsAtoms.write_lines_for_molecule">
+<code class="descname">write_lines_for_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.write_lines_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.write_lines_for_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes lines of <em>Coords</em>, <em>Types</em>, <em>Charges</em> and <em>Masses</em> section
+to Lammps’ molecule file.</p>
+<p>This method creates a new LammpsDataLines instance to write
+<em>Coords</em> and <em>Types</em> sections (and <em>Charges</em> section)
+in Lammps’ molecule file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
+<dt>mass: bool</dt>
+<dd>Whether to write <em>Masses</em> section or not.</dd>
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments (currently not in use).</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.lammps_data.LammpsBonds">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsBonds</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsBonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to write <em>Bonds</em> section
+in Lammps’ data file (or molecule file).</p>
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsBonds.get_maximum_per_atom">
+<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of topology components per atom.</p>
+<p>This method overrides <code class="docutils literal notranslate"><span class="pre">LammpsTopology.get_maximum_per_atom()</span></code>
+because data for a bond is linked to the first atom in the bond
+whereas data for the other topology components is linked to
+the second atom in the component.
+See also Lammps’ source code of <code class="docutils literal notranslate"><span class="pre">Atom::data_bonds()</span></code>.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.lammps_data.LammpsDihedrals">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsDihedrals</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsDihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsDihedrals" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to write <em>Dihedrals</em> section
+in Lammps’ data file (or molecule file).</p>
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.lammps_data.LammpsImpropers">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsImpropers</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsImpropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsImpropers" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to write <em>Impropers</em> section
+in Lammps’ data file (or molecule file).</p>
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsImpropers.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsImpropers.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsImpropers.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>sequences: numpy.ndarray</dt>
+<dd>Two-dimensional array describing topology components.
+Note that the first atom of each sequence is a center atom
+of improper (all the three bonds connect to the atom).</dd>
+<dt>datanames: tuple</dt>
+<dd>Tuple of strings specifying data names written in a line.</dd>
+<dt>class2: bool</dt>
+<dd>Whether forcefiled is CLASS2 or not.
+If forcefield is CLASS2, a center atom of each improper
+must be the second atom in a sequence.
+For other forcefields, the first atom is the center one.</dd>
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments
+(for receiving excessive arguments).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsImpropers.get_sequence_patterns">
+<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsImpropers.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsImpropers.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in the topology components.</p>
+<p>This method overrides <code class="docutils literal notranslate"><span class="pre">LammpsTopology.get_sequence_patterns()</span></code>
+where original and reverse ordered sequence are considered as
+equivalent; it is not the case with improper.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atom_types: list or tuple or numpy.ndarray</dt>
+<dd>A one dimensional array-like object whose <em>i</em> th element is
+a type of the <em>i</em> th atom.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.lammps_data.LammpsSpecialBonds">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsSpecialBonds</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to write <em>Special Bond Counts</em>
+and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>bonds_per_atom: list</dt>
+<dd>Two-dimensional list containing bond data for each atom:
+each element of the first list corresponds to each atom,
+and the second list consists of <em>absolute</em> indices for atoms
+bonded with the each atom
+(Returned value of <code class="docutils literal notranslate"><span class="pre">BondedAtoms.get_bonds_per_atom()</span></code>).</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.get_maximum_per_atom">
+<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of special bonds per atom
+(sum over <em>1-2</em>, <em>1-3</em>, and <em>1-4</em> special bonds).</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.write_lines">
+<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.write_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes lines of <em>Special Bond Counts</em>
+and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.lammps_data.LammpsTopology">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsTopology</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology" title="Permalink to this definition">¶</a></dt>
+<dd><p>An (abstract) interface to write a section of topology component
+(<em>Bonds</em>, <em>Angles</em>, <em>Dihedrals</em>, <em>Impropers</em>)
+in Lammps’ data file (or molecule file).</p>
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsTopology.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>sequences: numpy.ndarray</dt>
+<dd>Two-dimensional array describing topology components.</dd>
+<dt>datanames: tuple</dt>
+<dd>Tuple of strings specifying data names written in a line.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ease4lmp.lammps_data.LammpsTopology.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsTopology.get_maximum_per_atom">
+<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of topology components per atom.</p>
+<p>For more details see also Lammps’ source code of
+<code class="docutils literal notranslate"><span class="pre">Atom::data_angles()</span></code>, <code class="docutils literal notranslate"><span class="pre">Atom::data_dihedrals()</span></code>
+and <code class="docutils literal notranslate"><span class="pre">Atom::data_impropers()</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsTopology.get_num">
+<code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_num" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of topology components.</p>
+<p>The number of topology components is considered as 0
+until types of the topology components are set.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsTopology.get_num_type">
+<code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_num_type" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the number of topology types.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsTopology.get_sequence_patterns">
+<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in the topology components.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atom_types: list or tuple or numpy.ndarray</dt>
+<dd>A one dimensional array-like object whose <em>i</em> th element is
+a type of the <em>i</em> th atom.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsTopology.set_types">
+<code class="descname">set_types</code><span class="sig-paren">(</span><em>seq_to_type</em>, <em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.set_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets type of the topology components.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping from sequences of atom types (tuple)
+to types of topology components consisting of those atoms (int).
+Note that the sequences can be arbitrary order; for example,
+two sequences of angle <code class="docutils literal notranslate"><span class="pre">(1,</span> <span class="pre">2,</span> <span class="pre">3)</span></code> and <code class="docutils literal notranslate"><span class="pre">(3,</span> <span class="pre">2,</span> <span class="pre">1)</span></code>
+have the same meaning.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_data.LammpsTopology.write_lines">
+<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.write_lines" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes lines of a topology section
+in Lammps’ data file (or molecule file).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.lammps_data.create_topology">
+<code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">create_topology</code><span class="sig-paren">(</span><em>name</em>, <em>sequences</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#create_topology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.create_topology" title="Permalink to this definition">¶</a></dt>
+<dd><p>A factory function for LammpsTopology’s subclass.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>name: str</dt>
+<dd>Name of topology component:
+‘bond’, ‘angle’, ‘dihedral’ or ‘improper’.</dd>
+<dt>sequences: numpy.ndarray</dt>
+<dd>Two-dimensional array describing of topology components.
+Shapes of the array for ‘bond’, ‘angle’, ‘dihedral’
+and ‘improper’ are (<em>N</em>, 2), (<em>N</em>, 3), (<em>N</em>, 4) and (<em>N</em>, 4),
+respectively. Here <em>N</em> is the number of topology components.
+Elements of the array are zero-based indices for atoms.</dd>
+<dt>kwargs:</dt>
+<dd><p class="first">A variable number of named arguments.</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">class2</span></code> (bool) : Set to True when using CLASS2 forcefield.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ease4lmp.lammps_dataformats">
+<span id="ease4lmp-lammps-dataformats-module"></span><h3>ease4lmp.lammps_dataformats module<a class="headerlink" href="#module-ease4lmp.lammps_dataformats" title="Permalink to this headline">¶</a></h3>
+<p>Submodule containing format data for each <em>atom style</em>
+used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</p>
+<p>Pease see also the following for details:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://lammps.sandia.gov/doc/read_data.html">http://lammps.sandia.gov/doc/read_data.html</a>.</li>
+</ul>
+</div>
+<div class="section" id="module-ease4lmp.lammps_units">
+<span id="ease4lmp-lammps-units-module"></span><h3>ease4lmp.lammps_units module<a class="headerlink" href="#module-ease4lmp.lammps_units" title="Permalink to this headline">¶</a></h3>
+<p>Submodule containing <em>unit</em> data for Lammps
+(currently only ‘real’ and ‘si’ are supported).</p>
+<p>Pease see also the followings for details:</p>
+<ul class="simple">
+<li><a class="reference external" href="https://github.com/lammps/lammps/blob/master/src/force.h">https://github.com/lammps/lammps/blob/master/src/force.h</a></li>
+<li><a class="reference external" href="https://github.com/lammps/lammps/blob/master/src/update.cpp">https://github.com/lammps/lammps/blob/master/src/update.cpp</a></li>
+<li><a class="reference external" href="http://lammps.sandia.gov/doc/units.html">http://lammps.sandia.gov/doc/units.html</a></li>
+<li><a class="reference external" href="https://physics.nist.gov/cuu/Constants/Table/allascii.txt">https://physics.nist.gov/cuu/Constants/Table/allascii.txt</a>:
+(Avogadro constant) = 6.022140857*10^23</li>
+</ul>
+<p>A redefinition of SI base units is scheduled on 2019/05/20.
+I wonder if Lammps changes its <em>unit</em> definitions.</p>
+<ul class="simple">
+<li>Avogadro constant becomes <em>exactly</em> 6.02214076*10^23 [/mol]</li>
+<li>Boltzmann constant becomes <em>exactly</em> 1.380649*10^−23 [J/K]</li>
+<li>Planck constant becomes <em>exactly</em> 6.626070150*10^-34 [J*s]</li>
+<li>Elementary charge becomes <em>exactly</em> 1.602176634*10^−19 [C]</li>
+</ul>
+</div>
+<div class="section" id="module-ease4lmp.lammps_writer">
+<span id="ease4lmp-lammps-writer-module"></span><h3>ease4lmp.lammps_writer module<a class="headerlink" href="#module-ease4lmp.lammps_writer" title="Permalink to this headline">¶</a></h3>
+<p>Submodule for an interface to write Lammps’ data file.</p>
+<dl class="class">
+<dt id="ease4lmp.lammps_writer.ExtendedPrism">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_writer.</code><code class="descname">ExtendedPrism</code><span class="sig-paren">(</span><em>cell</em>, <em>pbc=(True</em>, <em>True</em>, <em>True)</em>, <em>digits=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#ExtendedPrism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.ExtendedPrism" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extended <code class="docutils literal notranslate"><span class="pre">ase.calculators.lammpsrun.Prism</span></code> class.</p>
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.ExtendedPrism.transform_to_lammps">
+<code class="descname">transform_to_lammps</code><span class="sig-paren">(</span><em>vectors</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#ExtendedPrism.transform_to_lammps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.ExtendedPrism.transform_to_lammps" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns transposed <em>vectors</em>.</p>
+<p>This method is required to convert vectors
+from Aes’s cartesian coordinate system
+to Lammps’ skewed coordinate system.</p>
+<p>Note that transposing occurs only if the simulation box is skewed.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>vectors: numpy.ndarray</dt>
+<dd>Positions or velocities of atoms.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.lammps_writer.LammpsWriter">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_writer.</code><code class="descname">LammpsWriter</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>An interface to write Lammps’ data file (or molecule file).</p>
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>atoms: BondedAtoms or ase.Atoms</dt>
+<dd>Atoms to be written to Lammps’ data file.</dd>
+<dt>atom_style: str</dt>
+<dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
+<dt>kwargs:</dt>
+<dd><p class="first">A variable number of named arguments.</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">class2</span></code> (bool) : If Lammps’ data file written by this instance is
+used with CLASS2 forcefield, <code class="docutils literal notranslate"><span class="pre">class2=True</span></code> must be set.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.get_angle_patterns">
+<code class="descname">get_angle_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_angle_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_angle_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing angles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.get_bond_patterns">
+<code class="descname">get_bond_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_bond_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_bond_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing bonds.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.get_dihedral_patterns">
+<code class="descname">get_dihedral_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_dihedral_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_dihedral_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing dihedrals.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.get_improper_patterns">
+<code class="descname">get_improper_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_improper_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_improper_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing impropers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.get_required_datanames">
+<code class="descname">get_required_datanames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_required_datanames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of required data names (keys).</p>
+<p>Names of data are returned if the data is required to
+write Lammps’ data file and has not been set yet.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.get_required_datanames_for_molecule">
+<code class="descname">get_required_datanames_for_molecule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_required_datanames_for_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of required data names (keys).</p>
+<p>Names of data are returned if the data is required to
+write Lammps’ molecule file and has not been set yet.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.get_sequence_patterns">
+<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in the given topology component.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>key: str</dt>
+<dd>Name of topology component:
+‘bond’, ‘angle’, ‘dihedral’ or ‘improper’.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_angles_per_atom">
+<code class="descname">print_max_angles_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_angles_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_angles_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of angles per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_bonds_per_atom">
+<code class="descname">print_max_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of bonds per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_dihedrals_per_atom">
+<code class="descname">print_max_dihedrals_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_dihedrals_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_dihedrals_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of dihedrals per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_impropers_per_atom">
+<code class="descname">print_max_impropers_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_impropers_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_impropers_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of impropers per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_specials_per_atom">
+<code class="descname">print_max_specials_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_specials_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_specials_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of special bonds per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom">
+<code class="descname">print_maximum_per_atom</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of given topology components per atom.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>key: str</dt>
+<dd>Name of topology component:
+‘bond’, ‘angle’, ‘dihedral’ or ‘improper’.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.set_angle_types">
+<code class="descname">set_angle_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_angle_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_angle_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of angles.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping three-element tuples of atom types
+to corresponding types of angle.
+Note that second atom of each tuple should be
+at the center of angle.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_angle_patterns</span><span class="p">()</span>
+<span class="go">{(1, 2, 4), (2, 1, 3), (3, 1, 3)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_angle_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">3</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsAngles: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.set_atom_data">
+<code class="descname">set_atom_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_atom_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_atom_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets data for <em>Atoms</em> (and <em>Velocities</em>) section.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments.
+Keywords are data names, and arguments are data values
+(list-like objects).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.set_bond_types">
+<code class="descname">set_bond_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_bond_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_bond_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of bonds.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping two-element tuples of atom types
+to corresponding types of bond.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_bond_patterns</span><span class="p">()</span>
+<span class="go">{(1, 2), (1, 3), (2, 4)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_bond_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="mi">3</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsBonds: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.set_dihedral_types">
+<code class="descname">set_dihedral_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_dihedral_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_dihedral_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of dihedrals.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping four-element tuples of atom types
+to corresponding types of dihedral.
+Note that the four atoms should be connected linearly
+by three bonds in that order.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_dihedral_patterns</span><span class="p">()</span>
+<span class="go">{(3, 1, 2, 4)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_dihedral_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsDihedrals: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.set_improper_types">
+<code class="descname">set_improper_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_improper_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_improper_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of impropers.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping four-element tuples of atom types
+to corresponding types of improper.
+Note that, if CLASS2 forcefield is used, the second atom of
+each tuple should be at the center of improper;
+the first atom should be at the center for other forcefields.
+Note that the four atoms should be connected linearly
+by three bonds in that order.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_improper_patterns</span><span class="p">()</span>
+<span class="go">{(1, 2, 3, 3), (1, 3, 3, 3)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_improper_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsImpropers: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.set_masses">
+<code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets data for <em>Masses</em> section.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>type2mass: dict</dt>
+<dd>Dictionary mapping atom’s type (int) to its mass (float).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.set_topology_types">
+<code class="descname">set_topology_types</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_topology_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_topology_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of the given topology components.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments.
+Keywords are names of topology component (‘bond’, ‘angle’,
+‘dihedral’, ‘improper’), and arguments are dictionary
+mapping sequences of atom types to corresponding types of
+the topology component.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.write_lammps_data">
+<code class="descname">write_lammps_data</code><span class="sig-paren">(</span><em>path</em>, <em>centering=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.write_lammps_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes Lammps’ data file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file.</dd>
+<dt>centering: bool</dt>
+<dd>Whether to shift a simulation box
+so that its center position becomes <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>.</dd>
+<dt>kwargs:</dt>
+<dd><p class="first">A variable number of named arguments.</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">velocity</span></code> (bool) : Whether to write <em>Velocities</em> section or not.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (bool) : Whether to write <em>Masses</em> section or not.</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_atom_type</span></code> (bool) : Number of atom types; this overwrites
+the number of atom types stored in this instance. It is useful
+when extra atoms will be added to the simulation box later.</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_{name}_type</span></code> (bool) : Number of types of topology component
+(<code class="docutils literal notranslate"><span class="pre">name</span></code> is one of <em>bond</em>, <em>angle</em>, <em>dihedral</em> and <em>improper</em>);
+this overwrites the number of the component types
+stored in this instance. It is useful when extra atoms
+will be added to the simulation box later.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.lammps_writer.LammpsWriter.write_lammps_molecule">
+<code class="descname">write_lammps_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>special_bonds=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.write_lammps_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes Lammps’ molecule file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
+<dt>special_bonds: bool</dt>
+<dd>Whether to write <em>Special Bond Counts</em>
+and <em>Special Bonds*</em> section.</dd>
+<dt>kwargs:</dt>
+<dd><p class="first">A variable number of named arguments.</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (bool) : Whether to write <em>Masses</em> section or not.</li>
+</ul>
+</dd>
+<dt>special_bonds:</dt>
+<dd>Whether to write <em>Special Bond Counts</em>
+and <em>Special Bonds*</em> section.</dd>
+</dl>
+<p>This method writes <em>Lammps molecule file</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+<div class="section" id="module-ease4lmp">
+<span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-ease4lmp" title="Permalink to this headline">¶</a></h2>
+<p>Extension of Atomic Simulation Environment (ASE) for LAMMPS</p>
+<dl class="class">
+<dt id="ease4lmp.BondedAtoms">
+<em class="property">class </em><code class="descclassname">ease4lmp.</code><code class="descname">BondedAtoms</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.atoms.Atoms</span></code></p>
+<p>Inherits <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
+to handle (covalent) bonds connecting a pair of atoms.</p>
+<p>An instance of this class has bond data as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+as with other atomic properties like positions and velocities.
+Shape of this array for bond data is (<em>N</em>, <em>M</em>, 4), where <em>N</em> is
+the number of atoms and <em>M</em> is the maximum number of bonds per atom.
+The first axis of the array corresponds to atoms, and the second axis
+corresponds to bonds connected to each atom.
+Four integers in the third axis describes each bond:
+the first integer is a relative index for the other atom,
+the second to fourth integers are relative image flags
+(used for resolving a periodic boundary condition)
+for the other atom in the <em>x</em>, <em>y</em> and <em>z</em> direction, respectively.</p>
+<p>In addition, an instance of this class has type of atoms
+as a one-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>. Length of this array is
+equal to the number of atoms. Atom’s type is typically required
+for making Lammps’ data file and molecule file.</p>
+<p>Basically, you can use methods of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> in the same manner.</p>
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.__delitem__">
+<code class="descname">__delitem__</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.__delitem__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Deletes a selected atom.</p>
+<p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__delitem__</span></code>.
+Before calling the parent method to remove a selected atom,
+this method deletes bond data associated with the atom.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>idx: int or list or tuple</dt>
+<dd>Index for an atom to be deleted.
+A list or tuple of integers is also acceptable for multiple atoms.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">set_bonds</span><span class="p">([</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+<span class="gp">... </span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[ 1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]],</span>
+<span class="go">       [[-1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">del</span> <span class="n">atoms</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[0, 0, 0, 0],</span>
+<span class="go">        [0, 0, 0, 0],</span>
+<span class="go">        [0, 0, 0, 0],</span>
+<span class="go">        [0, 0, 0, 0]]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.__imul__">
+<code class="descname">__imul__</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__imul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.__imul__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a super cell and returns it.</p>
+<p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__imul__</span></code>.
+After calling the parent method to expand the simulation box,
+this method recalculates image flags over the expanded bond data.
+Assuming that two atoms connected with a bond are
+in different images of the periodic simulation box before expansion.
+If the two atoms are in the same image after expansion,
+their image falgs for the opponent must be updated to (0, 0, 0).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>m: tuple or list or int</dt>
+<dd>Three-element tuple or list defining how many times
+a periodic simulation box is repeated in each direction.
+The first, second and third element corresponds to the <em>x</em>, <em>y</em>
+and <em>z</em> direction, respectively.
+If an integer is given, a tuple <code class="docutils literal notranslate"><span class="pre">(m,</span> <span class="pre">m,</span> <span class="pre">m)</span></code> is used.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span>
+<span class="gp">... </span>  <span class="s1">&#39;Au&#39;</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="n">positions</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]],</span>
+<span class="gp">... </span>  <span class="n">cell</span><span class="o">=</span><span class="p">[</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
+<span class="gp">... </span>  <span class="n">pbc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[ 0,  1,  0,  0],</span>
+<span class="go">        [ 0, -1,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span> <span class="o">*=</span> <span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
+<span class="go">array([[[ 1,  0,  0,  0],</span>
+<span class="go">        [ 2, -1,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]],</span>
+<span class="go">       [[ 1,  0,  0,  0],</span>
+<span class="go">        [-1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]],</span>
+<span class="go">       [[-2,  1,  0,  0],</span>
+<span class="go">        [-1,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0],</span>
+<span class="go">        [ 0,  0,  0,  0]]])</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>args:</dt>
+<dd>A variable number of arguments passed to <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>.</dd>
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments passed to <code class="docutils literal notranslate"><span class="pre">super().__init__()</span></code>.</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ease4lmp.BondedAtoms.__module__">
+<code class="descname">__module__</code><em class="property"> = 'ease4lmp.bonded_atoms'</em><a class="headerlink" href="#ease4lmp.BondedAtoms.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.add_bond">
+<code class="descname">add_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.add_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.add_bond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adds a bond connecting two atoms.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atom1: int</dt>
+<dd>Index for the first atom.</dd>
+<dt>atom2: int</dt>
+<dd>Index for the second atom.</dd>
+<dt>img1: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the first atom is in.</dd>
+<dt>img2: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the second atom is in.</dd>
+</dl>
+<p>Examples:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Bond data stored in the first atom:
+<code class="docutils literal notranslate"><span class="pre">[atom2-atom1,</span> <span class="pre">img2[0]-img1[0],</span> <span class="pre">img2[1]-img1[1],</span> <span class="pre">img2[2]-img1[2]]</span></code>.</li>
+<li>Bond data stored in the second atom:
+<code class="docutils literal notranslate"><span class="pre">[atom1-atom2,</span> <span class="pre">img1[0]-img2[0],</span> <span class="pre">img1[1]-img2[1],</span> <span class="pre">img1[2]-img2[2]]</span></code>.</li>
+</ul>
+</div></blockquote>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.change_max_bonds">
+<code class="descname">change_max_bonds</code><span class="sig-paren">(</span><em>n=4</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.change_max_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.change_max_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Changes the maximum number of bonds per atom.</p>
+<p>Like original properties of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code>,
+bond data is also stored as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>,
+which is a homogeneous array of fixed-size items.
+This means that all the atoms have the same capacity for bond data,
+and the capacity is fixed until manually changed.
+This method changes the capacity, namely,
+the maximum number of bonds per atom.
+Note that existing data stay unchanged after changing the capacity.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>n: int</dt>
+<dd>New maximum number of bonds per atom.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.extend">
+<code class="descname">extend</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.extend" title="Permalink to this definition">¶</a></dt>
+<dd><p>Extends this instance by appending the given instance.</p>
+<p>This method returns this extended instance,
+which is the same behavior with <code class="docutils literal notranslate"><span class="pre">ase.Atoms.extend()</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>other: ase.Atom or ase.Atoms or BondedAtoms</dt>
+<dd>For ase.Atom or ase.Atoms instance,
+the instance will be down-casted to BondedAtoms before extension.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.get_bonded_angles">
+<code class="descname">get_bonded_angles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+describing all angles defined by two consecutive bonds.</p>
+<p>Shape of the returned array is (<em>N_a</em>, 3),
+where <em>N_a</em> is the number of angles
+defined by two consecutive bonds.
+Each row (the first axis) corresponds to each angle,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first, second and third atom in the each angle.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.get_bonded_bonds">
+<code class="descname">get_bonded_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> describing all bonds.</p>
+<p>Shape of the returned array is (<em>N_b</em>, 2),
+where <em>N_b</em> is the number of bonds.
+Each row (the first axis) corresponds to each bond,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first and second atom connected by the each bond.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.get_bonded_dihedrals">
+<code class="descname">get_bonded_dihedrals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_dihedrals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+describing all dihedrals defined by three consecutive bonds.</p>
+<p>Shape of the returned array is (<em>N_d</em>, 4),
+where <em>N_d</em> is the number of dihedrals
+defined by three consecutive bonds.
+Each row (the first axis) corresponds to each dihedral,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first, second, third and fourth atom in the each dihedral.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.get_bonded_impropers">
+<code class="descname">get_bonded_impropers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_impropers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+describing all impropers defined by three bonds
+connected to the same atom.</p>
+<p>Shape of the returned array is (<em>N_i</em>, 4),
+where <em>N_i</em> is the number of impropers
+defined by three bonds connected to the same atom.
+Each row (the first axis) corresponds to each improper,
+and each column (the second axis) consists of <em>absolute</em> index
+of the first, second, third and fourth atom in the each improper;
+the first atom is the center one.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.get_bonds">
+<code class="descname">get_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an array of integers containing bond data.</p>
+<p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
+for example, atoms’ positions are accessed by key ‘positions’.
+For BondedAtoms instance, bond data is also stored
+in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code> with key of ‘bonds’.
+This method returns a copy of <code class="docutils literal notranslate"><span class="pre">self.arrays[&quot;bonds&quot;]</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.get_bonds_per_atom">
+<code class="descname">get_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a nested list of bond data.</p>
+<p>The returned list is two-dimensional:
+each element of the first list corresponds to each atom,
+and the second list consists of <em>absolute</em> indices for atoms
+bonded with the each atom.</p>
+<p>This method is different from <code class="docutils literal notranslate"><span class="pre">self.get_bonds()</span></code> in terms of
+the following two points:</p>
+<ul class="simple">
+<li>No data about image flags.</li>
+<li>Contains data of <em>existing</em> bonds only.</li>
+</ul>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.get_types">
+<code class="descname">get_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns an array of integers containing atom’s type.</p>
+<p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
+for example, atoms’ positions are accessed by key ‘positions’.
+For BondedAtoms instance, atom’s type data is also stored
+in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code> with key of ‘types’.
+This method returns a copy of <code class="docutils literal notranslate"><span class="pre">self.arrays[&quot;types&quot;]</span></code>.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.remove_bond">
+<code class="descname">remove_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.remove_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.remove_bond" title="Permalink to this definition">¶</a></dt>
+<dd><p>Removes a bond connecting the given two atoms.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atom1: int</dt>
+<dd>Index for the first atom.</dd>
+<dt>atom2: int</dt>
+<dd>Index for the second atom.</dd>
+<dt>img1: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the first atom is in.</dd>
+<dt>img2: tuple or list</dt>
+<dd>Three-element tuple or list of integers indicating which image of
+a periodic simulation box the second atom is in.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.set_bonds">
+<code class="descname">set_bonds</code><span class="sig-paren">(</span><em>bonds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.set_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the given bond data.</p>
+<p>This method sets bond data to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
+using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>bonds: numpy.ndarray or list</dt>
+<dd>Array describing bonds. Shape of the array must be (<em>N</em>, <em>M</em>, 4),
+where <em>N</em> is the number of atoms and <em>M</em> is the maximum number
+of bonds per atom. Four integers of innermost-axis are as follows:
+the first integer is a relative index for the other atom,
+the second to fourth integers are relative image flags
+for the other atom in the <em>x</em>, <em>y</em> and <em>z</em> direction, respectively.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.set_types">
+<code class="descname">set_types</code><span class="sig-paren">(</span><em>types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.set_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Stores the given type of atoms.</p>
+<p>This method sets type of atoms to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
+using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>types: numpy.ndarray or list</dt>
+<dd>Per-atom array containing atom’s type.
+Length of the array must be equal to the number of atoms.</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="class">
+<dt id="ease4lmp.LammpsWriter">
+<em class="property">class </em><code class="descclassname">ease4lmp.</code><code class="descname">LammpsWriter</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An interface to write Lammps’ data file (or molecule file).</p>
+<dl class="attribute">
+<dt id="ease4lmp.LammpsWriter.__dict__">
+<code class="descname">__dict__</code><em class="property"> = mappingproxy({'__module__': 'ease4lmp.lammps_writer', '__doc__': &quot;An interface to write Lammps' data file (or molecule file).&quot;, '__init__': &lt;function LammpsWriter.__init__&gt;, 'get_required_datanames': &lt;function LammpsWriter.get_required_datanames&gt;, 'get_required_datanames_for_molecule': &lt;function LammpsWriter.get_required_datanames_for_molecule&gt;, 'get_sequence_patterns': &lt;function LammpsWriter.get_sequence_patterns&gt;, 'get_bond_patterns': &lt;function LammpsWriter.get_bond_patterns&gt;, 'get_angle_patterns': &lt;function LammpsWriter.get_angle_patterns&gt;, 'get_dihedral_patterns': &lt;function LammpsWriter.get_dihedral_patterns&gt;, 'get_improper_patterns': &lt;function LammpsWriter.get_improper_patterns&gt;, 'print_maximum_per_atom': &lt;function LammpsWriter.print_maximum_per_atom&gt;, 'print_max_bonds_per_atom': &lt;function LammpsWriter.print_max_bonds_per_atom&gt;, 'print_max_angles_per_atom': &lt;function LammpsWriter.print_max_angles_per_atom&gt;, 'print_max_dihedrals_per_atom': &lt;function LammpsWriter.print_max_dihedrals_per_atom&gt;, 'print_max_impropers_per_atom': &lt;function LammpsWriter.print_max_impropers_per_atom&gt;, 'print_max_specials_per_atom': &lt;function LammpsWriter.print_max_specials_per_atom&gt;, 'set_atom_data': &lt;function LammpsWriter.set_atom_data&gt;, 'set_masses': &lt;function LammpsWriter.set_masses&gt;, 'set_topology_types': &lt;function LammpsWriter.set_topology_types&gt;, 'set_bond_types': &lt;function LammpsWriter.set_bond_types&gt;, 'set_angle_types': &lt;function LammpsWriter.set_angle_types&gt;, 'set_dihedral_types': &lt;function LammpsWriter.set_dihedral_types&gt;, 'set_improper_types': &lt;function LammpsWriter.set_improper_types&gt;, 'write_lammps_data': &lt;function LammpsWriter.write_lammps_data&gt;, 'write_lammps_molecule': &lt;function LammpsWriter.write_lammps_molecule&gt;, '__dict__': &lt;attribute '__dict__' of 'LammpsWriter' objects&gt;, '__weakref__': &lt;attribute '__weakref__' of 'LammpsWriter' objects&gt;})</em><a class="headerlink" href="#ease4lmp.LammpsWriter.__dict__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><p>Parameters:</p>
+<dl class="docutils">
+<dt>atoms: BondedAtoms or ase.Atoms</dt>
+<dd>Atoms to be written to Lammps’ data file.</dd>
+<dt>atom_style: str</dt>
+<dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
+<dt>kwargs:</dt>
+<dd><p class="first">A variable number of named arguments.</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">class2</span></code> (bool) : If Lammps’ data file written by this instance is
+used with CLASS2 forcefield, <code class="docutils literal notranslate"><span class="pre">class2=True</span></code> must be set.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="attribute">
+<dt id="ease4lmp.LammpsWriter.__module__">
+<code class="descname">__module__</code><em class="property"> = 'ease4lmp.lammps_writer'</em><a class="headerlink" href="#ease4lmp.LammpsWriter.__module__" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
+<dt id="ease4lmp.LammpsWriter.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.LammpsWriter.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dd><p>list of weak references to the object (if defined)</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.get_angle_patterns">
+<code class="descname">get_angle_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_angle_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_angle_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing angles.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.get_bond_patterns">
+<code class="descname">get_bond_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_bond_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_bond_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing bonds.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.get_dihedral_patterns">
+<code class="descname">get_dihedral_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_dihedral_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_dihedral_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing dihedrals.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.get_improper_patterns">
+<code class="descname">get_improper_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_improper_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_improper_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in all the sequences describing impropers.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.get_required_datanames">
+<code class="descname">get_required_datanames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_required_datanames" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of required data names (keys).</p>
+<p>Names of data are returned if the data is required to
+write Lammps’ data file and has not been set yet.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.get_required_datanames_for_molecule">
+<code class="descname">get_required_datanames_for_molecule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_required_datanames_for_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of required data names (keys).</p>
+<p>Names of data are returned if the data is required to
+write Lammps’ molecule file and has not been set yet.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.get_sequence_patterns">
+<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns a set of unique sequences of atom types
+appearing in the given topology component.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>key: str</dt>
+<dd>Name of topology component:
+‘bond’, ‘angle’, ‘dihedral’ or ‘improper’.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.print_max_angles_per_atom">
+<code class="descname">print_max_angles_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_angles_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_angles_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of angles per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.print_max_bonds_per_atom">
+<code class="descname">print_max_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of bonds per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.print_max_dihedrals_per_atom">
+<code class="descname">print_max_dihedrals_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_dihedrals_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_dihedrals_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of dihedrals per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.print_max_impropers_per_atom">
+<code class="descname">print_max_impropers_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_impropers_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_impropers_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of impropers per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.print_max_specials_per_atom">
+<code class="descname">print_max_specials_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_specials_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_specials_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of special bonds per atom.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.print_maximum_per_atom">
+<code class="descname">print_maximum_per_atom</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returns the maximum number of given topology components per atom.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>key: str</dt>
+<dd>Name of topology component:
+‘bond’, ‘angle’, ‘dihedral’ or ‘improper’.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.set_angle_types">
+<code class="descname">set_angle_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_angle_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_angle_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of angles.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping three-element tuples of atom types
+to corresponding types of angle.
+Note that second atom of each tuple should be
+at the center of angle.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_angle_patterns</span><span class="p">()</span>
+<span class="go">{(1, 2, 4), (2, 1, 3), (3, 1, 3)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_angle_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">3</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsAngles: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.set_atom_data">
+<code class="descname">set_atom_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_atom_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_atom_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets data for <em>Atoms</em> (and <em>Velocities</em>) section.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments.
+Keywords are data names, and arguments are data values
+(list-like objects).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.set_bond_types">
+<code class="descname">set_bond_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_bond_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_bond_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of bonds.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping two-element tuples of atom types
+to corresponding types of bond.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_bond_patterns</span><span class="p">()</span>
+<span class="go">{(1, 2), (1, 3), (2, 4)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_bond_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="mi">3</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsBonds: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.set_dihedral_types">
+<code class="descname">set_dihedral_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_dihedral_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_dihedral_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of dihedrals.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping four-element tuples of atom types
+to corresponding types of dihedral.
+Note that the four atoms should be connected linearly
+by three bonds in that order.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_dihedral_patterns</span><span class="p">()</span>
+<span class="go">{(3, 1, 2, 4)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_dihedral_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsDihedrals: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.set_improper_types">
+<code class="descname">set_improper_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_improper_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_improper_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of impropers.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>seq_to_type: dict</dt>
+<dd>Mapping four-element tuples of atom types
+to corresponding types of improper.
+Note that, if CLASS2 forcefield is used, the second atom of
+each tuple should be at the center of improper;
+the first atom should be at the center for other forcefields.
+Note that the four atoms should be connected linearly
+by three bonds in that order.</dd>
+</dl>
+<p>Examples:</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ase.build</span> <span class="k">import</span> <span class="n">molecule</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="n">molecule</span><span class="p">(</span><span class="s2">&quot;CH3OH&quot;</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_atomic_numbers</span><span class="p">()</span>
+<span class="go">array([6, 8, 1, 1, 1, 1])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">get_distance</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>  <span class="c1"># O-H bond</span>
+<span class="go">0.9700009076665858</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_types</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">bond_list</span> <span class="o">=</span> <span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">4</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">)]</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">bond_list</span><span class="p">:</span>
+<span class="gp">... </span>  <span class="n">methanol</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="o">*</span><span class="n">t</span><span class="p">)</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">set_cell</span><span class="p">([[</span><span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.</span><span class="p">,</span> <span class="mf">0.</span><span class="p">,</span> <span class="mf">10.</span><span class="p">]])</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">methanol</span><span class="o">.</span><span class="n">center</span><span class="p">()</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span> <span class="o">=</span> <span class="n">LammpsWriter</span><span class="p">(</span><span class="n">methanol</span><span class="p">,</span> <span class="n">atom_style</span><span class="o">=</span><span class="s2">&quot;molecular&quot;</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="go">LammpsAtoms: &#39;id&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;type&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;x&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;y&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;z&#39; have been set</span>
+<span class="go">LammpsAtoms: &#39;mass&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;id&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsBonds: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;id&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsAngles: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;id&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsDihedrals: &#39;atom4&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;id&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom1&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom2&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom3&#39; have been set</span>
+<span class="go">LammpsImpropers: &#39;atom4&#39; have been set</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">get_improper_patterns</span><span class="p">()</span>
+<span class="go">{(1, 2, 3, 3), (1, 3, 3, 3)}</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">writer</span><span class="o">.</span><span class="n">set_improper_types</span><span class="p">({</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">1</span><span class="p">,</span>
+<span class="gp">... </span>  <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">3</span><span class="p">):</span> <span class="mi">2</span><span class="p">,</span>
+<span class="gp">... </span><span class="p">})</span>
+<span class="go">LammpsImpropers: &#39;type&#39; have been set</span>
+</pre></div>
+</div>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.set_masses">
+<code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_masses" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets data for <em>Masses</em> section.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>type2mass: dict</dt>
+<dd>Dictionary mapping atom’s type (int) to its mass (float).</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.set_topology_types">
+<code class="descname">set_topology_types</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_topology_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_topology_types" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sets types of the given topology components.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>kwargs:</dt>
+<dd>A variable number of named arguments.
+Keywords are names of topology component (‘bond’, ‘angle’,
+‘dihedral’, ‘improper’), and arguments are dictionary
+mapping sequences of atom types to corresponding types of
+the topology component.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.write_lammps_data">
+<code class="descname">write_lammps_data</code><span class="sig-paren">(</span><em>path</em>, <em>centering=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.write_lammps_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes Lammps’ data file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file.</dd>
+<dt>centering: bool</dt>
+<dd>Whether to shift a simulation box
+so that its center position becomes <code class="docutils literal notranslate"><span class="pre">(0,</span> <span class="pre">0,</span> <span class="pre">0)</span></code>.</dd>
+<dt>kwargs:</dt>
+<dd><p class="first">A variable number of named arguments.</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">velocity</span></code> (bool) : Whether to write <em>Velocities</em> section or not.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (bool) : Whether to write <em>Masses</em> section or not.</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_atom_type</span></code> (bool) : Number of atom types; this overwrites
+the number of atom types stored in this instance. It is useful
+when extra atoms will be added to the simulation box later.</li>
+<li><code class="docutils literal notranslate"><span class="pre">num_{name}_type</span></code> (bool) : Number of types of topology component
+(<code class="docutils literal notranslate"><span class="pre">name</span></code> is one of <em>bond</em>, <em>angle</em>, <em>dihedral</em> and <em>improper</em>);
+this overwrites the number of the component types
+stored in this instance. It is useful when extra atoms
+will be added to the simulation box later.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.LammpsWriter.write_lammps_molecule">
+<code class="descname">write_lammps_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>special_bonds=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.write_lammps_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Writes Lammps’ molecule file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
+<dt>special_bonds: bool</dt>
+<dd>Whether to write <em>Special Bond Counts</em>
+and <em>Special Bonds*</em> section.</dd>
+<dt>kwargs:</dt>
+<dd><p class="first">A variable number of named arguments.</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (bool) : Whether to write <em>Masses</em> section or not.</li>
+</ul>
+</dd>
+<dt>special_bonds:</dt>
+<dd>Whether to write <em>Special Bond Counts</em>
+and <em>Special Bonds*</em> section.</dd>
+</dl>
+<p>This method writes <em>Lammps molecule file</em>.</p>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="modules.html" class="btn btn-neutral" title="Modules" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Takayuki Kobayashi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script type="text/javascript" src="../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

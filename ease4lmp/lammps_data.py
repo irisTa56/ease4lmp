@@ -1,188 +1,261 @@
-"""
-@file ease4lmp/lammps_data.py
-@brief This file is for classes to write each section
-in *Lammps data file* (or *molecule file*).
-@author Takayuki Kobayashi
-@date 2018/05/30
-"""
+"""Submodule for classes writing each section in Lammps' data file."""
 
-from .lammps_dataformats \
-  import lmp_dataformats_atoms, lmp_dataformats_velocities
+from .lammps_dataformats import (
+  lmp_dataformats_atoms, lmp_dataformats_velocities)
 
-import itertools as it
+import itertools
 import numpy as np
 
 
+def create_topology(name, sequences, **kwargs):
+  """A factory function for LammpsTopology's subclass.
+
+  Parameters:
+
+  name: str
+    Name of topology component:
+    'bond', 'angle', 'dihedral' or 'improper'.
+
+  sequences: numpy.ndarray
+    Two-dimensional array describing of topology components.
+    Shapes of the array for 'bond', 'angle', 'dihedral'
+    and 'improper' are (*N*, 2), (*N*, 3), (*N*, 4) and (*N*, 4),
+    respectively. Here *N* is the number of topology components.
+    Elements of the array are zero-based indices for atoms.
+
+  kwargs:
+    A variable number of named arguments.
+
+    * ``class2`` (bool) : Set to True when using CLASS2 forcefield.
+
+  """
+  if name == "bond":
+    return LammpsBonds(
+      sequences, ("id", "type", "atom1", "atom2"))
+  elif name == "angle":
+    return LammpsAngles(
+      sequences, ("id", "type", "atom1", "atom2", "atom3"))
+  elif name == "dihedral":
+    return LammpsDihedrals(
+      sequences, ("id", "type", "atom1", "atom2", "atom3", "atom4"))
+  elif name == "improper":
+    return LammpsImpropers(
+      sequences, ("id", "type", "atom1", "atom2", "atom3", "atom4"), **kwargs)
+  else:
+    raise RuntimeError(
+      "Invalid name for LammpsTopology '{}'".format(name))
+
+def _write_section_lines(path, data, section_header, line_format):
+    """Writes lines of a specified section to a specified file.
+
+    Parameters:
+
+    path: str
+      File path to Lammps' data file (or molecule file).
+
+    data: dict
+      Dictionary from strings for data name to lists
+      containing data values, which describes data to be written.
+
+    section_header: str
+      Header of a section to be written.
+
+    line_format: str
+      A string representing a format of each line in the section.
+      Data values are assigned by Python's ``str.format()`` method.
+
+    """
+    line_format += "\n"
+
+    keys, values = data.keys(), data.values()
+    dicts = [dict(zip(keys, t)) for t in zip(*values)]
+
+    with open(path, 'a') as f:
+      f.write("\n{}\n\n".format(section_header))
+      f.write("".join(line_format.format(**dic) for dic in dicts))
+
+    print("'{}' section was written".format(section_header))
+
+#=======================================================================
+
 class LammpsAtoms:
-  """
-  This class is an interface to write *Atoms* (and *Velocities*)
-  section in *Lammps data file* (or *molecule file*).
-  """
+  """An interface to write *Atoms* (and *Velocities*) section
+  in Lammps' data file (or molecule file)."""
 
   def __init__(
-    self, atom_style, positions, velocities=None, types=None):
+    self, atom_style, types, positions, velocities=None, masses=None):
     """
-    @param atom_style
-      A string denoting *Lammps atom style*.
-    @param positions
-      A `numpy.ndarray` of which shape is (*N*, 3), where *N* is
-      the number of atoms. Elements of the array at (*i*, 0), (*i*, 1)
-      and (*i*, 2) are *x*, *y* and *z* coordinates of the *i* th atom,
-      respectively.
-    @param velocities
-      A `numpy.ndarray` of which shape is (*N*, 3), where *N* is
-      the number of atoms. Elements of the array at (*i*, 0), (*i*, 1)
-      and (*i*, 2) are velocities of *i* th atom in the *x*, *y*
-      and *z* direction, respectively.
-    @param types
-      A list of which length is equal to the number of atoms.
-      Each element denotes a type of each atom used in Lammps.
+    Parameters:
+
+    atom_style: str
+      Specify *atom style* of Lammps.
+
+    types: numpy.ndarray
+      Returned value of ``BondedAtoms.get_types()``.
+
+    positions: numpy.ndarray
+      Returned value of ``ase.Atoms.get_positions()``.
+
+    velocities: None or numpy.ndarray
+      Returned value of ``ase.Atoms.get_velocities()``.
+      If None, the *Velocities* section will not be written.
+      Note that the *i* th atom in ``velocities`` must correspond to
+      the *i* th atom in ``types``.
+
+    masses: None or list or tuple or numpy.ndarray
+      A list whose length is equal to the number of atoms.
+      Each element is a *mass* of each atom used in Lammps.
+      Note that the *i* th atom in ``masses`` must correspond to
+      the *i* th atom in ``types``.
+
     """
+    # number of atoms.
+    self._num = len(types)
 
-    ## Number of atoms.
-    self._num = len(positions)
+    self._dataformats = lmp_dataformats_atoms[atom_style]
 
-    dataformats = lmp_dataformats_atoms[atom_style]
-    datanames = [s.split(":")[0] for s in dataformats]
-
-    ## A LammpsDataLines instance for *Atoms* section.
-    self._lines = LammpsDataLines(
-      "Atoms", "{{{}}}".format("} {".join(dataformats)))
-
-    ## Dictionary from property names to lists (or other array-like
-    # objects) containing property values for atoms.
-    self._data = {k: None for k in datanames}
+    # dictionary mapping data names to data values
+    # (list-like objects) for *Atoms* (and *Masses*) section.
+    self._data = {
+      k: None
+      for k in (s.split(":")[0] for s in self._dataformats)
+    }
 
     self.set_data(id=range(1, self._num+1))  # `id` starts from 1 in Lammps
+    self.set_data(type=types)
     self.set_data(**dict(zip(["x", "y", "z"], positions.T)))
 
-    if types is not None:
-
-      ## Number of atom types.
-      self._num_type = len(set(types))
-
-      self.set_data(type=types)
-
     if velocities is not None:
+      if len(velocities) != self._num:
+        raise RuntimeError("Inconsistent length of velocities")
 
       try:
-        dataformats_vel = lmp_dataformats_velocities[atom_style]
+        self._dataformats_vel = lmp_dataformats_velocities[atom_style]
       except KeyError:
-        dataformats_vel = lmp_dataformats_velocities["*"]
+        self._dataformats_vel = lmp_dataformats_velocities["*"]
 
-      datanames_vel = [s.split(":")[0] for s in dataformats_vel]
-
-      ## A LammpsDataLines instance for *Velocities* section.
-      self._lines_vel = LammpsDataLines(
-        "Velocities", "{{{}}}".format("} {".join(datanames_vel)))
-
-      ## Dictionary from property names to lists (or other array-like
-      # objects) containing property values for velocities.
-      self._data_vel = {k: None for k in datanames_vel}
-
-      self._data_vel["id"] = self._data["id"]
+      # dictionary mapping data names to data values
+      # (list-like objects) for *Velocities* section.
+      self._data_vel = {
+        k: self._data["id"] if k == "id" else None
+        for k in (s.split(":")[0] for s in self._dataformats_vel)
+      }
 
       self.set_data(**dict(zip(["vx", "vy", "vz"], velocities.T)))
 
+    if masses is not None:
+      self.set_data(mass=masses)
 
   def get_num(self):
-    """
-    @return
-      The number of atoms.
-    """
-
+    """Returns the number of atoms."""
     return self._num
 
-
   def get_num_type(self):
-    """
-    @return
-      The number of atom types.
-    """
+    """Returns the number of atom types."""
+    return len(set(self._data["type"]))
 
-    return self._num_type
-
+  def get_atom_types(self):
+    return self._data["type"]
 
   def get_required_datanames(self, molecule=False):
-    """
-    @param molecule
-      Whether returned data names are for *Lammps molecule file* or not.
-      This method returns data names for *Lammps data file* by default.
+    """Returns a set of required data names (keys).
 
-    @return
-      A set of required data names:
-      *Lammps data file* (or *molecule file*) needs those data,
-      but this instance does not have them yet.
-    """
+    Names of data are returned if the data is required to
+    write Lammps' data file and has not been set yet.
 
-    names = set([k for k, v in self._data.items() if v is None])
+    Parameters:
+
+    molecule: bool
+      Whether to return data names required for Lammps' molecule file.
+      This method returns data names for Lammps' data file by default.
+
+    """
+    names = set(k for k, v in self._data.items() if v is None)
 
     if molecule:
-      names &= {"id", "type", "q", "x", "y", "z"}  # "diameter", "mass" are currently not supported
+      names &= {"id", "type", "q", "x", "y", "z"}  # "diameter" is currently not supported
     elif hasattr(self, "_data_vel"):
-      names |= set([k for k, v in self._data_vel.items() if v is None])
+      names |= set(k for k, v in self._data_vel.items() if v is None)
 
     return names
 
-
   def set_data(self, **kwargs):
-    """
-    @param **kwargs
+    """Stores given data in ``self._data``.
+
+    Parameters:
+
+    kwargs:
       A variable number of named arguments.
-      Keywords are property names, and arguments are property values.
+      Keywords are data names, and arguments are data values.
 
-    Properties given as `**kwargs` are stored in #_data.
     """
-
-    if "type" in kwargs:
-      self._num_type = len(set(kwargs["type"]))
-
     for k, v in kwargs.items():
       data = list(v)  # ensure data is `list`
-      if k in self._data:
-        if self._data[k] is None:
-          self._data[k] = data
-          print("LammpsAtoms: '{}' have been set".format(k))
-        else:
-          self._data[k] = data
-          print("LammpsAtoms: '{}' have been set again".format(k))
-      elif hasattr(self, "_data_vel") and k in self._data_vel:
-        if self._data_vel[k] is None:
-          self._data_vel[k] = data
-          print("LammpsAtoms: '{}' have been set".format(k))
-        else:
-          self._data_vel[k] = data
-          print("LammpsAtoms: '{}' have been set again".format(k))
 
+      if len(data) != self._num:
+        raise RuntimeError("Inconsistent length of data")
+
+      if k in self._data:
+        end = "" if self._data[k] is None else " again"
+        self._data[k] = data
+        print("LammpsAtoms: '{}' have been set{}".format(k, end))
+      elif hasattr(self, "_data_vel") and k in self._data_vel:
+        end = "" if self._data[k] is None else " again"
+        self._data_vel[k] = data
+        print("LammpsAtoms: '{}' have been set{}".format(k, end))
+      elif k == "mass":
+        end = "" if k not in self._data else " again"
+        self._data[k] = data
+        print("LammpsAtoms: '{}' have been set{}".format(k, end))
+
+  def set_masses(self, type2mass):
+    """Stores masses in ``self._data``.
+
+    Though the parameter ``type2mass`` is a dictionary mapping
+    atom's type to its mass, masses will be stored as a per-atom array.
+
+    Parameters:
+
+    type2mass: dict
+      Dictionary mapping atom's type (int) to its mass (float).
+
+    """
+    if self._data["type"] is None:
+      raise RuntimeError("You need to set types")
+
+    self.set_data(mass=[type2mass[t] for t in self._data["type"]])
 
   def shift_positions(self, shift=(0.0, 0.0, 0.0)):
-    """
-    @param shift
-      A tuple or list defining a three-dimension vector by which
-      atom positions shift. The first, second and third element of
-      the vector are for *x*, *y* and *z* direction, respectively.
+    """Shifts atom positions stored in ``self._data``.
 
-    This method shifts atom positions stored in #_data.
-    """
+    Parameters:
 
+    shift: tuple or list
+      A tuple or list defining a Cartesian vector by which
+      atom positions shift.
+
+    """
     for dim, d in zip(["x", "y", "z"], shift):
       self._data[dim] = list(np.array(self._data[dim]) + d)
 
+  def write_lines(self, path, velocity=False, mass=False, **kwargs):
+    """Writes lines of *Atoms* and *Velocities* section.
 
-  def write_lines(self, path, velocity=False, **kwargs):
+    Parameters:
+
+    path: str
+      File path to Lammps' data file.
+
+    velocity: bool
+      Whether to write *Velocities* section or not.
+
+    mass: bool
+      Whether to write *Masses* section or not.
+
+    kwargs:
+      A variable number of named arguments (currently not in use).
+
     """
-    @param path
-      File path to *Lammps data file*.
-    @param velocity
-      Whether to write *Velocities* section or not. Default is `False`.
-    @param **kwargs
-      A variable number of named arguments (for excessive arguments).
-
-    This method calls LammpsDataLines.write of #_lines to write
-    *Atoms* section (and #_lines_vel to write *Velocities* section)
-    in *Lammps data file*.
-    """
-
     nones = [k for k, v in self._data.items() if v is None]
 
     if velocity:
@@ -195,21 +268,46 @@ class LammpsAtoms:
       raise RuntimeError(
         "You have not set '{}'".format("', '".join(nones)))
     else:
-      self._lines.set_data(self._data).write(path)
+      if mass:
+        if "mass" in self._data:
+          massdct = dict(sorted(dict(zip(
+            self._data["type"], self._data["mass"])).items()))
+          _write_section_lines(
+            path, {
+            "type": list(massdct.keys()), "mass": list(massdct.values())
+            }, "Masses", "{type:4d} {mass:9.6f}")
+        else:
+          raise RuntimeError("You need to set masses")
+
+      _write_section_lines(
+        path, self._data, "Atoms",
+        "{{{}}}".format("} {".join(self._dataformats)))
+
       if velocity:
-        self._lines_vel.set_data(self._data_vel).write(path)
+        _write_section_lines(
+          path, self._data_vel, "Velocities",
+          "{{{}}}".format("} {".join(self._dataformats_vel)))
 
-
-  def write_lines_for_molecule(self, path):
-    """
-    @param path
-      File path to *Lammps molecule file*.
+  def write_lines_for_molecule(self, path, mass=False, **kwargs):
+    """Writes lines of *Coords*, *Types*, *Charges* and *Masses* section
+    to Lammps' molecule file.
 
     This method creates a new LammpsDataLines instance to write
     *Coords* and *Types* sections (and *Charges* section)
-    in *Lammps molecule file*.
-    """
+    in Lammps' molecule file.
 
+    Parameters:
+
+    path: str
+      File path to Lammps' molecule file.
+
+    mass: bool
+      Whether to write *Masses* section or not.
+
+    kwargs:
+      A variable number of named arguments (currently not in use).
+
+    """
     section_formats = {
       "Coords": ("id:4d", "x:15.8e", "y:15.8e", "z:15.8e"),
       "Types": ("id:4d", "type:4d")
@@ -218,429 +316,335 @@ class LammpsAtoms:
     if "q" in self._data:
       section_formats["Charges"] = ("id:4d", "q:9.6f")
 
+    if mass:
+      if "mass" in self._data:
+        section_formats["Masses"] = ("id:4d", "q:9.6f")
+      else:
+        raise RuntimeError("You need to set masses")
+
     for h, dfs in section_formats.items():
-      LammpsDataLines(h, "{{{}}}".format("} {".join(dfs))).set_data({
+      _write_section_lines(
+        path, {
           k: v for k, v in self._data.items()
-          if k in [s.split(":")[0] for s in dfs]
-        }).write(path)
+          if k in (s.split(":")[0] for s in dfs)
+        }, h, "{{{}}}".format("} {".join(dfs)))
 
-
-
-class LammpsDataLines:
-  """
-  This class writes a section in *Lammps data file*.
-
-  Instance(s) of this class is created in,
-  and used via @LammpsWriter, LammpsAtoms and LammpsTopology class.
-  """
-
-  def __init__(self, section_header, line_format):
-    """
-    @param section_header
-      A string denoting a section header.
-    @param line_format
-      A string representing a format of each line in the section.
-      The format should be described in the same manner
-      with Python's `format` method.
-
-    Consistency between a given header and format is not checked.
-    """
-
-    ## A string denoting a section header.
-    self._section_header = section_header
-
-    ## A formattable string used for writing each line.
-    self._line_format = line_format + "\n"
-
-
-  def set_data(self, data):
-    """
-    @param data
-      Data (dictionary from strings for property name
-      to lists containing property values) to be written.
-
-    @return
-      This instance.
-    """
-
-    ## Data to be written in the section.
-    self._data = data
-
-    return self
-
-
-  def write(self, path):
-    """
-    @param path
-      File path to *Lammps data file* (or *molecule file*),
-      to which this instance writes a section.
-    """
-
-    keys, values = self._data.keys(), self._data.values()
-    dicts = [dict(zip(keys, t)) for t in zip(*values)]
-
-    with open(path, 'a') as f:
-      f.write("\n{}\n\n".format(self._section_header))
-      f.write("".join([
-          self._line_format.format(**dic) for dic in dicts
-        ]))
-
-    print("'{}' section was written".format(self._section_header))
-
-
+#=======================================================================
 
 class LammpsTopology:
-  """
-  This class is an (abstract) interface to write a section of
-  topology components in *Lammps data file* (or *molecule file*).
-  """
+  """An (abstract) interface to write a section of topology component
+  (*Bonds*, *Angles*, *Dihedrals*, *Impropers*)
+  in Lammps' data file (or molecule file)."""
 
-  @staticmethod
-  def create(name, sequences, **kwargs):
+  def __init__(self, sequences, datanames):
     """
-    @param name
-      Name of topology component:
-      `bond`, `angle`, `dihedral` or `improper`.
-    @param sequences
-      A `numpy.ndarray` representing topology components.
-      Shapes of the array for `bond`, `angle`, `dihedral`
-      and `improper` are (*N*, 2), (*N*, 3), (*N*, 4) and (*N*, 4),
-      respectively: where *N* is the number of topology components.
-      Elements of the array are zero-based indices for atoms.
-    @param **kwargs
-      A variable number of named arguments.
-      One can use `class2` keyword for impropers.
+    Parameters:
 
-    @return
-      A created instance of LammpsTopology's subclass.
+    sequences: numpy.ndarray
+      Two-dimensional array describing topology components.
 
-    This static method is a factory method
-    for LammpsTopology's subclass.
+    datanames: tuple
+      Tuple of strings specifying data names written in a line.
+
     """
-
-    if name == "bond":
-      return LammpsBonds(
-        sequences,
-        ("id", "type", "atom1", "atom2"),
-        **kwargs)
-    elif name == "angle":
-      return LammpsAngles(
-        sequences,
-        ("id", "type", "atom1", "atom2", "atom3"),
-        **kwargs)
-    elif name == "dihedral":
-      return LammpsDihedrals(
-        sequences,
-        ("id", "type", "atom1", "atom2", "atom3", "atom4"),
-        **kwargs)
-    elif name == "improper":
-      return LammpsImpropers(
-        sequences,
-        ("id", "type", "atom1", "atom2", "atom3", "atom4"),
-        **kwargs)
-    else:
-      raise RuntimeError(
-        "Invalid name for LammpsTopology '{}'".format(name))
-
-
-  def __init__(self, sequences, datanames, **kwargs):
-    """
-    @param sequences
-      A `numpy.ndarray` representing topology components.
-      Please see also the same name argument of #create.
-    @param datanames
-      Tuple of strings denoting data names written in a line.
-      Please see also a source of #create.
-    @param **kwargs
-      A variable number of named arguments.
-      Please see also the same name argument of #create.
-    """
-
-    ## A `numpy.ndarray` for topology components
-    # of which elements are `atom-id`s used in Lammps
+    # `numpy.ndarray` for topology components
+    # whose elements are `atom-id`s used in Lammps
     self._sequences = sequences + 1
 
-    ## Number of topology components.
+    # number of topology components.
     self._num = len(self._sequences)
 
-    ## Tuple of strings denoting data names written in a line.
     self._datanames = datanames
 
-    ## A LammpsDataLines instance to write one of topology section.
-    self._lines = LammpsDataLines(
-      self.__class__.__name__.replace("Lammps", ""),
-      "{{{}}}".format("} {".join(self._datanames)))
-
-    ## Dictionary from property names to lists (or other array-like
-    # objects) containing property values for topology components.
+    # dictionary mapping data names to data values
+    # (list-like objects) for topology components.
     self._data = {k: None for k in datanames}
 
     if 0 < self._num:
       self._set_data(id=range(1, self._num+1))  # `id` starts from 1 in Lammps
-      self._set_data(**dict(zip(
-        self._datanames[2:], self._sequences.T)))
-
+      self._set_data(**dict(zip(self._datanames[2:], self._sequences.T)))  # set `atom-id`s
 
   def get_num(self):
-    """
-    @return
-      The number of topology components.
-    """
+    """Returns the number of topology components.
 
-    return self._num
+    The number of topology components is considered as 0
+    until types of the topology components are set.
 
+    """
+    return self._num if hasattr(self, "_num_type") else 0
 
   def get_num_type(self):
-    """
-    @return
-      The number of topology types.
-    """
-
+    """Returns the number of topology types."""
     try:
       return self._num_type
     except AttributeError:
       return 0
 
-
   def get_sequence_patterns(self, atom_types):
-    """
-    @param atom_types
-      A one dimensional array-like object of which *i* th element is
+    """Returns a set of unique sequences of atom types
+    appearing in the topology components.
+
+    Parameters:
+
+    atom_types: list or tuple or numpy.ndarray
+      A one dimensional array-like object whose *i* th element is
       a type of the *i* th atom.
 
-    @return
-      A set of unique sequences of atom types
-      appearing in the topology components.
-      Note that the number of elements in the set is not necessarily
-      equal to the number of types of topology component:
-      for example, sequence `(1, 2, 3)` and `(3, 2, 1)` are
-      reduced to one angle type.
     """
+    order_matters_set = set(
+      tuple(atom_types[i-1] for i in seq) for seq in self._sequences)
 
-    return set([
-        tuple([atom_types[i-1] for i in seq])
-        for seq in self._sequences
-      ])
+    tmp = []
 
+    for seq in order_matters_set:
+      if seq not in tmp and seq[::-1] not in tmp:
+        tmp.append(seq)
+
+    return set(tmp)
 
   def get_maximum_per_atom(self):
-    """
-    @return
-      The maximum number of topology components per atom.
+    """Returns the maximum number of topology components per atom.
 
-    See also Lammps source code associated with
-    angles/dihedrals/impropers per atom: `Atom::data_angles()`,
-    `Atom::data_dihedrals()` and `Atom::data_impropers()`.
-    """
+    For more details see also Lammps' source code of
+    ``Atom::data_angles()``, ``Atom::data_dihedrals()``
+    and ``Atom::data_impropers()``.
 
-    unique, counts = np.unique(
-      self._sequences.T[1], return_counts=True)
+    """
+    _, counts = np.unique(self._sequences.T[1], return_counts=True)
 
     return max(counts)
 
-
   def set_types(self, seq_to_type, atom_types):
-    """
-    @param seq_to_type
-      A dictionary from sequences of atom types to types of topology
-      components consisting of those atoms. Note that one does not
-      have to consider sequences in both directions: for example,
-      using either `(1, 2, 3)` or `(3, 2, 1)` works fine.
-    @param atom_types
-      A one dimensional array-like object of which *i* th element is
-      a type of the *i* th atom.
-    """
+    """Sets type of the topology components.
 
-    ## Number of types of the topology components.
+    Parameters:
+
+    seq_to_type: dict
+      Mapping from sequences of atom types (tuple)
+      to types of topology components consisting of those atoms (int).
+      Note that the sequences can be arbitrary order; for example,
+      two sequences of angle ``(1, 2, 3)`` and ``(3, 2, 1)``
+      have the same meaning.
+
+    """
+    # number of types of the topology components.
     self._num_type = len(set(seq_to_type.values()))
 
     full_dict = self._make_full_seq_to_type(seq_to_type)
-    typed_seqs = [
-      tuple([atom_types[i-1] for i in seq]) for seq in self._sequences
+
+    type_seqs = [
+      tuple(atom_types[i-1] for i in seq) for seq in self._sequences
     ]
 
-    self._set_data(type=[full_dict[seq] for seq in typed_seqs])
-
+    self._set_data(type=[full_dict[seq] for seq in type_seqs])
 
   def write_lines(self, path):
+    """Writes lines of a topology section
+    in Lammps' data file (or molecule file).
+
+    Parameters:
+
+    path: str
+      File path to Lammps' data file (or molecule file).
+
     """
-    @param path
-      File path to *Lammps data file* (or *molecule file*).
-
-    This method calls LammpsDataLines.write of #_lines to write
-    a topology section in *Lammps data file* (or *molecule file*).
-    """
-
-    self._lines.set_data(self._data).write(path)
-
+    _write_section_lines(
+      path, self._data, self.__class__.__name__.replace("Lammps", ""),
+      "{{{}}}".format("} {".join(self._datanames)))
 
   def _make_full_seq_to_type(self, seq_to_type):
-    """
-    @param seq_to_type
-      A dictionary from sequences of atom types to types of topology
+    """Returns *full* mapping from sequences of atom types
+    to types of topology component.
+
+    Returned dictionary (mapping) has both original
+    and reverse ordered sequence of atom types as its keys.
+
+    Parameters:
+
+    seq_to_type: dict
+      Mapping from sequences of atom types to types of topology
       components consisting of those atoms.
 
-    @return
-      A dictionary from sequences of atom types to types of topology
-      components consisting of those atoms. This dictionary is
-      different from the `seq_to_type` by containing sequences
-      in both directions as its keys.
     """
-
     return {t: v for k, v in seq_to_type.items() for t in [k, k[::-1]]}
 
-
   def _set_data(self, **kwargs):
-    """
-    @param **kwargs
+    """Stores given data in ``self._data``.
+
+    Parameters:
+
+    kwargs:
       A variable number of named arguments.
-      Keywords are property names, and arguments are property values.
+      Keywords are data names, and arguments are data values.
 
-    Properties given as `**kwargs` are stored in #_data.
     """
-
     for k, v in kwargs.items():
       data = list(v)  # ensure data is <list>
       if k in self._data:
-        if self._data[k] is None:
-          self._data[k] = data
-          print(
-            "{}: '{}' have been set"
-            .format(self.__class__.__name__, k))
-        else:
-          self._data[k] = data
-          print(
-            "{}: '{}' have been set again"
-          .format(self.__class__.__name__, k))
+        end = "" if self._data[k] is None else " again"
+        self._data[k] = data
+        print(
+          "{}: '{}' have been set{}"
+          .format(self.__class__.__name__, k, end))
 
-
+#=======================================================================
 
 class LammpsBonds(LammpsTopology):
-  """
-  This class is an interface to write *Bonds* section
-  in *Lammps data file* (or *molecule file*).
-  """
+  """An interface to write *Bonds* section
+  in Lammps' data file (or molecule file)."""
 
   def get_maximum_per_atom(self):
-    """
-    @return
-      The maximum number of topology components per atom.
+    """Returns the maximum number of topology components per atom.
 
-    This method overrides LammpsTopology.get_maximum_per_atom,
-    since data for a bond is linked to the first atom in the bond
-    whereas data for a topology component except for bond is linked
-    to the second atom in the component. See also Lammps source code
-    associated with bonds per atom, `Atom::data_bonds()`.
-    """
+    This method overrides ``LammpsTopology.get_maximum_per_atom()``
+    because data for a bond is linked to the first atom in the bond
+    whereas data for the other topology components is linked to
+    the second atom in the component.
+    See also Lammps' source code of ``Atom::data_bonds()``.
 
-    unique, counts = np.unique(
-      self._sequences.T[0], return_counts=True)
+    """
+    _, counts = np.unique(self._sequences.T[0], return_counts=True)
 
     return max(counts)
 
-
+#=======================================================================
 
 class LammpsAngles(LammpsTopology):
-  """
-  This class is an interface to write *Angles* section
-  in *Lammps data file* (or *molecule file*).
-  """
+  """An interface to write *Angles* section
+  in Lammps' data file (or molecule file)."""
 
-
+#=======================================================================
 
 class LammpsDihedrals(LammpsTopology):
-  """
-  This class is an interface to write *Dihedrals* section
-  in *Lammps data file* (or *molecule file*).
-  """
+  """An interface to write *Dihedrals* section
+  in Lammps' data file (or molecule file)."""
 
-
+#=======================================================================
 
 class LammpsImpropers(LammpsTopology):
-  """
-  This class is an interface to write *Impropers* section
-  in *Lammps data file* (or *molecule file*).
-  """
+  """An interface to write *Impropers* section
+  in Lammps' data file (or molecule file)."""
 
   def __init__(self, sequences, datanames, class2=False, **kwargs):
     """
-    @param sequences
-      A `numpy.ndarray` representing topology components.
-      Please see also the same name argument of #create.
-    @param datanames
-      Tuple of strings denoting data names written in a line.
-      Please see also a source of #create.
-    @param class2
-      Whether forcefiled is *class2* or not.
-      If forcefield is *class2*, a center atom of each improper must be
-      the second atom in each sequence representing the improper.
-      Default is `False`.
-    @param **kwargs
-      A variable number of named arguments (for excessive arguments).
-    """
+    Parameters:
 
+    sequences: numpy.ndarray
+      Two-dimensional array describing topology components.
+      Note that the first atom of each sequence is a center atom
+      of improper (all the three bonds connect to the atom).
+
+    datanames: tuple
+      Tuple of strings specifying data names written in a line.
+
+    class2: bool
+      Whether forcefiled is CLASS2 or not.
+      If forcefield is CLASS2, a center atom of each improper
+      must be the second atom in a sequence.
+      For other forcefields, the first atom is the center one.
+
+    kwargs:
+      A variable number of named arguments
+      (for receiving excessive arguments).
+
+    """
     if class2:
       sequences[:, 0:2] = sequences[:, 0:2][:, ::-1]
 
-    super().__init__(sequences, datanames, **kwargs)
+    super().__init__(sequences, datanames)
 
-    ## Whether forcefiled is *class2* or not.
     self._class2 = class2
 
+  def get_sequence_patterns(self, atom_types):
+    """Returns a set of unique sequences of atom types
+    appearing in the topology components.
 
-  def _make_full_seq_to_type(self, seq_to_type):
+    This method overrides ``LammpsTopology.get_sequence_patterns()``
+    where original and reverse ordered sequence are considered as
+    equivalent; it is not the case with improper.
+
+    Parameters:
+
+    atom_types: list or tuple or numpy.ndarray
+      A one dimensional array-like object whose *i* th element is
+      a type of the *i* th atom.
+
     """
-    @param seq_to_type
-      A dictionary from sequences of atom types to types of topology
-      components consisting of those atoms.
-
-    @return
-      A dictionary from sequences of atom types to types of topology
-      components consisting of those atoms. This dictionary is
-      different from the `seq_to_type` by containing sequences
-      in both directions as its keys.
-
-    This method overrides LammpsTopology._make_full_seq_to_type
-    to be compatible with impropers.
-    Different from other topology components
-    where atoms are connected *linearly*, impropers have a center atom
-    to which all the other three atoms connect. For example,
-    sequence `(1, 2, 3, 4)`, `(1, 2, 4, 3)`, `(1, 3, 2, 4)`,
-    `(1, 3, 4, 2)`, `(1, 4, 2, 3)` and `(1, 4, 3, 2)` are reduced
-    to one improper type, where the first atom in the sequences is
-    the center atom of improper.
-    """
+    order_matters_set = set(
+      tuple(atom_types[i-1] for i in seq) for seq in self._sequences)
 
     c = 1 if self._class2 else 0
 
+    tmp = []
+
+    for seq in order_matters_set:
+
+      equivalents = [
+        p[:c] + (seq[c],) + p[c:]
+        for p in itertools.permutations(seq[:c]+seq[c+1:])
+      ]
+
+      if all(e not in tmp for e in equivalents):
+        tmp.append(seq)
+
+    return set(tmp)
+
+  def _make_full_seq_to_type(self, seq_to_type):
+    """Returns *full* mapping from sequences of atom types
+    to types of topology component.
+
+    Returned dictionary (mapping) has all sequences equivalent
+    with the original sequence of atom types as its keys.
+
+    This method overrides ``LammpsTopology._make_full_seq_to_type()``
+    to be applicable to improper.
+    Different from other topology component where atoms are
+    connected *linearly*, improper has a center atom
+    to which all the other three atoms connect. For that reason,
+    sequence of atom types ``(1, 2, 3, 4)``, ``(1, 2, 4, 3)``,
+    ``(1, 3, 2, 4)``, ``(1, 3, 4, 2)``, ``(1, 4, 2, 3)``
+    and ``(1, 4, 3, 2)`` are considered as equivalent.
+    In the above example, the first atom in the sequences is
+    the center atom of improper.
+
+    Parameters:
+
+    seq_to_type: dict
+      Mapping from sequences of atom types to types of topology
+      components consisting of those atoms.
+
+    """
+    c = 1 if self._class2 else 0
+
     return {
-        t[:c] + (k[c],) + t[c:]: v
-        for k, v in seq_to_type.items()
-        for t in it.permutations(k[:c]+k[c+1:])
-      }
+      t[:c] + (k[c],) + t[c:]: v
+      for k, v in seq_to_type.items()
+      for t in itertools.permutations(k[:c]+k[c+1:])
+    }
 
-
+#=======================================================================
 
 class LammpsSpecialBonds:
-  """
-  This class is an interface to write *Special Bond Counts*
-  and *Special Bonds* section in *Lammps molecule file*.
-  """
+  """An interface to write *Special Bond Counts*
+  and *Special Bonds* section in Lammps' molecule file."""
 
   def __init__(self, bonds_per_atom):
     """
-    @param bonds_per_atom
-      A nested list containing bond data for each atom.
-      Each element of the outer list corresponds to each atom.
-      The inner list consists of *absolute* indices for atoms bonded
-      with the each atom.
-    """
+    Parameters:
 
-    ## Number of atoms.
+    bonds_per_atom: list
+      Two-dimensional list containing bond data for each atom:
+      each element of the first list corresponds to each atom,
+      and the second list consists of *absolute* indices for atoms
+      bonded with the each atom
+      (Returned value of ``BondedAtoms.get_bonds_per_atom()``).
+
+    """
+    # number of atoms.
     self._num = len(bonds_per_atom)
 
-    ## Dictionary from property names to lists (or other array-like
-    # objects) containing property values for special bonds.
+    # dictionary mapping data names to data values
+    # (list-like objects) for special bonds.
     self._data = [
       {"1-2": [], "1-3": [], "1-4": []} for i in range(self._num)]
 
@@ -658,21 +662,20 @@ class LammpsSpecialBonds:
 
 
   def get_maximum_per_atom(self):
-    """
-    @return
-      The maximum number of special bonds per atom (sum over *1-2*,
-      *1-3*, and *1-4* special bonds).
-    """
-
-    return max([sum([len(v) for v in d.values()]) for d in self._data])
+    """Returns the maximum number of special bonds per atom
+    (sum over *1-2*, *1-3*, and *1-4* special bonds)."""
+    return max(sum(len(v) for v in d.values()) for d in self._data)
 
   def write_lines(self, path):
-    """
-    @param path
-      File path to *Lammps molecule file* to which this instance
-      writes *Special Bond Counts* and *Special Bonds* section.
-    """
+    """Writes lines of *Special Bond Counts*
+    and *Special Bonds* section in Lammps' molecule file.
 
+    Parameters:
+
+    path: str
+      File path to Lammps' molecule file.
+
+    """
     with open(path, 'a') as f:
 
       f.write("\nSpecial Bond Counts\n\n")

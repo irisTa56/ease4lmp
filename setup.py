@@ -16,17 +16,14 @@ with open("README.md", "r") as f:
 setup(
   name="ease4lmp",
   version=version_ns["__version__"],
+  description="Extension of Atomic Simulation Environment for LAMMPS",
   author="Takayuki Kobayashi",
   author_email="iris.takayuki@gmail.com",
-  description="Extension of Atomic Simulation Environment for LAMMPS",
   license="MIT",
   long_description=long_description,
   long_description_content_type="text/markdown",
-  url="https://github.com/irisTa56/ease4lmp",
+  url="https://github.com/irisTa56/ease4lmp.git",
   packages=find_packages(),
   classifiers=(
     "Programming Language :: Python :: 3",
-    "License :: OSI Approved :: MIT License",
-  ),
-  install_requires=["ase>=3.16.2", "numpy>=1.15.2"],
-)
+    "License :: OSI Approved :: MIT License"))

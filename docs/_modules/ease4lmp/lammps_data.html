@@ -1,0 +1,901 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>ease4lmp.lammps_data &mdash; ease4lmp  documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../../_static/custom.css" type="text/css" />
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" /> 
+
+  
+  <script src="../../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../../index.html" class="icon icon-home"> ease4lmp
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.2.1
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../apis/modules.html">Modules</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">ease4lmp</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>ease4lmp.lammps_data</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for ease4lmp.lammps_data</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot;Submodule for classes writing each section in Lammps&#39; data file.&quot;&quot;&quot;</span>
+
+<span class="kn">from</span> <span class="nn">.lammps_dataformats</span> <span class="k">import</span> <span class="p">(</span>
+  <span class="n">lmp_dataformats_atoms</span><span class="p">,</span> <span class="n">lmp_dataformats_velocities</span><span class="p">)</span>
+
+<span class="kn">import</span> <span class="nn">itertools</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+
+<div class="viewcode-block" id="create_topology"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.create_topology">[docs]</a><span class="k">def</span> <span class="nf">create_topology</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;A factory function for LammpsTopology&#39;s subclass.</span>
+
+<span class="sd">  Parameters:</span>
+
+<span class="sd">  name: str</span>
+<span class="sd">    Name of topology component:</span>
+<span class="sd">    &#39;bond&#39;, &#39;angle&#39;, &#39;dihedral&#39; or &#39;improper&#39;.</span>
+
+<span class="sd">  sequences: numpy.ndarray</span>
+<span class="sd">    Two-dimensional array describing of topology components.</span>
+<span class="sd">    Shapes of the array for &#39;bond&#39;, &#39;angle&#39;, &#39;dihedral&#39;</span>
+<span class="sd">    and &#39;improper&#39; are (*N*, 2), (*N*, 3), (*N*, 4) and (*N*, 4),</span>
+<span class="sd">    respectively. Here *N* is the number of topology components.</span>
+<span class="sd">    Elements of the array are zero-based indices for atoms.</span>
+
+<span class="sd">  kwargs:</span>
+<span class="sd">    A variable number of named arguments.</span>
+
+<span class="sd">    * ``class2`` (bool) : Set to True when using CLASS2 forcefield.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;bond&quot;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">LammpsBonds</span><span class="p">(</span>
+      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">))</span>
+  <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;angle&quot;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">LammpsAngles</span><span class="p">(</span>
+      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">,</span> <span class="s2">&quot;atom3&quot;</span><span class="p">))</span>
+  <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;dihedral&quot;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">LammpsDihedrals</span><span class="p">(</span>
+      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">,</span> <span class="s2">&quot;atom3&quot;</span><span class="p">,</span> <span class="s2">&quot;atom4&quot;</span><span class="p">))</span>
+  <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;improper&quot;</span><span class="p">:</span>
+    <span class="k">return</span> <span class="n">LammpsImpropers</span><span class="p">(</span>
+      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">,</span> <span class="s2">&quot;atom3&quot;</span><span class="p">,</span> <span class="s2">&quot;atom4&quot;</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+  <span class="k">else</span><span class="p">:</span>
+    <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+      <span class="s2">&quot;Invalid name for LammpsTopology &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
+
+<span class="k">def</span> <span class="nf">_write_section_lines</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">section_header</span><span class="p">,</span> <span class="n">line_format</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Writes lines of a specified section to a specified file.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    path: str</span>
+<span class="sd">      File path to Lammps&#39; data file (or molecule file).</span>
+
+<span class="sd">    data: dict</span>
+<span class="sd">      Dictionary from strings for data name to lists</span>
+<span class="sd">      containing data values, which describes data to be written.</span>
+
+<span class="sd">    section_header: str</span>
+<span class="sd">      Header of a section to be written.</span>
+
+<span class="sd">    line_format: str</span>
+<span class="sd">      A string representing a format of each line in the section.</span>
+<span class="sd">      Data values are assigned by Python&#39;s ``str.format()`` method.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">line_format</span> <span class="o">+=</span> <span class="s2">&quot;</span><span class="se">\n</span><span class="s2">&quot;</span>
+
+    <span class="n">keys</span><span class="p">,</span> <span class="n">values</span> <span class="o">=</span> <span class="n">data</span><span class="o">.</span><span class="n">keys</span><span class="p">(),</span> <span class="n">data</span><span class="o">.</span><span class="n">values</span><span class="p">()</span>
+    <span class="n">dicts</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">keys</span><span class="p">,</span> <span class="n">t</span><span class="p">))</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="o">*</span><span class="n">values</span><span class="p">)]</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_header</span><span class="p">))</span>
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">line_format</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="o">**</span><span class="n">dic</span><span class="p">)</span> <span class="k">for</span> <span class="n">dic</span> <span class="ow">in</span> <span class="n">dicts</span><span class="p">))</span>
+
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;&#39;</span><span class="si">{}</span><span class="s2">&#39; section was written&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">section_header</span><span class="p">))</span>
+
+<span class="c1">#=======================================================================</span>
+
+<div class="viewcode-block" id="LammpsAtoms"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms">[docs]</a><span class="k">class</span> <span class="nc">LammpsAtoms</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;An interface to write *Atoms* (and *Velocities*) section</span>
+<span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LammpsAtoms.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+    <span class="bp">self</span><span class="p">,</span> <span class="n">atom_style</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">velocities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">masses</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    atom_style: str</span>
+<span class="sd">      Specify *atom style* of Lammps.</span>
+
+<span class="sd">    types: numpy.ndarray</span>
+<span class="sd">      Returned value of ``BondedAtoms.get_types()``.</span>
+
+<span class="sd">    positions: numpy.ndarray</span>
+<span class="sd">      Returned value of ``ase.Atoms.get_positions()``.</span>
+
+<span class="sd">    velocities: None or numpy.ndarray</span>
+<span class="sd">      Returned value of ``ase.Atoms.get_velocities()``.</span>
+<span class="sd">      If None, the *Velocities* section will not be written.</span>
+<span class="sd">      Note that the *i* th atom in ``velocities`` must correspond to</span>
+<span class="sd">      the *i* th atom in ``types``.</span>
+
+<span class="sd">    masses: None or list or tuple or numpy.ndarray</span>
+<span class="sd">      A list whose length is equal to the number of atoms.</span>
+<span class="sd">      Each element is a *mass* of each atom used in Lammps.</span>
+<span class="sd">      Note that the *i* th atom in ``masses`` must correspond to</span>
+<span class="sd">      the *i* th atom in ``types``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># number of atoms.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">types</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats</span> <span class="o">=</span> <span class="n">lmp_dataformats_atoms</span><span class="p">[</span><span class="n">atom_style</span><span class="p">]</span>
+
+    <span class="c1"># dictionary mapping data names to data values</span>
+    <span class="c1"># (list-like objects) for *Atoms* (and *Masses*) section.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="n">k</span><span class="p">:</span> <span class="kc">None</span>
+      <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># `id` starts from 1 in Lammps</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">types</span><span class="p">)</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span> <span class="n">positions</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="n">velocities</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">velocities</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Inconsistent length of velocities&quot;</span><span class="p">)</span>
+
+      <span class="k">try</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span> <span class="o">=</span> <span class="n">lmp_dataformats_velocities</span><span class="p">[</span><span class="n">atom_style</span><span class="p">]</span>
+      <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span> <span class="o">=</span> <span class="n">lmp_dataformats_velocities</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">]</span>
+
+      <span class="c1"># dictionary mapping data names to data values</span>
+      <span class="c1"># (list-like objects) for *Velocities* section.</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;id&quot;</span> <span class="k">else</span> <span class="kc">None</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span><span class="p">)</span>
+      <span class="p">}</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;vx&quot;</span><span class="p">,</span> <span class="s2">&quot;vy&quot;</span><span class="p">,</span> <span class="s2">&quot;vz&quot;</span><span class="p">],</span> <span class="n">velocities</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
+
+    <span class="k">if</span> <span class="n">masses</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="n">masses</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LammpsAtoms.get_num"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.get_num">[docs]</a>  <span class="k">def</span> <span class="nf">get_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the number of atoms.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span></div>
+
+<div class="viewcode-block" id="LammpsAtoms.get_num_type"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.get_num_type">[docs]</a>  <span class="k">def</span> <span class="nf">get_num_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the number of atom types.&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]))</span></div>
+
+  <span class="k">def</span> <span class="nf">get_atom_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
+
+<div class="viewcode-block" id="LammpsAtoms.get_required_datanames"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.get_required_datanames">[docs]</a>  <span class="k">def</span> <span class="nf">get_required_datanames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a set of required data names (keys).</span>
+
+<span class="sd">    Names of data are returned if the data is required to</span>
+<span class="sd">    write Lammps&#39; data file and has not been set yet.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    molecule: bool</span>
+<span class="sd">      Whether to return data names required for Lammps&#39; molecule file.</span>
+<span class="sd">      This method returns data names for Lammps&#39; data file by default.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">names</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">molecule</span><span class="p">:</span>
+      <span class="n">names</span> <span class="o">&amp;=</span> <span class="p">{</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;q&quot;</span><span class="p">,</span> <span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">}</span>  <span class="c1"># &quot;diameter&quot; is currently not supported</span>
+    <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_data_vel&quot;</span><span class="p">):</span>
+      <span class="n">names</span> <span class="o">|=</span> <span class="nb">set</span><span class="p">(</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="n">names</span></div>
+
+<div class="viewcode-block" id="LammpsAtoms.set_data"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.set_data">[docs]</a>  <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stores given data in ``self._data``.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    kwargs:</span>
+<span class="sd">      A variable number of named arguments.</span>
+<span class="sd">      Keywords are data names, and arguments are data values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>  <span class="c1"># ensure data is `list`</span>
+
+      <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Inconsistent length of data&quot;</span><span class="p">)</span>
+
+      <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot; again&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LammpsAtoms: &#39;</span><span class="si">{}</span><span class="s2">&#39; have been set</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+      <span class="k">elif</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_data_vel&quot;</span><span class="p">)</span> <span class="ow">and</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot; again&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LammpsAtoms: &#39;</span><span class="si">{}</span><span class="s2">&#39; have been set</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span>
+      <span class="k">elif</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;mass&quot;</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="n">k</span> <span class="ow">not</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="k">else</span> <span class="s2">&quot; again&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LammpsAtoms: &#39;</span><span class="si">{}</span><span class="s2">&#39; have been set</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span></div>
+
+<div class="viewcode-block" id="LammpsAtoms.set_masses"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.set_masses">[docs]</a>  <span class="k">def</span> <span class="nf">set_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type2mass</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stores masses in ``self._data``.</span>
+
+<span class="sd">    Though the parameter ``type2mass`` is a dictionary mapping</span>
+<span class="sd">    atom&#39;s type to its mass, masses will be stored as a per-atom array.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    type2mass: dict</span>
+<span class="sd">      Dictionary mapping atom&#39;s type (int) to its mass (float).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You need to set types&quot;</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="p">[</span><span class="n">type2mass</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]])</span></div>
+
+<div class="viewcode-block" id="LammpsAtoms.shift_positions"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.shift_positions">[docs]</a>  <span class="k">def</span> <span class="nf">shift_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)):</span>
+    <span class="sd">&quot;&quot;&quot;Shifts atom positions stored in ``self._data``.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    shift: tuple or list</span>
+<span class="sd">      A tuple or list defining a Cartesian vector by which</span>
+<span class="sd">      atom positions shift.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">dim</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span> <span class="n">shift</span><span class="p">):</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">dim</span><span class="p">])</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LammpsAtoms.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Writes lines of *Atoms* and *Velocities* section.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    path: str</span>
+<span class="sd">      File path to Lammps&#39; data file.</span>
+
+<span class="sd">    velocity: bool</span>
+<span class="sd">      Whether to write *Velocities* section or not.</span>
+
+<span class="sd">    mass: bool</span>
+<span class="sd">      Whether to write *Masses* section or not.</span>
+
+<span class="sd">    kwargs:</span>
+<span class="sd">      A variable number of named arguments (currently not in use).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">nones</span> <span class="o">=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
+
+    <span class="k">if</span> <span class="n">velocity</span><span class="p">:</span>
+      <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_data_vel&quot;</span><span class="p">):</span>
+        <span class="n">nones</span> <span class="o">+=</span> <span class="p">[</span><span class="n">k</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">if</span> <span class="n">v</span> <span class="ow">is</span> <span class="kc">None</span><span class="p">]</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You need to set velocities&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">nones</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
+        <span class="s2">&quot;You have not set &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;&#39;, &#39;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">nones</span><span class="p">)))</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">mass</span><span class="p">:</span>
+        <span class="k">if</span> <span class="s2">&quot;mass&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+          <span class="n">massdct</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">sorted</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">]))</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+          <span class="n">_write_section_lines</span><span class="p">(</span>
+            <span class="n">path</span><span class="p">,</span> <span class="p">{</span>
+            <span class="s2">&quot;type&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">massdct</span><span class="o">.</span><span class="n">keys</span><span class="p">()),</span> <span class="s2">&quot;mass&quot;</span><span class="p">:</span> <span class="nb">list</span><span class="p">(</span><span class="n">massdct</span><span class="o">.</span><span class="n">values</span><span class="p">())</span>
+            <span class="p">},</span> <span class="s2">&quot;Masses&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="si">{type:4d}</span><span class="s2"> </span><span class="si">{mass:9.6f}</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+          <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You need to set masses&quot;</span><span class="p">)</span>
+
+      <span class="n">_write_section_lines</span><span class="p">(</span>
+        <span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="s2">&quot;Atoms&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;{{</span><span class="si">{}</span><span class="s2">}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;} {&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataformats</span><span class="p">)))</span>
+
+      <span class="k">if</span> <span class="n">velocity</span><span class="p">:</span>
+        <span class="n">_write_section_lines</span><span class="p">(</span>
+          <span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span><span class="p">,</span> <span class="s2">&quot;Velocities&quot;</span><span class="p">,</span>
+          <span class="s2">&quot;{{</span><span class="si">{}</span><span class="s2">}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;} {&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span><span class="p">)))</span></div>
+
+<div class="viewcode-block" id="LammpsAtoms.write_lines_for_molecule"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.write_lines_for_molecule">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines_for_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Writes lines of *Coords*, *Types*, *Charges* and *Masses* section</span>
+<span class="sd">    to Lammps&#39; molecule file.</span>
+
+<span class="sd">    This method creates a new LammpsDataLines instance to write</span>
+<span class="sd">    *Coords* and *Types* sections (and *Charges* section)</span>
+<span class="sd">    in Lammps&#39; molecule file.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    path: str</span>
+<span class="sd">      File path to Lammps&#39; molecule file.</span>
+
+<span class="sd">    mass: bool</span>
+<span class="sd">      Whether to write *Masses* section or not.</span>
+
+<span class="sd">    kwargs:</span>
+<span class="sd">      A variable number of named arguments (currently not in use).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">section_formats</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="s2">&quot;Coords&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;id:4d&quot;</span><span class="p">,</span> <span class="s2">&quot;x:15.8e&quot;</span><span class="p">,</span> <span class="s2">&quot;y:15.8e&quot;</span><span class="p">,</span> <span class="s2">&quot;z:15.8e&quot;</span><span class="p">),</span>
+      <span class="s2">&quot;Types&quot;</span><span class="p">:</span> <span class="p">(</span><span class="s2">&quot;id:4d&quot;</span><span class="p">,</span> <span class="s2">&quot;type:4d&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">if</span> <span class="s2">&quot;q&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+      <span class="n">section_formats</span><span class="p">[</span><span class="s2">&quot;Charges&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;id:4d&quot;</span><span class="p">,</span> <span class="s2">&quot;q:9.6f&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="n">mass</span><span class="p">:</span>
+      <span class="k">if</span> <span class="s2">&quot;mass&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+        <span class="n">section_formats</span><span class="p">[</span><span class="s2">&quot;Masses&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;id:4d&quot;</span><span class="p">,</span> <span class="s2">&quot;q:9.6f&quot;</span><span class="p">)</span>
+      <span class="k">else</span><span class="p">:</span>
+        <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;You need to set masses&quot;</span><span class="p">)</span>
+
+    <span class="k">for</span> <span class="n">h</span><span class="p">,</span> <span class="n">dfs</span> <span class="ow">in</span> <span class="n">section_formats</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="n">_write_section_lines</span><span class="p">(</span>
+        <span class="n">path</span><span class="p">,</span> <span class="p">{</span>
+          <span class="n">k</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+          <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="n">dfs</span><span class="p">)</span>
+        <span class="p">},</span> <span class="n">h</span><span class="p">,</span> <span class="s2">&quot;{{</span><span class="si">{}</span><span class="s2">}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;} {&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dfs</span><span class="p">)))</span></div></div>
+
+<span class="c1">#=======================================================================</span>
+
+<div class="viewcode-block" id="LammpsTopology"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology">[docs]</a><span class="k">class</span> <span class="nc">LammpsTopology</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;An (abstract) interface to write a section of topology component</span>
+<span class="sd">  (*Bonds*, *Angles*, *Dihedrals*, *Impropers*)</span>
+<span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LammpsTopology.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="n">datanames</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    sequences: numpy.ndarray</span>
+<span class="sd">      Two-dimensional array describing topology components.</span>
+
+<span class="sd">    datanames: tuple</span>
+<span class="sd">      Tuple of strings specifying data names written in a line.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># `numpy.ndarray` for topology components</span>
+    <span class="c1"># whose elements are `atom-id`s used in Lammps</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span> <span class="o">=</span> <span class="n">sequences</span> <span class="o">+</span> <span class="mi">1</span>
+
+    <span class="c1"># number of topology components.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_datanames</span> <span class="o">=</span> <span class="n">datanames</span>
+
+    <span class="c1"># dictionary mapping data names to data values</span>
+    <span class="c1"># (list-like objects) for topology components.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">datanames</span><span class="p">}</span>
+
+    <span class="k">if</span> <span class="mi">0</span> <span class="o">&lt;</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># `id` starts from 1 in Lammps</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datanames</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>  <span class="c1"># set `atom-id`s</span></div>
+
+<div class="viewcode-block" id="LammpsTopology.get_num"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_num">[docs]</a>  <span class="k">def</span> <span class="nf">get_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the number of topology components.</span>
+
+<span class="sd">    The number of topology components is considered as 0</span>
+<span class="sd">    until types of the topology components are set.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_num_type&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="LammpsTopology.get_num_type"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_num_type">[docs]</a>  <span class="k">def</span> <span class="nf">get_num_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the number of topology types.&quot;&quot;&quot;</span>
+    <span class="k">try</span><span class="p">:</span>
+      <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_type</span>
+    <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
+      <span class="k">return</span> <span class="mi">0</span></div>
+
+<div class="viewcode-block" id="LammpsTopology.get_sequence_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_sequence_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_sequence_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
+<span class="sd">    appearing in the topology components.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    atom_types: list or tuple or numpy.ndarray</span>
+<span class="sd">      A one dimensional array-like object whose *i* th element is</span>
+<span class="sd">      a type of the *i* th atom.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">order_matters_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+      <span class="nb">tuple</span><span class="p">(</span><span class="n">atom_types</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">)</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span><span class="p">)</span>
+
+    <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">order_matters_set</span><span class="p">:</span>
+      <span class="k">if</span> <span class="n">seq</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tmp</span> <span class="ow">and</span> <span class="n">seq</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tmp</span><span class="p">:</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LammpsTopology.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the maximum number of topology components per atom.</span>
+
+<span class="sd">    For more details see also Lammps&#39; source code of</span>
+<span class="sd">    ``Atom::data_angles()``, ``Atom::data_dihedrals()``</span>
+<span class="sd">    and ``Atom::data_impropers()``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">1</span><span class="p">],</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LammpsTopology.set_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.set_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Sets type of the topology components.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    seq_to_type: dict</span>
+<span class="sd">      Mapping from sequences of atom types (tuple)</span>
+<span class="sd">      to types of topology components consisting of those atoms (int).</span>
+<span class="sd">      Note that the sequences can be arbitrary order; for example,</span>
+<span class="sd">      two sequences of angle ``(1, 2, 3)`` and ``(3, 2, 1)``</span>
+<span class="sd">      have the same meaning.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># number of types of the topology components.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_num_type</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="n">seq_to_type</span><span class="o">.</span><span class="n">values</span><span class="p">()))</span>
+
+    <span class="n">full_dict</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_full_seq_to_type</span><span class="p">(</span><span class="n">seq_to_type</span><span class="p">)</span>
+
+    <span class="n">type_seqs</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="nb">tuple</span><span class="p">(</span><span class="n">atom_types</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">)</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span>
+    <span class="p">]</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="p">[</span><span class="n">full_dict</span><span class="p">[</span><span class="n">seq</span><span class="p">]</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">type_seqs</span><span class="p">])</span></div>
+
+<div class="viewcode-block" id="LammpsTopology.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Writes lines of a topology section</span>
+<span class="sd">    in Lammps&#39; data file (or molecule file).</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    path: str</span>
+<span class="sd">      File path to Lammps&#39; data file (or molecule file).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_write_section_lines</span><span class="p">(</span>
+      <span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;Lammps&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">),</span>
+      <span class="s2">&quot;{{</span><span class="si">{}</span><span class="s2">}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;} {&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datanames</span><span class="p">)))</span></div>
+
+  <span class="k">def</span> <span class="nf">_make_full_seq_to_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns *full* mapping from sequences of atom types</span>
+<span class="sd">    to types of topology component.</span>
+
+<span class="sd">    Returned dictionary (mapping) has both original</span>
+<span class="sd">    and reverse ordered sequence of atom types as its keys.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    seq_to_type: dict</span>
+<span class="sd">      Mapping from sequences of atom types to types of topology</span>
+<span class="sd">      components consisting of those atoms.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="p">{</span><span class="n">t</span><span class="p">:</span> <span class="n">v</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">seq_to_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="p">[</span><span class="n">k</span><span class="p">,</span> <span class="n">k</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]]}</span>
+
+  <span class="k">def</span> <span class="nf">_set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Stores given data in ``self._data``.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    kwargs:</span>
+<span class="sd">      A variable number of named arguments.</span>
+<span class="sd">      Keywords are data names, and arguments are data values.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+      <span class="n">data</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">v</span><span class="p">)</span>  <span class="c1"># ensure data is &lt;list&gt;</span>
+      <span class="k">if</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">:</span>
+        <span class="n">end</span> <span class="o">=</span> <span class="s2">&quot;&quot;</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="ow">is</span> <span class="kc">None</span> <span class="k">else</span> <span class="s2">&quot; again&quot;</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
+        <span class="nb">print</span><span class="p">(</span>
+          <span class="s2">&quot;</span><span class="si">{}</span><span class="s2">: &#39;</span><span class="si">{}</span><span class="s2">&#39; have been set</span><span class="si">{}</span><span class="s2">&quot;</span>
+          <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="vm">__class__</span><span class="o">.</span><span class="vm">__name__</span><span class="p">,</span> <span class="n">k</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span></div>
+
+<span class="c1">#=======================================================================</span>
+
+<div class="viewcode-block" id="LammpsBonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsBonds">[docs]</a><span class="k">class</span> <span class="nc">LammpsBonds</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An interface to write *Bonds* section</span>
+<span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LammpsBonds.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsBonds.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the maximum number of topology components per atom.</span>
+
+<span class="sd">    This method overrides ``LammpsTopology.get_maximum_per_atom()``</span>
+<span class="sd">    because data for a bond is linked to the first atom in the bond</span>
+<span class="sd">    whereas data for the other topology components is linked to</span>
+<span class="sd">    the second atom in the component.</span>
+<span class="sd">    See also Lammps&#39; source code of ``Atom::data_bonds()``.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">_</span><span class="p">,</span> <span class="n">counts</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">unique</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span><span class="o">.</span><span class="n">T</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">return_counts</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span></div></div>
+
+<span class="c1">#=======================================================================</span>
+
+<div class="viewcode-block" id="LammpsAngles"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAngles">[docs]</a><span class="k">class</span> <span class="nc">LammpsAngles</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An interface to write *Angles* section</span>
+<span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span></div>
+
+<span class="c1">#=======================================================================</span>
+
+<div class="viewcode-block" id="LammpsDihedrals"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsDihedrals">[docs]</a><span class="k">class</span> <span class="nc">LammpsDihedrals</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An interface to write *Dihedrals* section</span>
+<span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span></div>
+
+<span class="c1">#=======================================================================</span>
+
+<div class="viewcode-block" id="LammpsImpropers"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsImpropers">[docs]</a><span class="k">class</span> <span class="nc">LammpsImpropers</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;An interface to write *Impropers* section</span>
+<span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LammpsImpropers.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsImpropers.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="n">datanames</span><span class="p">,</span> <span class="n">class2</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    sequences: numpy.ndarray</span>
+<span class="sd">      Two-dimensional array describing topology components.</span>
+<span class="sd">      Note that the first atom of each sequence is a center atom</span>
+<span class="sd">      of improper (all the three bonds connect to the atom).</span>
+
+<span class="sd">    datanames: tuple</span>
+<span class="sd">      Tuple of strings specifying data names written in a line.</span>
+
+<span class="sd">    class2: bool</span>
+<span class="sd">      Whether forcefiled is CLASS2 or not.</span>
+<span class="sd">      If forcefield is CLASS2, a center atom of each improper</span>
+<span class="sd">      must be the second atom in a sequence.</span>
+<span class="sd">      For other forcefields, the first atom is the center one.</span>
+
+<span class="sd">    kwargs:</span>
+<span class="sd">      A variable number of named arguments</span>
+<span class="sd">      (for receiving excessive arguments).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">if</span> <span class="n">class2</span><span class="p">:</span>
+      <span class="n">sequences</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">]</span> <span class="o">=</span> <span class="n">sequences</span><span class="p">[:,</span> <span class="mi">0</span><span class="p">:</span><span class="mi">2</span><span class="p">][:,</span> <span class="p">::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+    <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">datanames</span><span class="p">)</span>
+
+    <span class="bp">self</span><span class="o">.</span><span class="n">_class2</span> <span class="o">=</span> <span class="n">class2</span></div>
+
+<div class="viewcode-block" id="LammpsImpropers.get_sequence_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsImpropers.get_sequence_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_sequence_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
+<span class="sd">    appearing in the topology components.</span>
+
+<span class="sd">    This method overrides ``LammpsTopology.get_sequence_patterns()``</span>
+<span class="sd">    where original and reverse ordered sequence are considered as</span>
+<span class="sd">    equivalent; it is not the case with improper.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    atom_types: list or tuple or numpy.ndarray</span>
+<span class="sd">      A one dimensional array-like object whose *i* th element is</span>
+<span class="sd">      a type of the *i* th atom.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">order_matters_set</span> <span class="o">=</span> <span class="nb">set</span><span class="p">(</span>
+      <span class="nb">tuple</span><span class="p">(</span><span class="n">atom_types</span><span class="p">[</span><span class="n">i</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">seq</span><span class="p">)</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span><span class="p">)</span>
+
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class2</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="n">tmp</span> <span class="o">=</span> <span class="p">[]</span>
+
+    <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">order_matters_set</span><span class="p">:</span>
+
+      <span class="n">equivalents</span> <span class="o">=</span> <span class="p">[</span>
+        <span class="n">p</span><span class="p">[:</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">seq</span><span class="p">[</span><span class="n">c</span><span class="p">],)</span> <span class="o">+</span> <span class="n">p</span><span class="p">[</span><span class="n">c</span><span class="p">:]</span>
+        <span class="k">for</span> <span class="n">p</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">seq</span><span class="p">[:</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="n">seq</span><span class="p">[</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+      <span class="p">]</span>
+
+      <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">e</span> <span class="ow">not</span> <span class="ow">in</span> <span class="n">tmp</span> <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="n">equivalents</span><span class="p">):</span>
+        <span class="n">tmp</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">seq</span><span class="p">)</span>
+
+    <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span></div>
+
+  <span class="k">def</span> <span class="nf">_make_full_seq_to_type</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns *full* mapping from sequences of atom types</span>
+<span class="sd">    to types of topology component.</span>
+
+<span class="sd">    Returned dictionary (mapping) has all sequences equivalent</span>
+<span class="sd">    with the original sequence of atom types as its keys.</span>
+
+<span class="sd">    This method overrides ``LammpsTopology._make_full_seq_to_type()``</span>
+<span class="sd">    to be applicable to improper.</span>
+<span class="sd">    Different from other topology component where atoms are</span>
+<span class="sd">    connected *linearly*, improper has a center atom</span>
+<span class="sd">    to which all the other three atoms connect. For that reason,</span>
+<span class="sd">    sequence of atom types ``(1, 2, 3, 4)``, ``(1, 2, 4, 3)``,</span>
+<span class="sd">    ``(1, 3, 2, 4)``, ``(1, 3, 4, 2)``, ``(1, 4, 2, 3)``</span>
+<span class="sd">    and ``(1, 4, 3, 2)`` are considered as equivalent.</span>
+<span class="sd">    In the above example, the first atom in the sequences is</span>
+<span class="sd">    the center atom of improper.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    seq_to_type: dict</span>
+<span class="sd">      Mapping from sequences of atom types to types of topology</span>
+<span class="sd">      components consisting of those atoms.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="n">c</span> <span class="o">=</span> <span class="mi">1</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">_class2</span> <span class="k">else</span> <span class="mi">0</span>
+
+    <span class="k">return</span> <span class="p">{</span>
+      <span class="n">t</span><span class="p">[:</span><span class="n">c</span><span class="p">]</span> <span class="o">+</span> <span class="p">(</span><span class="n">k</span><span class="p">[</span><span class="n">c</span><span class="p">],)</span> <span class="o">+</span> <span class="n">t</span><span class="p">[</span><span class="n">c</span><span class="p">:]:</span> <span class="n">v</span>
+      <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">seq_to_type</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
+      <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="n">itertools</span><span class="o">.</span><span class="n">permutations</span><span class="p">(</span><span class="n">k</span><span class="p">[:</span><span class="n">c</span><span class="p">]</span><span class="o">+</span><span class="n">k</span><span class="p">[</span><span class="n">c</span><span class="o">+</span><span class="mi">1</span><span class="p">:])</span>
+    <span class="p">}</span></div>
+
+<span class="c1">#=======================================================================</span>
+
+<div class="viewcode-block" id="LammpsSpecialBonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds">[docs]</a><span class="k">class</span> <span class="nc">LammpsSpecialBonds</span><span class="p">:</span>
+  <span class="sd">&quot;&quot;&quot;An interface to write *Special Bond Counts*</span>
+<span class="sd">  and *Special Bonds* section in Lammps&#39; molecule file.&quot;&quot;&quot;</span>
+
+<div class="viewcode-block" id="LammpsSpecialBonds.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bonds_per_atom</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;</span>
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    bonds_per_atom: list</span>
+<span class="sd">      Two-dimensional list containing bond data for each atom:</span>
+<span class="sd">      each element of the first list corresponds to each atom,</span>
+<span class="sd">      and the second list consists of *absolute* indices for atoms</span>
+<span class="sd">      bonded with the each atom</span>
+<span class="sd">      (Returned value of ``BondedAtoms.get_bonds_per_atom()``).</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="c1"># number of atoms.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_num</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">bonds_per_atom</span><span class="p">)</span>
+
+    <span class="c1"># dictionary mapping data names to data values</span>
+    <span class="c1"># (list-like objects) for special bonds.</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">[</span>
+      <span class="p">{</span><span class="s2">&quot;1-2&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;1-3&quot;</span><span class="p">:</span> <span class="p">[],</span> <span class="s2">&quot;1-4&quot;</span><span class="p">:</span> <span class="p">[]}</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">)]</span>
+
+    <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">bs</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bonds_per_atom</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="n">bs</span><span class="p">:</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;1-2&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">j</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">bonds_per_atom</span><span class="p">[</span><span class="n">j</span><span class="p">]:</span>
+          <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+            <span class="k">continue</span>
+          <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;1-3&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">k</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+          <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="n">bonds_per_atom</span><span class="p">[</span><span class="n">k</span><span class="p">]:</span>
+            <span class="k">if</span> <span class="n">l</span> <span class="o">==</span> <span class="n">j</span> <span class="ow">or</span> <span class="n">l</span> <span class="o">==</span> <span class="n">i</span><span class="p">:</span>
+              <span class="k">continue</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;1-4&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></div>
+
+
+<div class="viewcode-block" id="LammpsSpecialBonds.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Returns the maximum number of special bonds per atom</span>
+<span class="sd">    (sum over *1-2*, *1-3*, and *1-4* special bonds).&quot;&quot;&quot;</span>
+    <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="LammpsSpecialBonds.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;Writes lines of *Special Bond Counts*</span>
+<span class="sd">    and *Special Bonds* section in Lammps&#39; molecule file.</span>
+
+<span class="sd">    Parameters:</span>
+
+<span class="sd">    path: str</span>
+<span class="sd">      File path to Lammps&#39; molecule file.</span>
+
+<span class="sd">    &quot;&quot;&quot;</span>
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s1">&#39;a&#39;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Special Bond Counts</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+          <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+            <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;1-2&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;1-3&quot;</span><span class="p">]),</span> <span class="nb">len</span><span class="p">(</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;1-4&quot;</span><span class="p">])))</span>
+
+      <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="s2">Special Bonds</span><span class="se">\n\n</span><span class="s2">&quot;</span><span class="p">)</span>
+
+      <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">):</span>
+        <span class="n">data</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+        <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span>
+          <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span>
+            <span class="n">i</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span>
+            <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">data</span><span class="p">[</span><span class="s2">&quot;1-2&quot;</span><span class="p">]</span><span class="o">+</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;1-3&quot;</span><span class="p">]</span><span class="o">+</span><span class="n">data</span><span class="p">[</span><span class="s2">&quot;1-4&quot;</span><span class="p">]))))</span>
+
+    <span class="nb">print</span><span class="p">(</span>
+      <span class="s2">&quot;&#39;Special Bond Counts&#39; and &#39;Special Bonds&#39; section was written&quot;</span><span class="p">)</span></div></div>
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Takayuki Kobayashi
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

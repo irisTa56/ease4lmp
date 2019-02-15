@@ -1,7 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classease4lmp_1_1lammps__data_1_1LammpsTopology.html" title="This class is an (abstract) interface to write a section of topology components in Lammps data file (..." alt="" coords="5,104,220,145"/>
-<area shape="rect" id="node2" href="$classease4lmp_1_1lammps__data_1_1LammpsAngles.html" title="This class is an interface to write Angles section in Lammps data file (or molecule file)..." alt="" coords="268,5,483,47"/>
-<area shape="rect" id="node3" href="$classease4lmp_1_1lammps__data_1_1LammpsBonds.html" title="This class is an interface to write Bonds section in Lammps data file (or molecule file)..." alt="" coords="268,71,483,112"/>
-<area shape="rect" id="node4" href="$classease4lmp_1_1lammps__data_1_1LammpsDihedrals.html" title="This class is an interface to write Dihedrals section in Lammps data file (or molecule file)..." alt="" coords="268,136,483,177"/>
-<area shape="rect" id="node5" href="$classease4lmp_1_1lammps__data_1_1LammpsImpropers.html" title="This class is an interface to write Impropers section in Lammps data file (or molecule file)..." alt="" coords="268,201,483,243"/>
-</map>

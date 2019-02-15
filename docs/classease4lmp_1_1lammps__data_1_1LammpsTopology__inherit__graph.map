@@ -1,6 +1,0 @@
-<map id="ease4lmp.lammps_data.LammpsTopology" name="ease4lmp.lammps_data.LammpsTopology">
-<area shape="rect" id="node2" href="$classease4lmp_1_1lammps__data_1_1LammpsAngles.html" title="This class is an interface to write Angles section in Lammps data file (or molecule file)..." alt="" coords="5,358,220,450"/>
-<area shape="rect" id="node3" href="$classease4lmp_1_1lammps__data_1_1LammpsBonds.html" title="This class is an interface to write Bonds section in Lammps data file (or molecule file)..." alt="" coords="244,358,459,450"/>
-<area shape="rect" id="node4" href="$classease4lmp_1_1lammps__data_1_1LammpsDihedrals.html" title="This class is an interface to write Dihedrals section in Lammps data file (or molecule file)..." alt="" coords="483,358,697,450"/>
-<area shape="rect" id="node5" href="$classease4lmp_1_1lammps__data_1_1LammpsImpropers.html" title="This class is an interface to write Impropers section in Lammps data file (or molecule file)..." alt="" coords="721,351,936,457"/>
-</map>

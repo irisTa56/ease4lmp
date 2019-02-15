@@ -13,7 +13,7 @@ class BondedAtoms(ase.Atoms):
 
   An instance of this class has bond data as a ``numpy.ndarray``
   as with other atomic properties like positions and velocities.
-  Shape of the array for bond data is (*N*, *M*, 4), where *N* is
+  Shape of this array for bond data is (*N*, *M*, 4), where *N* is
   the number of atoms and *M* is the maximum number of bonds per atom.
   The first axis of the array corresponds to atoms, and the second axis
   corresponds to bonds connected to each atom.
@@ -23,32 +23,14 @@ class BondedAtoms(ase.Atoms):
   (used for resolving a periodic boundary condition)
   for the other atom in the *x*, *y* and *z* direction, respectively.
 
+  In addition, an instance of this class has type of atoms
+  as a one-dimensional ``numpy.ndarray``. Length of this array is
+  equal to the number of atoms. Atom's type is typically required
+  for making Lammps' data file and molecule file.
+
   Basically, you can use methods of ``ase.Atoms`` in the same manner.
 
   """
-
-  @staticmethod
-  def inherit(atoms):
-    """Down-cast an ``ase.Atoms`` instance to BondedAtoms.
-
-    This static method takes an ``ase.Atoms`` instance, converts it
-    to a BondedAtoms instance, and returns the instance.
-    This method does not adds any bond data, it only reserves array
-    in which bond data will be stored.
-
-    Parameters:
-
-    atoms: ase.Atoms
-      An ``ase.Atoms`` instance to be down-casted to BondedAtoms.
-
-    """
-    atoms.__class__ = BondedAtoms
-    atoms._max_bonds = 4
-
-    atoms.new_array(
-      "bonds", np.zeros((len(atoms), atoms._max_bonds, 4)), int)
-
-    return atoms
 
   def __init__(self, *args, **kwargs):
     """
@@ -66,8 +48,13 @@ class BondedAtoms(ase.Atoms):
     # maximum number of bonds per atom.
     self._max_bonds = 4
 
-    self.new_array(
-      "bonds", np.zeros((len(self), self._max_bonds, 4)), int)
+    if "bonds" not in self.arrays:
+      self.new_array(
+        "bonds", np.zeros((len(self), self._max_bonds, 4)), int)
+
+    if "types" not in self.arrays:
+      self.new_array(
+        "types", np.ones(len(self)), int)
 
   def add_bond(self, atom1, atom2, img1=(0,0,0), img2=(0,0,0)):
     """Adds a bond connecting two atoms.
@@ -155,10 +142,10 @@ class BondedAtoms(ase.Atoms):
       the instance will be down-casted to BondedAtoms before extension.
 
     """
-    if isinstance(other, ase.Atom):
+    if type(other) == ase.Atom:
       other = self.__class__([other])
 
-    if isinstance(other, ase.Atoms):
+    if type(other) == ase.Atoms:
       other = self.__class__(other)
 
     return super().extend(other)
@@ -194,6 +181,18 @@ class BondedAtoms(ase.Atoms):
       [i + b[0] for b in bs if b[0] != 0]
       for i, bs in enumerate(self.arrays["bonds"])
     ]
+
+  def get_types(self):
+    """Returns an array of integers containing atom's type.
+
+    An instance of ``ase.Atoms`` stores data in ``self.arrays``;
+    for example, atoms' positions are accessed by key 'positions'.
+    For BondedAtoms instance, atom's type data is also stored
+    in ``self.arrays`` with key of 'types'.
+    This method returns a copy of ``self.arrays["types"]``.
+
+    """
+    return self.arrays["types"].copy()
 
   def get_bonded_bonds(self):
     """Returns a two-dimensional ``numpy.ndarray`` describing all bonds.
@@ -321,7 +320,7 @@ class BondedAtoms(ase.Atoms):
     Parameters:
 
     bonds: numpy.ndarray or list
-      Array describing bonds. Shape of the array is (*N*, *M*, 4),
+      Array describing bonds. Shape of the array must be (*N*, *M*, 4),
       where *N* is the number of atoms and *M* is the maximum number
       of bonds per atom. Four integers of innermost-axis are as follows:
       the first integer is a relative index for the other atom,
@@ -330,6 +329,21 @@ class BondedAtoms(ase.Atoms):
 
     """
     self.set_array("bonds", bonds, int, ())
+
+  def set_types(self, types):
+    """Stores the given type of atoms.
+
+    This method sets type of atoms to ``self.array``
+    using ``self.set_array()``.
+
+    Parameters:
+
+    types: numpy.ndarray or list
+      Per-atom array containing atom's type.
+      Length of the array must be equal to the number of atoms.
+
+    """
+    self.set_array("types", types, int, ())
 
   def __delitem__(self, idx):
     """Deletes a selected atom.
@@ -422,7 +436,7 @@ class BondedAtoms(ase.Atoms):
     ...   positions=[[0.0, 5.0, 5.0]],
     ...   cell=[2.9, 5.0, 5.0],
     ...   pbc=[1, 0, 0])
-    >>> wire.add_bond(0, 0, (0,0,0), (1,0,0))
+    >>> wire.add_bond(0, 0, img2=(1,0,0))
     >>> wire.get_bonds()
     array([[[ 0,  1,  0,  0],
             [ 0, -1,  0,  0],

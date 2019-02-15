@@ -1,25 +1,25 @@
-"""
-@file ease4lmp/lammps_units.py
-@brief This file contains unit data for each *Lammps unit*
-(currently only `real` and `si` are supported).
-@author Takayuki Kobayashi
-@date 2018/05/19
+"""Submodule containing *unit* data for Lammps
+(currently only 'real' and 'si' are supported).
 
 Pease see also the followings for details:
-* lammps/src/force.h
-* lammps/src/update.cpp
-* http://lammps.sandia.gov/doc/units.html
-* https://physics.nist.gov/cuu/Constants/Table/allascii.txt
-  * (Avogadro constant) = 6.022140857 * 10^23
 
-From 2019/05/20:
-* Avogadro constant is *exactly* 6.02214076*10^23 [mol^-1]
-* Boltzmann constant is *exactly* 1.380649*10^−23 [J/K]
-* Planck constant is *exactly* 6.626070150*10^-34 [J*s]
-* Elementary charge is *exactly* 1.602176634*10^−19 [C]
+* https://github.com/lammps/lammps/blob/master/src/force.h
+* https://github.com/lammps/lammps/blob/master/src/update.cpp
+* http://lammps.sandia.gov/doc/units.html
+* https://physics.nist.gov/cuu/Constants/Table/allascii.txt:
+  (Avogadro constant) = 6.022140857*10^23
+
+A redefinition of SI base units is scheduled on 2019/05/20.
+I wonder if Lammps changes its *unit* definitions.
+
+* Avogadro constant becomes *exactly* 6.02214076*10^23 [/mol]
+* Boltzmann constant becomes *exactly* 1.380649*10^−23 [J/K]
+* Planck constant becomes *exactly* 6.626070150*10^-34 [J*s]
+* Elementary charge becomes *exactly* 1.602176634*10^−19 [C]
+
 """
 
-## Values of physical constants in each *unit* used in Lammps*.
+# values of physical constants in each *unit* used in Lammps.
 lmp_units = {
   "real": {
     "boltz": 0.0019872067,                                              # Boltzmann constant (eng/degree-K)

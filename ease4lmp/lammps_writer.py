@@ -1,526 +1,613 @@
-"""
-@file ease4lmp/lammps_writer.py
-@brief This file is for `LammpsWriter` class, which is an interface to
-write whole *Lammps data file* (or *molecule file*).
-@author Takayuki Kobayashi
-@date 2018/05/30
-"""
+"""Submodule for an interface to write Lammps' data file."""
 
 from .bonded_atoms import BondedAtoms
-from .lammps_data \
-  import LammpsAtoms, LammpsDataLines, LammpsTopology, LammpsSpecialBonds
+from .lammps_data import (
+  create_topology, LammpsAtoms, LammpsSpecialBonds)
 from .lammps_units import lmp_units
 
+import ase
 from ase.calculators.lammpsrun import Prism
 
 import ase.units as au
 import datetime as dt
 import numpy as np
 
-
-## Names of topology component.
-topo_keys = ("bond", "angle", "dihedral", "improper")
-
+#=======================================================================
 
 class LammpsWriter:
-  """
-  This class is an interface to write whole  *Lammps data file*
-  (or *molecule file*).
-  """
+  """An interface to write Lammps' data file (or molecule file)."""
 
-  def __init__(
-    self, atoms, atom_style, lammps_unit="real", tag_is_type=True,
-    **kwargs):
+  def __init__(self, atoms, atom_style, lammps_unit="real", **kwargs):
     """
-    @param atoms
-      An instance of @BondedAtoms or `ase.Atoms`.
-    @param atom_style
-      A string denoting an *atom style* used in Lammps.
-    @param lammps_unit
-      A string denoting a *unit* used in Lammps.
-    @param tag_is_type
-      Whether to use tags of `atoms` as atom types (*tags* is one of
-      properties of `ase.Atoms`).
-    @param **kwargs
+    Parameters:
+
+    atoms: BondedAtoms or ase.Atoms
+      Atoms to be written to Lammps' data file.
+
+    atom_style: str
+      Specifies an *atom style* used in Lammps.
+
+    lammps_unit: str
+      Specifies a *unit* used in Lammps.
+
+    kwargs:
       A variable number of named arguments.
-      One can use `class2` keyword.
+
+      * ``class2`` (bool) : If Lammps' data file written by this instance is
+        used with CLASS2 forcefield, ``class2=True`` must be set.
+
     """
+    if type(atoms) == ase.Atoms:
+      atoms = BondedAtoms(atoms)
 
     lmp_unit = lmp_units[lammps_unit]
-    pos_unit = 1 / au.m / lmp_unit["_2si"]["distance"]
 
-    ## An ExtendedPrism instance.
-    self._prism = ExtendedPrism(pos_unit*atoms.get_cell())
+    dunit = 1 / au.m / lmp_unit["_2si"]["distance"]
 
-    positions = self._prism.transform_to_lammps(
-      pos_unit*atoms.get_positions())
+    try:
+      self._prism = ExtendedPrism(dunit*atoms.get_cell())
+    except OverflowError:
+      raise RuntimeError("Unit cell size must be set")
 
-    velocities = atoms.get_velocities()
-    if velocities is not None:
-      vel_unit = pos_unit * au.s * lmp_unit["_2si"]["time"]
-      velocities = self._prism.transform_to_lammps(vel_unit*velocities)
+    pos = self._prism.transform_to_lammps(dunit*atoms.get_positions())
 
-    ## List containing type for each atom.
-    self._atom_types = list(atoms.get_tags()) if tag_is_type else None
+    vel = atoms.get_velocities()
+    if vel is not None:
+      vunit = dunit * au.s * lmp_unit["_2si"]["time"]
+      vel = self._prism.transform_to_lammps(vunit*vel)
 
-    ## A @LammpsAtoms instance.
-    self._lmp_atoms = LammpsAtoms(
-      atom_style, positions, velocities, self._atom_types)
+    mas = atoms.get_masses()
+    if 0 < mas.size:
+      mas *= 1 / au.kg / lmp_unit["_2si"]["mass"]
+    else:
+      mas = None
 
-    topo_data = dict(zip(topo_keys, [
-        atoms.get_bonded_bonds(), atoms.get_bonded_angles(),
-        atoms.get_bonded_dihedrals(), atoms.get_bonded_impropers()
-      ])) if isinstance(atoms, BondedAtoms) else {}
+    self._lmpatoms = LammpsAtoms(
+      atom_style, atoms.get_types(), pos, velocities=vel, masses=mas)
 
-    ## Dictionary containing @LammpsTopology instances
+    # dictionary containing LammpsTopology instances
     # for each topology components.
-    self._topo = {
-      k: LammpsTopology.create(k, v, **kwargs)
-      for k, v in topo_data.items()
+    self._lmptopo_dict = {
+      k: create_topology(k, v, **kwargs)
+      for k, v in {
+        "bond": atoms.get_bonded_bonds(),
+        "angle": atoms.get_bonded_angles(),
+        "dihedral": atoms.get_bonded_dihedrals(),
+        "improper": atoms.get_bonded_impropers(),
+      }.items()
     }
 
-    ## A @LammpsSpecialBonds instance.
-    self._special_bonds = (
-      LammpsSpecialBonds(atoms.get_bonds_per_atom())
-      if isinstance(atoms, BondedAtoms) else None)
-
-    if self._atom_types is not None:
-
-      mass_unit = 1 / au.kg / lmp_unit["_2si"]["mass"]
-      mass_dict = dict(sorted(dict(zip(
-        self._atom_types, mass_unit*atoms.get_masses())).items()))
-
-      ## A @LammpsDataLines instance for *Masses* section.
-      self._mass_lines = LammpsDataLines(
-        "Masses", "{type:4d} {mass:10.6f}").set_data({
-        "type": mass_dict.keys(), "mass": mass_dict.values()})
-
+    self._lmpsbonds = LammpsSpecialBonds(atoms.get_bonds_per_atom())
 
   def get_required_datanames(self):
-    """
-    @return
-      A set of required data names:
-      *Lammps data file* needs those data,
-      but #_lmp_atoms does not have them yet.
-    """
+    """Returns a set of required data names (keys).
 
-    return self._lmp_atoms.get_required_datanames()
+    Names of data are returned if the data is required to
+    write Lammps' data file and has not been set yet.
 
+    """
+    return self._lmpatoms.get_required_datanames()
 
   def get_required_datanames_for_molecule(self):
-    """
-    @return
-      A set of required data names:
-      *Lammps molecule file* needs those data,
-      but #_lmp_atoms does not have them yet.
-    """
+    """Returns a set of required data names (keys).
 
-    return self._lmp_atoms.get_required_datanames(molecule=True)
+    Names of data are returned if the data is required to
+    write Lammps' molecule file and has not been set yet.
 
+    """
+    return self._lmpatoms.get_required_datanames(molecule=True)
 
   def get_sequence_patterns(self, key):
-    """
-    @param key
+    """Returns a set of unique sequences of atom types
+    appearing in the given topology component.
+
+    Parameters:
+
+    key: str
       Name of topology component:
-      `bond`, `angle`, `dihedral` or `improper`.
+      'bond', 'angle', 'dihedral' or 'improper'.
 
-    @return
-      A set of unique sequences of atom types
-      appearing in given topology components.
-      Note that the number of elements in the set is not necessarily
-      equal to the number of types of topology component:
-      for example, sequence `(1, 2, 3)` and `(3, 2, 1)` are
-      reduced to one angle type.
     """
-
-    if self._atom_types is None:
-      RuntimeError("Please set atom's type in advance")
-
-    return self._topo[key].get_sequence_patterns(self._atom_types)
-
+    atom_types = self._lmpatoms.get_atom_types()
+    return self._lmptopo_dict[key].get_sequence_patterns(atom_types)
 
   def get_bond_patterns(self):
-    """
-    @return
-      A set of unique sequences of atom types
-      appearing in all the sequences of atoms forming bonds.
-    """
-
+    """Returns a set of unique sequences of atom types
+    appearing in all the sequences describing bonds."""
     return self.get_sequence_patterns("bond")
 
-
   def get_angle_patterns(self):
-    """
-    @return
-      A set of unique sequences of atom types
-      appearing in all the sequences of atoms forming angles.
-    """
-
+    """Returns a set of unique sequences of atom types
+    appearing in all the sequences describing angles."""
     return self.get_sequence_patterns("angle")
 
-
   def get_dihedral_patterns(self):
-    """
-    @return
-      A set of unique sequences of atom types
-      appearing in all the sequences of atoms forming dihedrals.
-    """
-
+    """Returns a set of unique sequences of atom types
+    appearing in all the sequences describing dihedrals."""
     return self.get_sequence_patterns("dihedral")
 
-
   def get_improper_patterns(self):
-    """
-    @return
-      A set of unique sequences of atom types
-      appearing in all the sequences of atoms forming impropers.
-    """
-
+    """Returns a set of unique sequences of atom types
+    appearing in all the sequences describing impropers."""
     return self.get_sequence_patterns("improper")
 
-
   def print_maximum_per_atom(self, key):
-    """
-    @param key
+    """Returns the maximum number of given topology components per atom.
+
+    Parameters:
+
+    key: str
       Name of topology component:
-      `bond`, `angle`, `dihedral` or `improper`.
+      'bond', 'angle', 'dihedral' or 'improper'.
 
-    @return
-      The maximum number of given topology components per atom.
     """
-
     print(
       "You might need to set 'extra/{}/per/atom' to: {}"
-      .format(key, self._topo[key].get_maximum_per_atom()))
-
+      .format(key, self._lmptopo_dict[key].get_maximum_per_atom()))
 
   def print_max_bonds_per_atom(self):
-    """
-    @return
-      The maximum number of bonds per atom.
-    """
-
+    """Returns the maximum number of bonds per atom."""
     self.print_maximum_per_atom("bond")
 
-
   def print_max_angles_per_atom(self):
-    """
-    @return
-      The maximum number of angles per atom.
-    """
-
+    """Returns the maximum number of angles per atom."""
     self.print_maximum_per_atom("angle")
 
-
   def print_max_dihedrals_per_atom(self):
-    """
-    @return
-      The maximum number of dihedrals per atom.
-    """
-
+    """Returns the maximum number of dihedrals per atom."""
     self.print_maximum_per_atom("dihedral")
 
-
   def print_max_impropers_per_atom(self):
-    """
-    @return
-      The maximum number of impropers per atom.
-    """
-
+    """Returns the maximum number of impropers per atom."""
     self.print_maximum_per_atom("improper")
 
-
   def print_max_specials_per_atom(self):
-    """
-    @return
-      The maximum number of special bonds per atom.
-    """
-
+    """Returns the maximum number of special bonds per atom."""
     print(
       "You might need to set 'extra/special/per/atom' to: {}"
-      .format(self._special_bonds.get_maximum_per_atom()))
-
+      .format(self._lmpsbonds.get_maximum_per_atom()))
 
   def set_atom_data(self, **kwargs):
-    """
-    @param **kwargs
+    """Sets data for *Atoms* (and *Velocities*) section.
+
+    Parameters:
+
+    kwargs:
       A variable number of named arguments.
-      Keywords are property names, and arguments are lists
-      (or other array-like objects) containing property values.
+      Keywords are data names, and arguments are data values
+      (list-like objects).
 
-    This method sets data to be written in *Atoms* (and *Velocities*)
-    section to #_lmp_atoms. If keyword `type` exists, this method
-    assigns the argument to #_atom_types.
     """
+    self._lmpatoms.set_data(**kwargs)
 
-    if "type" in kwargs:
-      self._atom_types = list(kwargs["type"])
+  def set_masses(self, type2mass):
+    """Sets data for *Masses* section.
 
-    self._lmp_atoms.set_data(**kwargs)
+    Parameters:
 
+    type2mass: dict
+      Dictionary mapping atom's type (int) to its mass (float).
 
-  def set_masses(self, mass_dict):
     """
-    @param mass_dict
-      A dictionary from atom types to atom masses in Lammps unit.
-
-    This method creates a @LammpsDataLines instance
-    for *Masses* section and assigns it to #_mass_lines.
-    """
-
-    mass_dict = dict(sorted(mass_dict.items()))
-
-    self._mass_lines = LammpsDataLines(
-      "Masses", "{type:4d} {mass:10.6f}").set_data({
-        "type": mass_dict.keys(), "mass": mass_dict.values()
-      })
-
+    self._lmpatoms.set_masses(type2mass)
 
   def set_topology_types(self, **kwargs):
-    """
-    @param **kwargs
+    """Sets types of the given topology components.
+
+    Parameters:
+
+    kwargs:
       A variable number of named arguments.
-      Keywords are names of topology component (`bond`, `angle`,
-      `dihedral` and `improper`), and arguments are dictionary
+      Keywords are names of topology component ('bond', 'angle',
+      'dihedral', 'improper'), and arguments are dictionary
       mapping sequences of atom types to corresponding types of
       the topology component.
+
     """
-
-    if self._atom_types is None:
-      RuntimeError("Please set atom's type in advance")
     for k, v in kwargs.items():
-      self._topo[k].set_types(v, self._atom_types)
-
+      self._lmptopo_dict[k].set_types(v, self._lmpatoms.get_atom_types())
 
   def set_bond_types(self, seq_to_type):
+    """Sets types of bonds.
+
+    Parameters:
+
+    seq_to_type: dict
+      Mapping two-element tuples of atom types
+      to corresponding types of bond.
+
+    Examples:
+
+    >>> from ease4lmp import BondedAtoms, LammpsWriter
+    >>> from ase.build import molecule
+    >>> methanol = BondedAtoms(molecule("CH3OH"))
+    >>> methanol.get_atomic_numbers()
+    array([6, 8, 1, 1, 1, 1])
+    >>> methanol.get_distance(1, 3)  # O-H bond
+    0.9700009076665858
+    >>> methanol.set_types([1, 2, 3, 4, 3, 3])
+    >>> bond_list = [(0, 1), (0, 2), (0, 4), (0, 5), (1, 3)]
+    >>> for t in bond_list:
+    ...   methanol.add_bond(*t)
+    >>> methanol.set_cell([[10., 0., 0.], [0., 10., 0.], [0., 0., 10.]])
+    >>> methanol.center()
+    >>> writer = LammpsWriter(methanol, atom_style="molecular", special_bonds=True)
+    LammpsAtoms: 'id' have been set
+    LammpsAtoms: 'type' have been set
+    LammpsAtoms: 'x' have been set
+    LammpsAtoms: 'y' have been set
+    LammpsAtoms: 'z' have been set
+    LammpsAtoms: 'mass' have been set
+    LammpsBonds: 'id' have been set
+    LammpsBonds: 'atom1' have been set
+    LammpsBonds: 'atom2' have been set
+    LammpsAngles: 'id' have been set
+    LammpsAngles: 'atom1' have been set
+    LammpsAngles: 'atom2' have been set
+    LammpsAngles: 'atom3' have been set
+    LammpsDihedrals: 'id' have been set
+    LammpsDihedrals: 'atom1' have been set
+    LammpsDihedrals: 'atom2' have been set
+    LammpsDihedrals: 'atom3' have been set
+    LammpsDihedrals: 'atom4' have been set
+    LammpsImpropers: 'id' have been set
+    LammpsImpropers: 'atom1' have been set
+    LammpsImpropers: 'atom2' have been set
+    LammpsImpropers: 'atom3' have been set
+    LammpsImpropers: 'atom4' have been set
+    >>> writer.get_bond_patterns()
+    {(1, 2), (1, 3), (2, 4)}
+    >>> writer.set_bond_types({
+    ...   (1, 2): 1,
+    ...   (1, 3): 2,
+    ...   (2, 4): 3,
+    ... })
+    LammpsBonds: 'type' have been set
+
     """
-    @param seq_to_type
-      Dictionary mapping two-element tuples of atom types
-      to corresponding types of bonds.
-
-    *Example*
-
-    ```py
-    writer.set_bond_types({
-      (1, 1): 1,
-      (1, 2): 2,
-      (2, 2): 3
-    })
-    ```
-
-    Bond type for `(2, 1)` is always assumed to be the same as `(1, 2)`.
-    """
-
     self.set_topology_types(bond=seq_to_type)
 
-
   def set_angle_types(self, seq_to_type):
-    """
-    @param seq_to_type
-      Dictionary mapping three-element tuples of atom types
-      to corresponding types of angles.
-      Note that second atom of each tuple is assumed to be
+    """Sets types of angles.
+
+    Parameters:
+
+    seq_to_type: dict
+      Mapping three-element tuples of atom types
+      to corresponding types of angle.
+      Note that second atom of each tuple should be
       at the center of angle.
 
-    *Example*
+    Examples:
 
-    ```py
-    writer.set_angle_types({
-      (1, 1, 1): 1,
-      (1, 1, 2): 1,
-      (1, 2, 1): 2,
-      (1, 2, 2): 2,
-      (2, 1, 2): 1,
-      (2, 2, 2): 2,
-    })
-    ```
+    >>> from ease4lmp import BondedAtoms, LammpsWriter
+    >>> from ase.build import molecule
+    >>> methanol = BondedAtoms(molecule("CH3OH"))
+    >>> methanol.get_atomic_numbers()
+    array([6, 8, 1, 1, 1, 1])
+    >>> methanol.get_distance(1, 3)  # O-H bond
+    0.9700009076665858
+    >>> methanol.set_types([1, 2, 3, 4, 3, 3])
+    >>> bond_list = [(0, 1), (0, 2), (0, 4), (0, 5), (1, 3)]
+    >>> for t in bond_list:
+    ...   methanol.add_bond(*t)
+    >>> methanol.set_cell([[10., 0., 0.], [0., 10., 0.], [0., 0., 10.]])
+    >>> methanol.center()
+    >>> writer = LammpsWriter(methanol, atom_style="molecular", special_bonds=True)
+    LammpsAtoms: 'id' have been set
+    LammpsAtoms: 'type' have been set
+    LammpsAtoms: 'x' have been set
+    LammpsAtoms: 'y' have been set
+    LammpsAtoms: 'z' have been set
+    LammpsAtoms: 'mass' have been set
+    LammpsBonds: 'id' have been set
+    LammpsBonds: 'atom1' have been set
+    LammpsBonds: 'atom2' have been set
+    LammpsAngles: 'id' have been set
+    LammpsAngles: 'atom1' have been set
+    LammpsAngles: 'atom2' have been set
+    LammpsAngles: 'atom3' have been set
+    LammpsDihedrals: 'id' have been set
+    LammpsDihedrals: 'atom1' have been set
+    LammpsDihedrals: 'atom2' have been set
+    LammpsDihedrals: 'atom3' have been set
+    LammpsDihedrals: 'atom4' have been set
+    LammpsImpropers: 'id' have been set
+    LammpsImpropers: 'atom1' have been set
+    LammpsImpropers: 'atom2' have been set
+    LammpsImpropers: 'atom3' have been set
+    LammpsImpropers: 'atom4' have been set
+    >>> writer.get_angle_patterns()
+    {(1, 2, 4), (2, 1, 3), (3, 1, 3)}
+    >>> writer.set_angle_types({
+    ...   (1, 2, 4): 1,
+    ...   (2, 1, 3): 2,
+    ...   (3, 1, 3): 3,
+    ... })
+    LammpsAngles: 'type' have been set
 
-    Angle types for `(2, 1, 1)` and `(2, 2, 1) are always assumed
-    to be the same as `(1, 1, 2)` and `(1, 2, 2), respectively.
     """
-
     self.set_topology_types(angle=seq_to_type)
 
-
   def set_dihedral_types(self, seq_to_type):
-    """
-    @param seq_to_type
-      Dictionary mapping four-element tuples of atom types
-      to corresponding types of dihedrals.
-      Note that the four atoms are assumed to be connected linearly
-      by three bonds in that order.
-    """
+    """Sets types of dihedrals.
 
+    Parameters:
+
+    seq_to_type: dict
+      Mapping four-element tuples of atom types
+      to corresponding types of dihedral.
+      Note that the four atoms should be connected linearly
+      by three bonds in that order.
+
+    Examples:
+
+    >>> from ease4lmp import BondedAtoms, LammpsWriter
+    >>> from ase.build import molecule
+    >>> methanol = BondedAtoms(molecule("CH3OH"))
+    >>> methanol.get_atomic_numbers()
+    array([6, 8, 1, 1, 1, 1])
+    >>> methanol.get_distance(1, 3)  # O-H bond
+    0.9700009076665858
+    >>> methanol.set_types([1, 2, 3, 4, 3, 3])
+    >>> bond_list = [(0, 1), (0, 2), (0, 4), (0, 5), (1, 3)]
+    >>> for t in bond_list:
+    ...   methanol.add_bond(*t)
+    >>> methanol.set_cell([[10., 0., 0.], [0., 10., 0.], [0., 0., 10.]])
+    >>> methanol.center()
+    >>> writer = LammpsWriter(methanol, atom_style="molecular", special_bonds=True)
+    LammpsAtoms: 'id' have been set
+    LammpsAtoms: 'type' have been set
+    LammpsAtoms: 'x' have been set
+    LammpsAtoms: 'y' have been set
+    LammpsAtoms: 'z' have been set
+    LammpsAtoms: 'mass' have been set
+    LammpsBonds: 'id' have been set
+    LammpsBonds: 'atom1' have been set
+    LammpsBonds: 'atom2' have been set
+    LammpsAngles: 'id' have been set
+    LammpsAngles: 'atom1' have been set
+    LammpsAngles: 'atom2' have been set
+    LammpsAngles: 'atom3' have been set
+    LammpsDihedrals: 'id' have been set
+    LammpsDihedrals: 'atom1' have been set
+    LammpsDihedrals: 'atom2' have been set
+    LammpsDihedrals: 'atom3' have been set
+    LammpsDihedrals: 'atom4' have been set
+    LammpsImpropers: 'id' have been set
+    LammpsImpropers: 'atom1' have been set
+    LammpsImpropers: 'atom2' have been set
+    LammpsImpropers: 'atom3' have been set
+    LammpsImpropers: 'atom4' have been set
+    >>> writer.get_dihedral_patterns()
+    {(3, 1, 2, 4)}
+    >>> writer.set_dihedral_types({
+    ...   (3, 1, 2, 4): 1,
+    ... })
+    LammpsDihedrals: 'type' have been set
+
+    """
     self.set_topology_types(dihedral=seq_to_type)
 
-
   def set_improper_types(self, seq_to_type):
-    """
-    @param seq_to_type
-      Dictionary mapping four-element tuples of atom types
-      to corresponding types of impropers.
-      Note that, if *class2* forcefield is used, the second atom of
-      each tuple is assumed to be at the center of improper;
-      the first atom is assumed to be at the center
-      for other forcefields.
-    """
+    """Sets types of impropers.
 
+    Parameters:
+
+    seq_to_type: dict
+      Mapping four-element tuples of atom types
+      to corresponding types of improper.
+      Note that, if CLASS2 forcefield is used, the second atom of
+      each tuple should be at the center of improper;
+      the first atom should be at the center for other forcefields.
+      Note that the four atoms should be connected linearly
+      by three bonds in that order.
+
+    Examples:
+
+    >>> from ease4lmp import BondedAtoms, LammpsWriter
+    >>> from ase.build import molecule
+    >>> methanol = BondedAtoms(molecule("CH3OH"))
+    >>> methanol.get_atomic_numbers()
+    array([6, 8, 1, 1, 1, 1])
+    >>> methanol.get_distance(1, 3)  # O-H bond
+    0.9700009076665858
+    >>> methanol.set_types([1, 2, 3, 4, 3, 3])
+    >>> bond_list = [(0, 1), (0, 2), (0, 4), (0, 5), (1, 3)]
+    >>> for t in bond_list:
+    ...   methanol.add_bond(*t)
+    >>> methanol.set_cell([[10., 0., 0.], [0., 10., 0.], [0., 0., 10.]])
+    >>> methanol.center()
+    >>> writer = LammpsWriter(methanol, atom_style="molecular", special_bonds=True)
+    LammpsAtoms: 'id' have been set
+    LammpsAtoms: 'type' have been set
+    LammpsAtoms: 'x' have been set
+    LammpsAtoms: 'y' have been set
+    LammpsAtoms: 'z' have been set
+    LammpsAtoms: 'mass' have been set
+    LammpsBonds: 'id' have been set
+    LammpsBonds: 'atom1' have been set
+    LammpsBonds: 'atom2' have been set
+    LammpsAngles: 'id' have been set
+    LammpsAngles: 'atom1' have been set
+    LammpsAngles: 'atom2' have been set
+    LammpsAngles: 'atom3' have been set
+    LammpsDihedrals: 'id' have been set
+    LammpsDihedrals: 'atom1' have been set
+    LammpsDihedrals: 'atom2' have been set
+    LammpsDihedrals: 'atom3' have been set
+    LammpsDihedrals: 'atom4' have been set
+    LammpsImpropers: 'id' have been set
+    LammpsImpropers: 'atom1' have been set
+    LammpsImpropers: 'atom2' have been set
+    LammpsImpropers: 'atom3' have been set
+    LammpsImpropers: 'atom4' have been set
+    >>> writer.get_improper_patterns()
+    {(1, 2, 3, 3), (1, 3, 3, 3)}
+    >>> writer.set_improper_types({
+    ...   (1, 2, 3, 3): 1,
+    ...   (1, 3, 3, 3): 2,
+    ... })
+    LammpsImpropers: 'type' have been set
+
+    """
     self.set_topology_types(improper=seq_to_type)
 
-
   def write_lammps_data(
-    self, path, mass=False, centering=False, **kwargs):
-    """
-    @param path
-      File path to *Lammps data file*.
-    @param mass
-      Whether to write *Masses* section.
-    @param centering
+    self, path, centering=False, **kwargs):
+    """Writes Lammps' data file.
+
+    Parameters:
+
+    path: str
+      File path to Lammps' data file.
+
+    centering: bool
       Whether to shift a simulation box
-      so that its center position becomes `(0, 0, 0)`.
-    @param **kwargs
+      so that its center position becomes ``(0, 0, 0)``.
+
+    kwargs:
       A variable number of named arguments.
-      * `velocity`: Whether to write *Velocities* section or not.
-      * `num_atom_type`: Number of atom types overwriting the number of
-      atom types in #_lmp_atoms. It is useful when new atoms will be
-      added to the simulation later.
-      * `num_{name}_type`: Number of types of topology component
-      (`name` = `bond`, `angle`, `dihedral` or `improper`) overwriting
-      the number of types of the component in #_topo. It is useful
-      when new atoms will be added to the simulation later.
 
-    This method writes *Lammps data file*.
+      * ``velocity`` (bool) : Whether to write *Velocities* section or not.
+      * ``mass`` (bool) : Whether to write *Masses* section or not.
+      * ``num_atom_type`` (bool) : Number of atom types; this overwrites
+        the number of atom types stored in this instance. It is useful
+        when extra atoms will be added to the simulation box later.
+      * ``num_{name}_type`` (bool) : Number of types of topology component
+        (``name`` is one of *bond*, *angle*, *dihedral* and *improper*);
+        this overwrites the number of the component types
+        stored in this instance. It is useful when extra atoms
+        will be added to the simulation box later.
+
     """
+    num_atom = self._lmpatoms.get_num()
 
-    num_atom = self._lmp_atoms.get_num()
-
+    kw = "num_atom_type"
     num_atom_type = (
-      kwargs["num_atom_type"]
-      if "num_atom_type" in kwargs else self._lmp_atoms.get_num_type())
+      kwargs[kw] if kw in kwargs and kwargs[kw]
+      else self._lmpatoms.get_num_type())
 
-    num_topo = ({
-        k: v.get_num() if v.get_num_type() else 0
-        for k, v in self._topo.items()
-      } if self._topo else dict.fromkeys(topo_keys, 0))
+    num_topo = {
+      k: v.get_num() for k, v in self._lmptopo_dict.items()
+    }
 
-    num_topo_type = ({
-        k: v.get_num_type() for k, v in self._topo.items()
-      } if self._topo else dict.fromkeys(topo_keys, 0))
-
-    for k in topo_keys:
-      name = "num_{}_type".format(k)
-      if name in kwargs:
-        num_topo_type[k] = kwargs[name]
+    num_topo_type = {
+      k: kwargs[kw] if kw in kwargs and kwargs[kw] else v.get_num_type()
+      for k, v, kw in (
+        (k, v, "num_{}_type".format(k))
+        for k, v in self._lmptopo_dict.items())
+    }
 
     with open(path, "w") as f:
-
       f.write("# written by ease4lmp.LammpsWriter at {}\n".format(
         dt.datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
 
       f.write("\n{} atoms\n".format(num_atom))
-      f.write("".join([
-          "{} {}s\n".format(num_topo[k], k)
-          for k in topo_keys
-        ]))
+      f.write("".join(
+        "{} {}s\n".format(num_topo[k], k)
+        for k in self._lmptopo_dict.keys()))
 
       f.write("\n{} atom types\n".format(num_atom_type))
-      f.write("".join([
-          "{} {} types\n".format(num_topo_type[k], k)
-          for k in topo_keys
-        ]))
+      f.write("".join(
+        "{} {} types\n".format(num_topo_type[k], k)
+        for k in self._lmptopo_dict.keys()))
 
       xlo, ylo, zlo, = 0.0, 0.0, 0.0
       xhi, yhi, zhi, xy, xz, yz = self._prism.get_lammps_prism()
 
       if centering:
-
         xhi *= 0.5
         yhi *= 0.5
         zhi *= 0.5
         xlo = -xhi
         ylo = -yhi
         zlo = -zhi
+        self._lmpatoms.shift_positions((xlo, ylo, zlo))
 
-        self._lmp_atoms.shift_positions((xlo, ylo, zlo))
-
-      f.write("\n{}".format("".join([
+      f.write("\n{}".format("".join(
           "{0:.8e} {1:.8e}  {2}lo {2}hi\n".format(lo, hi, x)
           for lo, hi, x in zip(
-            [xlo, ylo, zlo], [xhi, yhi, zhi], ["x", "y", "z"])
-        ])))
+            [xlo, ylo, zlo], [xhi, yhi, zhi], ["x", "y", "z"]))))
 
       if self._prism.is_skewed():
         f.write(
           "\n{:.8e} {:.8e} {:.8e}  xy xz yz\n"
           .format(*map(float, (xy, xz, yz))))
 
-    if mass:
-      self._mass_lines.write(path)
+    self._lmpatoms.write_lines(path, **kwargs)
 
-    self._lmp_atoms.write_lines(path, **kwargs)
-
-    for v in self._topo.values():
+    for v in self._lmptopo_dict.values():
       if 0 < v.get_num() and 0 < v.get_num_type():
         v.write_lines(path)
 
+  def write_lammps_molecule(self, path, special_bonds=True, **kwargs):
+    """Writes Lammps' molecule file.
 
-  def write_lammps_molecule(self, path, special_bonds=True):
-    """
-    @param path
-      File path to *Lammps molecule file*.
-    @param special_bonds
+    Parameters:
+
+    path: str
+      File path to Lammps' molecule file.
+
+    special_bonds: bool
+      Whether to write *Special Bond Counts*
+      and *Special Bonds** section.
+
+    kwargs:
+      A variable number of named arguments.
+
+      * ``mass`` (bool) : Whether to write *Masses* section or not.
+
+    special_bonds:
       Whether to write *Special Bond Counts*
       and *Special Bonds** section.
 
     This method writes *Lammps molecule file*.
     """
-
-    num_atom = self._lmp_atoms.get_num()
+    num_atom = self._lmpatoms.get_num()
 
     num_topo = {
-      k: v.get_num() if v.get_num_type() else 0
-      for k, v in self._topo.items()} \
-      if self._topo else dict.fromkeys(topo_keys, 0)
+      k: v.get_num() for k, v in self._lmptopo_dict.items()
+    }
 
     with open(path, "w") as f:
-
       f.write("# written by ease4lmp.LammpsWriter at {}\n".format(
         dt.datetime.now().strftime("%Y/%m/%d %H:%M:%S")))
 
       f.write("\n{} atoms\n".format(num_atom))
-      f.write("".join([
-        "{} {}s\n".format(num_topo[k], k) for k in topo_keys]))
+      f.write("".join(
+        "{} {}s\n".format(num_topo[k], k)
+          for k in self._lmptopo_dict.items()))
 
-    self._lmp_atoms.write_lines_for_molecule(path)
+    self._lmpatoms.write_lines_for_molecule(path, **kwargs)
 
-    for v in self._topo.values():
+    for v in self._lmptopo_dict.values():
       if 0 < v.get_num() and 0 < v.get_num_type():
         v.write_lines(path)
 
-    if special_bonds and hasattr(self, "_special_bonds"):
-      self._special_bonds.write_lines(path)
+    if special_bonds:
+      self._lmpsbonds.write_lines(path)
 
-
+#=======================================================================
 
 class ExtendedPrism(Prism):
-  """
-  This class inherits from `ase.calculators.lammpsrun.Prism` class.
-  """
+  """Extended ``ase.calculators.lammpsrun.Prism`` class."""
 
   def transform_to_lammps(self, vectors):
+    """Returns transposed *vectors*.
+
+    This method is required to convert vectors
+    from Aes's cartesian coordinate system
+    to Lammps' skewed coordinate system.
+
+    Note that transposing occurs only if the simulation box is skewed.
+
+    Parameters:
+
+    vectors: numpy.ndarray
+      Positions or velocities of atoms.
+
     """
-    @param vectors
-      A `numpy.ndarray` for positions or velocities of atoms.
-
-    @returns
-      Transposed `vectors`. Note that transposing is done
-      only if the simulation box is skewed.
-
-    This method is required
-    because Lammps might use a skewed coordinate system
-    whereas Ase uses a cartesian coordinate system.
-    """
-
     if self.is_skewed():
       return np.dot(vectors, self.R.round(int(-self.car_prec.log10())))
     else:
