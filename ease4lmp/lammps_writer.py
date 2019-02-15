@@ -597,7 +597,7 @@ class ExtendedPrism(Prism):
     """Returns transposed *vectors*.
 
     This method is required to convert vectors
-    from Aes's cartesian coordinate system
+    from ASE's cartesian coordinate system
     to Lammps' skewed coordinate system.
 
     Note that transposing occurs only if the simulation box is skewed.

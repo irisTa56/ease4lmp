@@ -16,6 +16,12 @@
    apis/modules
 ```
 
+`ease4lmp` aims at preparing [Lammps](https://github.com/lammps/lammps)' simulations using [ASE (Atomic Simulation Environment)](https://gitlab.com/ase/ase).
+ASE has a lot of functionalities to manipulate atoms, and can be interfaced with many molecular dynamics (MD) and quantum mechanics (QM) simulators (including Lammps).
+However, it lacks two abilities essential for conducting classical MD simulations: (1) considering bonds connecting atoms and angles/dihedrals/impropers defined by these bonds, and (2) setting different forcefield types to atoms with the same atomic number.
+To make up the lack of abilities, `ease4lmp` has `BondedAtoms` class extending `ase.Atoms` class with 'bonds' data and 'types' data.
+In addition, after creating and customizing atomic data (positions, velocities, etc.) using a `BondedAtoms` instance, a Lammps' data (or molecule) file required for simulation can be created from the instance by using a instance of `ease4lmp`'s `LammpsWriter` class.
+
 ## Prerequisites
 
 * [ase/ase](https://gitlab.com/ase/ase)
@@ -36,6 +42,10 @@ Download and install from this repository using pip.
 ```bash
 pip install git+https://github.com/irisTa56/ease4lmp.git
 ```
+
+## Example Notebooks
+
+* [Making Diamond](https://nbviewer.jupyter.org/github/irisTa56/ease4lmp/blob/master/examples/making_diamond.ipynb)
 
 ## Acknowledgement
 

@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.2.1
+                0.3.0
               </div>
             
           
@@ -158,6 +158,11 @@
 <h1>Welcome to ease4lmp’s documentation!<a class="headerlink" href="#welcome-to-ease4lmp-s-documentation" title="Permalink to this headline">¶</a></h1>
 <div class="toctree-wrapper compound">
 </div>
+<p><code class="docutils literal notranslate"><span class="pre">ease4lmp</span></code> aims at preparing <a class="reference external" href="https://github.com/lammps/lammps">Lammps</a>’ simulations using <a class="reference external" href="https://gitlab.com/ase/ase">ASE (Atomic Simulation Environment)</a>.
+ASE has a lot of functionalities to manipulate atoms, and can be interfaced with many molecular dynamics (MD) and quantum mechanics (QM) simulators (including Lammps).
+However, it lacks two abilities essential for conducting classical MD simulations: (1) considering bonds connecting atoms and angles/dihedrals/impropers defined by these bonds, and (2) setting different forcefield types to atoms with the same atomic number.
+To make up the lack of abilities, <code class="docutils literal notranslate"><span class="pre">ease4lmp</span></code> has <code class="docutils literal notranslate"><span class="pre">BondedAtoms</span></code> class extending <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class with ‘bonds’ data and ‘types’ data.
+In addition, after creating and customizing atomic data (positions, velocities, etc.) using a <code class="docutils literal notranslate"><span class="pre">BondedAtoms</span></code> instance, a Lammps’ data (or molecule) file required for simulation can be created from the instance by using a instance of <code class="docutils literal notranslate"><span class="pre">ease4lmp</span></code>’s <code class="docutils literal notranslate"><span class="pre">LammpsWriter</span></code> class.</p>
 <div class="section" id="prerequisites">
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
@@ -177,6 +182,12 @@ python setup.py install
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pip install git+https://github.com/irisTa56/ease4lmp.git
 </pre></div>
 </div>
+</div>
+<div class="section" id="example-notebooks">
+<h2>Example Notebooks<a class="headerlink" href="#example-notebooks" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><a class="reference external" href="https://nbviewer.jupyter.org/github/irisTa56/ease4lmp/blob/master/examples/making_diamond.ipynb">Making Diamond</a></li>
+</ul>
 </div>
 <div class="section" id="acknowledgement">
 <h2>Acknowledgement<a class="headerlink" href="#acknowledgement" title="Permalink to this headline">¶</a></h2>
