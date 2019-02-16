@@ -9,3 +9,5 @@ dist/
 mynotes/
 
 examples/dev/
+
+tests/tmp.py

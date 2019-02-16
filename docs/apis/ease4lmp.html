@@ -88,8 +88,9 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">ease4lmp package</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#submodules">Submodules</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.bonded_atoms">ease4lmp.bonded_atoms module</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_data">ease4lmp.lammps_data module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_dataformats">ease4lmp.lammps_dataformats module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_reader">ease4lmp.lammps_reader module</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_sectionwriter">ease4lmp.lammps_sectionwriter module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_units">ease4lmp.lammps_units module</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#module-ease4lmp.lammps_writer">ease4lmp.lammps_writer module</a></li>
 </ul>
@@ -500,24 +501,81 @@ Length of the array must be equal to the number of atoms.</dd>
 </dd></dl>
 
 </div>
-<div class="section" id="module-ease4lmp.lammps_data">
-<span id="ease4lmp-lammps-data-module"></span><h3>ease4lmp.lammps_data module<a class="headerlink" href="#module-ease4lmp.lammps_data" title="Permalink to this headline">¶</a></h3>
+<div class="section" id="module-ease4lmp.lammps_dataformats">
+<span id="ease4lmp-lammps-dataformats-module"></span><h3>ease4lmp.lammps_dataformats module<a class="headerlink" href="#module-ease4lmp.lammps_dataformats" title="Permalink to this headline">¶</a></h3>
+<p>Submodule containing format data for each <em>atom style</em>
+used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</p>
+<p>Pease see also the following for details:</p>
+<ul class="simple">
+<li><a class="reference external" href="http://lammps.sandia.gov/doc/read_data.html">http://lammps.sandia.gov/doc/read_data.html</a>.</li>
+</ul>
+</div>
+<div class="section" id="module-ease4lmp.lammps_reader">
+<span id="ease4lmp-lammps-reader-module"></span><h3>ease4lmp.lammps_reader module<a class="headerlink" href="#module-ease4lmp.lammps_reader" title="Permalink to this headline">¶</a></h3>
+<p>Submodule for functions to read Lammps’ data file.</p>
+<dl class="function">
+<dt id="ease4lmp.lammps_reader.read_angles">
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_angles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads angles data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.lammps_reader.read_bonds">
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_bonds</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads bonds data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.lammps_reader.read_dihedrals">
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_dihedrals</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_dihedrals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads dihedrals data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.lammps_reader.read_impropers">
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_impropers</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_impropers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads impropers data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+</div>
+<div class="section" id="module-ease4lmp.lammps_sectionwriter">
+<span id="ease4lmp-lammps-sectionwriter-module"></span><h3>ease4lmp.lammps_sectionwriter module<a class="headerlink" href="#module-ease4lmp.lammps_sectionwriter" title="Permalink to this headline">¶</a></h3>
 <p>Submodule for classes writing each section in Lammps’ data file.</p>
 <dl class="class">
-<dt id="ease4lmp.lammps_data.LammpsAngles">
-<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsAngles</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAngles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAngles" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAngles">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsAngles</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAngles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAngles" title="Permalink to this definition">¶</a></dt>
 <dd><p>An interface to write <em>Angles</em> section
 in Lammps’ data file (or molecule file).</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="ease4lmp.lammps_data.LammpsAtoms">
-<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsAtoms</code><span class="sig-paren">(</span><em>atom_style</em>, <em>types</em>, <em>positions</em>, <em>velocities=None</em>, <em>masses=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsAtoms</code><span class="sig-paren">(</span><em>atom_style</em>, <em>types</em>, <em>positions</em>, <em>velocities=None</em>, <em>masses=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>An interface to write <em>Atoms</em> (and <em>Velocities</em>) section
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>atom_style</em>, <em>types</em>, <em>positions</em>, <em>velocities=None</em>, <em>masses=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>atom_style</em>, <em>types</em>, <em>positions</em>, <em>velocities=None</em>, <em>masses=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
 <dt>atom_style: str</dt>
@@ -540,26 +598,26 @@ the <em>i</em> th atom in <code class="docutils literal notranslate"><span class
 </dd></dl>
 
 <dl class="attribute">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.__weakref__">
-<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.__weakref__" title="Permalink to this definition">¶</a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.get_num">
-<code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.get_num" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num">
+<code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of atoms.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.get_num_type">
-<code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.get_num_type" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num_type">
+<code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of atom types.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.get_required_datanames">
-<code class="descname">get_required_datanames</code><span class="sig-paren">(</span><em>molecule=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.get_required_datanames" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.get_required_datanames">
+<code class="descname">get_required_datanames</code><span class="sig-paren">(</span><em>molecule=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_required_datanames" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a set of required data names (keys).</p>
 <p>Names of data are returned if the data is required to
 write Lammps’ data file and has not been set yet.</p>
@@ -572,8 +630,8 @@ This method returns data names for Lammps’ data file by default.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.set_data">
-<code class="descname">set_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.set_data" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.set_data">
+<code class="descname">set_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.set_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores given data in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -584,8 +642,8 @@ Keywords are data names, and arguments are data values.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.set_masses">
-<code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.set_masses" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.set_masses">
+<code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.set_masses" title="Permalink to this definition">¶</a></dt>
 <dd><p>Stores masses in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
 <p>Though the parameter <code class="docutils literal notranslate"><span class="pre">type2mass</span></code> is a dictionary mapping
 atom’s type to its mass, masses will be stored as a per-atom array.</p>
@@ -597,8 +655,8 @@ atom’s type to its mass, masses will be stored as a per-atom array.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.shift_positions">
-<code class="descname">shift_positions</code><span class="sig-paren">(</span><em>shift=(0.0</em>, <em>0.0</em>, <em>0.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.shift_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.shift_positions" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.shift_positions">
+<code class="descname">shift_positions</code><span class="sig-paren">(</span><em>shift=(0.0</em>, <em>0.0</em>, <em>0.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.shift_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.shift_positions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Shifts atom positions stored in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -609,8 +667,8 @@ atom positions shift.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.write_lines">
-<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em>, <em>velocity=False</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.write_lines" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines">
+<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em>, <em>velocity=False</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes lines of <em>Atoms</em> and <em>Velocities</em> section.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -626,8 +684,8 @@ atom positions shift.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsAtoms.write_lines_for_molecule">
-<code class="descname">write_lines_for_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsAtoms.write_lines_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsAtoms.write_lines_for_molecule" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines_for_molecule">
+<code class="descname">write_lines_for_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.write_lines_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines_for_molecule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes lines of <em>Coords</em>, <em>Types</em>, <em>Charges</em> and <em>Masses</em> section
 to Lammps’ molecule file.</p>
 <p>This method creates a new LammpsDataLines instance to write
@@ -647,13 +705,13 @@ in Lammps’ molecule file.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="ease4lmp.lammps_data.LammpsBonds">
-<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsBonds</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsBonds" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsBonds">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsBonds</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsBonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>An interface to write <em>Bonds</em> section
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsBonds.get_maximum_per_atom">
-<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsBonds.get_maximum_per_atom">
+<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum number of topology components per atom.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">LammpsTopology.get_maximum_per_atom()</span></code>
 because data for a bond is linked to the first atom in the bond
@@ -665,20 +723,20 @@ See also Lammps’ source code of <code class="docutils literal notranslate"><sp
 </dd></dl>
 
 <dl class="class">
-<dt id="ease4lmp.lammps_data.LammpsDihedrals">
-<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsDihedrals</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsDihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsDihedrals" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsDihedrals">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsDihedrals</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsDihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsDihedrals" title="Permalink to this definition">¶</a></dt>
 <dd><p>An interface to write <em>Dihedrals</em> section
 in Lammps’ data file (or molecule file).</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="ease4lmp.lammps_data.LammpsImpropers">
-<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsImpropers</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsImpropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsImpropers" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsImpropers">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsImpropers</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsImpropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsImpropers" title="Permalink to this definition">¶</a></dt>
 <dd><p>An interface to write <em>Impropers</em> section
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsImpropers.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsImpropers.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsImpropers.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsImpropers.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsImpropers.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsImpropers.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
 <dt>sequences: numpy.ndarray</dt>
@@ -699,8 +757,8 @@ For other forcefields, the first atom is the center one.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsImpropers.get_sequence_patterns">
-<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsImpropers.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsImpropers.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsImpropers.get_sequence_patterns">
+<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsImpropers.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsImpropers.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a set of unique sequences of atom types
 appearing in the topology components.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">LammpsTopology.get_sequence_patterns()</span></code>
@@ -717,13 +775,13 @@ a type of the <em>i</em> th atom.</dd>
 </dd></dl>
 
 <dl class="class">
-<dt id="ease4lmp.lammps_data.LammpsSpecialBonds">
-<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsSpecialBonds</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsSpecialBonds</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>An interface to write <em>Special Bond Counts</em>
 and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
 <dt>bonds_per_atom: list</dt>
@@ -736,21 +794,21 @@ bonded with the each atom
 </dd></dl>
 
 <dl class="attribute">
-<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.__weakref__">
-<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.__weakref__" title="Permalink to this definition">¶</a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.get_maximum_per_atom">
-<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.get_maximum_per_atom">
+<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum number of special bonds per atom
 (sum over <em>1-2</em>, <em>1-3</em>, and <em>1-4</em> special bonds).</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsSpecialBonds.write_lines">
-<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsSpecialBonds.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsSpecialBonds.write_lines" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.write_lines">
+<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.write_lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes lines of <em>Special Bond Counts</em>
 and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
 <p>Parameters:</p>
@@ -763,14 +821,14 @@ and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
 </dd></dl>
 
 <dl class="class">
-<dt id="ease4lmp.lammps_data.LammpsTopology">
-<em class="property">class </em><code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">LammpsTopology</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology">
+<em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsTopology</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology" title="Permalink to this definition">¶</a></dt>
 <dd><p>An (abstract) interface to write a section of topology component
 (<em>Bonds</em>, <em>Angles</em>, <em>Dihedrals</em>, <em>Impropers</em>)
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsTopology.__init__">
-<code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.__init__" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.__init__">
+<code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
 <dt>sequences: numpy.ndarray</dt>
@@ -781,14 +839,14 @@ in Lammps’ data file (or molecule file).</p>
 </dd></dl>
 
 <dl class="attribute">
-<dt id="ease4lmp.lammps_data.LammpsTopology.__weakref__">
-<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.__weakref__" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.__weakref__">
+<code class="descname">__weakref__</code><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.__weakref__" title="Permalink to this definition">¶</a></dt>
 <dd><p>list of weak references to the object (if defined)</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsTopology.get_maximum_per_atom">
-<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_maximum_per_atom">
+<code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the maximum number of topology components per atom.</p>
 <p>For more details see also Lammps’ source code of
 <code class="docutils literal notranslate"><span class="pre">Atom::data_angles()</span></code>, <code class="docutils literal notranslate"><span class="pre">Atom::data_dihedrals()</span></code>
@@ -796,22 +854,22 @@ and <code class="docutils literal notranslate"><span class="pre">Atom::data_impr
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsTopology.get_num">
-<code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_num" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_num">
+<code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_num" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of topology components.</p>
 <p>The number of topology components is considered as 0
 until types of the topology components are set.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsTopology.get_num_type">
-<code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_num_type" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_num_type">
+<code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_num_type" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns the number of topology types.</p>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsTopology.get_sequence_patterns">
-<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_sequence_patterns">
+<code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
 <dd><p>Returns a set of unique sequences of atom types
 appearing in the topology components.</p>
 <p>Parameters:</p>
@@ -823,8 +881,8 @@ a type of the <em>i</em> th atom.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsTopology.set_types">
-<code class="descname">set_types</code><span class="sig-paren">(</span><em>seq_to_type</em>, <em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.set_types" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.set_types">
+<code class="descname">set_types</code><span class="sig-paren">(</span><em>seq_to_type</em>, <em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.set_types" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sets type of the topology components.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -838,8 +896,8 @@ have the same meaning.</dd>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.lammps_data.LammpsTopology.write_lines">
-<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#LammpsTopology.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.LammpsTopology.write_lines" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.write_lines">
+<code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.write_lines" title="Permalink to this definition">¶</a></dt>
 <dd><p>Writes lines of a topology section
 in Lammps’ data file (or molecule file).</p>
 <p>Parameters:</p>
@@ -852,8 +910,8 @@ in Lammps’ data file (or molecule file).</p>
 </dd></dl>
 
 <dl class="function">
-<dt id="ease4lmp.lammps_data.create_topology">
-<code class="descclassname">ease4lmp.lammps_data.</code><code class="descname">create_topology</code><span class="sig-paren">(</span><em>name</em>, <em>sequences</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_data.html#create_topology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_data.create_topology" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.lammps_sectionwriter.create_topology">
+<code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">create_topology</code><span class="sig-paren">(</span><em>name</em>, <em>sequences</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#create_topology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.create_topology" title="Permalink to this definition">¶</a></dt>
 <dd><p>A factory function for LammpsTopology’s subclass.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -875,15 +933,6 @@ Elements of the array are zero-based indices for atoms.</dd>
 </dl>
 </dd></dl>
 
-</div>
-<div class="section" id="module-ease4lmp.lammps_dataformats">
-<span id="ease4lmp-lammps-dataformats-module"></span><h3>ease4lmp.lammps_dataformats module<a class="headerlink" href="#module-ease4lmp.lammps_dataformats" title="Permalink to this headline">¶</a></h3>
-<p>Submodule containing format data for each <em>atom style</em>
-used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</p>
-<p>Pease see also the following for details:</p>
-<ul class="simple">
-<li><a class="reference external" href="http://lammps.sandia.gov/doc/read_data.html">http://lammps.sandia.gov/doc/read_data.html</a>.</li>
-</ul>
 </div>
 <div class="section" id="module-ease4lmp.lammps_units">
 <span id="ease4lmp-lammps-units-module"></span><h3>ease4lmp.lammps_units module<a class="headerlink" href="#module-ease4lmp.lammps_units" title="Permalink to this headline">¶</a></h3>
@@ -2217,6 +2266,50 @@ and <em>Special Bonds*</em> section.</dd>
 <p>This method writes <em>Lammps molecule file</em>.</p>
 </dd></dl>
 
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.read_bonds">
+<code class="descclassname">ease4lmp.</code><code class="descname">read_bonds</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads bonds data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.read_angles">
+<code class="descclassname">ease4lmp.</code><code class="descname">read_angles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_angles" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads angles data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.read_dihedrals">
+<code class="descclassname">ease4lmp.</code><code class="descname">read_dihedrals</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_dihedrals" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads dihedrals data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.read_impropers">
+<code class="descclassname">ease4lmp.</code><code class="descname">read_impropers</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_impropers" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads impropers data from a specified Lammps’ data (or molecule) file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
 </dd></dl>
 
 </div>

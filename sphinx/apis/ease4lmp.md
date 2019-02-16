@@ -10,18 +10,26 @@
     :special-members:
 ```
 
-### ease4lmp.lammps\_data module
-
-```eval_rst
-.. automodule:: ease4lmp.lammps_data
-    :members:
-    :special-members:
-```
-
 ### ease4lmp.lammps\_dataformats module
 
 ```eval_rst
 .. automodule:: ease4lmp.lammps_dataformats
+    :members:
+    :special-members:
+```
+
+### ease4lmp.lammps\_reader module
+
+```eval_rst
+.. automodule:: ease4lmp.lammps_reader
+    :members:
+    :special-members:
+```
+
+### ease4lmp.lammps\_sectionwriter module
+
+```eval_rst
+.. automodule:: ease4lmp.lammps_sectionwriter
     :members:
     :special-members:
 ```

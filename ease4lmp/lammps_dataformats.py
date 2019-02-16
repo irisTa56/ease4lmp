@@ -45,3 +45,20 @@ lmp_dataformats_velocities = {
   #"sphere": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "wx", "wy", "wz"),
   #"hybrid": ("id:8d", "vx:15.8e", "vy:15.8e", "vz:15.8e", "sub-style1", "sub-style2", "...")
 }
+
+
+
+lmp_datanames = {
+  "atom": {
+    k: tuple(s.split(":")[0] for s in v)
+    for k, v in lmp_dataformats_atoms.items()
+  },
+  "velocity": {
+    k: tuple(s.split(":")[0] for s in v)
+    for k, v in lmp_dataformats_velocities.items()
+  },
+  "bond": ("id", "type", "atom1", "atom2"),
+  "angle": ("id", "type", "atom1", "atom2", "atom3"),
+  "dihedral": ("id", "type", "atom1", "atom2", "atom3", "atom4"),
+  "improper": ("id", "type", "atom1", "atom2", "atom3", "atom4"),
+}

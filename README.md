@@ -48,3 +48,10 @@ This project would not be possible without the following great open-source proje
 ## To Do
 
 * Automatically add bonds
+* LammpsReader
+  * return BondedAtoms
+    * from data
+    * from molecule
+  * return Atoms JSON
+    * from data
+    * from molecule

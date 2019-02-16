@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>ease4lmp.lammps_data &mdash; ease4lmp  documentation</title>
+  <title>ease4lmp.lammps_sectionwriter &mdash; ease4lmp  documentation</title>
   
 
   
@@ -131,7 +131,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>ease4lmp.lammps_data</li>
+      <li>ease4lmp.lammps_sectionwriter</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -146,17 +146,17 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for ease4lmp.lammps_data</h1><div class="highlight"><pre>
+  <h1>Source code for ease4lmp.lammps_sectionwriter</h1><div class="highlight"><pre>
 <span></span><span class="sd">&quot;&quot;&quot;Submodule for classes writing each section in Lammps&#39; data file.&quot;&quot;&quot;</span>
 
 <span class="kn">from</span> <span class="nn">.lammps_dataformats</span> <span class="k">import</span> <span class="p">(</span>
-  <span class="n">lmp_dataformats_atoms</span><span class="p">,</span> <span class="n">lmp_dataformats_velocities</span><span class="p">)</span>
+  <span class="n">lmp_dataformats_atoms</span><span class="p">,</span> <span class="n">lmp_dataformats_velocities</span><span class="p">,</span> <span class="n">lmp_datanames</span><span class="p">)</span>
 
 <span class="kn">import</span> <span class="nn">itertools</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
 
-<div class="viewcode-block" id="create_topology"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.create_topology">[docs]</a><span class="k">def</span> <span class="nf">create_topology</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="create_topology"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.create_topology">[docs]</a><span class="k">def</span> <span class="nf">create_topology</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;A factory function for LammpsTopology&#39;s subclass.</span>
 
 <span class="sd">  Parameters:</span>
@@ -179,17 +179,13 @@
 
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">if</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;bond&quot;</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">LammpsBonds</span><span class="p">(</span>
-      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">LammpsBonds</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
   <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;angle&quot;</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">LammpsAngles</span><span class="p">(</span>
-      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">,</span> <span class="s2">&quot;atom3&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">LammpsAngles</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
   <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;dihedral&quot;</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">LammpsDihedrals</span><span class="p">(</span>
-      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">,</span> <span class="s2">&quot;atom3&quot;</span><span class="p">,</span> <span class="s2">&quot;atom4&quot;</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">LammpsDihedrals</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="n">name</span><span class="p">])</span>
   <span class="k">elif</span> <span class="n">name</span> <span class="o">==</span> <span class="s2">&quot;improper&quot;</span><span class="p">:</span>
-    <span class="k">return</span> <span class="n">LammpsImpropers</span><span class="p">(</span>
-      <span class="n">sequences</span><span class="p">,</span> <span class="p">(</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;type&quot;</span><span class="p">,</span> <span class="s2">&quot;atom1&quot;</span><span class="p">,</span> <span class="s2">&quot;atom2&quot;</span><span class="p">,</span> <span class="s2">&quot;atom3&quot;</span><span class="p">,</span> <span class="s2">&quot;atom4&quot;</span><span class="p">),</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">LammpsImpropers</span><span class="p">(</span><span class="n">sequences</span><span class="p">,</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
   <span class="k">else</span><span class="p">:</span>
     <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span>
       <span class="s2">&quot;Invalid name for LammpsTopology &#39;</span><span class="si">{}</span><span class="s2">&#39;&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">name</span><span class="p">))</span></div>
@@ -227,11 +223,11 @@
 
 <span class="c1">#=======================================================================</span>
 
-<div class="viewcode-block" id="LammpsAtoms"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms">[docs]</a><span class="k">class</span> <span class="nc">LammpsAtoms</span><span class="p">:</span>
+<div class="viewcode-block" id="LammpsAtoms"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms">[docs]</a><span class="k">class</span> <span class="nc">LammpsAtoms</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;An interface to write *Atoms* (and *Velocities*) section</span>
 <span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LammpsAtoms.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
+<div class="viewcode-block" id="LammpsAtoms.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">atom_style</span><span class="p">,</span> <span class="n">types</span><span class="p">,</span> <span class="n">positions</span><span class="p">,</span> <span class="n">velocities</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">masses</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters:</span>
@@ -265,10 +261,7 @@
 
     <span class="c1"># dictionary mapping data names to data values</span>
     <span class="c1"># (list-like objects) for *Atoms* (and *Masses*) section.</span>
-    <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">k</span><span class="p">:</span> <span class="kc">None</span>
-      <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats</span><span class="p">)</span>
-    <span class="p">}</span>
+    <span class="bp">self</span><span class="o">.</span><span class="n">_data</span> <span class="o">=</span> <span class="p">{</span><span class="n">k</span><span class="p">:</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">][</span><span class="n">atom_style</span><span class="p">]}</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># `id` starts from 1 in Lammps</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="n">types</span><span class="p">)</span>
@@ -278,16 +271,16 @@
       <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">velocities</span><span class="p">)</span> <span class="o">!=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="p">:</span>
         <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Inconsistent length of velocities&quot;</span><span class="p">)</span>
 
-      <span class="k">try</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span> <span class="o">=</span> <span class="n">lmp_dataformats_velocities</span><span class="p">[</span><span class="n">atom_style</span><span class="p">]</span>
-      <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span> <span class="o">=</span> <span class="n">lmp_dataformats_velocities</span><span class="p">[</span><span class="s2">&quot;*&quot;</span><span class="p">]</span>
+      <span class="n">atom_style_vel</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">atom_style</span> <span class="k">if</span> <span class="n">atom_style</span> <span class="ow">in</span> <span class="n">lmp_dataformats_velocities</span> <span class="k">else</span> <span class="s2">&quot;*&quot;</span><span class="p">)</span>
+
+      <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span> <span class="o">=</span> <span class="n">lmp_dataformats_velocities</span><span class="p">[</span><span class="n">atom_style_vel</span><span class="p">]</span>
 
       <span class="c1"># dictionary mapping data names to data values</span>
       <span class="c1"># (list-like objects) for *Velocities* section.</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span> <span class="o">=</span> <span class="p">{</span>
         <span class="n">k</span><span class="p">:</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;id&quot;</span><span class="p">]</span> <span class="k">if</span> <span class="n">k</span> <span class="o">==</span> <span class="s2">&quot;id&quot;</span> <span class="k">else</span> <span class="kc">None</span>
-        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="p">(</span><span class="n">s</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s2">&quot;:&quot;</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span> <span class="k">for</span> <span class="n">s</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span><span class="p">)</span>
+        <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="s2">&quot;velocity&quot;</span><span class="p">][</span><span class="n">atom_style_vel</span><span class="p">]</span>
       <span class="p">}</span>
 
       <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;vx&quot;</span><span class="p">,</span> <span class="s2">&quot;vy&quot;</span><span class="p">,</span> <span class="s2">&quot;vz&quot;</span><span class="p">],</span> <span class="n">velocities</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>
@@ -295,18 +288,18 @@
     <span class="k">if</span> <span class="n">masses</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="n">masses</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LammpsAtoms.get_num"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.get_num">[docs]</a>  <span class="k">def</span> <span class="nf">get_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAtoms.get_num"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num">[docs]</a>  <span class="k">def</span> <span class="nf">get_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the number of atoms.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span></div>
 
-<div class="viewcode-block" id="LammpsAtoms.get_num_type"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.get_num_type">[docs]</a>  <span class="k">def</span> <span class="nf">get_num_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAtoms.get_num_type"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num_type">[docs]</a>  <span class="k">def</span> <span class="nf">get_num_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the number of atom types.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">len</span><span class="p">(</span><span class="nb">set</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]))</span></div>
 
   <span class="k">def</span> <span class="nf">get_atom_types</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span>
 
-<div class="viewcode-block" id="LammpsAtoms.get_required_datanames"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.get_required_datanames">[docs]</a>  <span class="k">def</span> <span class="nf">get_required_datanames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAtoms.get_required_datanames"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_required_datanames">[docs]</a>  <span class="k">def</span> <span class="nf">get_required_datanames</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">molecule</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a set of required data names (keys).</span>
 
 <span class="sd">    Names of data are returned if the data is required to</span>
@@ -328,7 +321,7 @@
 
     <span class="k">return</span> <span class="n">names</span></div>
 
-<div class="viewcode-block" id="LammpsAtoms.set_data"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.set_data">[docs]</a>  <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAtoms.set_data"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.set_data">[docs]</a>  <span class="k">def</span> <span class="nf">set_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Stores given data in ``self._data``.</span>
 
 <span class="sd">    Parameters:</span>
@@ -357,7 +350,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">k</span><span class="p">]</span> <span class="o">=</span> <span class="n">data</span>
         <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;LammpsAtoms: &#39;</span><span class="si">{}</span><span class="s2">&#39; have been set</span><span class="si">{}</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">end</span><span class="p">))</span></div>
 
-<div class="viewcode-block" id="LammpsAtoms.set_masses"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.set_masses">[docs]</a>  <span class="k">def</span> <span class="nf">set_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type2mass</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAtoms.set_masses"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.set_masses">[docs]</a>  <span class="k">def</span> <span class="nf">set_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type2mass</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Stores masses in ``self._data``.</span>
 
 <span class="sd">    Though the parameter ``type2mass`` is a dictionary mapping</span>
@@ -374,7 +367,7 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="n">mass</span><span class="o">=</span><span class="p">[</span><span class="n">type2mass</span><span class="p">[</span><span class="n">t</span><span class="p">]</span> <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]])</span></div>
 
-<div class="viewcode-block" id="LammpsAtoms.shift_positions"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.shift_positions">[docs]</a>  <span class="k">def</span> <span class="nf">shift_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)):</span>
+<div class="viewcode-block" id="LammpsAtoms.shift_positions"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.shift_positions">[docs]</a>  <span class="k">def</span> <span class="nf">shift_positions</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">shift</span><span class="o">=</span><span class="p">(</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">)):</span>
     <span class="sd">&quot;&quot;&quot;Shifts atom positions stored in ``self._data``.</span>
 
 <span class="sd">    Parameters:</span>
@@ -387,7 +380,7 @@
     <span class="k">for</span> <span class="n">dim</span><span class="p">,</span> <span class="n">d</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">([</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">],</span> <span class="n">shift</span><span class="p">):</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">dim</span><span class="p">]</span> <span class="o">=</span> <span class="nb">list</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">dim</span><span class="p">])</span> <span class="o">+</span> <span class="n">d</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LammpsAtoms.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAtoms.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes lines of *Atoms* and *Velocities* section.</span>
 
 <span class="sd">    Parameters:</span>
@@ -437,7 +430,7 @@
           <span class="n">path</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data_vel</span><span class="p">,</span> <span class="s2">&quot;Velocities&quot;</span><span class="p">,</span>
           <span class="s2">&quot;{{</span><span class="si">{}</span><span class="s2">}}&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s2">&quot;} {&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_dataformats_vel</span><span class="p">)))</span></div>
 
-<div class="viewcode-block" id="LammpsAtoms.write_lines_for_molecule"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAtoms.write_lines_for_molecule">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines_for_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAtoms.write_lines_for_molecule"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines_for_molecule">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines_for_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes lines of *Coords*, *Types*, *Charges* and *Masses* section</span>
 <span class="sd">    to Lammps&#39; molecule file.</span>
 
@@ -480,12 +473,12 @@
 
 <span class="c1">#=======================================================================</span>
 
-<div class="viewcode-block" id="LammpsTopology"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology">[docs]</a><span class="k">class</span> <span class="nc">LammpsTopology</span><span class="p">:</span>
+<div class="viewcode-block" id="LammpsTopology"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology">[docs]</a><span class="k">class</span> <span class="nc">LammpsTopology</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;An (abstract) interface to write a section of topology component</span>
 <span class="sd">  (*Bonds*, *Angles*, *Dihedrals*, *Impropers*)</span>
 <span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LammpsTopology.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="n">datanames</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsTopology.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="n">datanames</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters:</span>
 
@@ -513,7 +506,7 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">(</span><span class="nb">id</span><span class="o">=</span><span class="nb">range</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span><span class="o">+</span><span class="mi">1</span><span class="p">))</span>  <span class="c1"># `id` starts from 1 in Lammps</span>
       <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">(</span><span class="o">**</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_datanames</span><span class="p">[</span><span class="mi">2</span><span class="p">:],</span> <span class="bp">self</span><span class="o">.</span><span class="n">_sequences</span><span class="o">.</span><span class="n">T</span><span class="p">)))</span>  <span class="c1"># set `atom-id`s</span></div>
 
-<div class="viewcode-block" id="LammpsTopology.get_num"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_num">[docs]</a>  <span class="k">def</span> <span class="nf">get_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsTopology.get_num"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology.get_num">[docs]</a>  <span class="k">def</span> <span class="nf">get_num</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the number of topology components.</span>
 
 <span class="sd">    The number of topology components is considered as 0</span>
@@ -522,14 +515,14 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_num_type&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="LammpsTopology.get_num_type"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_num_type">[docs]</a>  <span class="k">def</span> <span class="nf">get_num_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsTopology.get_num_type"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology.get_num_type">[docs]</a>  <span class="k">def</span> <span class="nf">get_num_type</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the number of topology types.&quot;&quot;&quot;</span>
     <span class="k">try</span><span class="p">:</span>
       <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_num_type</span>
     <span class="k">except</span> <span class="ne">AttributeError</span><span class="p">:</span>
       <span class="k">return</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="LammpsTopology.get_sequence_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_sequence_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_sequence_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsTopology.get_sequence_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology.get_sequence_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_sequence_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
 <span class="sd">    appearing in the topology components.</span>
 
@@ -551,7 +544,7 @@
 
     <span class="k">return</span> <span class="nb">set</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LammpsTopology.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsTopology.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the maximum number of topology components per atom.</span>
 
 <span class="sd">    For more details see also Lammps&#39; source code of</span>
@@ -563,7 +556,7 @@
 
     <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="n">counts</span><span class="p">)</span> <span class="k">if</span> <span class="nb">hasattr</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="s2">&quot;_num_type&quot;</span><span class="p">)</span> <span class="k">else</span> <span class="mi">0</span></div>
 
-<div class="viewcode-block" id="LammpsTopology.set_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.set_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsTopology.set_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology.set_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Sets type of the topology components.</span>
 
 <span class="sd">    Parameters:</span>
@@ -587,7 +580,7 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">_set_data</span><span class="p">(</span><span class="nb">type</span><span class="o">=</span><span class="p">[</span><span class="n">full_dict</span><span class="p">[</span><span class="n">seq</span><span class="p">]</span> <span class="k">for</span> <span class="n">seq</span> <span class="ow">in</span> <span class="n">type_seqs</span><span class="p">])</span></div>
 
-<div class="viewcode-block" id="LammpsTopology.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsTopology.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsTopology.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsTopology.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes lines of a topology section</span>
 <span class="sd">    in Lammps&#39; data file (or molecule file).</span>
 
@@ -638,11 +631,11 @@
 
 <span class="c1">#=======================================================================</span>
 
-<div class="viewcode-block" id="LammpsBonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsBonds">[docs]</a><span class="k">class</span> <span class="nc">LammpsBonds</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsBonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsBonds">[docs]</a><span class="k">class</span> <span class="nc">LammpsBonds</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;An interface to write *Bonds* section</span>
 <span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LammpsBonds.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsBonds.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsBonds.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsBonds.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the maximum number of topology components per atom.</span>
 
 <span class="sd">    This method overrides ``LammpsTopology.get_maximum_per_atom()``</span>
@@ -658,23 +651,23 @@
 
 <span class="c1">#=======================================================================</span>
 
-<div class="viewcode-block" id="LammpsAngles"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsAngles">[docs]</a><span class="k">class</span> <span class="nc">LammpsAngles</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsAngles"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsAngles">[docs]</a><span class="k">class</span> <span class="nc">LammpsAngles</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;An interface to write *Angles* section</span>
 <span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span></div>
 
 <span class="c1">#=======================================================================</span>
 
-<div class="viewcode-block" id="LammpsDihedrals"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsDihedrals">[docs]</a><span class="k">class</span> <span class="nc">LammpsDihedrals</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsDihedrals"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsDihedrals">[docs]</a><span class="k">class</span> <span class="nc">LammpsDihedrals</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;An interface to write *Dihedrals* section</span>
 <span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span></div>
 
 <span class="c1">#=======================================================================</span>
 
-<div class="viewcode-block" id="LammpsImpropers"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsImpropers">[docs]</a><span class="k">class</span> <span class="nc">LammpsImpropers</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsImpropers"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsImpropers">[docs]</a><span class="k">class</span> <span class="nc">LammpsImpropers</span><span class="p">(</span><span class="n">LammpsTopology</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;An interface to write *Impropers* section</span>
 <span class="sd">  in Lammps&#39; data file (or molecule file).&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LammpsImpropers.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsImpropers.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="n">datanames</span><span class="p">,</span> <span class="n">class2</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsImpropers.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsImpropers.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sequences</span><span class="p">,</span> <span class="n">datanames</span><span class="p">,</span> <span class="n">class2</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters:</span>
 
@@ -704,7 +697,7 @@
 
     <span class="bp">self</span><span class="o">.</span><span class="n">_class2</span> <span class="o">=</span> <span class="n">class2</span></div>
 
-<div class="viewcode-block" id="LammpsImpropers.get_sequence_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsImpropers.get_sequence_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_sequence_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsImpropers.get_sequence_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsImpropers.get_sequence_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_sequence_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">atom_types</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
 <span class="sd">    appearing in the topology components.</span>
 
@@ -773,11 +766,11 @@
 
 <span class="c1">#=======================================================================</span>
 
-<div class="viewcode-block" id="LammpsSpecialBonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds">[docs]</a><span class="k">class</span> <span class="nc">LammpsSpecialBonds</span><span class="p">:</span>
+<div class="viewcode-block" id="LammpsSpecialBonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds">[docs]</a><span class="k">class</span> <span class="nc">LammpsSpecialBonds</span><span class="p">:</span>
   <span class="sd">&quot;&quot;&quot;An interface to write *Special Bond Counts*</span>
 <span class="sd">  and *Special Bonds* section in Lammps&#39; molecule file.&quot;&quot;&quot;</span>
 
-<div class="viewcode-block" id="LammpsSpecialBonds.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bonds_per_atom</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsSpecialBonds.__init__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.__init__">[docs]</a>  <span class="k">def</span> <span class="nf">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bonds_per_atom</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters:</span>
 
@@ -810,12 +803,12 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="s2">&quot;1-4&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">l</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span></div>
 
 
-<div class="viewcode-block" id="LammpsSpecialBonds.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsSpecialBonds.get_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.get_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">get_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Returns the maximum number of special bonds per atom</span>
 <span class="sd">    (sum over *1-2*, *1-3*, and *1-4* special bonds).&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="nb">max</span><span class="p">(</span><span class="nb">sum</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">v</span><span class="p">)</span> <span class="k">for</span> <span class="n">v</span> <span class="ow">in</span> <span class="n">d</span><span class="o">.</span><span class="n">values</span><span class="p">())</span> <span class="k">for</span> <span class="n">d</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_data</span><span class="p">)</span></div>
 
-<div class="viewcode-block" id="LammpsSpecialBonds.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_data.LammpsSpecialBonds.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
+<div class="viewcode-block" id="LammpsSpecialBonds.write_lines"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.write_lines">[docs]</a>  <span class="k">def</span> <span class="nf">write_lines</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Writes lines of *Special Bond Counts*</span>
 <span class="sd">    and *Special Bonds* section in Lammps&#39; molecule file.</span>
 

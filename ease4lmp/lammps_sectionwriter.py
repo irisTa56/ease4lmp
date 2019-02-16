@@ -1,7 +1,7 @@
 """Submodule for classes writing each section in Lammps' data file."""
 
 from .lammps_dataformats import (
-  lmp_dataformats_atoms, lmp_dataformats_velocities)
+  lmp_dataformats_atoms, lmp_dataformats_velocities, lmp_datanames)
 
 import itertools
 import numpy as np
@@ -30,17 +30,13 @@ def create_topology(name, sequences, **kwargs):
 
   """
   if name == "bond":
-    return LammpsBonds(
-      sequences, ("id", "type", "atom1", "atom2"))
+    return LammpsBonds(sequences, lmp_datanames[name])
   elif name == "angle":
-    return LammpsAngles(
-      sequences, ("id", "type", "atom1", "atom2", "atom3"))
+    return LammpsAngles(sequences, lmp_datanames[name])
   elif name == "dihedral":
-    return LammpsDihedrals(
-      sequences, ("id", "type", "atom1", "atom2", "atom3", "atom4"))
+    return LammpsDihedrals(sequences, lmp_datanames[name])
   elif name == "improper":
-    return LammpsImpropers(
-      sequences, ("id", "type", "atom1", "atom2", "atom3", "atom4"), **kwargs)
+    return LammpsImpropers(sequences, lmp_datanames[name], **kwargs)
   else:
     raise RuntimeError(
       "Invalid name for LammpsTopology '{}'".format(name))
@@ -116,10 +112,7 @@ class LammpsAtoms:
 
     # dictionary mapping data names to data values
     # (list-like objects) for *Atoms* (and *Masses*) section.
-    self._data = {
-      k: None
-      for k in (s.split(":")[0] for s in self._dataformats)
-    }
+    self._data = {k: None for k in lmp_datanames["atom"][atom_style]}
 
     self.set_data(id=range(1, self._num+1))  # `id` starts from 1 in Lammps
     self.set_data(type=types)
@@ -129,16 +122,16 @@ class LammpsAtoms:
       if len(velocities) != self._num:
         raise RuntimeError("Inconsistent length of velocities")
 
-      try:
-        self._dataformats_vel = lmp_dataformats_velocities[atom_style]
-      except KeyError:
-        self._dataformats_vel = lmp_dataformats_velocities["*"]
+      atom_style_vel = (
+        atom_style if atom_style in lmp_dataformats_velocities else "*")
+
+      self._dataformats_vel = lmp_dataformats_velocities[atom_style_vel]
 
       # dictionary mapping data names to data values
       # (list-like objects) for *Velocities* section.
       self._data_vel = {
         k: self._data["id"] if k == "id" else None
-        for k in (s.split(":")[0] for s in self._dataformats_vel)
+        for k in lmp_datanames["velocity"][atom_style_vel]
       }
 
       self.set_data(**dict(zip(["vx", "vy", "vz"], velocities.T)))

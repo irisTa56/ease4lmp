@@ -1,7 +1,7 @@
 """Submodule for an interface to write Lammps' data file."""
 
 from .bonded_atoms import BondedAtoms
-from .lammps_data import (
+from .lammps_sectionwriter import (
   create_topology, LammpsAtoms, LammpsSpecialBonds)
 from .lammps_units import lmp_units
 
