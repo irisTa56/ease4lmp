@@ -1,0 +1,28 @@
+package:
+  name: ease4lmp
+  version: 0.3.1
+
+build:
+  number: 1
+
+source:
+  git_url: ../
+
+requirements:
+  host:
+    - python
+    - setuptools
+  run:
+    - python
+    - jupyter
+    - numpy
+    - ase
+
+test:
+  source_files:
+    - tests
+    - examples
+
+about:
+  summary: Extension of Atomic Simulation Environment for LAMMPS
+  license_file: LICENSE
