@@ -116,35 +116,28 @@ class TestBondedAtoms(unittest.TestCase):
       methanol.add_bond(*t)
 
     # bonds are calculated correctly?
-    self.assertTrue(np.allclose(
-      methanol.get_bonded_bonds(), [[0, 1],
-                                    [1, 3],
-                                    [0, 5],
-                                    [0, 4],
-                                    [0, 2]]))
+    self.assertEqual(
+      set(tuple(b) for b in methanol.get_bonded_bonds()),
+      {(0, 1), (1, 3), (0, 5), (0, 4), (0, 2)})
 
     # angles are calculated correctly?
-    self.assertTrue(np.allclose(
-      methanol.get_bonded_angles(), [[1, 0, 2],
-                                     [1, 0, 4],
-                                     [1, 0, 5],
-                                     [2, 0, 4],
-                                     [2, 0, 5],
-                                     [4, 0, 5],
-                                     [0, 1, 3]]))
+    self.assertEqual(
+      set(tuple(a) for a in methanol.get_bonded_angles()),
+      {(1, 0, 2), (1, 0, 4), (1, 0, 5), (2, 0, 4), (2, 0, 5), (4, 0, 5), (0, 1, 3)})
 
     # dihedrals are calculated correctly?
-    self.assertTrue(np.allclose(
-      methanol.get_bonded_dihedrals(), [[2, 0, 1, 3],
-                                        [4, 0, 1, 3],
-                                        [5, 0, 1, 3]]))
+    dihedrals_ref = {(2, 0, 1, 3), (4, 0, 1, 3), (5, 0, 1, 3)}
+    for d in methanol.get_bonded_dihedrals():
+      if tuple(d) in dihedrals_ref:
+        dihedrals_ref.remove(tuple(d))
+      elif tuple(d[::-1]) in dihedrals_ref:
+        dihedrals_ref.remove(tuple(d[::-1]))
+    self.assertTrue(len(dihedrals_ref) == 0)
 
     # impropers are calculated correctly?
-    self.assertTrue(np.allclose(
-      methanol.get_bonded_impropers(), [[0, 1, 2, 4],
-                                        [0, 1, 2, 5],
-                                        [0, 1, 4, 5],
-                                        [0, 2, 4, 5]]))
+    self.assertEqual(
+      set(tuple(i) for i in methanol.get_bonded_impropers()),
+      {(0, 1, 2, 4), (0, 1, 2, 5), (0, 1, 4, 5), (0, 2, 4, 5)})
 
 
 def suite():
