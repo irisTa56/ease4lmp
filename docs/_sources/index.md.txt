@@ -46,6 +46,7 @@ pip install git+https://github.com/irisTa56/ease4lmp.git
 ## Example Notebooks
 
 * [Making Diamond](https://nbviewer.jupyter.org/github/irisTa56/ease4lmp/blob/master/examples/making_diamond.ipynb)
+* [Simple Demo for `ease4lmp.LammpsWriter`](https://nbviewer.jupyter.org/github/irisTa56/ease4lmp/blob/master/examples/lammps_writer.ipynb)
 
 ## Acknowledgement
 

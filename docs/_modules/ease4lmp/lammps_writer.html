@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                0.3.0
+                0.3.1
               </div>
             
           
@@ -726,7 +726,7 @@
       <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\n</span><span class="si">{}</span><span class="s2"> atoms</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_atom</span><span class="p">))</span>
       <span class="n">f</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span>
         <span class="s2">&quot;</span><span class="si">{}</span><span class="s2"> </span><span class="si">{}</span><span class="s2">s</span><span class="se">\n</span><span class="s2">&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">num_topo</span><span class="p">[</span><span class="n">k</span><span class="p">],</span> <span class="n">k</span><span class="p">)</span>
-          <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmptopo_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()))</span>
+          <span class="k">for</span> <span class="n">k</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmptopo_dict</span><span class="o">.</span><span class="n">keys</span><span class="p">()))</span>
 
     <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">write_lines_for_molecule</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
 

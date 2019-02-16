@@ -11,7 +11,7 @@ import numpy as np
 class TestBondedAtoms(unittest.TestCase):
 
   def test_casting(self):
-    """Test for a static method ``BondedAtoms.test_inherit()``."""
+    """Test for down-casting from ``ase.Atoms`` to BondedAtoms."""
     atoms = molecule("CH3CH2OH")
     bonded_atoms = BondedAtoms(atoms)
 
@@ -31,27 +31,26 @@ class TestBondedAtoms(unittest.TestCase):
     """Test for basic operations."""
     a = 4.05  # gold lattice constant
     b = a / 2
-    fcc = BondedAtoms(
-        "Au", cell=[(0, b, b), (b, 0, b), (b, b, 0)], pbc=True)
+    au = BondedAtoms(
+      "Au", cell=[(0, b, b), (b, 0, b), (b, b, 0)], pbc=True)
 
     # initial types are 1?
-    self.assertTrue(np.allclose(fcc.get_types(), np.ones(len(fcc))))
+    self.assertTrue(np.allclose(au.get_types(), np.ones(len(au))))
 
-    fcc.add_bond(0, 0, img2=(1,0,0))
+    au.add_bond(0, 0, img2=(1,0,0))
 
     # a bond is added?
     self.assertTrue(np.allclose(
-      fcc.get_bonds(), [[[ 0,  1,  0,  0],
-                         [ 0, -1,  0,  0],
-                         [ 0,  0,  0,  0],
-                         [ 0,  0,  0,  0]]]))
+      au.get_bonds(), [[[ 0,  1,  0,  0],
+                        [ 0, -1,  0,  0],
+                        [ 0,  0,  0,  0],
+                        [ 0,  0,  0,  0]]]))
 
     # multiplying and repeating give the same result?
     self.assertTrue(np.allclose(
-      (fcc*(2, 2, 2)).get_bonds(),
-      fcc.repeat((2, 2, 2)).get_bonds()))
+      (au*(2, 2, 2)).get_bonds(), au.repeat((2, 2, 2)).get_bonds()))
 
-    chain = fcc * (3, 1, 1)
+    chain = au * (3, 1, 1)
 
     # types are correctly copied?
     self.assertTrue(np.allclose(chain.get_types(), np.ones(len(chain))))
