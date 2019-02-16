@@ -9,6 +9,12 @@ Extension of Atomic Simulation Environment (ASE) for LAMMPS
 
 ## Install
 
+Conda.
+
+```bash
+conda install -c irista56 ease4lmp
+```
+
 Clone and install.
 
 ```bash

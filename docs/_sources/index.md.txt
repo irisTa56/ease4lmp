@@ -29,6 +29,12 @@ In addition, after creating and customizing atomic data (positions, velocities, 
 
 ## Install
 
+Conda.
+
+```bash
+conda install -c irista56 ease4lmp
+```
+
 Clone and install.
 
 ```bash
