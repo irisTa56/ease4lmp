@@ -8,9 +8,4 @@ dist/
 
 mynotes/
 
-examples/*.html
-examples/dev*
-examples/tmp*
-
-examples/data.*
-examples/molecule.*
+examples/dev/
