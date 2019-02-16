@@ -200,7 +200,7 @@ class LammpsAtoms:
         self._data[k] = data
         print("LammpsAtoms: '{}' have been set{}".format(k, end))
       elif hasattr(self, "_data_vel") and k in self._data_vel:
-        end = "" if self._data[k] is None else " again"
+        end = "" if self._data_vel[k] is None else " again"
         self._data_vel[k] = data
         print("LammpsAtoms: '{}' have been set{}".format(k, end))
       elif k == "mass":
@@ -275,7 +275,7 @@ class LammpsAtoms:
           _write_section_lines(
             path, {
             "type": list(massdct.keys()), "mass": list(massdct.values())
-            }, "Masses", "{type:4d} {mass:9.6f}")
+            }, "Masses", "{type:4d} {mass:10.6f}")
         else:
           raise RuntimeError("You need to set masses")
 
@@ -314,11 +314,11 @@ class LammpsAtoms:
     }
 
     if "q" in self._data:
-      section_formats["Charges"] = ("id:4d", "q:9.6f")
+      section_formats["Charges"] = ("id:4d", "q:10.6f")
 
     if mass:
       if "mass" in self._data:
-        section_formats["Masses"] = ("id:4d", "q:9.6f")
+        section_formats["Masses"] = ("id:4d", "mass:10.6f")
       else:
         raise RuntimeError("You need to set masses")
 
@@ -412,7 +412,7 @@ class LammpsTopology:
     """
     _, counts = np.unique(self._sequences.T[1], return_counts=True)
 
-    return max(counts)
+    return max(counts) if hasattr(self, "_num_type") else 0
 
   def set_types(self, seq_to_type, atom_types):
     """Sets type of the topology components.

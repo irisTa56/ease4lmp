@@ -577,7 +577,7 @@ class LammpsWriter:
       f.write("\n{} atoms\n".format(num_atom))
       f.write("".join(
         "{} {}s\n".format(num_topo[k], k)
-          for k in self._lmptopo_dict.items()))
+          for k in self._lmptopo_dict.keys()))
 
     self._lmpatoms.write_lines_for_molecule(path, **kwargs)
 
