@@ -139,7 +139,7 @@ def read_impropers(path):
   """
   return _read_topology_components(path, "improper", "Impropers")
 
-def read_atoms_from_data(path, atom_style, velocity=False):
+def read_atoms_from_data(path, atom_style, mass=False, velocity=False):
   """Reads atoms data from a specified Lammps' data file.
 
   Parameters:
@@ -149,6 +149,9 @@ def read_atoms_from_data(path, atom_style, velocity=False):
 
   atom_style: str
     Specifies an *atom style* used in Lammps.
+
+  mass: bool
+    Whether to include mass data if *Masses* section extis.
 
   velocity: bool
     Whether to include velocity data if *Velocities* section extis.
@@ -175,6 +178,15 @@ def read_atoms_from_data(path, atom_style, velocity=False):
       atoms.append(tmp)
     else:
       raise RuntimeError("Invalid number of values in a line")
+
+  if mass:
+
+    type2mass = {
+      int(s1): float(s2) for s1, s2 in _read_section(path, "Masses")
+    }
+
+    for atom in atoms:
+      atom["mass"] = type2mass[atom["type"]]
 
   if velocity:
 
