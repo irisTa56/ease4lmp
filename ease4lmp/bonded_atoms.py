@@ -255,9 +255,11 @@ class BondedAtoms(ase.Atoms):
       for k in ks:
         bonds.add((j, k))
         dihedrals.extend(
-            (i, j, k, l)
-            for i, l in itertools.product(
-              set(bs)-{k}, set(bonds_per_atom[k])-{j}))
+          (i, j, k, l) if n%2 else (l, k, j, i)  # equally distribute dihedrals to the second atom
+          for n, (i, l) in enumerate(itertools.product(
+            set(bs)-{k}, set(bonds_per_atom[k])-{j})))
+
+    dihedrals.sort(key=lambda x: x[1])
 
     return np.array(dihedrals, int)
 
