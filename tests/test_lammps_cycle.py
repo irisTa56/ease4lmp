@@ -72,6 +72,8 @@ class TestLammpsCycle(unittest.TestCase):
     for pair in bonded_pairs:
       atoms.add_bond(*pair)
 
+    atoms.sort_bonds()
+
     atoms.set_cell([[5., 0., 0.], [0., 5., 0.], [0., 0., 5.]])
     atoms.center()
 
@@ -99,8 +101,9 @@ class TestLammpsCycle(unittest.TestCase):
       atoms_from_data.get_types(), atoms.get_types()))
 
     # storing order of bonds might be changed
-    for b, b0 in zip(atoms_from_data.get_bonds(), atoms.get_bonds()):
-      self.assertEqual(set(map(tuple, b)), set(map(tuple, b0)))
+    atoms_from_data.sort_bonds()
+    self.assertTrue(np.allclose(
+      atoms_from_data.get_bonds(), atoms.get_bonds()))
 
     remove_files()
 
@@ -128,6 +131,8 @@ class TestLammpsCycle(unittest.TestCase):
     for pair in bonded_pairs:
       atoms.add_bond(*pair)
 
+    atoms.sort_bonds()
+
     atoms.set_cell([[5., 0., 0.], [0., 5., 0.], [0., 0., 5.]])
     atoms.center()
 
@@ -155,8 +160,9 @@ class TestLammpsCycle(unittest.TestCase):
       atoms_from_data.get_types(), atoms.get_types()))
 
     # storing order of bonds might be changed
-    for b, b0 in zip(atoms_from_data.get_bonds(), atoms.get_bonds()):
-      self.assertEqual(set(map(tuple, b)), set(map(tuple, b0)))
+    atoms_from_data.sort_bonds()
+    self.assertTrue(np.allclose(
+      atoms_from_data.get_bonds(), atoms.get_bonds()))
 
     remove_files()
 

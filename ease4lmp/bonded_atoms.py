@@ -457,6 +457,22 @@ class BondedAtoms(ase.Atoms):
     """
     self.set_array("types", types, int, ())
 
+  def sort_bonds(self):
+    """Sort bonds in each atom.
+
+    Note that the order of atoms stays unchanged.
+
+    """
+    def key_for_sorting_bonds(x):
+      return (
+        0 if x[0] > 0 else 1 if x[0] < 0 else 2,
+        0 if all(i == 0 for i in x[1:]) else 1) + tuple(x)
+
+    self.set_array("bonds", [
+        sorted(bs, key=key_for_sorting_bonds)
+        for bs in self.arrays["bonds"]
+      ], int, ())
+
   def __delitem__(self, idx):
     """Deletes a selected atom.
 
