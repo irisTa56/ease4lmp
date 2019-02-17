@@ -1,7 +1,7 @@
 #!/bin/bash
 
 cd tests
-python tests.py
+python test.py
 cd ..
 
 for ipynb in $(ls ./examples/*.ipynb)
