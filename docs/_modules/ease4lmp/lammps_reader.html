@@ -153,7 +153,7 @@
 
 
 <span class="k">def</span> <span class="nf">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">section</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads lines of a specified section in a specified file.</span>
+  <span class="sd">&quot;&quot;&quot;Read lines of a specified section in a specified file.</span>
 
 <span class="sd">  Parameters:</span>
 
@@ -164,8 +164,7 @@
 <span class="sd">    Header of a section to be read.</span>
 
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
+  <span class="n">lines</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
   <span class="n">blank_counter</span> <span class="o">=</span> <span class="mi">0</span>
   <span class="n">in_section</span> <span class="o">=</span> <span class="kc">False</span>
@@ -186,7 +185,7 @@
   <span class="k">return</span> <span class="n">splitted_lines</span>
 
 <span class="k">def</span> <span class="nf">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">name</span><span class="p">,</span> <span class="n">header</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads data of specified topology components</span>
+  <span class="sd">&quot;&quot;&quot;Read data of specified topology components</span>
 <span class="sd">  from a specified Lammps&#39; data (or molecule) file.</span>
 
 <span class="sd">  Parameters:</span>
@@ -215,7 +214,7 @@
 <span class="c1">#-----------------------------------------------------------------------</span>
 
 <div class="viewcode-block" id="read_box"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_box">[docs]</a><span class="k">def</span> <span class="nf">read_box</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads side lengths of the simulation box.</span>
+  <span class="sd">&quot;&quot;&quot;Read side lengths of the simulation box.</span>
 
 <span class="sd">  Parameters:</span>
 
@@ -223,8 +222,7 @@
 <span class="sd">    File path to Lammps&#39; data file (or molecule file).</span>
 
 <span class="sd">  &quot;&quot;&quot;</span>
-  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
-    <span class="n">lines</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
+  <span class="n">lines</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">))</span>
 
   <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">lz</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">3</span>
   <span class="n">done</span> <span class="o">=</span> <span class="kc">False</span>
@@ -250,7 +248,7 @@
   <span class="k">return</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">lz</span></div>
 
 <div class="viewcode-block" id="read_bonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_bonds">[docs]</a><span class="k">def</span> <span class="nf">read_bonds</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads bonds data from a Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Read bonds data from a Lammps&#39; data (or molecule) file.</span>
 
 <span class="sd">  Returned value is a JSON object (list of dict).</span>
 
@@ -263,7 +261,7 @@
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;bond&quot;</span><span class="p">,</span> <span class="s2">&quot;Bonds&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_angles"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_angles">[docs]</a><span class="k">def</span> <span class="nf">read_angles</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads angles data from a Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Read angles data from a Lammps&#39; data (or molecule) file.</span>
 
 <span class="sd">  Returned value is a JSON object (list of dict).</span>
 
@@ -276,7 +274,7 @@
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;angle&quot;</span><span class="p">,</span> <span class="s2">&quot;Angles&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_dihedrals"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_dihedrals">[docs]</a><span class="k">def</span> <span class="nf">read_dihedrals</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads dihedrals data from a Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Read dihedrals data from a Lammps&#39; data (or molecule) file.</span>
 
 <span class="sd">  Returned value is a JSON object (list of dict).</span>
 
@@ -289,7 +287,7 @@
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;dihedral&quot;</span><span class="p">,</span> <span class="s2">&quot;Dihedrals&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_impropers"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_impropers">[docs]</a><span class="k">def</span> <span class="nf">read_impropers</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads impropers data from a Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Read impropers data from a Lammps&#39; data (or molecule) file.</span>
 
 <span class="sd">  Returned value is a JSON object (list of dict).</span>
 
@@ -302,7 +300,7 @@
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;improper&quot;</span><span class="p">,</span> <span class="s2">&quot;Impropers&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_atoms_from_data"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_atoms_from_data">[docs]</a><span class="k">def</span> <span class="nf">read_atoms_from_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">atom_style</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="kc">True</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads atoms data from a Lammps&#39; data file.</span>
+  <span class="sd">&quot;&quot;&quot;Read atoms data from a Lammps&#39; data file.</span>
 
 <span class="sd">  Returned value is a JSON object (list of dict).</span>
 
@@ -366,7 +364,7 @@
   <span class="k">return</span> <span class="n">atoms</span></div>
 
 <div class="viewcode-block" id="read_atoms_from_molecule"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_atoms_from_molecule">[docs]</a><span class="k">def</span> <span class="nf">read_atoms_from_molecule</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads atoms data from a Lammps&#39; molecule file.</span>
+  <span class="sd">&quot;&quot;&quot;Read atoms data from a Lammps&#39; molecule file.</span>
 
 <span class="sd">  Returned value is a JSON object (list of dict).</span>
 

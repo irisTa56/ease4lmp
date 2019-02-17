@@ -176,7 +176,7 @@
 <dl class="class">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms">
 <em class="property">class </em><code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">BondedAtoms</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inherits <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
+<dd><p>Inheriting <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
 to handle (covalent) bonds connecting a pair of atoms.</p>
 <p>An instance of this class has bond data as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 as with other atomic properties like positions and velocities.
@@ -197,13 +197,13 @@ for making Lammps’ data file and molecule file.</p>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.__delitem__">
 <code class="descname">__delitem__</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.__delitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a selected atom.</p>
+<dd><p>Delete a selected atom.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__delitem__</span></code>.
 Before calling the parent method to remove a selected atom,
 this method deletes bond data associated with the atom.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>idx: int or list or tuple</dt>
+<dt>idx: int or list/tuple of int</dt>
 <dd>Index for an atom to be deleted.
 A list or tuple of integers is also acceptable for multiple atoms.</dd>
 </dl>
@@ -236,7 +236,7 @@ A list or tuple of integers is also acceptable for multiple atoms.</dd>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.__imul__">
 <code class="descname">__imul__</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__imul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.__imul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a super cell and returns it.</p>
+<dd><p>Create a super cell and returns it.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__imul__</span></code>.
 After calling the parent method to expand the simulation box,
 this method recalculates image flags over the expanded bond data.
@@ -246,7 +246,7 @@ If the two atoms are in the same image after expansion,
 their image falgs for the opponent must be updated to (0, 0, 0).</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>m: tuple or list or int</dt>
+<dt>m: int or list/tuple of int</dt>
 <dd>Three-element tuple or list defining how many times
 a periodic simulation box is repeated in each direction.
 The first, second and third element corresponds to the <em>x</em>, <em>y</em>
@@ -299,48 +299,51 @@ If an integer is given, a tuple <code class="docutils literal notranslate"><span
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.add_bond">
 <code class="descname">add_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.add_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.add_bond" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a bond connecting two atoms.</p>
+<dd><p>Add a bond connecting two atoms.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>atom1: int</dt>
 <dd>Index for the first atom.</dd>
 <dt>atom2: int</dt>
 <dd>Index for the second atom.</dd>
-<dt>img1: tuple or list</dt>
+<dt>img1: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the first atom is in.</dd>
-<dt>img2: tuple or list</dt>
+<dt>img2: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the second atom is in.</dd>
 </dl>
-<p>Examples:</p>
-<blockquote>
-<div><ul class="simple">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
 <li>Bond data stored in the first atom:
 <code class="docutils literal notranslate"><span class="pre">[atom2-atom1,</span> <span class="pre">img2[0]-img1[0],</span> <span class="pre">img2[1]-img1[1],</span> <span class="pre">img2[2]-img1[2]]</span></code>.</li>
 <li>Bond data stored in the second atom:
 <code class="docutils literal notranslate"><span class="pre">[atom1-atom2,</span> <span class="pre">img1[0]-img2[0],</span> <span class="pre">img1[1]-img2[1],</span> <span class="pre">img1[2]-img2[2]]</span></code>.</li>
 </ul>
-</div></blockquote>
+</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.bonded_atoms.BondedAtoms.adjust_bonds_to_pbc">
-<code class="descname">adjust_bonds_to_pbc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.adjust_bonds_to_pbc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.adjust_bonds_to_pbc" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.adjust_pbc_bonds">
+<code class="descname">adjust_pbc_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.adjust_pbc_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.adjust_pbc_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adjust bonds under periodic boundary conditions.</p>
-<p>This method corrects image flags of each bond if the bond length
-is longer than a half length of the unit cell side.</p>
+<p>This method corrects image flags of each bond if distance
+between two atoms connected with the bond is longer than
+a half length of the unit cell side.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If the <em>i</em> th atom connects to one of images of the <em>j</em> th atom,
-it <strong>must not</strong> connect to another image of the the <em>j</em> th atom.</p>
+it <strong>must not</strong> connect to another image of the the <em>j</em> th atom.
+In addition, all the bond lengths must be less than
+a half length of the unit cell side.</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.change_max_bonds">
 <code class="descname">change_max_bonds</code><span class="sig-paren">(</span><em>n=4</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.change_max_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.change_max_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes the maximum number of bonds per atom.</p>
+<dd><p>Change the maximum number of bonds per atom.</p>
 <p>Like original properties of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code>,
 bond data is also stored as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>,
 which is a homogeneous array of fixed-size items.
@@ -359,12 +362,12 @@ Note that existing data stay unchanged after changing the capacity.</p>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.extend">
 <code class="descname">extend</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.extend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extends this instance by appending the given instance.</p>
+<dd><p>Extend this instance by appending the given instance.</p>
 <p>This method returns this extended instance,
 which is the same behavior with <code class="docutils literal notranslate"><span class="pre">ase.Atoms.extend()</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>other: ase.Atom or ase.Atoms or BondedAtoms</dt>
+<dt>other: instance of ase.Atom/ase.Atoms/BondedAtoms</dt>
 <dd>For ase.Atom or ase.Atoms instance,
 the instance will be down-casted to BondedAtoms before extension.</dd>
 </dl>
@@ -373,7 +376,7 @@ the instance will be down-casted to BondedAtoms before extension.</dd>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_angles">
 <code class="descname">get_bonded_angles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 describing all angles defined by two consecutive bonds.</p>
 <p>Shape of the returned array is (<em>N_a</em>, 3),
 where <em>N_a</em> is the number of angles
@@ -386,7 +389,7 @@ of the first, second and third atom in the each angle.</p>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_bonds">
 <code class="descname">get_bonded_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> describing all bonds.</p>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> describing all bonds.</p>
 <p>Shape of the returned array is (<em>N_b</em>, 2),
 where <em>N_b</em> is the number of bonds.
 Each row (the first axis) corresponds to each bond,
@@ -397,7 +400,7 @@ of the first and second atom connected by the each bond.</p>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_dihedrals">
 <code class="descname">get_bonded_dihedrals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_dihedrals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 describing all dihedrals defined by three consecutive bonds.</p>
 <p>Shape of the returned array is (<em>N_d</em>, 4),
 where <em>N_d</em> is the number of dihedrals
@@ -410,7 +413,7 @@ of the first, second, third and fourth atom in the each dihedral.</p>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonded_impropers">
 <code class="descname">get_bonded_impropers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonded_impropers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 describing all impropers defined by three bonds
 connected to the same atom.</p>
 <p>Shape of the returned array is (<em>N_i</em>, 4),
@@ -425,7 +428,7 @@ the first atom is the center one.</p>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonds">
 <code class="descname">get_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an array of integers containing bond data.</p>
+<dd><p>Return an array of integers containing bond data.</p>
 <p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
 for example, atoms’ positions are accessed by key ‘positions’.
 For BondedAtoms instance, bond data is also stored
@@ -436,23 +439,26 @@ This method returns a copy of <code class="docutils literal notranslate"><span c
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.get_bonds_per_atom">
 <code class="descname">get_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a nested list of bond data.</p>
+<dd><p>Return a nested list of bond data.</p>
 <p>The returned list is two-dimensional:
 each element of the first list corresponds to each atom,
 and the second list consists of <em>absolute</em> indices for atoms
 bonded with the each atom.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <p>This method is different from <code class="docutils literal notranslate"><span class="pre">self.get_bonds()</span></code> in terms of
 the following two points:</p>
-<ul class="simple">
+<ul class="last simple">
 <li>No data about image flags.</li>
 <li>Contains data of <em>existing</em> bonds only.</li>
 </ul>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.get_types">
 <code class="descname">get_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.get_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an array of integers containing atom’s type.</p>
+<dd><p>Return an array of integers containing atom’s type.</p>
 <p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
 for example, atoms’ positions are accessed by key ‘positions’.
 For BondedAtoms instance, atom’s type data is also stored
@@ -463,17 +469,17 @@ This method returns a copy of <code class="docutils literal notranslate"><span c
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.remove_bond">
 <code class="descname">remove_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.remove_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.remove_bond" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes a bond connecting the given two atoms.</p>
+<dd><p>Remove a bond connecting the given two atoms.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>atom1: int</dt>
 <dd>Index for the first atom.</dd>
 <dt>atom2: int</dt>
 <dd>Index for the second atom.</dd>
-<dt>img1: tuple or list</dt>
+<dt>img1: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the first atom is in.</dd>
-<dt>img2: tuple or list</dt>
+<dt>img2: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the second atom is in.</dd>
 </dl>
@@ -482,12 +488,12 @@ a periodic simulation box the second atom is in.</dd>
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.set_bonds">
 <code class="descname">set_bonds</code><span class="sig-paren">(</span><em>bonds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.set_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores the given bond data.</p>
+<dd><p>Store the given bond data.</p>
 <p>This method sets bond data to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
 using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>bonds: numpy.ndarray or list</dt>
+<dt>bonds: array-like object of int</dt>
 <dd>Array describing bonds. Shape of the array must be (<em>N</em>, <em>M</em>, 4),
 where <em>N</em> is the number of atoms and <em>M</em> is the maximum number
 of bonds per atom. Four integers of innermost-axis are as follows:
@@ -500,12 +506,12 @@ for the other atom in the <em>x</em>, <em>y</em> and <em>z</em> direction, respe
 <dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.set_types">
 <code class="descname">set_types</code><span class="sig-paren">(</span><em>types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.set_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores the given type of atoms.</p>
+<dd><p>Store the given type of atoms.</p>
 <p>This method sets type of atoms to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
 using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>types: numpy.ndarray or list</dt>
+<dt>types: array-like object of int</dt>
 <dd>Per-atom array containing atom’s type.
 Length of the array must be equal to the number of atoms.</dd>
 </dl>
@@ -522,25 +528,28 @@ Length of the array must be equal to the number of atoms.</dd>
 
 <dl class="function">
 <dt id="ease4lmp.bonded_atoms.create_atoms_from_data">
-<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a BondedAtoms instance from Lammps’ data file.</p>
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>pbc=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a BondedAtoms instance from Lammps’ data file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
 <dd>File path to Lammps’ data file.</dd>
 <dt>atom_style: str</dt>
 <dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+<dt>pbc: array-like object of bool</dt>
+<dd>For each axis in the unit cell decides whether the positions
+will be moved along this axis.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ease4lmp.bonded_atoms.create_atoms_from_json">
 <code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a BondedAtoms instance from JSON object(s).</p>
+<dd><p>Create a BondedAtoms instance from JSON object(s).</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>atoms: list</dt>
-<dd><p class="first">JSON (list of dict) describing atoms.
+<dt>atoms: list of dict</dt>
+<dd><p class="first">JSON describing atoms.
 All the dictionary contained in the list must have the same keys.
 The following keys are required (some are optional):</p>
 <ul class="last simple">
@@ -555,8 +564,8 @@ The following keys are required (some are optional):</p>
 <li><code class="docutils literal notranslate"><span class="pre">id</span></code> (int) : Required when <code class="docutils literal notranslate"><span class="pre">bonds</span></code> is supplied.</li>
 </ul>
 </dd>
-<dt>bonds: list</dt>
-<dd><p class="first">JSON (list of dict) describing bonds.
+<dt>bonds: list of dict</dt>
+<dd><p class="first">JSON describing bonds.
 All the dictionary contained in the list must have the same keys.
 The following keys are required:</p>
 <ul class="last simple">
@@ -570,7 +579,7 @@ The following keys are required:</p>
 <dl class="function">
 <dt id="ease4lmp.bonded_atoms.create_atoms_from_molecule">
 <code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a BondedAtoms instance from Lammps’ molecule file.</p>
+<dd><p>Create a BondedAtoms instance from Lammps’ molecule file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -594,7 +603,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_angles">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_angles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads angles data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read angles data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -606,7 +615,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_atoms_from_data">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=True</em>, <em>velocity=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads atoms data from a Lammps’ data file.</p>
+<dd><p>Read atoms data from a Lammps’ data file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -624,7 +633,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_atoms_from_molecule">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads atoms data from a Lammps’ molecule file.</p>
+<dd><p>Read atoms data from a Lammps’ molecule file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -636,7 +645,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_bonds">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_bonds</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads bonds data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read bonds data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -648,7 +657,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_box">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_box</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_box" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads side lengths of the simulation box.</p>
+<dd><p>Read side lengths of the simulation box.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -659,7 +668,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_dihedrals">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_dihedrals</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_dihedrals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads dihedrals data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read dihedrals data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -671,7 +680,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_impropers">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_impropers</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_impropers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads impropers data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read impropers data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -703,16 +712,16 @@ in Lammps’ data file (or molecule file).</p>
 <dl class="docutils">
 <dt>atom_style: str</dt>
 <dd>Specify <em>atom style</em> of Lammps.</dd>
-<dt>types: numpy.ndarray</dt>
-<dd>Returned value of <code class="docutils literal notranslate"><span class="pre">BondedAtoms.get_types()</span></code>.</dd>
-<dt>positions: numpy.ndarray</dt>
-<dd>Returned value of <code class="docutils literal notranslate"><span class="pre">ase.Atoms.get_positions()</span></code>.</dd>
-<dt>velocities: None or numpy.ndarray</dt>
-<dd>Returned value of <code class="docutils literal notranslate"><span class="pre">ase.Atoms.get_velocities()</span></code>.
+<dt>types: array-like object of int</dt>
+<dd>Something like returned value of <code class="docutils literal notranslate"><span class="pre">BondedAtoms.get_types()</span></code>.</dd>
+<dt>positions: array-like object of float</dt>
+<dd>Something like returned value of <code class="docutils literal notranslate"><span class="pre">ase.Atoms.get_positions()</span></code>.</dd>
+<dt>velocities: None or array-like object of float</dt>
+<dd>Something like returned value of <code class="docutils literal notranslate"><span class="pre">ase.Atoms.get_velocities()</span></code>.
 If None, the <em>Velocities</em> section will not be written.
 Note that the <em>i</em> th atom in <code class="docutils literal notranslate"><span class="pre">velocities</span></code> must correspond to
 the <em>i</em> th atom in <code class="docutils literal notranslate"><span class="pre">types</span></code>.</dd>
-<dt>masses: None or list or tuple or numpy.ndarray</dt>
+<dt>masses: None or array-like object of float</dt>
 <dd>A list whose length is equal to the number of atoms.
 Each element is a <em>mass</em> of each atom used in Lammps.
 Note that the <em>i</em> th atom in <code class="docutils literal notranslate"><span class="pre">masses</span></code> must correspond to
@@ -729,21 +738,21 @@ the <em>i</em> th atom in <code class="docutils literal notranslate"><span class
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num">
 <code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of atoms.</p>
+<dd><p>Return the number of atoms.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num_type">
 <code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_num_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of atom types.</p>
+<dd><p>Return the number of atom types.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.get_required_datanames">
 <code class="descname">get_required_datanames</code><span class="sig-paren">(</span><em>molecule=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.get_required_datanames" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of required data names (keys).</p>
-<p>Names of data are returned if the data is required to
-write Lammps’ data file and has not been set yet.</p>
+<dd><p>Return a set of required data names (keys).</p>
+<p>Names of data are returned if the data is required
+to write Lammps’ data file and has not been set yet.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>molecule: bool</dt>
@@ -755,7 +764,7 @@ This method returns data names for Lammps’ data file by default.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.set_data">
 <code class="descname">set_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.set_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.set_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores given data in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
+<dd><p>Store given data in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>kwargs:</dt>
@@ -767,23 +776,23 @@ Keywords are data names, and arguments are data values.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.set_masses">
 <code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.set_masses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores masses in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
+<dd><p>Store masses in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
 <p>Though the parameter <code class="docutils literal notranslate"><span class="pre">type2mass</span></code> is a dictionary mapping
 atom’s type to its mass, masses will be stored as a per-atom array.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>type2mass: dict</dt>
-<dd>Dictionary mapping atom’s type (int) to its mass (float).</dd>
+<dt>type2mass: dict from int to float</dt>
+<dd>Dictionary mapping atom’s type to its mass.</dd>
 </dl>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.shift_positions">
 <code class="descname">shift_positions</code><span class="sig-paren">(</span><em>shift=(0.0</em>, <em>0.0</em>, <em>0.0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.shift_positions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.shift_positions" title="Permalink to this definition">¶</a></dt>
-<dd><p>Shifts atom positions stored in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
+<dd><p>Shift atom positions stored in <code class="docutils literal notranslate"><span class="pre">self._data</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>shift: tuple or list</dt>
+<dt>shift: tuple/list of number</dt>
 <dd>A tuple or list defining a Cartesian vector by which
 atom positions shift.</dd>
 </dl>
@@ -792,7 +801,7 @@ atom positions shift.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines">
 <code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em>, <em>velocity=False</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes lines of <em>Atoms</em> and <em>Velocities</em> section.</p>
+<dd><p>Write lines of <em>Atoms</em> and <em>Velocities</em> section.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -809,7 +818,7 @@ atom positions shift.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines_for_molecule">
 <code class="descname">write_lines_for_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>mass=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms.write_lines_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms.write_lines_for_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes lines of <em>Coords</em>, <em>Types</em>, <em>Charges</em> and <em>Masses</em> section
+<dd><p>Write lines of <em>Coords</em>, <em>Types</em>, <em>Charges</em> and <em>Masses</em> section
 to Lammps’ molecule file.</p>
 <p>This method creates a new LammpsDataLines instance to write
 <em>Coords</em> and <em>Types</em> sections (and <em>Charges</em> section)
@@ -835,7 +844,7 @@ in Lammps’ data file (or molecule file).</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsBonds.get_maximum_per_atom">
 <code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of topology components per atom.</p>
+<dd><p>Return the maximum number of topology components per atom.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">LammpsTopology.get_maximum_per_atom()</span></code>
 because data for a bond is linked to the first atom in the bond
 whereas data for the other topology components is linked to
@@ -862,11 +871,11 @@ in Lammps’ data file (or molecule file).</p>
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsImpropers.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsImpropers.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
-<dt>sequences: numpy.ndarray</dt>
+<dt>sequences: array-like object of int</dt>
 <dd>Two-dimensional array describing topology components.
 Note that the first atom of each sequence is a center atom
 of improper (all the three bonds connect to the atom).</dd>
-<dt>datanames: tuple</dt>
+<dt>datanames: tuple of str</dt>
 <dd>Tuple of strings specifying data names written in a line.</dd>
 <dt>class2: bool</dt>
 <dd>Whether forcefiled is CLASS2 or not.
@@ -882,14 +891,14 @@ For other forcefields, the first atom is the center one.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsImpropers.get_sequence_patterns">
 <code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsImpropers.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsImpropers.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in the topology components.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">LammpsTopology.get_sequence_patterns()</span></code>
 where original and reverse ordered sequence are considered as
 equivalent; it is not the case with improper.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>atom_types: list or tuple or numpy.ndarray</dt>
+<dt>atom_types: array-like object of int</dt>
 <dd>A one dimensional array-like object whose <em>i</em> th element is
 a type of the <em>i</em> th atom.</dd>
 </dl>
@@ -907,7 +916,7 @@ and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
-<dt>bonds_per_atom: list</dt>
+<dt>bonds_per_atom: array-like object of int</dt>
 <dd>Two-dimensional list containing bond data for each atom:
 each element of the first list corresponds to each atom,
 and the second list consists of <em>absolute</em> indices for atoms
@@ -925,14 +934,14 @@ bonded with the each atom
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.get_maximum_per_atom">
 <code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of special bonds per atom
+<dd><p>Return the maximum number of special bonds per atom
 (sum over <em>1-2</em>, <em>1-3</em>, and <em>1-4</em> special bonds).</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.write_lines">
 <code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.write_lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes lines of <em>Special Bond Counts</em>
+<dd><p>Write lines of <em>Special Bond Counts</em>
 and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -954,9 +963,9 @@ in Lammps’ data file (or molecule file).</p>
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
-<dt>sequences: numpy.ndarray</dt>
+<dt>sequences: array-like object of int</dt>
 <dd>Two-dimensional array describing topology components.</dd>
-<dt>datanames: tuple</dt>
+<dt>datanames: tuple of str</dt>
 <dd>Tuple of strings specifying data names written in a line.</dd>
 </dl>
 </dd></dl>
@@ -970,7 +979,7 @@ in Lammps’ data file (or molecule file).</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_maximum_per_atom">
 <code class="descname">get_maximum_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of topology components per atom.</p>
+<dd><p>Return the maximum number of topology components per atom.</p>
 <p>For more details see also Lammps’ source code of
 <code class="docutils literal notranslate"><span class="pre">Atom::data_angles()</span></code>, <code class="docutils literal notranslate"><span class="pre">Atom::data_dihedrals()</span></code>
 and <code class="docutils literal notranslate"><span class="pre">Atom::data_impropers()</span></code>.</p>
@@ -979,7 +988,7 @@ and <code class="docutils literal notranslate"><span class="pre">Atom::data_impr
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_num">
 <code class="descname">get_num</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_num"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_num" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of topology components.</p>
+<dd><p>Return the number of topology components.</p>
 <p>The number of topology components is considered as 0
 until types of the topology components are set.</p>
 </dd></dl>
@@ -987,17 +996,17 @@ until types of the topology components are set.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_num_type">
 <code class="descname">get_num_type</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_num_type"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_num_type" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the number of topology types.</p>
+<dd><p>Return the number of topology types.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.get_sequence_patterns">
 <code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in the topology components.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>atom_types: list or tuple or numpy.ndarray</dt>
+<dt>atom_types: array-like object of int</dt>
 <dd>A one dimensional array-like object whose <em>i</em> th element is
 a type of the <em>i</em> th atom.</dd>
 </dl>
@@ -1006,10 +1015,10 @@ a type of the <em>i</em> th atom.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.set_types">
 <code class="descname">set_types</code><span class="sig-paren">(</span><em>seq_to_type</em>, <em>atom_types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.set_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets type of the topology components.</p>
+<dd><p>Set type of the topology components.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict from tuple to int</dt>
 <dd>Mapping from sequences of atom types (tuple)
 to types of topology components consisting of those atoms (int).
 Note that the sequences can be arbitrary order; for example,
@@ -1021,7 +1030,7 @@ have the same meaning.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsTopology.write_lines">
 <code class="descname">write_lines</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology.write_lines"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology.write_lines" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes lines of a topology section
+<dd><p>Write lines of a topology section
 in Lammps’ data file (or molecule file).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -1041,7 +1050,7 @@ in Lammps’ data file (or molecule file).</p>
 <dt>name: str</dt>
 <dd>Name of topology component:
 ‘bond’, ‘angle’, ‘dihedral’ or ‘improper’.</dd>
-<dt>sequences: numpy.ndarray</dt>
+<dt>sequences: array-like object of int</dt>
 <dd>Two-dimensional array describing of topology components.
 Shapes of the array for ‘bond’, ‘angle’, ‘dihedral’
 and ‘improper’ are (<em>N</em>, 2), (<em>N</em>, 3), (<em>N</em>, 4) and (<em>N</em>, 4),
@@ -1088,7 +1097,7 @@ I wonder if Lammps changes its <em>unit</em> definitions.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.ExtendedPrism.transform_to_lammps">
 <code class="descname">transform_to_lammps</code><span class="sig-paren">(</span><em>vectors</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#ExtendedPrism.transform_to_lammps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.ExtendedPrism.transform_to_lammps" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns transposed <em>vectors</em>.</p>
+<dd><p>Return transposed <em>vectors</em>.</p>
 <p>This method is required to convert vectors
 from ASE’s cartesian coordinate system
 to Lammps’ skewed coordinate system.</p>
@@ -1111,7 +1120,7 @@ to Lammps’ skewed coordinate system.</p>
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
-<dt>atoms: BondedAtoms or ase.Atoms</dt>
+<dt>atoms: instance of BondedAtoms or ase.Atoms</dt>
 <dd>Atoms to be written to Lammps’ data file.</dd>
 <dt>atom_style: str</dt>
 <dd>Specifies an <em>atom style</em> used in Lammps.</dd>
@@ -1136,35 +1145,35 @@ used with CLASS2 forcefield, <code class="docutils literal notranslate"><span cl
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.get_angle_patterns">
 <code class="descname">get_angle_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_angle_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_angle_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing angles.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.get_bond_patterns">
 <code class="descname">get_bond_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_bond_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_bond_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing bonds.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.get_dihedral_patterns">
 <code class="descname">get_dihedral_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_dihedral_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_dihedral_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing dihedrals.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.get_improper_patterns">
 <code class="descname">get_improper_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_improper_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_improper_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing impropers.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.get_required_datanames">
 <code class="descname">get_required_datanames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_required_datanames" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of required data names (keys).</p>
+<dd><p>Return a set of required data names (keys).</p>
 <p>Names of data are returned if the data is required to
 write Lammps’ data file and has not been set yet.</p>
 </dd></dl>
@@ -1172,7 +1181,7 @@ write Lammps’ data file and has not been set yet.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.get_required_datanames_for_molecule">
 <code class="descname">get_required_datanames_for_molecule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_required_datanames_for_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of required data names (keys).</p>
+<dd><p>Return a set of required data names (keys).</p>
 <p>Names of data are returned if the data is required to
 write Lammps’ molecule file and has not been set yet.</p>
 </dd></dl>
@@ -1180,7 +1189,7 @@ write Lammps’ molecule file and has not been set yet.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.get_sequence_patterns">
 <code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in the given topology component.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -1193,37 +1202,37 @@ appearing in the given topology component.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_angles_per_atom">
 <code class="descname">print_max_angles_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_angles_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_angles_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of angles per atom.</p>
+<dd><p>Return the maximum number of angles per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_bonds_per_atom">
 <code class="descname">print_max_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of bonds per atom.</p>
+<dd><p>Return the maximum number of bonds per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_dihedrals_per_atom">
 <code class="descname">print_max_dihedrals_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_dihedrals_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_dihedrals_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of dihedrals per atom.</p>
+<dd><p>Return the maximum number of dihedrals per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_impropers_per_atom">
 <code class="descname">print_max_impropers_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_impropers_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_impropers_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of impropers per atom.</p>
+<dd><p>Return the maximum number of impropers per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.print_max_specials_per_atom">
 <code class="descname">print_max_specials_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_specials_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_max_specials_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of special bonds per atom.</p>
+<dd><p>Return the maximum number of special bonds per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom">
 <code class="descname">print_maximum_per_atom</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of given topology components per atom.</p>
+<dd><p>Return the maximum number of given topology components per atom.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>key: str</dt>
@@ -1235,10 +1244,10 @@ appearing in the given topology component.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.set_angle_types">
 <code class="descname">set_angle_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_angle_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_angle_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of angles.</p>
+<dd><p>Set types of angles.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping three-element tuples of atom types
 to corresponding types of angle.
 Note that second atom of each tuple should be
@@ -1297,7 +1306,7 @@ at the center of angle.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.set_atom_data">
 <code class="descname">set_atom_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_atom_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_atom_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets data for <em>Atoms</em> (and <em>Velocities</em>) section.</p>
+<dd><p>Set data for <em>Atoms</em> (and <em>Velocities</em>) section.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>kwargs:</dt>
@@ -1310,10 +1319,10 @@ Keywords are data names, and arguments are data values
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.set_bond_types">
 <code class="descname">set_bond_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_bond_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_bond_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of bonds.</p>
+<dd><p>Set types of bonds.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping two-element tuples of atom types
 to corresponding types of bond.</dd>
 </dl>
@@ -1370,10 +1379,10 @@ to corresponding types of bond.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.set_dihedral_types">
 <code class="descname">set_dihedral_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_dihedral_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_dihedral_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of dihedrals.</p>
+<dd><p>Set types of dihedrals.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping four-element tuples of atom types
 to corresponding types of dihedral.
 Note that the four atoms should be connected linearly
@@ -1430,10 +1439,10 @@ by three bonds in that order.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.set_improper_types">
 <code class="descname">set_improper_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_improper_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_improper_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of impropers.</p>
+<dd><p>Set types of impropers.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping four-element tuples of atom types
 to corresponding types of improper.
 Note that, if CLASS2 forcefield is used, the second atom of
@@ -1492,7 +1501,7 @@ the first atom should be at the center for other forcefields.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.set_masses">
 <code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_masses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets data for <em>Masses</em> section.</p>
+<dd><p>Set data for <em>Masses</em> section.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>type2mass: dict</dt>
@@ -1503,7 +1512,7 @@ the first atom should be at the center for other forcefields.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.set_topology_types">
 <code class="descname">set_topology_types</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_topology_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.set_topology_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of the given topology components.</p>
+<dd><p>Set types of the given topology components.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>kwargs:</dt>
@@ -1518,7 +1527,7 @@ the topology component.</dd>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.write_lammps_data">
 <code class="descname">write_lammps_data</code><span class="sig-paren">(</span><em>path</em>, <em>centering=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.write_lammps_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes Lammps’ data file.</p>
+<dd><p>Write Lammps’ data file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -1547,7 +1556,7 @@ will be added to the simulation box later.</li>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.write_lammps_molecule">
 <code class="descname">write_lammps_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>special_bonds=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.write_lammps_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes Lammps’ molecule file.</p>
+<dd><p>Write Lammps’ molecule file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -1561,11 +1570,7 @@ and <em>Special Bonds*</em> section.</dd>
 <li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (bool) : Whether to write <em>Masses</em> section or not.</li>
 </ul>
 </dd>
-<dt>special_bonds:</dt>
-<dd>Whether to write <em>Special Bond Counts</em>
-and <em>Special Bonds*</em> section.</dd>
 </dl>
-<p>This method writes <em>Lammps molecule file</em>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -1579,7 +1584,7 @@ and <em>Special Bonds*</em> section.</dd>
 <dt id="ease4lmp.BondedAtoms">
 <em class="property">class </em><code class="descclassname">ease4lmp.</code><code class="descname">BondedAtoms</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms" title="Permalink to this definition">¶</a></dt>
 <dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.atoms.Atoms</span></code></p>
-<p>Inherits <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
+<p>Inheriting <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
 to handle (covalent) bonds connecting a pair of atoms.</p>
 <p>An instance of this class has bond data as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 as with other atomic properties like positions and velocities.
@@ -1600,13 +1605,13 @@ for making Lammps’ data file and molecule file.</p>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.__delitem__">
 <code class="descname">__delitem__</code><span class="sig-paren">(</span><em>idx</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__delitem__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.__delitem__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Deletes a selected atom.</p>
+<dd><p>Delete a selected atom.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__delitem__</span></code>.
 Before calling the parent method to remove a selected atom,
 this method deletes bond data associated with the atom.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>idx: int or list or tuple</dt>
+<dt>idx: int or list/tuple of int</dt>
 <dd>Index for an atom to be deleted.
 A list or tuple of integers is also acceptable for multiple atoms.</dd>
 </dl>
@@ -1639,7 +1644,7 @@ A list or tuple of integers is also acceptable for multiple atoms.</dd>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.__imul__">
 <code class="descname">__imul__</code><span class="sig-paren">(</span><em>m</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.__imul__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.__imul__" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a super cell and returns it.</p>
+<dd><p>Create a super cell and returns it.</p>
 <p>This method overrides <code class="docutils literal notranslate"><span class="pre">ase.Atoms.__imul__</span></code>.
 After calling the parent method to expand the simulation box,
 this method recalculates image flags over the expanded bond data.
@@ -1649,7 +1654,7 @@ If the two atoms are in the same image after expansion,
 their image falgs for the opponent must be updated to (0, 0, 0).</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>m: tuple or list or int</dt>
+<dt>m: int or list/tuple of int</dt>
 <dd>Three-element tuple or list defining how many times
 a periodic simulation box is repeated in each direction.
 The first, second and third element corresponds to the <em>x</em>, <em>y</em>
@@ -1707,48 +1712,51 @@ If an integer is given, a tuple <code class="docutils literal notranslate"><span
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.add_bond">
 <code class="descname">add_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.add_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.add_bond" title="Permalink to this definition">¶</a></dt>
-<dd><p>Adds a bond connecting two atoms.</p>
+<dd><p>Add a bond connecting two atoms.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>atom1: int</dt>
 <dd>Index for the first atom.</dd>
 <dt>atom2: int</dt>
 <dd>Index for the second atom.</dd>
-<dt>img1: tuple or list</dt>
+<dt>img1: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the first atom is in.</dd>
-<dt>img2: tuple or list</dt>
+<dt>img2: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the second atom is in.</dd>
 </dl>
-<p>Examples:</p>
-<blockquote>
-<div><ul class="simple">
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<ul class="last simple">
 <li>Bond data stored in the first atom:
 <code class="docutils literal notranslate"><span class="pre">[atom2-atom1,</span> <span class="pre">img2[0]-img1[0],</span> <span class="pre">img2[1]-img1[1],</span> <span class="pre">img2[2]-img1[2]]</span></code>.</li>
 <li>Bond data stored in the second atom:
 <code class="docutils literal notranslate"><span class="pre">[atom1-atom2,</span> <span class="pre">img1[0]-img2[0],</span> <span class="pre">img1[1]-img2[1],</span> <span class="pre">img1[2]-img2[2]]</span></code>.</li>
 </ul>
-</div></blockquote>
+</div>
 </dd></dl>
 
 <dl class="method">
-<dt id="ease4lmp.BondedAtoms.adjust_bonds_to_pbc">
-<code class="descname">adjust_bonds_to_pbc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.adjust_bonds_to_pbc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.adjust_bonds_to_pbc" title="Permalink to this definition">¶</a></dt>
+<dt id="ease4lmp.BondedAtoms.adjust_pbc_bonds">
+<code class="descname">adjust_pbc_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.adjust_pbc_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.adjust_pbc_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Adjust bonds under periodic boundary conditions.</p>
-<p>This method corrects image flags of each bond if the bond length
-is longer than a half length of the unit cell side.</p>
+<p>This method corrects image flags of each bond if distance
+between two atoms connected with the bond is longer than
+a half length of the unit cell side.</p>
 <div class="admonition note">
 <p class="first admonition-title">Note</p>
 <p class="last">If the <em>i</em> th atom connects to one of images of the <em>j</em> th atom,
-it <strong>must not</strong> connect to another image of the the <em>j</em> th atom.</p>
+it <strong>must not</strong> connect to another image of the the <em>j</em> th atom.
+In addition, all the bond lengths must be less than
+a half length of the unit cell side.</p>
 </div>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.change_max_bonds">
 <code class="descname">change_max_bonds</code><span class="sig-paren">(</span><em>n=4</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.change_max_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.change_max_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Changes the maximum number of bonds per atom.</p>
+<dd><p>Change the maximum number of bonds per atom.</p>
 <p>Like original properties of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code>,
 bond data is also stored as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>,
 which is a homogeneous array of fixed-size items.
@@ -1767,12 +1775,12 @@ Note that existing data stay unchanged after changing the capacity.</p>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.extend">
 <code class="descname">extend</code><span class="sig-paren">(</span><em>other</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.extend"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.extend" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extends this instance by appending the given instance.</p>
+<dd><p>Extend this instance by appending the given instance.</p>
 <p>This method returns this extended instance,
 which is the same behavior with <code class="docutils literal notranslate"><span class="pre">ase.Atoms.extend()</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>other: ase.Atom or ase.Atoms or BondedAtoms</dt>
+<dt>other: instance of ase.Atom/ase.Atoms/BondedAtoms</dt>
 <dd>For ase.Atom or ase.Atoms instance,
 the instance will be down-casted to BondedAtoms before extension.</dd>
 </dl>
@@ -1781,7 +1789,7 @@ the instance will be down-casted to BondedAtoms before extension.</dd>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.get_bonded_angles">
 <code class="descname">get_bonded_angles</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 describing all angles defined by two consecutive bonds.</p>
 <p>Shape of the returned array is (<em>N_a</em>, 3),
 where <em>N_a</em> is the number of angles
@@ -1794,7 +1802,7 @@ of the first, second and third atom in the each angle.</p>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.get_bonded_bonds">
 <code class="descname">get_bonded_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> describing all bonds.</p>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code> describing all bonds.</p>
 <p>Shape of the returned array is (<em>N_b</em>, 2),
 where <em>N_b</em> is the number of bonds.
 Each row (the first axis) corresponds to each bond,
@@ -1805,7 +1813,7 @@ of the first and second atom connected by the each bond.</p>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.get_bonded_dihedrals">
 <code class="descname">get_bonded_dihedrals</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_dihedrals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 describing all dihedrals defined by three consecutive bonds.</p>
 <p>Shape of the returned array is (<em>N_d</em>, 4),
 where <em>N_d</em> is the number of dihedrals
@@ -1818,7 +1826,7 @@ of the first, second, third and fourth atom in the each dihedral.</p>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.get_bonded_impropers">
 <code class="descname">get_bonded_impropers</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonded_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonded_impropers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
+<dd><p>Return a two-dimensional <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 describing all impropers defined by three bonds
 connected to the same atom.</p>
 <p>Shape of the returned array is (<em>N_i</em>, 4),
@@ -1833,7 +1841,7 @@ the first atom is the center one.</p>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.get_bonds">
 <code class="descname">get_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an array of integers containing bond data.</p>
+<dd><p>Return an array of integers containing bond data.</p>
 <p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
 for example, atoms’ positions are accessed by key ‘positions’.
 For BondedAtoms instance, bond data is also stored
@@ -1844,23 +1852,26 @@ This method returns a copy of <code class="docutils literal notranslate"><span c
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.get_bonds_per_atom">
 <code class="descname">get_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a nested list of bond data.</p>
+<dd><p>Return a nested list of bond data.</p>
 <p>The returned list is two-dimensional:
 each element of the first list corresponds to each atom,
 and the second list consists of <em>absolute</em> indices for atoms
 bonded with the each atom.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
 <p>This method is different from <code class="docutils literal notranslate"><span class="pre">self.get_bonds()</span></code> in terms of
 the following two points:</p>
-<ul class="simple">
+<ul class="last simple">
 <li>No data about image flags.</li>
 <li>Contains data of <em>existing</em> bonds only.</li>
 </ul>
+</div>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.get_types">
 <code class="descname">get_types</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.get_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.get_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns an array of integers containing atom’s type.</p>
+<dd><p>Return an array of integers containing atom’s type.</p>
 <p>An instance of <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> stores data in <code class="docutils literal notranslate"><span class="pre">self.arrays</span></code>;
 for example, atoms’ positions are accessed by key ‘positions’.
 For BondedAtoms instance, atom’s type data is also stored
@@ -1871,17 +1882,17 @@ This method returns a copy of <code class="docutils literal notranslate"><span c
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.remove_bond">
 <code class="descname">remove_bond</code><span class="sig-paren">(</span><em>atom1</em>, <em>atom2</em>, <em>img1=(0</em>, <em>0</em>, <em>0)</em>, <em>img2=(0</em>, <em>0</em>, <em>0)</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.remove_bond"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.remove_bond" title="Permalink to this definition">¶</a></dt>
-<dd><p>Removes a bond connecting the given two atoms.</p>
+<dd><p>Remove a bond connecting the given two atoms.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>atom1: int</dt>
 <dd>Index for the first atom.</dd>
 <dt>atom2: int</dt>
 <dd>Index for the second atom.</dd>
-<dt>img1: tuple or list</dt>
+<dt>img1: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the first atom is in.</dd>
-<dt>img2: tuple or list</dt>
+<dt>img2: tuple/list of int</dt>
 <dd>Three-element tuple or list of integers indicating which image of
 a periodic simulation box the second atom is in.</dd>
 </dl>
@@ -1890,12 +1901,12 @@ a periodic simulation box the second atom is in.</dd>
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.set_bonds">
 <code class="descname">set_bonds</code><span class="sig-paren">(</span><em>bonds</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.set_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores the given bond data.</p>
+<dd><p>Store the given bond data.</p>
 <p>This method sets bond data to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
 using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>bonds: numpy.ndarray or list</dt>
+<dt>bonds: array-like object of int</dt>
 <dd>Array describing bonds. Shape of the array must be (<em>N</em>, <em>M</em>, 4),
 where <em>N</em> is the number of atoms and <em>M</em> is the maximum number
 of bonds per atom. Four integers of innermost-axis are as follows:
@@ -1908,12 +1919,12 @@ for the other atom in the <em>x</em>, <em>y</em> and <em>z</em> direction, respe
 <dl class="method">
 <dt id="ease4lmp.BondedAtoms.set_types">
 <code class="descname">set_types</code><span class="sig-paren">(</span><em>types</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.set_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.set_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Stores the given type of atoms.</p>
+<dd><p>Store the given type of atoms.</p>
 <p>This method sets type of atoms to <code class="docutils literal notranslate"><span class="pre">self.array</span></code>
 using <code class="docutils literal notranslate"><span class="pre">self.set_array()</span></code>.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>types: numpy.ndarray or list</dt>
+<dt>types: array-like object of int</dt>
 <dd>Per-atom array containing atom’s type.
 Length of the array must be equal to the number of atoms.</dd>
 </dl>
@@ -1931,11 +1942,11 @@ Length of the array must be equal to the number of atoms.</dd>
 <dl class="function">
 <dt id="ease4lmp.create_atoms_from_json">
 <code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a BondedAtoms instance from JSON object(s).</p>
+<dd><p>Create a BondedAtoms instance from JSON object(s).</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>atoms: list</dt>
-<dd><p class="first">JSON (list of dict) describing atoms.
+<dt>atoms: list of dict</dt>
+<dd><p class="first">JSON describing atoms.
 All the dictionary contained in the list must have the same keys.
 The following keys are required (some are optional):</p>
 <ul class="last simple">
@@ -1950,8 +1961,8 @@ The following keys are required (some are optional):</p>
 <li><code class="docutils literal notranslate"><span class="pre">id</span></code> (int) : Required when <code class="docutils literal notranslate"><span class="pre">bonds</span></code> is supplied.</li>
 </ul>
 </dd>
-<dt>bonds: list</dt>
-<dd><p class="first">JSON (list of dict) describing bonds.
+<dt>bonds: list of dict</dt>
+<dd><p class="first">JSON describing bonds.
 All the dictionary contained in the list must have the same keys.
 The following keys are required:</p>
 <ul class="last simple">
@@ -1964,21 +1975,24 @@ The following keys are required:</p>
 
 <dl class="function">
 <dt id="ease4lmp.create_atoms_from_data">
-<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a BondedAtoms instance from Lammps’ data file.</p>
+<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>pbc=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a BondedAtoms instance from Lammps’ data file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
 <dd>File path to Lammps’ data file.</dd>
 <dt>atom_style: str</dt>
 <dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+<dt>pbc: array-like object of bool</dt>
+<dd>For each axis in the unit cell decides whether the positions
+will be moved along this axis.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ease4lmp.create_atoms_from_molecule">
 <code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Creates a BondedAtoms instance from Lammps’ molecule file.</p>
+<dd><p>Create a BondedAtoms instance from Lammps’ molecule file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -2001,7 +2015,7 @@ The following keys are required:</p>
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.__init__" title="Permalink to this definition">¶</a></dt>
 <dd><p>Parameters:</p>
 <dl class="docutils">
-<dt>atoms: BondedAtoms or ase.Atoms</dt>
+<dt>atoms: instance of BondedAtoms or ase.Atoms</dt>
 <dd>Atoms to be written to Lammps’ data file.</dd>
 <dt>atom_style: str</dt>
 <dd>Specifies an <em>atom style</em> used in Lammps.</dd>
@@ -2031,35 +2045,35 @@ used with CLASS2 forcefield, <code class="docutils literal notranslate"><span cl
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.get_angle_patterns">
 <code class="descname">get_angle_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_angle_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_angle_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing angles.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.get_bond_patterns">
 <code class="descname">get_bond_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_bond_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_bond_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing bonds.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.get_dihedral_patterns">
 <code class="descname">get_dihedral_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_dihedral_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_dihedral_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing dihedrals.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.get_improper_patterns">
 <code class="descname">get_improper_patterns</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_improper_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_improper_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in all the sequences describing impropers.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.get_required_datanames">
 <code class="descname">get_required_datanames</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_required_datanames" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of required data names (keys).</p>
+<dd><p>Return a set of required data names (keys).</p>
 <p>Names of data are returned if the data is required to
 write Lammps’ data file and has not been set yet.</p>
 </dd></dl>
@@ -2067,7 +2081,7 @@ write Lammps’ data file and has not been set yet.</p>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.get_required_datanames_for_molecule">
 <code class="descname">get_required_datanames_for_molecule</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_required_datanames_for_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_required_datanames_for_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of required data names (keys).</p>
+<dd><p>Return a set of required data names (keys).</p>
 <p>Names of data are returned if the data is required to
 write Lammps’ molecule file and has not been set yet.</p>
 </dd></dl>
@@ -2075,7 +2089,7 @@ write Lammps’ molecule file and has not been set yet.</p>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.get_sequence_patterns">
 <code class="descname">get_sequence_patterns</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.get_sequence_patterns"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.get_sequence_patterns" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns a set of unique sequences of atom types
+<dd><p>Return a set of unique sequences of atom types
 appearing in the given topology component.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2088,37 +2102,37 @@ appearing in the given topology component.</p>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.print_max_angles_per_atom">
 <code class="descname">print_max_angles_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_angles_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_angles_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of angles per atom.</p>
+<dd><p>Return the maximum number of angles per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.print_max_bonds_per_atom">
 <code class="descname">print_max_bonds_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_bonds_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_bonds_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of bonds per atom.</p>
+<dd><p>Return the maximum number of bonds per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.print_max_dihedrals_per_atom">
 <code class="descname">print_max_dihedrals_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_dihedrals_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_dihedrals_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of dihedrals per atom.</p>
+<dd><p>Return the maximum number of dihedrals per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.print_max_impropers_per_atom">
 <code class="descname">print_max_impropers_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_impropers_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_impropers_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of impropers per atom.</p>
+<dd><p>Return the maximum number of impropers per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.print_max_specials_per_atom">
 <code class="descname">print_max_specials_per_atom</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_max_specials_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_max_specials_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of special bonds per atom.</p>
+<dd><p>Return the maximum number of special bonds per atom.</p>
 </dd></dl>
 
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.print_maximum_per_atom">
 <code class="descname">print_maximum_per_atom</code><span class="sig-paren">(</span><em>key</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.print_maximum_per_atom"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.print_maximum_per_atom" title="Permalink to this definition">¶</a></dt>
-<dd><p>Returns the maximum number of given topology components per atom.</p>
+<dd><p>Return the maximum number of given topology components per atom.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>key: str</dt>
@@ -2130,10 +2144,10 @@ appearing in the given topology component.</p>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.set_angle_types">
 <code class="descname">set_angle_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_angle_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_angle_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of angles.</p>
+<dd><p>Set types of angles.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping three-element tuples of atom types
 to corresponding types of angle.
 Note that second atom of each tuple should be
@@ -2192,7 +2206,7 @@ at the center of angle.</dd>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.set_atom_data">
 <code class="descname">set_atom_data</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_atom_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_atom_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets data for <em>Atoms</em> (and <em>Velocities</em>) section.</p>
+<dd><p>Set data for <em>Atoms</em> (and <em>Velocities</em>) section.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>kwargs:</dt>
@@ -2205,10 +2219,10 @@ Keywords are data names, and arguments are data values
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.set_bond_types">
 <code class="descname">set_bond_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_bond_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_bond_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of bonds.</p>
+<dd><p>Set types of bonds.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping two-element tuples of atom types
 to corresponding types of bond.</dd>
 </dl>
@@ -2265,10 +2279,10 @@ to corresponding types of bond.</dd>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.set_dihedral_types">
 <code class="descname">set_dihedral_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_dihedral_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_dihedral_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of dihedrals.</p>
+<dd><p>Set types of dihedrals.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping four-element tuples of atom types
 to corresponding types of dihedral.
 Note that the four atoms should be connected linearly
@@ -2325,10 +2339,10 @@ by three bonds in that order.</dd>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.set_improper_types">
 <code class="descname">set_improper_types</code><span class="sig-paren">(</span><em>seq_to_type</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_improper_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_improper_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of impropers.</p>
+<dd><p>Set types of impropers.</p>
 <p>Parameters:</p>
 <dl class="docutils">
-<dt>seq_to_type: dict</dt>
+<dt>seq_to_type: dict form tuple to int</dt>
 <dd>Mapping four-element tuples of atom types
 to corresponding types of improper.
 Note that, if CLASS2 forcefield is used, the second atom of
@@ -2387,7 +2401,7 @@ the first atom should be at the center for other forcefields.</dd>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.set_masses">
 <code class="descname">set_masses</code><span class="sig-paren">(</span><em>type2mass</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_masses"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_masses" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets data for <em>Masses</em> section.</p>
+<dd><p>Set data for <em>Masses</em> section.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>type2mass: dict</dt>
@@ -2398,7 +2412,7 @@ the first atom should be at the center for other forcefields.</dd>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.set_topology_types">
 <code class="descname">set_topology_types</code><span class="sig-paren">(</span><em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.set_topology_types"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.set_topology_types" title="Permalink to this definition">¶</a></dt>
-<dd><p>Sets types of the given topology components.</p>
+<dd><p>Set types of the given topology components.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>kwargs:</dt>
@@ -2413,7 +2427,7 @@ the topology component.</dd>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.write_lammps_data">
 <code class="descname">write_lammps_data</code><span class="sig-paren">(</span><em>path</em>, <em>centering=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.write_lammps_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes Lammps’ data file.</p>
+<dd><p>Write Lammps’ data file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -2442,7 +2456,7 @@ will be added to the simulation box later.</li>
 <dl class="method">
 <dt id="ease4lmp.LammpsWriter.write_lammps_molecule">
 <code class="descname">write_lammps_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>special_bonds=True</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.write_lammps_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.LammpsWriter.write_lammps_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Writes Lammps’ molecule file.</p>
+<dd><p>Write Lammps’ molecule file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -2456,11 +2470,7 @@ and <em>Special Bonds*</em> section.</dd>
 <li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (bool) : Whether to write <em>Masses</em> section or not.</li>
 </ul>
 </dd>
-<dt>special_bonds:</dt>
-<dd>Whether to write <em>Special Bond Counts</em>
-and <em>Special Bonds*</em> section.</dd>
 </dl>
-<p>This method writes <em>Lammps molecule file</em>.</p>
 </dd></dl>
 
 </dd></dl>
@@ -2468,7 +2478,7 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_bonds">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_bonds</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads bonds data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read bonds data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2480,7 +2490,7 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_angles">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_angles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads angles data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read angles data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2492,7 +2502,7 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_dihedrals">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_dihedrals</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_dihedrals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads dihedrals data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read dihedrals data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2504,7 +2514,7 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_impropers">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_impropers</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_impropers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads impropers data from a Lammps’ data (or molecule) file.</p>
+<dd><p>Read impropers data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2516,7 +2526,7 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_atoms_from_data">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=True</em>, <em>velocity=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads atoms data from a Lammps’ data file.</p>
+<dd><p>Read atoms data from a Lammps’ data file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2534,7 +2544,7 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_atoms_from_molecule">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads atoms data from a Lammps’ molecule file.</p>
+<dd><p>Read atoms data from a Lammps’ molecule file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">

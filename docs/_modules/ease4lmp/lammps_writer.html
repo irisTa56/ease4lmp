@@ -170,7 +170,7 @@
     <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">    Parameters:</span>
 
-<span class="sd">    atoms: BondedAtoms or ase.Atoms</span>
+<span class="sd">    atoms: instance of BondedAtoms or ase.Atoms</span>
 <span class="sd">      Atoms to be written to Lammps&#39; data file.</span>
 
 <span class="sd">    atom_style: str</span>
@@ -229,7 +229,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_lmpsbonds</span> <span class="o">=</span> <span class="n">LammpsSpecialBonds</span><span class="p">(</span><span class="n">atoms</span><span class="o">.</span><span class="n">get_bonds_per_atom</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.get_required_datanames"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.get_required_datanames">[docs]</a>  <span class="k">def</span> <span class="nf">get_required_datanames</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a set of required data names (keys).</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of required data names (keys).</span>
 
 <span class="sd">    Names of data are returned if the data is required to</span>
 <span class="sd">    write Lammps&#39; data file and has not been set yet.</span>
@@ -238,7 +238,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">get_required_datanames</span><span class="p">()</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.get_required_datanames_for_molecule"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.get_required_datanames_for_molecule">[docs]</a>  <span class="k">def</span> <span class="nf">get_required_datanames_for_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a set of required data names (keys).</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of required data names (keys).</span>
 
 <span class="sd">    Names of data are returned if the data is required to</span>
 <span class="sd">    write Lammps&#39; molecule file and has not been set yet.</span>
@@ -247,7 +247,7 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">get_required_datanames</span><span class="p">(</span><span class="n">molecule</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.get_sequence_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.get_sequence_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_sequence_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of unique sequences of atom types</span>
 <span class="sd">    appearing in the given topology component.</span>
 
 <span class="sd">    Parameters:</span>
@@ -261,27 +261,27 @@
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmptopo_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">get_sequence_patterns</span><span class="p">(</span><span class="n">atom_types</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.get_bond_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.get_bond_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_bond_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of unique sequences of atom types</span>
 <span class="sd">    appearing in all the sequences describing bonds.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sequence_patterns</span><span class="p">(</span><span class="s2">&quot;bond&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.get_angle_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.get_angle_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_angle_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of unique sequences of atom types</span>
 <span class="sd">    appearing in all the sequences describing angles.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sequence_patterns</span><span class="p">(</span><span class="s2">&quot;angle&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.get_dihedral_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.get_dihedral_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_dihedral_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of unique sequences of atom types</span>
 <span class="sd">    appearing in all the sequences describing dihedrals.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sequence_patterns</span><span class="p">(</span><span class="s2">&quot;dihedral&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.get_improper_patterns"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.get_improper_patterns">[docs]</a>  <span class="k">def</span> <span class="nf">get_improper_patterns</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns a set of unique sequences of atom types</span>
+    <span class="sd">&quot;&quot;&quot;Return a set of unique sequences of atom types</span>
 <span class="sd">    appearing in all the sequences describing impropers.&quot;&quot;&quot;</span>
     <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">get_sequence_patterns</span><span class="p">(</span><span class="s2">&quot;improper&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.print_maximum_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.print_maximum_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">print_maximum_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the maximum number of given topology components per atom.</span>
+    <span class="sd">&quot;&quot;&quot;Return the maximum number of given topology components per atom.</span>
 
 <span class="sd">    Parameters:</span>
 
@@ -295,29 +295,29 @@
       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">key</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmptopo_dict</span><span class="p">[</span><span class="n">key</span><span class="p">]</span><span class="o">.</span><span class="n">get_maximum_per_atom</span><span class="p">()))</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.print_max_bonds_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.print_max_bonds_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">print_max_bonds_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the maximum number of bonds per atom.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return the maximum number of bonds per atom.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">print_maximum_per_atom</span><span class="p">(</span><span class="s2">&quot;bond&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.print_max_angles_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.print_max_angles_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">print_max_angles_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the maximum number of angles per atom.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return the maximum number of angles per atom.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">print_maximum_per_atom</span><span class="p">(</span><span class="s2">&quot;angle&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.print_max_dihedrals_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.print_max_dihedrals_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">print_max_dihedrals_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the maximum number of dihedrals per atom.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return the maximum number of dihedrals per atom.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">print_maximum_per_atom</span><span class="p">(</span><span class="s2">&quot;dihedral&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.print_max_impropers_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.print_max_impropers_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">print_max_impropers_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the maximum number of impropers per atom.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return the maximum number of impropers per atom.&quot;&quot;&quot;</span>
     <span class="bp">self</span><span class="o">.</span><span class="n">print_maximum_per_atom</span><span class="p">(</span><span class="s2">&quot;improper&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.print_max_specials_per_atom"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.print_max_specials_per_atom">[docs]</a>  <span class="k">def</span> <span class="nf">print_max_specials_per_atom</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns the maximum number of special bonds per atom.&quot;&quot;&quot;</span>
+    <span class="sd">&quot;&quot;&quot;Return the maximum number of special bonds per atom.&quot;&quot;&quot;</span>
     <span class="nb">print</span><span class="p">(</span>
       <span class="s2">&quot;You might need to set &#39;extra/special/per/atom&#39; to: </span><span class="si">{}</span><span class="s2">&quot;</span>
       <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_lmpsbonds</span><span class="o">.</span><span class="n">get_maximum_per_atom</span><span class="p">()))</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.set_atom_data"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.set_atom_data">[docs]</a>  <span class="k">def</span> <span class="nf">set_atom_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sets data for *Atoms* (and *Velocities*) section.</span>
+    <span class="sd">&quot;&quot;&quot;Set data for *Atoms* (and *Velocities*) section.</span>
 
 <span class="sd">    Parameters:</span>
 
@@ -330,7 +330,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">set_data</span><span class="p">(</span><span class="o">**</span><span class="n">kwargs</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.set_masses"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.set_masses">[docs]</a>  <span class="k">def</span> <span class="nf">set_masses</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">type2mass</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sets data for *Masses* section.</span>
+    <span class="sd">&quot;&quot;&quot;Set data for *Masses* section.</span>
 
 <span class="sd">    Parameters:</span>
 
@@ -341,7 +341,7 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">set_masses</span><span class="p">(</span><span class="n">type2mass</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.set_topology_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.set_topology_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_topology_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sets types of the given topology components.</span>
+    <span class="sd">&quot;&quot;&quot;Set types of the given topology components.</span>
 
 <span class="sd">    Parameters:</span>
 
@@ -357,11 +357,11 @@
       <span class="bp">self</span><span class="o">.</span><span class="n">_lmptopo_dict</span><span class="p">[</span><span class="n">k</span><span class="p">]</span><span class="o">.</span><span class="n">set_types</span><span class="p">(</span><span class="n">v</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">get_atom_types</span><span class="p">())</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.set_bond_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.set_bond_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_bond_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sets types of bonds.</span>
+    <span class="sd">&quot;&quot;&quot;Set types of bonds.</span>
 
 <span class="sd">    Parameters:</span>
 
-<span class="sd">    seq_to_type: dict</span>
+<span class="sd">    seq_to_type: dict form tuple to int</span>
 <span class="sd">      Mapping two-element tuples of atom types</span>
 <span class="sd">      to corresponding types of bond.</span>
 
@@ -417,11 +417,11 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">set_topology_types</span><span class="p">(</span><span class="n">bond</span><span class="o">=</span><span class="n">seq_to_type</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.set_angle_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.set_angle_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_angle_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sets types of angles.</span>
+    <span class="sd">&quot;&quot;&quot;Set types of angles.</span>
 
 <span class="sd">    Parameters:</span>
 
-<span class="sd">    seq_to_type: dict</span>
+<span class="sd">    seq_to_type: dict form tuple to int</span>
 <span class="sd">      Mapping three-element tuples of atom types</span>
 <span class="sd">      to corresponding types of angle.</span>
 <span class="sd">      Note that second atom of each tuple should be</span>
@@ -479,11 +479,11 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">set_topology_types</span><span class="p">(</span><span class="n">angle</span><span class="o">=</span><span class="n">seq_to_type</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.set_dihedral_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.set_dihedral_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_dihedral_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sets types of dihedrals.</span>
+    <span class="sd">&quot;&quot;&quot;Set types of dihedrals.</span>
 
 <span class="sd">    Parameters:</span>
 
-<span class="sd">    seq_to_type: dict</span>
+<span class="sd">    seq_to_type: dict form tuple to int</span>
 <span class="sd">      Mapping four-element tuples of atom types</span>
 <span class="sd">      to corresponding types of dihedral.</span>
 <span class="sd">      Note that the four atoms should be connected linearly</span>
@@ -539,11 +539,11 @@
     <span class="bp">self</span><span class="o">.</span><span class="n">set_topology_types</span><span class="p">(</span><span class="n">dihedral</span><span class="o">=</span><span class="n">seq_to_type</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.set_improper_types"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.set_improper_types">[docs]</a>  <span class="k">def</span> <span class="nf">set_improper_types</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">seq_to_type</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Sets types of impropers.</span>
+    <span class="sd">&quot;&quot;&quot;Set types of impropers.</span>
 
 <span class="sd">    Parameters:</span>
 
-<span class="sd">    seq_to_type: dict</span>
+<span class="sd">    seq_to_type: dict form tuple to int</span>
 <span class="sd">      Mapping four-element tuples of atom types</span>
 <span class="sd">      to corresponding types of improper.</span>
 <span class="sd">      Note that, if CLASS2 forcefield is used, the second atom of</span>
@@ -602,7 +602,7 @@
 
 <div class="viewcode-block" id="LammpsWriter.write_lammps_data"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.write_lammps_data">[docs]</a>  <span class="k">def</span> <span class="nf">write_lammps_data</span><span class="p">(</span>
     <span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">centering</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Writes Lammps&#39; data file.</span>
+    <span class="sd">&quot;&quot;&quot;Write Lammps&#39; data file.</span>
 
 <span class="sd">    Parameters:</span>
 
@@ -687,7 +687,7 @@
         <span class="n">v</span><span class="o">.</span><span class="n">write_lines</span><span class="p">(</span><span class="n">path</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="LammpsWriter.write_lammps_molecule"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.LammpsWriter.write_lammps_molecule">[docs]</a>  <span class="k">def</span> <span class="nf">write_lammps_molecule</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">path</span><span class="p">,</span> <span class="n">special_bonds</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Writes Lammps&#39; molecule file.</span>
+    <span class="sd">&quot;&quot;&quot;Write Lammps&#39; molecule file.</span>
 
 <span class="sd">    Parameters:</span>
 
@@ -703,11 +703,6 @@
 
 <span class="sd">      * ``mass`` (bool) : Whether to write *Masses* section or not.</span>
 
-<span class="sd">    special_bonds:</span>
-<span class="sd">      Whether to write *Special Bond Counts*</span>
-<span class="sd">      and *Special Bonds** section.</span>
-
-<span class="sd">    This method writes *Lammps molecule file*.</span>
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">num_atom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">get_num</span><span class="p">()</span>
 
@@ -739,7 +734,7 @@
   <span class="sd">&quot;&quot;&quot;Extended ``ase.calculators.lammpsrun.Prism`` class.&quot;&quot;&quot;</span>
 
 <div class="viewcode-block" id="ExtendedPrism.transform_to_lammps"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_writer.ExtendedPrism.transform_to_lammps">[docs]</a>  <span class="k">def</span> <span class="nf">transform_to_lammps</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">vectors</span><span class="p">):</span>
-    <span class="sd">&quot;&quot;&quot;Returns transposed *vectors*.</span>
+    <span class="sd">&quot;&quot;&quot;Return transposed *vectors*.</span>
 
 <span class="sd">    This method is required to convert vectors</span>
 <span class="sd">    from ASE&#39;s cartesian coordinate system</span>
