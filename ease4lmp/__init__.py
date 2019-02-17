@@ -1,6 +1,8 @@
 """Extension of Atomic Simulation Environment (ASE) for LAMMPS"""
 
-from .bonded_atoms import BondedAtoms
+from .bonded_atoms import (
+  BondedAtoms, create_atoms_from_json,
+  create_atoms_from_data, create_atoms_from_molecule)
 from .lammps_writer import LammpsWriter
 from .lammps_reader import (
   read_bonds, read_angles, read_dihedrals, read_impropers,
@@ -8,6 +10,9 @@ from .lammps_reader import (
 
 __all__ = [
   "BondedAtoms",
+  "create_atoms_from_json",
+  "create_atoms_from_data",
+  "create_atoms_from_molecule",
   "LammpsWriter",
   "read_bonds",
   "read_angles",

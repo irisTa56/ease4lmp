@@ -483,17 +483,15 @@ class LammpsWriter:
     """
     num_atom = self._lmpatoms.get_num()
 
-    kw = "num_atom_type"
-    num_atom_type = (
-      kwargs[kw] if kw in kwargs and kwargs[kw]
-      else self._lmpatoms.get_num_type())
+    num_atom_type = kwargs.get(
+      "num_atom_type", self._lmpatoms.get_num_type())
 
     num_topo = {
       k: v.get_num() for k, v in self._lmptopo_dict.items()
     }
 
     num_topo_type = {
-      k: kwargs[kw] if kw in kwargs and kwargs[kw] else v.get_num_type()
+      k: kwargs.get(kw, v.get_num_type())
       for k, v, kw in (
         (k, v, "num_{}_type".format(k))
         for k, v in self._lmptopo_dict.items())

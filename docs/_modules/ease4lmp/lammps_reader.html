@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.4.0
               </div>
             
           
@@ -201,15 +201,53 @@
 <span class="sd">    Section header of the topology components.</span>
 
 <span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">datanames</span> <span class="o">=</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="n">name</span><span class="p">]</span>
+
   <span class="k">return</span> <span class="p">[</span>
-    <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">lmp_datanames</span><span class="p">[</span><span class="n">name</span><span class="p">],</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="p">)))</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">datanames</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="p">)))</span>
     <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">header</span><span class="p">)</span>
   <span class="p">]</span>
 
-<span class="c1">#=======================================================================</span>
+<span class="k">def</span> <span class="nf">_read_box</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Reads side lengths of the simulation box.</span>
+
+<span class="sd">  Parameters:</span>
+
+<span class="sd">  path: str</span>
+<span class="sd">    File path to Lammps&#39; data file (or molecule file).</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;r&quot;</span><span class="p">)</span> <span class="k">as</span> <span class="n">f</span><span class="p">:</span>
+    <span class="n">lines</span> <span class="o">=</span> <span class="p">(</span><span class="n">line</span><span class="o">.</span><span class="n">lstrip</span><span class="p">()</span><span class="o">.</span><span class="n">rstrip</span><span class="p">()</span> <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">f</span><span class="o">.</span><span class="n">readlines</span><span class="p">())</span>
+
+  <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">lz</span> <span class="o">=</span> <span class="p">(</span><span class="kc">None</span><span class="p">,)</span> <span class="o">*</span> <span class="mi">3</span>
+
+  <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+    <span class="k">if</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;xlo xhi&quot;</span><span class="p">):</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+      <span class="n">lx</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;ylo yhi&quot;</span><span class="p">):</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+      <span class="n">ly</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="k">elif</span> <span class="n">line</span><span class="o">.</span><span class="n">endswith</span><span class="p">(</span><span class="s2">&quot;zlo zhi&quot;</span><span class="p">):</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="n">line</span><span class="o">.</span><span class="n">split</span><span class="p">()</span>
+      <span class="n">lz</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">-</span> <span class="nb">float</span><span class="p">(</span><span class="n">tmp</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+
+    <span class="k">if</span> <span class="nb">all</span><span class="p">(</span><span class="n">l</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span> <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="p">[</span><span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">lz</span><span class="p">]):</span>
+      <span class="k">break</span>
+
+  <span class="k">return</span> <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">lz</span>
+
+<span class="k">def</span> <span class="nf">_str2num</span><span class="p">(</span><span class="n">s</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Converts a string to a number checking whether it is int or not&quot;&quot;&quot;</span>
+  <span class="k">return</span> <span class="nb">int</span><span class="p">(</span><span class="n">s</span><span class="p">)</span> <span class="k">if</span> <span class="n">s</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">&#39;-&#39;</span><span class="p">)</span><span class="o">.</span><span class="n">isdigit</span><span class="p">()</span> <span class="k">else</span> <span class="nb">float</span><span class="p">(</span><span class="n">s</span><span class="p">)</span>
+
+<span class="c1">#-----------------------------------------------------------------------</span>
 
 <div class="viewcode-block" id="read_bonds"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_bonds">[docs]</a><span class="k">def</span> <span class="nf">read_bonds</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads bonds data from a specified Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Reads bonds data from a Lammps&#39; data (or molecule) file.</span>
+
+<span class="sd">  Returned value is a JSON object (list of dict).</span>
 
 <span class="sd">  Parameters:</span>
 
@@ -220,7 +258,9 @@
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;bond&quot;</span><span class="p">,</span> <span class="s2">&quot;Bonds&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_angles"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_angles">[docs]</a><span class="k">def</span> <span class="nf">read_angles</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads angles data from a specified Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Reads angles data from a Lammps&#39; data (or molecule) file.</span>
+
+<span class="sd">  Returned value is a JSON object (list of dict).</span>
 
 <span class="sd">  Parameters:</span>
 
@@ -231,7 +271,9 @@
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;angle&quot;</span><span class="p">,</span> <span class="s2">&quot;Angles&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_dihedrals"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_dihedrals">[docs]</a><span class="k">def</span> <span class="nf">read_dihedrals</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads dihedrals data from a specified Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Reads dihedrals data from a Lammps&#39; data (or molecule) file.</span>
+
+<span class="sd">  Returned value is a JSON object (list of dict).</span>
 
 <span class="sd">  Parameters:</span>
 
@@ -242,7 +284,9 @@
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;dihedral&quot;</span><span class="p">,</span> <span class="s2">&quot;Dihedrals&quot;</span><span class="p">)</span></div>
 
 <div class="viewcode-block" id="read_impropers"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_impropers">[docs]</a><span class="k">def</span> <span class="nf">read_impropers</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
-  <span class="sd">&quot;&quot;&quot;Reads impropers data from a specified Lammps&#39; data (or molecule) file.</span>
+  <span class="sd">&quot;&quot;&quot;Reads impropers data from a Lammps&#39; data (or molecule) file.</span>
+
+<span class="sd">  Returned value is a JSON object (list of dict).</span>
 
 <span class="sd">  Parameters:</span>
 
@@ -251,6 +295,106 @@
 
 <span class="sd">  &quot;&quot;&quot;</span>
   <span class="k">return</span> <span class="n">_read_topology_components</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;improper&quot;</span><span class="p">,</span> <span class="s2">&quot;Impropers&quot;</span><span class="p">)</span></div>
+
+<div class="viewcode-block" id="read_atoms_from_data"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_atoms_from_data">[docs]</a><span class="k">def</span> <span class="nf">read_atoms_from_data</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="n">atom_style</span><span class="p">,</span> <span class="n">mass</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">velocity</span><span class="o">=</span><span class="kc">False</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Reads atoms data from a Lammps&#39; data file.</span>
+
+<span class="sd">  Returned value is a JSON object (list of dict).</span>
+
+<span class="sd">  Parameters:</span>
+
+<span class="sd">  path: str</span>
+<span class="sd">    File path to Lammps&#39; data file.</span>
+
+<span class="sd">  atom_style: str</span>
+<span class="sd">    Specifies an *atom style* used in Lammps.</span>
+
+<span class="sd">  mass: bool</span>
+<span class="sd">    Whether to include mass data if *Masses* section extis.</span>
+
+<span class="sd">  velocity: bool</span>
+<span class="sd">    Whether to include velocity data if *Velocities* section extis.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">atoms</span> <span class="o">=</span> <span class="p">[]</span>
+  <span class="n">lx</span><span class="p">,</span> <span class="n">ly</span><span class="p">,</span> <span class="n">lz</span> <span class="o">=</span> <span class="n">_read_box</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
+
+  <span class="n">datanames</span> <span class="o">=</span> <span class="nb">tuple</span><span class="p">(</span>
+    <span class="n">n</span> <span class="k">if</span> <span class="n">n</span> <span class="ow">not</span> <span class="ow">in</span> <span class="p">{</span><span class="s2">&quot;x&quot;</span><span class="p">,</span> <span class="s2">&quot;y&quot;</span><span class="p">,</span> <span class="s2">&quot;z&quot;</span><span class="p">}</span> <span class="k">else</span> <span class="n">n</span> <span class="o">+</span> <span class="s2">&quot;u&quot;</span>
+    <span class="k">for</span> <span class="n">n</span> <span class="ow">in</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="s2">&quot;atom&quot;</span><span class="p">][</span><span class="n">atom_style</span><span class="p">])</span>
+
+  <span class="n">lines</span> <span class="o">=</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;Atoms&quot;</span><span class="p">)</span>
+
+  <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">lines</span><span class="p">:</span>
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">datanames</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+      <span class="n">atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">datanames</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">_str2num</span><span class="p">,</span> <span class="n">line</span><span class="p">))))</span>
+    <span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">datanames</span><span class="p">)</span> <span class="o">+</span> <span class="mi">3</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">line</span><span class="p">):</span>
+      <span class="n">tmp</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">datanames</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">_str2num</span><span class="p">,</span> <span class="n">line</span><span class="p">[:</span><span class="o">-</span><span class="mi">3</span><span class="p">])))</span>
+      <span class="n">ix</span><span class="p">,</span> <span class="n">iy</span><span class="p">,</span> <span class="n">iz</span> <span class="o">=</span> <span class="nb">map</span><span class="p">(</span><span class="nb">int</span><span class="p">,</span> <span class="n">line</span><span class="p">[</span><span class="o">-</span><span class="mi">3</span><span class="p">:])</span>
+      <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;xu&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">ix</span> <span class="o">*</span> <span class="n">lx</span>
+      <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;yu&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">iy</span> <span class="o">*</span> <span class="n">ly</span>
+      <span class="n">tmp</span><span class="p">[</span><span class="s2">&quot;zu&quot;</span><span class="p">]</span> <span class="o">+=</span> <span class="n">iz</span> <span class="o">*</span> <span class="n">lz</span>
+      <span class="n">atoms</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">tmp</span><span class="p">)</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="k">raise</span> <span class="ne">RuntimeError</span><span class="p">(</span><span class="s2">&quot;Invalid number of values in a line&quot;</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="n">mass</span><span class="p">:</span>
+
+    <span class="n">type2mass</span> <span class="o">=</span> <span class="p">{</span>
+      <span class="nb">int</span><span class="p">(</span><span class="n">s1</span><span class="p">):</span> <span class="nb">float</span><span class="p">(</span><span class="n">s2</span><span class="p">)</span> <span class="k">for</span> <span class="n">s1</span><span class="p">,</span> <span class="n">s2</span> <span class="ow">in</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;Masses&quot;</span><span class="p">)</span>
+    <span class="p">}</span>
+
+    <span class="k">for</span> <span class="n">atom</span> <span class="ow">in</span> <span class="n">atoms</span><span class="p">:</span>
+      <span class="n">atom</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">type2mass</span><span class="p">[</span><span class="n">atom</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]]</span>
+
+  <span class="k">if</span> <span class="n">velocity</span><span class="p">:</span>
+
+    <span class="n">datanames_vel</span> <span class="o">=</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="s2">&quot;velocity&quot;</span><span class="p">][</span>
+      <span class="n">atom_style</span> <span class="k">if</span> <span class="n">atom_style</span> <span class="ow">in</span> <span class="n">lmp_datanames</span><span class="p">[</span><span class="s2">&quot;velocity&quot;</span><span class="p">]</span> <span class="k">else</span> <span class="s2">&quot;*&quot;</span><span class="p">]</span>
+
+    <span class="n">lines_vel</span> <span class="o">=</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;Velocities&quot;</span><span class="p">)</span>
+
+    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_vel</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+      <span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lines_vel</span><span class="p">):</span>
+        <span class="n">atom</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">(</span><span class="n">datanames_vel</span><span class="p">,</span> <span class="nb">map</span><span class="p">(</span><span class="n">_str2num</span><span class="p">,</span> <span class="n">line</span><span class="p">))))</span>
+
+  <span class="k">return</span> <span class="n">atoms</span></div>
+
+<div class="viewcode-block" id="read_atoms_from_molecule"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.lammps_reader.read_atoms_from_molecule">[docs]</a><span class="k">def</span> <span class="nf">read_atoms_from_molecule</span><span class="p">(</span><span class="n">path</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Reads atoms data from a Lammps&#39; molecule file.</span>
+
+<span class="sd">  Returned value is a JSON object (list of dict).</span>
+
+<span class="sd">  Parameters:</span>
+
+<span class="sd">  path: str</span>
+<span class="sd">    File path to Lammps&#39; molecule file.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="n">atoms</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="nb">dict</span><span class="p">(</span><span class="nb">zip</span><span class="p">((</span><span class="s2">&quot;id&quot;</span><span class="p">,</span> <span class="s2">&quot;xu&quot;</span><span class="p">,</span> <span class="s2">&quot;yu&quot;</span><span class="p">,</span> <span class="s2">&quot;zu&quot;</span><span class="p">),</span> <span class="nb">map</span><span class="p">(</span><span class="n">_str2num</span><span class="p">,</span> <span class="n">line</span><span class="p">)))</span>
+    <span class="k">for</span> <span class="n">line</span> <span class="ow">in</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;Coords&quot;</span><span class="p">)</span>
+  <span class="p">]</span>
+
+  <span class="n">lines_type</span> <span class="o">=</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;Types&quot;</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_type</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lines_type</span><span class="p">):</span>
+      <span class="n">atom</span><span class="p">[</span><span class="s2">&quot;type&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+  <span class="n">lines_q</span> <span class="o">=</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;Charges&quot;</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_q</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lines_q</span><span class="p">):</span>
+      <span class="n">atom</span><span class="p">[</span><span class="s2">&quot;q&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+  <span class="n">lines_mass</span> <span class="o">=</span> <span class="n">_read_section</span><span class="p">(</span><span class="n">path</span><span class="p">,</span> <span class="s2">&quot;Masses&quot;</span><span class="p">)</span>
+
+  <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">lines_mass</span><span class="p">)</span> <span class="o">==</span> <span class="nb">len</span><span class="p">(</span><span class="n">atoms</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">atom</span><span class="p">,</span> <span class="n">line</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">lines_mass</span><span class="p">):</span>
+      <span class="n">atom</span><span class="p">[</span><span class="s2">&quot;mass&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">line</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+
+  <span class="k">return</span> <span class="n">atoms</span></div>
 </pre></div>
 
            </div>

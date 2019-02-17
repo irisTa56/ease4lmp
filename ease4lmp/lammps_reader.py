@@ -52,14 +52,20 @@ def _read_topology_components(path, name, header):
     Section header of the topology components.
 
   """
-  datanames = lmp_datanames[name]
+  datanames = ["{}-id".format(s) for s in lmp_datanames[name]]
 
   return [
     dict(zip(datanames, map(int, line)))
     for line in _read_section(path, header)
   ]
 
-def _read_box(path):
+def _str2num(s):
+  """Converts a string to a number checking whether it is int or not"""
+  return int(s) if s.lstrip('-').isdigit() else float(s)
+
+#-----------------------------------------------------------------------
+
+def read_box(path):
   """Reads side lengths of the simulation box.
 
   Parameters:
@@ -72,31 +78,32 @@ def _read_box(path):
     lines = (line.lstrip().rstrip() for line in f.readlines())
 
   lx, ly, lz = (None,) * 3
+  done = False
 
   for line in lines:
-    if line.endswith("xlo xhi"):
-      tmp = line.split()
-      lx = float(tmp[1]) - float(tmp[0])
-    elif line.endswith("ylo yhi"):
-      tmp = line.split()
-      ly = float(tmp[1]) - float(tmp[0])
-    elif line.endswith("zlo zhi"):
-      tmp = line.split()
-      lz = float(tmp[1]) - float(tmp[0])
+    if not done:
+      if line.endswith("xlo xhi"):
+        tmp = line.split()
+        lx = float(tmp[1]) - float(tmp[0])
+      elif line.endswith("ylo yhi"):
+        tmp = line.split()
+        ly = float(tmp[1]) - float(tmp[0])
+      elif line.endswith("zlo zhi"):
+        tmp = line.split()
+        lz = float(tmp[1]) - float(tmp[0])
 
-    if all(l is not None for l in [lx, ly, lz]):
-      break
+      if all(l is not None for l in [lx, ly, lz]):
+        done = True
+
+    if line.endswith("xy xz yz"):
+      raise RuntimeError("Skewed system is not supported")
 
   return lx, ly, lz
 
-def _str2num(s):
-  """Converts a string to a number checking whether it is int or not"""
-  return int(s) if s.lstrip('-').isdigit() else float(s)
-
-#=======================================================================
-
 def read_bonds(path):
-  """Reads bonds data from a specified Lammps' data (or molecule) file.
+  """Reads bonds data from a Lammps' data (or molecule) file.
+
+  Returned value is a JSON object (list of dict).
 
   Parameters:
 
@@ -107,7 +114,9 @@ def read_bonds(path):
   return _read_topology_components(path, "bond", "Bonds")
 
 def read_angles(path):
-  """Reads angles data from a specified Lammps' data (or molecule) file.
+  """Reads angles data from a Lammps' data (or molecule) file.
+
+  Returned value is a JSON object (list of dict).
 
   Parameters:
 
@@ -118,7 +127,9 @@ def read_angles(path):
   return _read_topology_components(path, "angle", "Angles")
 
 def read_dihedrals(path):
-  """Reads dihedrals data from a specified Lammps' data (or molecule) file.
+  """Reads dihedrals data from a Lammps' data (or molecule) file.
+
+  Returned value is a JSON object (list of dict).
 
   Parameters:
 
@@ -129,7 +140,9 @@ def read_dihedrals(path):
   return _read_topology_components(path, "dihedral", "Dihedrals")
 
 def read_impropers(path):
-  """Reads impropers data from a specified Lammps' data (or molecule) file.
+  """Reads impropers data from a Lammps' data (or molecule) file.
+
+  Returned value is a JSON object (list of dict).
 
   Parameters:
 
@@ -139,8 +152,10 @@ def read_impropers(path):
   """
   return _read_topology_components(path, "improper", "Impropers")
 
-def read_atoms_from_data(path, atom_style, mass=False, velocity=False):
-  """Reads atoms data from a specified Lammps' data file.
+def read_atoms_from_data(path, atom_style, mass=True, velocity=True):
+  """Reads atoms data from a Lammps' data file.
+
+  Returned value is a JSON object (list of dict).
 
   Parameters:
 
@@ -158,7 +173,7 @@ def read_atoms_from_data(path, atom_style, mass=False, velocity=False):
 
   """
   atoms = []
-  lx, ly, lz = _read_box(path)
+  lx, ly, lz = read_box(path)
 
   datanames = tuple(
     n if n not in {"x", "y", "z"} else n + "u"
@@ -190,8 +205,8 @@ def read_atoms_from_data(path, atom_style, mass=False, velocity=False):
 
   if velocity:
 
-    datanames_vel = lmp_datanames["velocity"][
-      atom_style if atom_style in lmp_datanames["velocity"] else "*"]
+    datanames_vel = lmp_datanames["velocity"].get(
+      atom_style, lmp_datanames["velocity"]["*"])
 
     lines_vel = _read_section(path, "Velocities")
 
@@ -202,7 +217,9 @@ def read_atoms_from_data(path, atom_style, mass=False, velocity=False):
   return atoms
 
 def read_atoms_from_molecule(path):
-  """Reads atoms data from a specified Lammps' molecule file.
+  """Reads atoms data from a Lammps' molecule file.
+
+  Returned value is a JSON object (list of dict).
 
   Parameters:
 

@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.4.0
               </div>
             
           
@@ -500,6 +500,45 @@ Length of the array must be equal to the number of atoms.</dd>
 
 </dd></dl>
 
+<dl class="function">
+<dt id="ease4lmp.bonded_atoms.create_atoms_from_json">
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Create a BondedAtoms instance from JSON object(s).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atoms: list</dt>
+<dd><p class="first">JSON (list of dict) describing atoms.
+All the dictionary contained in the list must have the same keys.
+The following keys are acceptable:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code> (int)</li>
+<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">xu</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">yu</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">zu</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vx</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vy</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vz</span></code> (float) : In Lammps’ unit.</li>
+</ul>
+</div></blockquote>
+</dd>
+<dt>bonds: None or list</dt>
+<dd><p class="first">JSON (list of dict) describing bonds.
+All the dictionary contained in the list must have the same keys.
+The following keys are required:</p>
+<blockquote class="last">
+<div><ul class="simple">
+<li><code class="docutils literal notranslate"><span class="pre">atom1*</span></code> (int) : The first atom id. <code class="docutils literal notranslate"><span class="pre">*</span></code> is a wildcard, i.e.
+something like <code class="docutils literal notranslate"><span class="pre">atom1-id</span></code> is acceptable.</li>
+<li><code class="docutils literal notranslate"><span class="pre">atom2*</span></code> (int) : The second atom id. <code class="docutils literal notranslate"><span class="pre">*</span></code> is a wildcard, i.e.
+something like <code class="docutils literal notranslate"><span class="pre">atom1-id</span></code> is acceptable.</li>
+</ul>
+</div></blockquote>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 <div class="section" id="module-ease4lmp.lammps_dataformats">
 <span id="ease4lmp-lammps-dataformats-module"></span><h3>ease4lmp.lammps_dataformats module<a class="headerlink" href="#module-ease4lmp.lammps_dataformats" title="Permalink to this headline">¶</a></h3>
@@ -516,7 +555,8 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_angles">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_angles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads angles data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads angles data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -525,9 +565,40 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 </dd></dl>
 
 <dl class="function">
+<dt id="ease4lmp.lammps_reader.read_atoms_from_data">
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=False</em>, <em>velocity=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads atoms data from a Lammps’ data file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file.</dd>
+<dt>atom_style: str</dt>
+<dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+<dt>mass: bool</dt>
+<dd>Whether to include mass data if <em>Masses</em> section extis.</dd>
+<dt>velocity: bool</dt>
+<dd>Whether to include velocity data if <em>Velocities</em> section extis.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.lammps_reader.read_atoms_from_molecule">
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads atoms data from a Lammps’ molecule file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
 <dt id="ease4lmp.lammps_reader.read_bonds">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_bonds</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads bonds data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads bonds data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -538,7 +609,8 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_dihedrals">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_dihedrals</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_dihedrals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads dihedrals data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads dihedrals data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -549,7 +621,8 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_impropers">
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_impropers</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_impropers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads impropers data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads impropers data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -2271,7 +2344,8 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_bonds">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_bonds</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_bonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads bonds data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads bonds data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -2282,7 +2356,8 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_angles">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_angles</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_angles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_angles" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads angles data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads angles data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -2293,7 +2368,8 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_dihedrals">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_dihedrals</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_dihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_dihedrals" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads dihedrals data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads dihedrals data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -2304,11 +2380,42 @@ and <em>Special Bonds*</em> section.</dd>
 <dl class="function">
 <dt id="ease4lmp.read_impropers">
 <code class="descclassname">ease4lmp.</code><code class="descname">read_impropers</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_impropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_impropers" title="Permalink to this definition">¶</a></dt>
-<dd><p>Reads impropers data from a specified Lammps’ data (or molecule) file.</p>
+<dd><p>Reads impropers data from a Lammps’ data (or molecule) file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
 <dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.read_atoms_from_data">
+<code class="descclassname">ease4lmp.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=False</em>, <em>velocity=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads atoms data from a Lammps’ data file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file.</dd>
+<dt>atom_style: str</dt>
+<dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+<dt>mass: bool</dt>
+<dd>Whether to include mass data if <em>Masses</em> section extis.</dd>
+<dt>velocity: bool</dt>
+<dd>Whether to include velocity data if <em>Velocities</em> section extis.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.read_atoms_from_molecule">
+<code class="descclassname">ease4lmp.</code><code class="descname">read_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads atoms data from a Lammps’ molecule file.</p>
+<p>Returned value is a JSON object (list of dict).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
 </dl>
 </dd></dl>
 

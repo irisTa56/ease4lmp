@@ -27,7 +27,7 @@ class TestLammpsReader(unittest.TestCase):
       path2 = "lammps_files/molecule.{}".format(name)
 
       for atom1, atom2 in zip(
-        read_atoms_from_data(path1, "molecular", mass=True),
+        read_atoms_from_data(path1, "molecular"),
         read_atoms_from_molecule(path2)):
 
         keys = set(atom1.keys()) & set(atom2.keys())

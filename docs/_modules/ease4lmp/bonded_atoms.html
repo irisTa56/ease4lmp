@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                0.3.1
+                0.4.0
               </div>
             
           
@@ -155,6 +155,45 @@
 <span class="kn">import</span> <span class="nn">ase</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="k">def</span> <span class="nf">create_atoms_from_data</span><span class="p">():</span>
+  <span class="k">pass</span>
+
+<span class="k">def</span> <span class="nf">create_atoms_from_molecule</span><span class="p">():</span>
+  <span class="k">pass</span>
+
+<div class="viewcode-block" id="create_atoms_from_json"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.bonded_atoms.create_atoms_from_json">[docs]</a><span class="k">def</span> <span class="nf">create_atoms_from_json</span><span class="p">(</span><span class="n">atoms</span><span class="p">,</span> <span class="n">bonds</span><span class="o">=</span><span class="kc">None</span><span class="p">):</span>
+  <span class="sd">&quot;&quot;&quot;Create a BondedAtoms instance from JSON object(s).</span>
+
+<span class="sd">  Parameters:</span>
+
+<span class="sd">  atoms: list</span>
+<span class="sd">    JSON (list of dict) describing atoms.</span>
+<span class="sd">    All the dictionary contained in the list must have the same keys.</span>
+<span class="sd">    The following keys are acceptable:</span>
+
+<span class="sd">      * ``type`` (int)</span>
+<span class="sd">      * ``mass`` (float) : In Lammps&#39; unit.</span>
+<span class="sd">      * ``xu`` (float) : In Lammps&#39; unit.</span>
+<span class="sd">      * ``yu`` (float) : In Lammps&#39; unit.</span>
+<span class="sd">      * ``zu`` (float) : In Lammps&#39; unit.</span>
+<span class="sd">      * ``vx`` (float) : In Lammps&#39; unit.</span>
+<span class="sd">      * ``vy`` (float) : In Lammps&#39; unit.</span>
+<span class="sd">      * ``vz`` (float) : In Lammps&#39; unit.</span>
+
+<span class="sd">  bonds: None or list</span>
+<span class="sd">    JSON (list of dict) describing bonds.</span>
+<span class="sd">    All the dictionary contained in the list must have the same keys.</span>
+<span class="sd">    The following keys are required:</span>
+
+<span class="sd">      * ``atom1*`` (int) : The first atom id. ``*`` is a wildcard, i.e.</span>
+<span class="sd">        something like ``atom1-id`` is acceptable.</span>
+<span class="sd">      * ``atom2*`` (int) : The second atom id. ``*`` is a wildcard, i.e.</span>
+<span class="sd">        something like ``atom1-id`` is acceptable.</span>
+
+<span class="sd">  &quot;&quot;&quot;</span>
+  <span class="k">pass</span></div>
+
+<span class="c1">#=======================================================================</span>
 
 <div class="viewcode-block" id="BondedAtoms"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.bonded_atoms.BondedAtoms">[docs]</a><span class="k">class</span> <span class="nc">BondedAtoms</span><span class="p">(</span><span class="n">ase</span><span class="o">.</span><span class="n">Atoms</span><span class="p">):</span>
   <span class="sd">&quot;&quot;&quot;Inherits ``ase.Atoms`` class, and has functionalities</span>

@@ -6,6 +6,116 @@ import itertools
 import ase
 import numpy as np
 
+from .lammps_reader import (
+  read_box, read_bonds, read_atoms_from_data, read_atoms_from_molecule)
+
+def create_atoms_from_data(path, atom_style):
+  """Creates a BondedAtoms instance from Lammps' data file.
+
+  Parameters:
+
+  path: str
+    File path to Lammps' data file.
+
+  atom_style: str
+    Specifies an *atom style* used in Lammps.
+
+  """
+  atoms = read_atoms_from_data(path, atom_style)
+  bonds = read_bonds(path)
+
+  obj = create_atoms_from_json(atoms, bonds)
+  obj.set_cell(read_box(path))
+
+  return obj
+
+def create_atoms_from_molecule(path):
+  """Creates a BondedAtoms instance from Lammps' molecule file.
+
+  Parameters:
+
+  path: str
+    File path to Lammps' molecule file.
+
+  """
+  atoms = read_atoms_from_molecule(path)
+  bonds = read_bonds(path)
+
+  return create_atoms_from_json(atoms, bonds)
+
+def create_atoms_from_json(atoms, bonds=None):
+  """Creates a BondedAtoms instance from JSON object(s).
+
+  Parameters:
+
+  atoms: list
+    JSON (list of dict) describing atoms.
+    All the dictionary contained in the list must have the same keys.
+    The following keys are required (some are optional):
+
+    * ``xu`` (float) : In Lammps' unit.
+    * ``yu`` (float) : In Lammps' unit.
+    * ``zu`` (float) : In Lammps' unit.
+    * ``type`` (int) : Optional.
+    * ``mass`` (float) : In Lammps' unit. Optional.
+    * ``vx`` (float) : In Lammps' unit. Optional.
+    * ``vy`` (float) : In Lammps' unit. Optional.
+    * ``vz`` (float) : In Lammps' unit. Optional.
+    * ``id`` (int) : Required when ``bonds`` is supplied.
+
+  bonds: None or list
+    JSON (list of dict) describing bonds.
+    All the dictionary contained in the list must have the same keys.
+    The following keys are required:
+
+    * ``atom1-id`` (int) : The first atom id.
+    * ``atom2-id`` (int) : The second atom id.
+
+  """
+  obj = BondedAtoms(positions=[
+      [atom["xu"], atom["yu"], atom["zu"]]
+      for atom in atoms if all(k in atom for k in ["xu", "yu", "zu"])
+    ])
+
+  types = [atom["type"] for atom in atoms if "type" in atom]
+  if len(types) == len(obj):
+    obj.set_types(types)
+
+  masses = [atom["mass"] for atom in atoms if "mass" in atom]
+  if len(masses) == len(obj):
+    obj.set_masses(masses)
+
+  velocities = [
+    [atom["vx"], atom["vy"], atom["vz"]]
+    for atom in atoms if all(k in atom for k in ["vx", "vy", "vz"])
+  ]
+  if len(velocities) == len(obj):
+    obj.set_velocities(velocities)
+
+  if bonds is not None:
+
+    bondarray = np.array([
+        [bond["atom1-id"], bond["atom2-id"]]
+        for bond in bonds if "atom1-id" in bond and "atom2-id" in bond
+      ])
+
+    _, counts = np.unique(bondarray, return_counts=True)
+
+    max_bonds_per_atom = max(counts)
+
+    if 4 < max_bonds_per_atom:
+      obj.change_max_bonds(max_bonds_per_atom)
+
+    id2idx = {
+      atom["id"]: i for i, atom in enumerate(atoms) if "id" in atom
+    }
+
+    for id1, id2 in bondarray:
+      obj.add_bond(id2idx[id1], id2idx[id2])
+
+  return obj
+
+#=======================================================================
 
 class BondedAtoms(ase.Atoms):
   """Inherits ``ase.Atoms`` class, and has functionalities
@@ -404,8 +514,8 @@ class BondedAtoms(ase.Atoms):
         if not mask[j]:
           self._remove_bond(i, ib)
         else:
-          bs[ib][0] += -np.sum(mask[i:j] == False) \
-            if i < j else np.sum(mask[j:i] == False)
+          bs[ib][0] += (-np.sum(mask[i:j] == False)
+            if i < j else np.sum(mask[j:i] == False))
           ib += 1
 
     super().__delitem__(idx)
