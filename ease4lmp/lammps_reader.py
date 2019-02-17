@@ -4,7 +4,7 @@ from .lammps_dataformats import lmp_datanames
 
 
 def _read_section(path, section):
-  """Reads lines of a specified section in a specified file.
+  """Read lines of a specified section in a specified file.
 
   Parameters:
 
@@ -15,8 +15,7 @@ def _read_section(path, section):
     Header of a section to be read.
 
   """
-  with open(path, "r") as f:
-    lines = (line.lstrip().rstrip() for line in f.readlines())
+  lines = (line.lstrip().rstrip() for line in open(path))
 
   blank_counter = 0
   in_section = False
@@ -37,7 +36,7 @@ def _read_section(path, section):
   return splitted_lines
 
 def _read_topology_components(path, name, header):
-  """Reads data of specified topology components
+  """Read data of specified topology components
   from a specified Lammps' data (or molecule) file.
 
   Parameters:
@@ -66,7 +65,7 @@ def _str2num(s):
 #-----------------------------------------------------------------------
 
 def read_box(path):
-  """Reads side lengths of the simulation box.
+  """Read side lengths of the simulation box.
 
   Parameters:
 
@@ -74,8 +73,7 @@ def read_box(path):
     File path to Lammps' data file (or molecule file).
 
   """
-  with open(path, "r") as f:
-    lines = (line.lstrip().rstrip() for line in f.readlines())
+  lines = (line.lstrip().rstrip() for line in open(path))
 
   lx, ly, lz = (None,) * 3
   done = False
@@ -101,7 +99,7 @@ def read_box(path):
   return lx, ly, lz
 
 def read_bonds(path):
-  """Reads bonds data from a Lammps' data (or molecule) file.
+  """Read bonds data from a Lammps' data (or molecule) file.
 
   Returned value is a JSON object (list of dict).
 
@@ -114,7 +112,7 @@ def read_bonds(path):
   return _read_topology_components(path, "bond", "Bonds")
 
 def read_angles(path):
-  """Reads angles data from a Lammps' data (or molecule) file.
+  """Read angles data from a Lammps' data (or molecule) file.
 
   Returned value is a JSON object (list of dict).
 
@@ -127,7 +125,7 @@ def read_angles(path):
   return _read_topology_components(path, "angle", "Angles")
 
 def read_dihedrals(path):
-  """Reads dihedrals data from a Lammps' data (or molecule) file.
+  """Read dihedrals data from a Lammps' data (or molecule) file.
 
   Returned value is a JSON object (list of dict).
 
@@ -140,7 +138,7 @@ def read_dihedrals(path):
   return _read_topology_components(path, "dihedral", "Dihedrals")
 
 def read_impropers(path):
-  """Reads impropers data from a Lammps' data (or molecule) file.
+  """Read impropers data from a Lammps' data (or molecule) file.
 
   Returned value is a JSON object (list of dict).
 
@@ -153,7 +151,7 @@ def read_impropers(path):
   return _read_topology_components(path, "improper", "Impropers")
 
 def read_atoms_from_data(path, atom_style, mass=True, velocity=True):
-  """Reads atoms data from a Lammps' data file.
+  """Read atoms data from a Lammps' data file.
 
   Returned value is a JSON object (list of dict).
 
@@ -217,7 +215,7 @@ def read_atoms_from_data(path, atom_style, mass=True, velocity=True):
   return atoms
 
 def read_atoms_from_molecule(path):
-  """Reads atoms data from a Lammps' molecule file.
+  """Read atoms data from a Lammps' molecule file.
 
   Returned value is a JSON object (list of dict).
 

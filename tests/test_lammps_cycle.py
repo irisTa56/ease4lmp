@@ -4,7 +4,6 @@ from ease4lmp import (
   BondedAtoms, LammpsWriter,
   create_atoms_from_data, create_atoms_from_molecule)
 
-from ase import Atoms
 from ase.build import bulk, molecule
 
 import numpy as np

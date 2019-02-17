@@ -2,7 +2,6 @@ import unittest
 
 from ease4lmp import BondedAtoms
 
-from ase import Atoms
 from ase.build import molecule
 
 import numpy as np

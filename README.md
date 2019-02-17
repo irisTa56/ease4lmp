@@ -49,4 +49,3 @@ This project would not be possible without the following great open-source proje
 
 * Automatically add bonds.
 * Override `ase.Atoms.wrap()` method.
-* Do not use the third person singular verb in API doc-string.

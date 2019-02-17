@@ -21,7 +21,7 @@ class LammpsWriter:
     """
     Parameters:
 
-    atoms: BondedAtoms or ase.Atoms
+    atoms: instance of BondedAtoms or ase.Atoms
       Atoms to be written to Lammps' data file.
 
     atom_style: str
@@ -80,7 +80,7 @@ class LammpsWriter:
     self._lmpsbonds = LammpsSpecialBonds(atoms.get_bonds_per_atom())
 
   def get_required_datanames(self):
-    """Returns a set of required data names (keys).
+    """Return a set of required data names (keys).
 
     Names of data are returned if the data is required to
     write Lammps' data file and has not been set yet.
@@ -89,7 +89,7 @@ class LammpsWriter:
     return self._lmpatoms.get_required_datanames()
 
   def get_required_datanames_for_molecule(self):
-    """Returns a set of required data names (keys).
+    """Return a set of required data names (keys).
 
     Names of data are returned if the data is required to
     write Lammps' molecule file and has not been set yet.
@@ -98,7 +98,7 @@ class LammpsWriter:
     return self._lmpatoms.get_required_datanames(molecule=True)
 
   def get_sequence_patterns(self, key):
-    """Returns a set of unique sequences of atom types
+    """Return a set of unique sequences of atom types
     appearing in the given topology component.
 
     Parameters:
@@ -112,27 +112,27 @@ class LammpsWriter:
     return self._lmptopo_dict[key].get_sequence_patterns(atom_types)
 
   def get_bond_patterns(self):
-    """Returns a set of unique sequences of atom types
+    """Return a set of unique sequences of atom types
     appearing in all the sequences describing bonds."""
     return self.get_sequence_patterns("bond")
 
   def get_angle_patterns(self):
-    """Returns a set of unique sequences of atom types
+    """Return a set of unique sequences of atom types
     appearing in all the sequences describing angles."""
     return self.get_sequence_patterns("angle")
 
   def get_dihedral_patterns(self):
-    """Returns a set of unique sequences of atom types
+    """Return a set of unique sequences of atom types
     appearing in all the sequences describing dihedrals."""
     return self.get_sequence_patterns("dihedral")
 
   def get_improper_patterns(self):
-    """Returns a set of unique sequences of atom types
+    """Return a set of unique sequences of atom types
     appearing in all the sequences describing impropers."""
     return self.get_sequence_patterns("improper")
 
   def print_maximum_per_atom(self, key):
-    """Returns the maximum number of given topology components per atom.
+    """Return the maximum number of given topology components per atom.
 
     Parameters:
 
@@ -146,29 +146,29 @@ class LammpsWriter:
       .format(key, self._lmptopo_dict[key].get_maximum_per_atom()))
 
   def print_max_bonds_per_atom(self):
-    """Returns the maximum number of bonds per atom."""
+    """Return the maximum number of bonds per atom."""
     self.print_maximum_per_atom("bond")
 
   def print_max_angles_per_atom(self):
-    """Returns the maximum number of angles per atom."""
+    """Return the maximum number of angles per atom."""
     self.print_maximum_per_atom("angle")
 
   def print_max_dihedrals_per_atom(self):
-    """Returns the maximum number of dihedrals per atom."""
+    """Return the maximum number of dihedrals per atom."""
     self.print_maximum_per_atom("dihedral")
 
   def print_max_impropers_per_atom(self):
-    """Returns the maximum number of impropers per atom."""
+    """Return the maximum number of impropers per atom."""
     self.print_maximum_per_atom("improper")
 
   def print_max_specials_per_atom(self):
-    """Returns the maximum number of special bonds per atom."""
+    """Return the maximum number of special bonds per atom."""
     print(
       "You might need to set 'extra/special/per/atom' to: {}"
       .format(self._lmpsbonds.get_maximum_per_atom()))
 
   def set_atom_data(self, **kwargs):
-    """Sets data for *Atoms* (and *Velocities*) section.
+    """Set data for *Atoms* (and *Velocities*) section.
 
     Parameters:
 
@@ -181,7 +181,7 @@ class LammpsWriter:
     self._lmpatoms.set_data(**kwargs)
 
   def set_masses(self, type2mass):
-    """Sets data for *Masses* section.
+    """Set data for *Masses* section.
 
     Parameters:
 
@@ -192,7 +192,7 @@ class LammpsWriter:
     self._lmpatoms.set_masses(type2mass)
 
   def set_topology_types(self, **kwargs):
-    """Sets types of the given topology components.
+    """Set types of the given topology components.
 
     Parameters:
 
@@ -208,11 +208,11 @@ class LammpsWriter:
       self._lmptopo_dict[k].set_types(v, self._lmpatoms.get_atom_types())
 
   def set_bond_types(self, seq_to_type):
-    """Sets types of bonds.
+    """Set types of bonds.
 
     Parameters:
 
-    seq_to_type: dict
+    seq_to_type: dict form tuple to int
       Mapping two-element tuples of atom types
       to corresponding types of bond.
 
@@ -268,11 +268,11 @@ class LammpsWriter:
     self.set_topology_types(bond=seq_to_type)
 
   def set_angle_types(self, seq_to_type):
-    """Sets types of angles.
+    """Set types of angles.
 
     Parameters:
 
-    seq_to_type: dict
+    seq_to_type: dict form tuple to int
       Mapping three-element tuples of atom types
       to corresponding types of angle.
       Note that second atom of each tuple should be
@@ -330,11 +330,11 @@ class LammpsWriter:
     self.set_topology_types(angle=seq_to_type)
 
   def set_dihedral_types(self, seq_to_type):
-    """Sets types of dihedrals.
+    """Set types of dihedrals.
 
     Parameters:
 
-    seq_to_type: dict
+    seq_to_type: dict form tuple to int
       Mapping four-element tuples of atom types
       to corresponding types of dihedral.
       Note that the four atoms should be connected linearly
@@ -390,11 +390,11 @@ class LammpsWriter:
     self.set_topology_types(dihedral=seq_to_type)
 
   def set_improper_types(self, seq_to_type):
-    """Sets types of impropers.
+    """Set types of impropers.
 
     Parameters:
 
-    seq_to_type: dict
+    seq_to_type: dict form tuple to int
       Mapping four-element tuples of atom types
       to corresponding types of improper.
       Note that, if CLASS2 forcefield is used, the second atom of
@@ -453,7 +453,7 @@ class LammpsWriter:
 
   def write_lammps_data(
     self, path, centering=False, **kwargs):
-    """Writes Lammps' data file.
+    """Write Lammps' data file.
 
     Parameters:
 
@@ -538,7 +538,7 @@ class LammpsWriter:
         v.write_lines(path)
 
   def write_lammps_molecule(self, path, special_bonds=True, **kwargs):
-    """Writes Lammps' molecule file.
+    """Write Lammps' molecule file.
 
     Parameters:
 
@@ -554,11 +554,6 @@ class LammpsWriter:
 
       * ``mass`` (bool) : Whether to write *Masses* section or not.
 
-    special_bonds:
-      Whether to write *Special Bond Counts*
-      and *Special Bonds** section.
-
-    This method writes *Lammps molecule file*.
     """
     num_atom = self._lmpatoms.get_num()
 
@@ -590,7 +585,7 @@ class ExtendedPrism(Prism):
   """Extended ``ase.calculators.lammpsrun.Prism`` class."""
 
   def transform_to_lammps(self, vectors):
-    """Returns transposed *vectors*.
+    """Return transposed *vectors*.
 
     This method is required to convert vectors
     from ASE's cartesian coordinate system
