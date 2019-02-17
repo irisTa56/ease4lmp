@@ -325,6 +325,19 @@ a periodic simulation box the second atom is in.</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.adjust_bonds_to_pbc">
+<code class="descname">adjust_bonds_to_pbc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.adjust_bonds_to_pbc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.adjust_bonds_to_pbc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjust bonds under periodic boundary conditions.</p>
+<p>This method corrects image flags of each bond if the bond length
+is longer than a half length of the unit cell side.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the <em>i</em> th atom connects to one of images of the <em>j</em> th atom,
+it <strong>must not</strong> connect to another image of the the <em>j</em> th atom.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms.change_max_bonds">
 <code class="descname">change_max_bonds</code><span class="sig-paren">(</span><em>n=4</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.change_max_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.change_max_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Changes the maximum number of bonds per atom.</p>
@@ -498,44 +511,70 @@ Length of the array must be equal to the number of atoms.</dd>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.sort_bonds">
+<code class="descname">sort_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.sort_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.sort_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort bonds in each atom.</p>
+<p>Note that the order of atoms stays unchanged.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.bonded_atoms.create_atoms_from_data">
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a BondedAtoms instance from Lammps’ data file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file.</dd>
+<dt>atom_style: str</dt>
+<dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ease4lmp.bonded_atoms.create_atoms_from_json">
-<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
-<dd><p>Create a BondedAtoms instance from JSON object(s).</p>
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a BondedAtoms instance from JSON object(s).</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>atoms: list</dt>
 <dd><p class="first">JSON (list of dict) describing atoms.
 All the dictionary contained in the list must have the same keys.
-The following keys are acceptable:</p>
-<blockquote class="last">
-<div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">type</span></code> (int)</li>
-<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (float) : In Lammps’ unit.</li>
+The following keys are required (some are optional):</p>
+<ul class="last simple">
 <li><code class="docutils literal notranslate"><span class="pre">xu</span></code> (float) : In Lammps’ unit.</li>
 <li><code class="docutils literal notranslate"><span class="pre">yu</span></code> (float) : In Lammps’ unit.</li>
 <li><code class="docutils literal notranslate"><span class="pre">zu</span></code> (float) : In Lammps’ unit.</li>
-<li><code class="docutils literal notranslate"><span class="pre">vx</span></code> (float) : In Lammps’ unit.</li>
-<li><code class="docutils literal notranslate"><span class="pre">vy</span></code> (float) : In Lammps’ unit.</li>
-<li><code class="docutils literal notranslate"><span class="pre">vz</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code> (int) : Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vx</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vy</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vz</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">id</span></code> (int) : Required when <code class="docutils literal notranslate"><span class="pre">bonds</span></code> is supplied.</li>
 </ul>
-</div></blockquote>
 </dd>
-<dt>bonds: None or list</dt>
+<dt>bonds: list</dt>
 <dd><p class="first">JSON (list of dict) describing bonds.
 All the dictionary contained in the list must have the same keys.
 The following keys are required:</p>
-<blockquote class="last">
-<div><ul class="simple">
-<li><code class="docutils literal notranslate"><span class="pre">atom1*</span></code> (int) : The first atom id. <code class="docutils literal notranslate"><span class="pre">*</span></code> is a wildcard, i.e.
-something like <code class="docutils literal notranslate"><span class="pre">atom1-id</span></code> is acceptable.</li>
-<li><code class="docutils literal notranslate"><span class="pre">atom2*</span></code> (int) : The second atom id. <code class="docutils literal notranslate"><span class="pre">*</span></code> is a wildcard, i.e.
-something like <code class="docutils literal notranslate"><span class="pre">atom1-id</span></code> is acceptable.</li>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">atom1-id</span></code> (int) : The first atom id.</li>
+<li><code class="docutils literal notranslate"><span class="pre">atom2-id</span></code> (int) : The second atom id.</li>
 </ul>
-</div></blockquote>
 </dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.bonded_atoms.create_atoms_from_molecule">
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a BondedAtoms instance from Lammps’ molecule file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
 </dl>
 </dd></dl>
 
@@ -566,7 +605,7 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 
 <dl class="function">
 <dt id="ease4lmp.lammps_reader.read_atoms_from_data">
-<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=False</em>, <em>velocity=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=True</em>, <em>velocity=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads atoms data from a Lammps’ data file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>
@@ -599,6 +638,17 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_bonds</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads bonds data from a Lammps’ data (or molecule) file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file (or molecule file).</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.lammps_reader.read_box">
+<code class="descclassname">ease4lmp.lammps_reader.</code><code class="descname">read_box</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_box"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_reader.read_box" title="Permalink to this definition">¶</a></dt>
+<dd><p>Reads side lengths of the simulation box.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
@@ -1388,9 +1438,7 @@ by three bonds in that order.</dd>
 to corresponding types of improper.
 Note that, if CLASS2 forcefield is used, the second atom of
 each tuple should be at the center of improper;
-the first atom should be at the center for other forcefields.
-Note that the four atoms should be connected linearly
-by three bonds in that order.</dd>
+the first atom should be at the center for other forcefields.</dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
@@ -1685,6 +1733,19 @@ a periodic simulation box the second atom is in.</dd>
 </dd></dl>
 
 <dl class="method">
+<dt id="ease4lmp.BondedAtoms.adjust_bonds_to_pbc">
+<code class="descname">adjust_bonds_to_pbc</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.adjust_bonds_to_pbc"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.adjust_bonds_to_pbc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Adjust bonds under periodic boundary conditions.</p>
+<p>This method corrects image flags of each bond if the bond length
+is longer than a half length of the unit cell side.</p>
+<div class="admonition note">
+<p class="first admonition-title">Note</p>
+<p class="last">If the <em>i</em> th atom connects to one of images of the <em>j</em> th atom,
+it <strong>must not</strong> connect to another image of the the <em>j</em> th atom.</p>
+</div>
+</dd></dl>
+
+<dl class="method">
 <dt id="ease4lmp.BondedAtoms.change_max_bonds">
 <code class="descname">change_max_bonds</code><span class="sig-paren">(</span><em>n=4</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.change_max_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.change_max_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Changes the maximum number of bonds per atom.</p>
@@ -1858,6 +1919,71 @@ Length of the array must be equal to the number of atoms.</dd>
 </dl>
 </dd></dl>
 
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.sort_bonds">
+<code class="descname">sort_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.sort_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.sort_bonds" title="Permalink to this definition">¶</a></dt>
+<dd><p>Sort bonds in each atom.</p>
+<p>Note that the order of atoms stays unchanged.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.create_atoms_from_json">
+<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a BondedAtoms instance from JSON object(s).</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>atoms: list</dt>
+<dd><p class="first">JSON (list of dict) describing atoms.
+All the dictionary contained in the list must have the same keys.
+The following keys are required (some are optional):</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">xu</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">yu</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">zu</span></code> (float) : In Lammps’ unit.</li>
+<li><code class="docutils literal notranslate"><span class="pre">type</span></code> (int) : Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">mass</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vx</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vy</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">vz</span></code> (float) : In Lammps’ unit. Optional.</li>
+<li><code class="docutils literal notranslate"><span class="pre">id</span></code> (int) : Required when <code class="docutils literal notranslate"><span class="pre">bonds</span></code> is supplied.</li>
+</ul>
+</dd>
+<dt>bonds: list</dt>
+<dd><p class="first">JSON (list of dict) describing bonds.
+All the dictionary contained in the list must have the same keys.
+The following keys are required:</p>
+<ul class="last simple">
+<li><code class="docutils literal notranslate"><span class="pre">atom1-id</span></code> (int) : The first atom id.</li>
+<li><code class="docutils literal notranslate"><span class="pre">atom2-id</span></code> (int) : The second atom id.</li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.create_atoms_from_data">
+<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a BondedAtoms instance from Lammps’ data file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ data file.</dd>
+<dt>atom_style: str</dt>
+<dd>Specifies an <em>atom style</em> used in Lammps.</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="ease4lmp.create_atoms_from_molecule">
+<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a BondedAtoms instance from Lammps’ molecule file.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>path: str</dt>
+<dd>File path to Lammps’ molecule file.</dd>
+</dl>
 </dd></dl>
 
 <dl class="class">
@@ -2207,9 +2333,7 @@ by three bonds in that order.</dd>
 to corresponding types of improper.
 Note that, if CLASS2 forcefield is used, the second atom of
 each tuple should be at the center of improper;
-the first atom should be at the center for other forcefields.
-Note that the four atoms should be connected linearly
-by three bonds in that order.</dd>
+the first atom should be at the center for other forcefields.</dd>
 </dl>
 <p>Examples:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span><span class="p">,</span> <span class="n">LammpsWriter</span>
@@ -2391,7 +2515,7 @@ and <em>Special Bonds*</em> section.</dd>
 
 <dl class="function">
 <dt id="ease4lmp.read_atoms_from_data">
-<code class="descclassname">ease4lmp.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=False</em>, <em>velocity=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.</code><code class="descname">read_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>mass=True</em>, <em>velocity=True</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_reader.html#read_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.read_atoms_from_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Reads atoms data from a Lammps’ data file.</p>
 <p>Returned value is a JSON object (list of dict).</p>
 <p>Parameters:</p>

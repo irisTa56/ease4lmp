@@ -549,8 +549,6 @@
 <span class="sd">      Note that, if CLASS2 forcefield is used, the second atom of</span>
 <span class="sd">      each tuple should be at the center of improper;</span>
 <span class="sd">      the first atom should be at the center for other forcefields.</span>
-<span class="sd">      Note that the four atoms should be connected linearly</span>
-<span class="sd">      by three bonds in that order.</span>
 
 <span class="sd">    Examples:</span>
 
@@ -632,17 +630,15 @@
 <span class="sd">    &quot;&quot;&quot;</span>
     <span class="n">num_atom</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">get_num</span><span class="p">()</span>
 
-    <span class="n">kw</span> <span class="o">=</span> <span class="s2">&quot;num_atom_type&quot;</span>
-    <span class="n">num_atom_type</span> <span class="o">=</span> <span class="p">(</span>
-      <span class="n">kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="k">if</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span>
-      <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">get_num_type</span><span class="p">())</span>
+    <span class="n">num_atom_type</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span>
+      <span class="s2">&quot;num_atom_type&quot;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmpatoms</span><span class="o">.</span><span class="n">get_num_type</span><span class="p">())</span>
 
     <span class="n">num_topo</span> <span class="o">=</span> <span class="p">{</span>
       <span class="n">k</span><span class="p">:</span> <span class="n">v</span><span class="o">.</span><span class="n">get_num</span><span class="p">()</span> <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmptopo_dict</span><span class="o">.</span><span class="n">items</span><span class="p">()</span>
     <span class="p">}</span>
 
     <span class="n">num_topo_type</span> <span class="o">=</span> <span class="p">{</span>
-      <span class="n">k</span><span class="p">:</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="k">if</span> <span class="n">kw</span> <span class="ow">in</span> <span class="n">kwargs</span> <span class="ow">and</span> <span class="n">kwargs</span><span class="p">[</span><span class="n">kw</span><span class="p">]</span> <span class="k">else</span> <span class="n">v</span><span class="o">.</span><span class="n">get_num_type</span><span class="p">()</span>
+      <span class="n">k</span><span class="p">:</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">kw</span><span class="p">,</span> <span class="n">v</span><span class="o">.</span><span class="n">get_num_type</span><span class="p">())</span>
       <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="n">kw</span> <span class="ow">in</span> <span class="p">(</span>
         <span class="p">(</span><span class="n">k</span><span class="p">,</span> <span class="n">v</span><span class="p">,</span> <span class="s2">&quot;num_</span><span class="si">{}</span><span class="s2">_type&quot;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">k</span><span class="p">))</span>
         <span class="k">for</span> <span class="n">k</span><span class="p">,</span> <span class="n">v</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">_lmptopo_dict</span><span class="o">.</span><span class="n">items</span><span class="p">())</span>

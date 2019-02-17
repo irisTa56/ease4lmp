@@ -400,8 +400,6 @@ class LammpsWriter:
       Note that, if CLASS2 forcefield is used, the second atom of
       each tuple should be at the center of improper;
       the first atom should be at the center for other forcefields.
-      Note that the four atoms should be connected linearly
-      by three bonds in that order.
 
     Examples:
 

@@ -9,7 +9,7 @@ import numpy as np
 from .lammps_reader import (
   read_box, read_bonds, read_atoms_from_data, read_atoms_from_molecule)
 
-def create_atoms_from_data(path, atom_style):
+def create_atoms_from_data(path, atom_style, pbc=False):
   """Creates a BondedAtoms instance from Lammps' data file.
 
   Parameters:
@@ -20,12 +20,21 @@ def create_atoms_from_data(path, atom_style):
   atom_style: str
     Specifies an *atom style* used in Lammps.
 
+  pbc: bool or tuple
+    For each axis in the unit cell decides whether the positions
+    will be moved along this axis.
+
   """
+  if isinstance(pbc, bool):
+    pbc = (pbc,) * 3
+
   atoms = read_atoms_from_data(path, atom_style)
   bonds = read_bonds(path)
 
   obj = create_atoms_from_json(atoms, bonds)
   obj.set_cell(read_box(path))
+  obj.set_pbc(pbc)
+  obj.adjust_pbc_bonds()
 
   return obj
 
@@ -43,7 +52,7 @@ def create_atoms_from_molecule(path):
 
   return create_atoms_from_json(atoms, bonds)
 
-def create_atoms_from_json(atoms, bonds=None):
+def create_atoms_from_json(atoms, bonds=[]):
   """Creates a BondedAtoms instance from JSON object(s).
 
   Parameters:
@@ -63,7 +72,7 @@ def create_atoms_from_json(atoms, bonds=None):
     * ``vz`` (float) : In Lammps' unit. Optional.
     * ``id`` (int) : Required when ``bonds`` is supplied.
 
-  bonds: None or list
+  bonds: list
     JSON (list of dict) describing bonds.
     All the dictionary contained in the list must have the same keys.
     The following keys are required:
@@ -92,7 +101,7 @@ def create_atoms_from_json(atoms, bonds=None):
   if len(velocities) == len(obj):
     obj.set_velocities(velocities)
 
-  if bonds is not None:
+  if len(bonds) > 0:
 
     bondarray = np.array([
         [bond["atom1-id"], bond["atom2-id"]]
@@ -114,6 +123,29 @@ def create_atoms_from_json(atoms, bonds=None):
       obj.add_bond(id2idx[id1], id2idx[id2])
 
   return obj
+
+def _compute_image_flags(vec, cell, pbc):
+  """Computes image flags for bond data.
+
+  Parameters:
+
+  vec: numpy.ndarray
+      Vector from an atom owning a bond to the other atom
+      connected by the bond.
+
+  cell: numpy.ndarray
+      Unit cell vectors.
+
+  pbc: list or tuple or numpy.ndarray
+      For each axis in the unit cell decides whether the positions
+      will be moved along this axis.
+
+  """
+  coeffs = np.linalg.solve(cell.T, vec) + 0.5
+  coeffs[np.logical_not(pbc)] = 0.0
+  coeffs //= 1.0
+
+  return -coeffs.astype(int)
 
 #=======================================================================
 
@@ -200,8 +232,9 @@ class BondedAtoms(ase.Atoms):
       raise RuntimeError(
         "Image flag 'img2' should be 3-membered tuple/list")
 
-    relative_data = np.insert(
-      np.array(img2, int) - np.array(img1, int), 0, atom2 - atom1)
+    relative_data = np.asarray([  # not `np.array` due to pylint alarm
+        atom2-atom1, img2[0]-img1[0], img2[1]-img1[1], img2[2]-img1[2]
+      ], int)
 
     idx1 = self._get_available_bond_index(
       atom1, relative_data)
@@ -321,7 +354,7 @@ class BondedAtoms(ase.Atoms):
     for i, bs in enumerate(bonds_per_atom):
       bonds |= set((i, j) for j in bs if (j, i) not in bonds)
 
-    return np.array(list(bonds), int)
+    return np.array(sorted(list(bonds)), int)
 
   def get_bonded_angles(self):
     """Returns a two-dimensional ``numpy.ndarray``
@@ -415,8 +448,16 @@ class BondedAtoms(ase.Atoms):
       a periodic simulation box the second atom is in.
 
     """
-    relative_data = np.insert(
-      np.array(img2, int) - np.array(img1, int), 0, atom2 - atom1)
+    if not isinstance(img1, (tuple, list)) or len(img1) != 3:
+      raise RuntimeError(
+        "Image flag 'img1' should be 3-membered tuple/list")
+    elif not isinstance(img2, (tuple, list)) or len(img2) != 3:
+      raise RuntimeError(
+        "Image flag 'img2' should be 3-membered tuple/list")
+
+    relative_data = np.asarray([  # not `np.array` due to pylint alarm
+        atom2-atom1, img2[0]-img1[0], img2[1]-img1[1], img2[2]-img1[2]
+      ], int)
 
     self._remove_bond(
       atom1, self._get_matched_bond_index(atom1, relative_data))
@@ -472,6 +513,34 @@ class BondedAtoms(ase.Atoms):
         sorted(bs, key=key_for_sorting_bonds)
         for bs in self.arrays["bonds"]
       ], int, ())
+
+  def adjust_pbc_bonds(self):
+    """Adjust bonds under periodic boundary conditions.
+
+    This method corrects image flags of each bond if distance
+    between two atoms connected with the bond is longer than
+    a half length of the unit cell side.
+
+    .. note::
+
+      If the *i* th atom connects to one of images of the *j* th atom,
+      it **must not** connect to another image of the the *j* th atom.
+      In addition, all the bond lengths must be less than
+      a half length of the unit cell side.
+
+    """
+    cell = self.get_cell()
+    pbc = self.get_pbc()
+
+    if pbc.any() and np.asarray(cell)[pbc].any(axis=1).all() and (cell, pbc):
+
+      positions = self.get_positions()
+
+      for i, bs in enumerate(self.arrays["bonds"]):
+        for b in bs:
+          if not np.all(b == 0):
+            b[1:] = _compute_image_flags(
+              positions[i+b[0]] - positions[i], cell, pbc)
 
   def __delitem__(self, idx):
     """Deletes a selected atom.

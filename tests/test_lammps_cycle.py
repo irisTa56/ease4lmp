@@ -5,7 +5,7 @@ from ease4lmp import (
   create_atoms_from_data, create_atoms_from_molecule)
 
 from ase import Atoms
-from ase.build import molecule
+from ase.build import bulk, molecule
 
 import numpy as np
 
@@ -166,8 +166,55 @@ class TestLammpsCycle(unittest.TestCase):
 
     remove_files()
 
+  def test_nacl(self):
+    """Test for equivalence between original and written/read data."""
+    atoms = BondedAtoms(bulk("NaCl", "rocksalt", a=5.64, orthorhombic=True))
+
+    # confirm atomic numbers
+    self.assertTrue(np.allclose(
+      atoms.get_atomic_numbers(), np.array([11, 17, 11, 17])))
+
+    atoms.set_types([1, 2, 1, 2])
+
+    atoms.change_max_bonds(6)
+
+    cell = atoms.get_cell()
+    positions = atoms.get_positions()
+
+    for i, j in itertools.combinations(range(len(atoms)), 2):
+      r_original = positions[j] - positions[i]
+      for ix, iy, iz in itertools.product(*[(-1, 0, 1)]*3):
+        r = r_original + ix * cell[0] + iy * cell[1] + iz * cell[2]
+        if np.isclose(np.linalg.norm(r), 2.82):
+          atoms.add_bond(i, j, img2=(ix, iy, iz))
+
+    atoms *= 5
+
+    atoms.sort_bonds()
+
+    write_files(atoms)
+
+    atoms_from_data = create_atoms_from_data(
+      "data.tmp", "molecular", pbc=True)
+
+    # comparison with original atoms
+    self.assertTrue(np.allclose(
+      atoms_from_data.get_positions(), atoms.get_positions()))
+    self.assertTrue(np.allclose(
+      atoms_from_data.get_masses(), atoms.get_masses()))
+    self.assertTrue(np.allclose(
+      atoms_from_data.get_types(), atoms.get_types()))
+
+    # storing order of bonds might be changed
+    atoms_from_data.sort_bonds()
+    self.assertTrue(np.allclose(
+      atoms_from_data.get_bonds(), atoms.get_bonds()))
+
+    remove_files()
+
 def suite():
   suite = unittest.TestSuite()
   suite.addTest(TestLammpsCycle("test_methanol"))
   suite.addTest(TestLammpsCycle("test_acetic"))
+  suite.addTest(TestLammpsCycle("test_nacl"))
   return suite
