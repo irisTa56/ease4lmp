@@ -48,4 +48,3 @@ This project would not be possible without the following great open-source proje
 ## To Do
 
 * Automatically add bonds.
-* Override `ase.Atoms.wrap()` method.

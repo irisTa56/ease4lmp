@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.4.0
+                0.4.1
               </div>
             
           
@@ -176,7 +176,8 @@
 <dl class="class">
 <dt id="ease4lmp.bonded_atoms.BondedAtoms">
 <em class="property">class </em><code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">BondedAtoms</code><span class="sig-paren">(</span><em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms" title="Permalink to this definition">¶</a></dt>
-<dd><p>Inheriting <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.atoms.Atoms</span></code></p>
+<p>Inheriting <code class="docutils literal notranslate"><span class="pre">ase.Atoms</span></code> class, and has functionalities
 to handle (covalent) bonds connecting a pair of atoms.</p>
 <p>An instance of this class has bond data as a <code class="docutils literal notranslate"><span class="pre">numpy.ndarray</span></code>
 as with other atomic properties like positions and velocities.
@@ -211,8 +212,8 @@ A list or tuple of integers is also acceptable for multiple atoms.</dd>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">set_bonds</span><span class="p">([</span>
-<span class="gp">... </span>  <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span>
-<span class="gp">... </span>  <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
 <span class="gp">... </span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
 <span class="go">array([[[ 1,  0,  0,  0],</span>
@@ -260,7 +261,7 @@ If an integer is given, a tuple <code class="docutils literal notranslate"><span
 <span class="gp">... </span>  <span class="n">positions</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]],</span>
 <span class="gp">... </span>  <span class="n">cell</span><span class="o">=</span><span class="p">[</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
 <span class="gp">... </span>  <span class="n">pbc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
 <span class="go">array([[[ 0,  1,  0,  0],</span>
 <span class="go">        [ 0, -1,  0,  0],</span>
@@ -524,6 +525,25 @@ Length of the array must be equal to the number of atoms.</dd>
 <p>Note that the order of atoms stays unchanged.</p>
 </dd></dl>
 
+<dl class="method">
+<dt id="ease4lmp.bonded_atoms.BondedAtoms.wrap">
+<code class="descname">wrap</code><span class="sig-paren">(</span><em>center=(0.5</em>, <em>0.5</em>, <em>0.5)</em>, <em>pbc=None</em>, <em>eps=1e-07</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.wrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.BondedAtoms.wrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap positions to unit cell.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>center: array-like object of float</dt>
+<dd>The positons in fractional coordinates that the new positions
+will be nearest possible to.</dd>
+<dt>pbc: bool or list/tuple of bool</dt>
+<dd>For each axis in the unit cell decides whether the positions
+will be moved along this axis.  By default, the boundary
+conditions of the Atoms object will be used.</dd>
+<dt>eps: float</dt>
+<dd>Small number to prevent slightly negative coordinates from being
+wrapped.</dd>
+</dl>
+</dd></dl>
+
 </dd></dl>
 
 <dl class="function">
@@ -696,14 +716,16 @@ used in <em>Atoms</em> and <em>Velocities</em> section of Lammps’ data file.</
 <dl class="class">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAngles">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsAngles</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAngles"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAngles" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface to write <em>Angles</em> section
+<dd><p>Bases: <a class="reference internal" href="#ease4lmp.lammps_sectionwriter.LammpsTopology" title="ease4lmp.lammps_sectionwriter.LammpsTopology"><code class="xref py py-class docutils literal notranslate"><span class="pre">ease4lmp.lammps_sectionwriter.LammpsTopology</span></code></a></p>
+<p>An interface to write <em>Angles</em> section
 in Lammps’ data file (or molecule file).</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsAtoms</code><span class="sig-paren">(</span><em>atom_style</em>, <em>types</em>, <em>positions</em>, <em>velocities=None</em>, <em>masses=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsAtoms"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsAtoms" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface to write <em>Atoms</em> (and <em>Velocities</em>) section
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An interface to write <em>Atoms</em> (and <em>Velocities</em>) section
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsAtoms.__init__">
@@ -839,7 +861,8 @@ in Lammps’ molecule file.</p>
 <dl class="class">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsBonds">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsBonds</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsBonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface to write <em>Bonds</em> section
+<dd><p>Bases: <a class="reference internal" href="#ease4lmp.lammps_sectionwriter.LammpsTopology" title="ease4lmp.lammps_sectionwriter.LammpsTopology"><code class="xref py py-class docutils literal notranslate"><span class="pre">ease4lmp.lammps_sectionwriter.LammpsTopology</span></code></a></p>
+<p>An interface to write <em>Bonds</em> section
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsBonds.get_maximum_per_atom">
@@ -857,14 +880,16 @@ See also Lammps’ source code of <code class="docutils literal notranslate"><sp
 <dl class="class">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsDihedrals">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsDihedrals</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsDihedrals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsDihedrals" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface to write <em>Dihedrals</em> section
+<dd><p>Bases: <a class="reference internal" href="#ease4lmp.lammps_sectionwriter.LammpsTopology" title="ease4lmp.lammps_sectionwriter.LammpsTopology"><code class="xref py py-class docutils literal notranslate"><span class="pre">ease4lmp.lammps_sectionwriter.LammpsTopology</span></code></a></p>
+<p>An interface to write <em>Dihedrals</em> section
 in Lammps’ data file (or molecule file).</p>
 </dd></dl>
 
 <dl class="class">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsImpropers">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsImpropers</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em>, <em>class2=False</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsImpropers"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsImpropers" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface to write <em>Impropers</em> section
+<dd><p>Bases: <a class="reference internal" href="#ease4lmp.lammps_sectionwriter.LammpsTopology" title="ease4lmp.lammps_sectionwriter.LammpsTopology"><code class="xref py py-class docutils literal notranslate"><span class="pre">ease4lmp.lammps_sectionwriter.LammpsTopology</span></code></a></p>
+<p>An interface to write <em>Impropers</em> section
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsImpropers.__init__">
@@ -909,7 +934,8 @@ a type of the <em>i</em> th atom.</dd>
 <dl class="class">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsSpecialBonds</code><span class="sig-paren">(</span><em>bonds_per_atom</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsSpecialBonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsSpecialBonds" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface to write <em>Special Bond Counts</em>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An interface to write <em>Special Bond Counts</em>
 and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsSpecialBonds.__init__">
@@ -955,7 +981,8 @@ and <em>Special Bonds</em> section in Lammps’ molecule file.</p>
 <dl class="class">
 <dt id="ease4lmp.lammps_sectionwriter.LammpsTopology">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_sectionwriter.</code><code class="descname">LammpsTopology</code><span class="sig-paren">(</span><em>sequences</em>, <em>datanames</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_sectionwriter.html#LammpsTopology"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_sectionwriter.LammpsTopology" title="Permalink to this definition">¶</a></dt>
-<dd><p>An (abstract) interface to write a section of topology component
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An (abstract) interface to write a section of topology component
 (<em>Bonds</em>, <em>Angles</em>, <em>Dihedrals</em>, <em>Impropers</em>)
 in Lammps’ data file (or molecule file).</p>
 <dl class="method">
@@ -1093,7 +1120,8 @@ I wonder if Lammps changes its <em>unit</em> definitions.</p>
 <dl class="class">
 <dt id="ease4lmp.lammps_writer.ExtendedPrism">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_writer.</code><code class="descname">ExtendedPrism</code><span class="sig-paren">(</span><em>cell</em>, <em>pbc=(True</em>, <em>True</em>, <em>True)</em>, <em>digits=10</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#ExtendedPrism"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.ExtendedPrism" title="Permalink to this definition">¶</a></dt>
-<dd><p>Extended <code class="docutils literal notranslate"><span class="pre">ase.calculators.lammpsrun.Prism</span></code> class.</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">ase.calculators.lammpsrun.Prism</span></code></p>
+<p>Extended <code class="docutils literal notranslate"><span class="pre">ase.calculators.lammpsrun.Prism</span></code> class.</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.ExtendedPrism.transform_to_lammps">
 <code class="descname">transform_to_lammps</code><span class="sig-paren">(</span><em>vectors</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#ExtendedPrism.transform_to_lammps"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.ExtendedPrism.transform_to_lammps" title="Permalink to this definition">¶</a></dt>
@@ -1114,7 +1142,8 @@ to Lammps’ skewed coordinate system.</p>
 <dl class="class">
 <dt id="ease4lmp.lammps_writer.LammpsWriter">
 <em class="property">class </em><code class="descclassname">ease4lmp.lammps_writer.</code><code class="descname">LammpsWriter</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter" title="Permalink to this definition">¶</a></dt>
-<dd><p>An interface to write Lammps’ data file (or molecule file).</p>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>An interface to write Lammps’ data file (or molecule file).</p>
 <dl class="method">
 <dt id="ease4lmp.lammps_writer.LammpsWriter.__init__">
 <code class="descname">__init__</code><span class="sig-paren">(</span><em>atoms</em>, <em>atom_style</em>, <em>lammps_unit='real'</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/lammps_writer.html#LammpsWriter.__init__"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.lammps_writer.LammpsWriter.__init__" title="Permalink to this definition">¶</a></dt>
@@ -1619,8 +1648,8 @@ A list or tuple of integers is also acceptable for multiple atoms.</dd>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="gp">&gt;&gt;&gt; </span><span class="kn">from</span> <span class="nn">ease4lmp</span> <span class="k">import</span> <span class="n">BondedAtoms</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span> <span class="o">=</span> <span class="n">BondedAtoms</span><span class="p">(</span><span class="s1">&#39;CO&#39;</span><span class="p">,</span> <span class="n">positions</span><span class="o">=</span><span class="p">[(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">),</span> <span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mf">1.1</span><span class="p">)])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">set_bonds</span><span class="p">([</span>
-<span class="gp">... </span>  <span class="p">[[</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]],</span>
-<span class="gp">... </span>  <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]]</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]],</span>
+<span class="gp">... </span>  <span class="p">[[</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">]]</span>
 <span class="gp">... </span><span class="p">])</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">atoms</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
 <span class="go">array([[[ 1,  0,  0,  0],</span>
@@ -1668,7 +1697,7 @@ If an integer is given, a tuple <code class="docutils literal notranslate"><span
 <span class="gp">... </span>  <span class="n">positions</span><span class="o">=</span><span class="p">[[</span><span class="mf">0.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">]],</span>
 <span class="gp">... </span>  <span class="n">cell</span><span class="o">=</span><span class="p">[</span><span class="mf">2.9</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">],</span>
 <span class="gp">... </span>  <span class="n">pbc</span><span class="o">=</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">])</span>
-<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">))</span>
+<span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">add_bond</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">img2</span><span class="o">=</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">))</span>
 <span class="gp">&gt;&gt;&gt; </span><span class="n">wire</span><span class="o">.</span><span class="n">get_bonds</span><span class="p">()</span>
 <span class="go">array([[[ 0,  1,  0,  0],</span>
 <span class="go">        [ 0, -1,  0,  0],</span>
@@ -1935,6 +1964,25 @@ Length of the array must be equal to the number of atoms.</dd>
 <code class="descname">sort_bonds</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.sort_bonds"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.sort_bonds" title="Permalink to this definition">¶</a></dt>
 <dd><p>Sort bonds in each atom.</p>
 <p>Note that the order of atoms stays unchanged.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="ease4lmp.BondedAtoms.wrap">
+<code class="descname">wrap</code><span class="sig-paren">(</span><em>center=(0.5</em>, <em>0.5</em>, <em>0.5)</em>, <em>pbc=None</em>, <em>eps=1e-07</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#BondedAtoms.wrap"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.BondedAtoms.wrap" title="Permalink to this definition">¶</a></dt>
+<dd><p>Wrap positions to unit cell.</p>
+<p>Parameters:</p>
+<dl class="docutils">
+<dt>center: array-like object of float</dt>
+<dd>The positons in fractional coordinates that the new positions
+will be nearest possible to.</dd>
+<dt>pbc: bool or list/tuple of bool</dt>
+<dd>For each axis in the unit cell decides whether the positions
+will be moved along this axis.  By default, the boundary
+conditions of the Atoms object will be used.</dd>
+<dt>eps: float</dt>
+<dd>Small number to prevent slightly negative coordinates from being
+wrapped.</dd>
+</dl>
 </dd></dl>
 
 </dd></dl>

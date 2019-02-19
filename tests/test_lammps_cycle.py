@@ -9,13 +9,7 @@ from ase.build import bulk, molecule
 import numpy as np
 
 import os
-import sys
 import itertools
-
-from io import StringIO
-
-io = StringIO()
-sys.stdout = io
 
 
 def write_files(atoms):
@@ -64,9 +58,12 @@ class TestLammpsCycle(unittest.TestCase):
 
     positions = atoms.get_positions()
 
-    bonded_pairs = (
+    bonded_pairs = [
       (i, j) for i, j in itertools.combinations(range(len(atoms)), 2)
-      if np.linalg.norm(positions[i] - positions[j]) < 1.5)
+      if np.linalg.norm(positions[i] - positions[j]) < 1.5]
+
+    # there are five bonds in CH3OH
+    self.assertEqual(len(bonded_pairs), 5)
 
     for pair in bonded_pairs:
       atoms.add_bond(*pair)
@@ -123,9 +120,12 @@ class TestLammpsCycle(unittest.TestCase):
 
     positions = atoms.get_positions()
 
-    bonded_pairs = (
+    bonded_pairs = [
       (i, j) for i, j in itertools.combinations(range(len(atoms)), 2)
-      if np.linalg.norm(positions[i] - positions[j]) < 1.5)
+      if np.linalg.norm(positions[i] - positions[j]) < 1.5]
+
+    # there are seven bonds in CH3COOH
+    self.assertEqual(len(bonded_pairs), 7)
 
     for pair in bonded_pairs:
       atoms.add_bond(*pair)

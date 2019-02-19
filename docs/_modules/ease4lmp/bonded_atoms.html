@@ -57,7 +57,7 @@
             
             
               <div class="version">
-                0.4.0
+                0.4.1
               </div>
             
           
@@ -693,6 +693,28 @@
             <span class="n">b</span><span class="p">[</span><span class="mi">1</span><span class="p">:]</span> <span class="o">=</span> <span class="n">_compute_image_flags</span><span class="p">(</span>
               <span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="n">b</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span> <span class="o">-</span> <span class="n">positions</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">cell</span><span class="p">,</span> <span class="n">pbc</span><span class="p">)</span></div>
 
+<div class="viewcode-block" id="BondedAtoms.wrap"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.bonded_atoms.BondedAtoms.wrap">[docs]</a>  <span class="k">def</span> <span class="nf">wrap</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">center</span><span class="o">=</span><span class="p">(</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">),</span> <span class="n">pbc</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">eps</span><span class="o">=</span><span class="mf">1e-7</span><span class="p">):</span>
+      <span class="sd">&quot;&quot;&quot;Wrap positions to unit cell.</span>
+
+<span class="sd">      Parameters:</span>
+
+<span class="sd">      center: array-like object of float</span>
+<span class="sd">          The positons in fractional coordinates that the new positions</span>
+<span class="sd">          will be nearest possible to.</span>
+
+<span class="sd">      pbc: bool or list/tuple of bool</span>
+<span class="sd">        For each axis in the unit cell decides whether the positions</span>
+<span class="sd">        will be moved along this axis.  By default, the boundary</span>
+<span class="sd">        conditions of the Atoms object will be used.</span>
+
+<span class="sd">      eps: float</span>
+<span class="sd">        Small number to prevent slightly negative coordinates from being</span>
+<span class="sd">        wrapped.</span>
+
+<span class="sd">      &quot;&quot;&quot;</span>
+      <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="n">wrap</span><span class="p">(</span><span class="n">center</span><span class="p">,</span> <span class="n">pbc</span><span class="p">,</span> <span class="n">eps</span><span class="p">)</span>
+      <span class="bp">self</span><span class="o">.</span><span class="n">adjust_pbc_bonds</span><span class="p">()</span></div>
+
 <div class="viewcode-block" id="BondedAtoms.__delitem__"><a class="viewcode-back" href="../../apis/ease4lmp.html#ease4lmp.bonded_atoms.BondedAtoms.__delitem__">[docs]</a>  <span class="k">def</span> <span class="nf">__delitem__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">idx</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;Delete a selected atom.</span>
 
@@ -711,8 +733,8 @@
 <span class="sd">    &gt;&gt;&gt; from ease4lmp import BondedAtoms</span>
 <span class="sd">    &gt;&gt;&gt; atoms = BondedAtoms(&#39;CO&#39;, positions=[(0, 0, 0), (0, 0, 1.1)])</span>
 <span class="sd">    &gt;&gt;&gt; atoms.set_bonds([</span>
-<span class="sd">    ...   [[1,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]],</span>
-<span class="sd">    ...   [[-1,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]</span>
+<span class="sd">    ...   [[1, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0]],</span>
+<span class="sd">    ...   [[-1, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0]]</span>
 <span class="sd">    ... ])</span>
 <span class="sd">    &gt;&gt;&gt; atoms.get_bonds()</span>
 <span class="sd">    array([[[ 1,  0,  0,  0],</span>
@@ -784,7 +806,7 @@
 <span class="sd">    ...   positions=[[0.0, 5.0, 5.0]],</span>
 <span class="sd">    ...   cell=[2.9, 5.0, 5.0],</span>
 <span class="sd">    ...   pbc=[1, 0, 0])</span>
-<span class="sd">    &gt;&gt;&gt; wire.add_bond(0, 0, img2=(1,0,0))</span>
+<span class="sd">    &gt;&gt;&gt; wire.add_bond(0, 0, img2=(1, 0, 0))</span>
 <span class="sd">    &gt;&gt;&gt; wire.get_bonds()</span>
 <span class="sd">    array([[[ 0,  1,  0,  0],</span>
 <span class="sd">            [ 0, -1,  0,  0],</span>

@@ -7,6 +7,7 @@
 ```eval_rst
 .. automodule:: ease4lmp.bonded_atoms
     :members:
+    :show-inheritance:
     :special-members:
 ```
 
@@ -15,6 +16,7 @@
 ```eval_rst
 .. automodule:: ease4lmp.lammps_dataformats
     :members:
+    :show-inheritance:
     :special-members:
 ```
 
@@ -23,6 +25,7 @@
 ```eval_rst
 .. automodule:: ease4lmp.lammps_reader
     :members:
+    :show-inheritance:
     :special-members:
 ```
 
@@ -31,6 +34,7 @@
 ```eval_rst
 .. automodule:: ease4lmp.lammps_sectionwriter
     :members:
+    :show-inheritance:
     :special-members:
 ```
 
@@ -39,6 +43,7 @@
 ```eval_rst
 .. automodule:: ease4lmp.lammps_units
     :members:
+    :show-inheritance:
     :special-members:
 ```
 
@@ -47,6 +52,7 @@
 ```eval_rst
 .. automodule:: ease4lmp.lammps_writer
     :members:
+    :show-inheritance:
     :special-members:
 ```
 
@@ -56,6 +62,6 @@
 .. automodule:: ease4lmp
     :members:
     :undoc-members:
-    :special-members:
     :show-inheritance:
+    :special-members:
 ```

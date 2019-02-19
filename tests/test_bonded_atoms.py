@@ -4,6 +4,8 @@ from ease4lmp import BondedAtoms
 
 from ase.build import molecule
 
+import itertools
+
 import numpy as np
 
 
@@ -111,6 +113,7 @@ class TestBondedAtoms(unittest.TestCase):
     self.assertTrue(np.allclose(methanol.get_distance(1, 3), 0.97))
 
     bond_list = [(0, 1), (0, 2), (0, 4), (0, 5), (1, 3)]
+
     for t in bond_list:
       methanol.add_bond(*t)
 
@@ -138,10 +141,56 @@ class TestBondedAtoms(unittest.TestCase):
       set(tuple(i) for i in methanol.get_bonded_impropers()),
       {(0, 1, 2, 4), (0, 1, 2, 5), (0, 1, 4, 5), (0, 2, 4, 5)})
 
+  def test_wrapping(self):
+    """Test for ``BondedAtoms.wrap()``."""
+    atoms = BondedAtoms(molecule("CH3CH2OCH3"))
+
+    positions = atoms.get_positions()
+    bonded_pairs = [
+      (i, j) for i, j in itertools.combinations(range(len(atoms)), 2)
+      if np.linalg.norm(positions[i] - positions[j]) < 1.55]
+
+    # there are eleven bonds in CH3CH2OCH3
+    self.assertEqual(len(bonded_pairs), 11)
+
+    bond_lengths = sorted(
+      atoms.get_distance(*pair) for pair in bonded_pairs)
+
+    for t in bonded_pairs:
+      atoms.add_bond(*t)
+
+    def get_bond_length(atoms):
+
+      bond_array = atoms.get_bonds()
+      cell = atoms.get_cell()
+      positions = atoms.get_positions()
+
+      return sorted(
+        np.linalg.norm(
+          (cell * bond[1:]).sum(axis=0)
+          + positions[i+bond[0]] - positions[i])
+        for i, bonds in enumerate(bond_array)
+        for bond in bonds if 0 < bond[0]
+      )
+
+    # bond length is correct before wrapping?
+    self.assertTrue(np.allclose(
+      bond_lengths, get_bond_length(atoms)))
+
+    atoms.set_cell([[5., 0., 0.], [0., 5., 0.], [0., 0., 5.]])
+    atoms.set_pbc(True)
+
+    atoms.wrap()
+
+    # bond length is correct after wrapping?
+    self.assertTrue(np.allclose(
+      bond_lengths, get_bond_length(atoms)))
+
 
 def suite():
   suite = unittest.TestSuite()
   suite.addTest(TestBondedAtoms("test_casting"))
   suite.addTest(TestBondedAtoms("test_gold"))
   suite.addTest(TestBondedAtoms("test_methanol"))
+  suite.addTest(TestBondedAtoms("test_wrapping"))
   return suite

@@ -544,6 +544,28 @@ class BondedAtoms(ase.Atoms):
             b[1:] = _compute_image_flags(
               positions[i+b[0]] - positions[i], cell, pbc)
 
+  def wrap(self, center=(0.5, 0.5, 0.5), pbc=None, eps=1e-7):
+      """Wrap positions to unit cell.
+
+      Parameters:
+
+      center: array-like object of float
+          The positons in fractional coordinates that the new positions
+          will be nearest possible to.
+
+      pbc: bool or list/tuple of bool
+        For each axis in the unit cell decides whether the positions
+        will be moved along this axis.  By default, the boundary
+        conditions of the Atoms object will be used.
+
+      eps: float
+        Small number to prevent slightly negative coordinates from being
+        wrapped.
+
+      """
+      super().wrap(center, pbc, eps)
+      self.adjust_pbc_bonds()
+
   def __delitem__(self, idx):
     """Delete a selected atom.
 
@@ -562,8 +584,8 @@ class BondedAtoms(ase.Atoms):
     >>> from ease4lmp import BondedAtoms
     >>> atoms = BondedAtoms('CO', positions=[(0, 0, 0), (0, 0, 1.1)])
     >>> atoms.set_bonds([
-    ...   [[1,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]],
-    ...   [[-1,0,0,0],[0,0,0,0],[0,0,0,0],[0,0,0,0]]
+    ...   [[1, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0]],
+    ...   [[-1, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0],[0, 0, 0, 0]]
     ... ])
     >>> atoms.get_bonds()
     array([[[ 1,  0,  0,  0],
@@ -635,7 +657,7 @@ class BondedAtoms(ase.Atoms):
     ...   positions=[[0.0, 5.0, 5.0]],
     ...   cell=[2.9, 5.0, 5.0],
     ...   pbc=[1, 0, 0])
-    >>> wire.add_bond(0, 0, img2=(1,0,0))
+    >>> wire.add_bond(0, 0, img2=(1, 0, 0))
     >>> wire.get_bonds()
     array([[[ 0,  1,  0,  0],
             [ 0, -1,  0,  0],
