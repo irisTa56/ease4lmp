@@ -4,6 +4,9 @@ import os
 import sys
 sys.path.insert(0, os.path.abspath("."))
 
+from ease4lmp import __version__
+print(__version__)
+
 from io import StringIO
 io = StringIO()
 sys.stdout = io
