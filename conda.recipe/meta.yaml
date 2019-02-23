@@ -1,6 +1,6 @@
 package:
   name: ease4lmp
-  version: 0.4.3
+  version: 0.4.4
 
 build:
   number: 1
