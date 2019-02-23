@@ -14,10 +14,32 @@ class TestLammpsReader(unittest.TestCase):
       path1 = "lammps_files/data.{}".format(name)
       path2 = "lammps_files/molecule.{}".format(name)
 
-      self.assertEqual(read_bonds(path1), read_bonds(path2))
-      self.assertEqual(read_angles(path1), read_angles(path2))
-      self.assertEqual(read_dihedrals(path1), read_dihedrals(path2))
-      self.assertEqual(read_impropers(path1), read_impropers(path2))
+      bonds = read_bonds(path1)
+      angles = read_angles(path1)
+      dihedrals = read_dihedrals(path1)
+      impropers = read_impropers(path1)
+
+      self.assertEqual(bonds, read_bonds(path2))
+      self.assertEqual(angles, read_angles(path2))
+      self.assertEqual(dihedrals, read_dihedrals(path2))
+      self.assertEqual(impropers, read_impropers(path2))
+
+      self.assertTrue(all(
+        set(b.keys())
+          == {"id", "type"} | set("atom{}-id".format(i) for i in range(1, 3))
+        for b in bonds))
+      self.assertTrue(all(
+        set(a.keys())
+          == {"id", "type"} | set("atom{}-id".format(i) for i in range(1, 4))
+        for a in angles))
+      self.assertTrue(all(
+        set(d.keys())
+          == {"id", "type"} | set("atom{}-id".format(i) for i in range(1, 5))
+        for d in dihedrals))
+      self.assertTrue(all(
+        set(i.keys())
+          == {"id", "type"} | set("atom{}-id".format(i) for i in range(1, 5))
+        for i in impropers))
 
   def test_data_and_molecule_topology(self):
     """Two data objects from Lammps' data and molecule file must be eaqual."""

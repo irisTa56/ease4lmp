@@ -45,13 +45,17 @@ def _read_topology_components(path, name, header):
     File path to Lammps' data file (or molecule file).
 
   name: str
-    Name of topology component.
+    Name of topology component:
+    'bond', 'angle', 'dihedral' or 'improper'.
 
   header: str
     Section header of the topology components.
 
   """
-  datanames = ["{}-id".format(s) for s in lmp_datanames[name]]
+  datanames = [
+    "{}-id".format(s) if s.startswith("atom") else s
+    for s in lmp_datanames[name]
+  ]
 
   return [
     dict(zip(datanames, map(int, line)))
