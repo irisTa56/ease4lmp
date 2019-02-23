@@ -8,8 +8,10 @@ import numpy as np
 
 from .lammps_reader import (
   read_box, read_bonds, read_atoms_from_data, read_atoms_from_molecule)
+from .lammps_units import lmp_units
 
-def create_atoms_from_data(path, atom_style, pbc=False):
+def create_atoms_from_data(
+  path, atom_style, pbc=False, lammps_unit="real"):
   """Create a BondedAtoms instance from Lammps' data file.
 
   Parameters:
@@ -24,6 +26,9 @@ def create_atoms_from_data(path, atom_style, pbc=False):
     For each axis in the unit cell decides whether the positions
     will be moved along this axis.
 
+  lammps_unit: str
+    Specifies a *unit* used in Lammps.
+
   """
   if isinstance(pbc, bool):
     pbc = (pbc,) * 3
@@ -31,14 +36,17 @@ def create_atoms_from_data(path, atom_style, pbc=False):
   atoms = read_atoms_from_data(path, atom_style)
   bonds = read_bonds(path)
 
-  obj = create_atoms_from_json(atoms, bonds)
-  obj.set_cell(read_box(path))
+  obj = create_atoms_from_json(atoms, bonds, lammps_unit)
+
+  dunit2ase = lmp_units[lammps_unit]["_2si"]["distance"] * ase.units.m
+  obj.set_cell([dunit2ase * l for l in read_box(path)])
+
   obj.set_pbc(pbc)
   obj.adjust_pbc_bonds()
 
   return obj
 
-def create_atoms_from_molecule(path):
+def create_atoms_from_molecule(path, lammps_unit="real"):
   """Create a BondedAtoms instance from Lammps' molecule file.
 
   Parameters:
@@ -46,13 +54,16 @@ def create_atoms_from_molecule(path):
   path: str
     File path to Lammps' molecule file.
 
+  lammps_unit: str
+    Specifies a *unit* used in Lammps.
+
   """
   atoms = read_atoms_from_molecule(path)
   bonds = read_bonds(path)
 
-  return create_atoms_from_json(atoms, bonds)
+  return create_atoms_from_json(atoms, bonds, lammps_unit)
 
-def create_atoms_from_json(atoms, bonds=[]):
+def create_atoms_from_json(atoms, bonds=[], lammps_unit="real"):
   """Create a BondedAtoms instance from JSON object(s).
 
   Parameters:
@@ -80,9 +91,17 @@ def create_atoms_from_json(atoms, bonds=[]):
     * ``atom1-id`` (int) : The first atom id.
     * ``atom2-id`` (int) : The second atom id.
 
+  lammps_unit: str
+    Specifies a *unit* used in Lammps.
+
   """
+  lmp_unit = lmp_units[lammps_unit]
+  dunit2ase = lmp_unit["_2si"]["distance"] * ase.units.m  # distance
+  vunit2ase = dunit2ase / lmp_unit["_2si"]["time"] / ase.units.s  # velocity
+  munit2ase = lmp_unit["_2si"]["mass"] * ase.units.kg  # mass
+
   obj = BondedAtoms(positions=[
-      [atom["xu"], atom["yu"], atom["zu"]]
+      dunit2ase * np.array([atom["xu"], atom["yu"], atom["zu"]])
       for atom in atoms if all(k in atom for k in ["xu", "yu", "zu"])
     ])
 
@@ -92,10 +111,10 @@ def create_atoms_from_json(atoms, bonds=[]):
 
   masses = [atom["mass"] for atom in atoms if "mass" in atom]
   if len(masses) == len(obj):
-    obj.set_masses(masses)
+    obj.set_masses(munit2ase * np.array(masses))
 
   velocities = [
-    [atom["vx"], atom["vy"], atom["vz"]]
+    vunit2ase * np.array([atom["vx"], atom["vy"], atom["vz"]])
     for atom in atoms if all(k in atom for k in ["vx", "vy", "vz"])
   ]
   if len(velocities) == len(obj):

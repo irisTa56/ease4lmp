@@ -58,7 +58,7 @@
             
             
               <div class="version">
-                0.4.3
+                0.4.4
               </div>
             
           
@@ -548,7 +548,7 @@ wrapped.</dd>
 
 <dl class="function">
 <dt id="ease4lmp.bonded_atoms.create_atoms_from_data">
-<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>pbc=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>pbc=False</em>, <em>lammps_unit='real'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a BondedAtoms instance from Lammps’ data file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -559,12 +559,14 @@ wrapped.</dd>
 <dt>pbc: array-like object of bool</dt>
 <dd>For each axis in the unit cell decides whether the positions
 will be moved along this axis.</dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ease4lmp.bonded_atoms.create_atoms_from_json">
-<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em>, <em>lammps_unit='real'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a BondedAtoms instance from JSON object(s).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -593,17 +595,21 @@ The following keys are required:</p>
 <li><code class="docutils literal notranslate"><span class="pre">atom2-id</span></code> (int) : The second atom id.</li>
 </ul>
 </dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ease4lmp.bonded_atoms.create_atoms_from_molecule">
-<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.bonded_atoms.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>lammps_unit='real'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.bonded_atoms.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a BondedAtoms instance from Lammps’ molecule file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
 <dd>File path to Lammps’ molecule file.</dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
 </dl>
 </dd></dl>
 
@@ -1989,7 +1995,7 @@ wrapped.</dd>
 
 <dl class="function">
 <dt id="ease4lmp.create_atoms_from_json">
-<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_json</code><span class="sig-paren">(</span><em>atoms</em>, <em>bonds=[]</em>, <em>lammps_unit='real'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_json"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_json" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a BondedAtoms instance from JSON object(s).</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2018,12 +2024,14 @@ The following keys are required:</p>
 <li><code class="docutils literal notranslate"><span class="pre">atom2-id</span></code> (int) : The second atom id.</li>
 </ul>
 </dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ease4lmp.create_atoms_from_data">
-<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>pbc=False</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_data</code><span class="sig-paren">(</span><em>path</em>, <em>atom_style</em>, <em>pbc=False</em>, <em>lammps_unit='real'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_data" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a BondedAtoms instance from Lammps’ data file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
@@ -2034,17 +2042,21 @@ The following keys are required:</p>
 <dt>pbc: array-like object of bool</dt>
 <dd>For each axis in the unit cell decides whether the positions
 will be moved along this axis.</dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
 </dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="ease4lmp.create_atoms_from_molecule">
-<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
+<code class="descclassname">ease4lmp.</code><code class="descname">create_atoms_from_molecule</code><span class="sig-paren">(</span><em>path</em>, <em>lammps_unit='real'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/ease4lmp/bonded_atoms.html#create_atoms_from_molecule"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#ease4lmp.create_atoms_from_molecule" title="Permalink to this definition">¶</a></dt>
 <dd><p>Create a BondedAtoms instance from Lammps’ molecule file.</p>
 <p>Parameters:</p>
 <dl class="docutils">
 <dt>path: str</dt>
 <dd>File path to Lammps’ molecule file.</dd>
+<dt>lammps_unit: str</dt>
+<dd>Specifies a <em>unit</em> used in Lammps.</dd>
 </dl>
 </dd></dl>
 
