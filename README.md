@@ -44,7 +44,3 @@ This project would not be possible without the following great open-source proje
 
 * [ase/ase](https://gitlab.com/ase/ase)
 * [numpy/numpy](https://github.com/numpy/numpy)
-
-## To Do
-
-* Automatically add bonds.
